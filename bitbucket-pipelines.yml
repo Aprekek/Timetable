@@ -4,7 +4,7 @@ pipelines:
       - parallel:
           - step:
               name: Build
-              image: bitbucketpipelines/android-ci-image
+              image: mingc/android-build-box
               caches:
                 - gradle
               script:
