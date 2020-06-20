@@ -1,25 +1,25 @@
 pipelines:
+  pull-requests:
+    - step:
+        name: Build Debug
+        caches:
+          - gradle
+        image: mingc/android-build-box
+        script:
+          - chmod +x gradlew
+          - ./gradlew assembleDebug
+        artifacts:
+          - app/build/outputs/**
+
   branches:
     master:
-      - parallel:
-          - step:
-              name: Build
-              image: mingc/android-build-box
-              caches:
-                - gradle
-              script:
-                - chmod +x gradlew
-                - ./gradlew assembleRelease
-              artifacts:
-                - app/build/outputs/**
-
-          - step:
-              name: Build Debug
-              caches:
-                - gradle
-              image: bitbucketpipelines/android-ci-image
-              script:
-                - chmod +x gradlew
-                - ./gradlew assembleDebug
-              artifacts:
-                - app/build/outputs/**
+      - step:
+          name: Build Debug
+          caches:
+            - gradle
+          image: mingc/android-build-box
+          script:
+            - chmod +x gradlew
+            - ./gradlew assembleDebug
+          artifacts:
+            - app/build/outputs/**
