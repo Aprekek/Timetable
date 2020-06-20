@@ -1,0 +1,25 @@
+pipelines:
+  branches:
+    master:
+      - parallel:
+          - step:
+              name: Build
+              image: bitbucketpipelines/android-ci-image
+              caches:
+                - gradle
+              script:
+                - echo "$SIGNING_JKS_FILE" | base64 -d > android-signing-keystore.jks
+                - ./gradlew assembleRelease
+              artifacts:
+                - app/build/outputs/**
+
+          - step:
+              name: Build Debug
+              caches:
+                - gradle
+              image: bitbucketpipelines/android-ci-image
+              script:
+                - echo "$SIGNING_JKS_FILE" | base64 -d > android-signing-keystore.jks
+                - ./gradlew assembleDebug
+              artifacts:
+                - app/build/outputs/**
