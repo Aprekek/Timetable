@@ -1,5 +1,5 @@
 package ru.fevgenson.timetable;
 
 public class Modules {
-    public static String APP = ":app";
+    public static final String APP = ":app";
 }
