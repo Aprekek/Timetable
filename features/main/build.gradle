@@ -1,24 +1,17 @@
 import ru.fevgenson.timetable.Dependencies
-import ru.fevgenson.timetable.Modules
 import ru.fevgenson.timetable.Plugins
-import ru.fevgenson.timetable.Settings
 
-apply plugin: Plugins.ANDROID_APPLICATION
+apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 apply plugin: Plugins.KOTLIN_EXTENSIONS
-apply plugin: Plugins.KOTLIN_KAPT
-apply plugin: Plugins.NAVIGATION_SAVE_ARGS_KOTLIN
 
 android {
-    compileSdkVersion Settings.COMPILE_SDK_VERSION
-    buildToolsVersion Settings.BUILD_TOOLS_VERSION
+    compileSdkVersion ru.fevgenson.timetable.Settings.COMPILE_SDK_VERSION
+    buildToolsVersion ru.fevgenson.timetable.Settings.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId Settings.APPLICATION_ID
-        minSdkVersion Settings.MIN_SDK_VERSION
-        targetSdkVersion Settings.TARGET_SDK_VERSION
-        versionCode Settings.VERSION_CODE
-        versionName Settings.VERSION_NAME
+        minSdkVersion ru.fevgenson.timetable.Settings.MIN_SDK_VERSION
+        targetSdkVersion ru.fevgenson.timetable.Settings.TARGET_SDK_VERSION
         multiDexEnabled true
     }
 
@@ -33,7 +26,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = Settings.JVM_TARGET
+        jvmTarget = ru.fevgenson.timetable.Settings.JVM_TARGET
     }
 
     compileOptions {
@@ -54,6 +47,4 @@ dependencies {
 
     implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
-
-    implementation project(Modules.MAIN)
 }
