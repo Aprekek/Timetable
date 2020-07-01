@@ -1,4 +1,5 @@
 import ru.fevgenson.timetable.Dependencies
+import ru.fevgenson.timetable.Modules
 import ru.fevgenson.timetable.Plugins
 
 apply plugin: Plugins.ANDROID_LIBRARY
@@ -47,4 +48,6 @@ dependencies {
 
     implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
+
+    implementation project(Modules.NAVIGATION)
 }
