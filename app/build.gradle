@@ -18,7 +18,7 @@ android {
         targetSdkVersion Settings.TARGET_SDK_VERSION
         versionCode Settings.VERSION_CODE
         versionName Settings.VERSION_NAME
-		multiDexEnabled true
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -27,18 +27,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-			minifyEnabled false
+            minifyEnabled false
         }
     }
 
-	kotlinOptions {
-		jvmTarget = Settings.JVM_TARGET
-	}
+    kotlinOptions {
+        jvmTarget = Settings.JVM_TARGET
+    }
 
-	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
-	}
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {

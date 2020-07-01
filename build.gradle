@@ -1,26 +1,25 @@
 import ru.fevgenson.timetable.Dependencies
-import ru.fevgenson.timetable.Modules
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-	repositories {
-		google()
-		jcenter()
-	}
-	dependencies {
-		classpath Dependencies.GRADLE
-		classpath Dependencies.Kotlin.KOTLIN
-		classpath Dependencies.Navigation.NAVIGATION_SAVE_ARGS
-	}
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath Dependencies.GRADLE
+        classpath Dependencies.Kotlin.KOTLIN
+        classpath Dependencies.Navigation.NAVIGATION_SAVE_ARGS
+    }
 }
 
 allprojects {
-	repositories {
-		google()
-		jcenter()
-	}
+    repositories {
+        google()
+        jcenter()
+    }
 }
 
 task clean(type: Delete) {
-	delete rootProject.buildDir
+    delete rootProject.buildDir
 }
