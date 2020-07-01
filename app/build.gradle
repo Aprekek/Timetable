@@ -1,34 +1,49 @@
 import ru.fevgenson.timetable.Dependencies
+import ru.fevgenson.timetable.Plugins
+import ru.fevgenson.timetable.Settings
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: Plugins.ANDROID_APPLICATION
+apply plugin: Plugins.KOTLIN_ANDROID
+apply plugin: Plugins.KOTLIN_EXTENSIONS
+apply plugin: Plugins.KOTLIN_KAPT
+apply plugin: Plugins.NAVIGATION_SAVE_ARGS_KOTLIN
 
 android {
-	compileSdkVersion 30
-	buildToolsVersion "30.0.0"
+    compileSdkVersion Settings.COMPILE_SDK_VERSION
+    buildToolsVersion Settings.BUILD_TOOLS_VERSION
 
-	defaultConfig {
-		applicationId "ru.fevgenson.timetable"
-		minSdkVersion 22
-		targetSdkVersion 30
-		versionCode 1
-		versionName "1.0"
+    defaultConfig {
+        applicationId Settings.APPLICATION_ID
+        minSdkVersion Settings.MIN_SDK_VERSION
+        targetSdkVersion Settings.TARGET_SDK_VERSION
+        versionCode Settings.VERSION_CODE
+        versionName Settings.VERSION_NAME
+		multiDexEnabled true
+    }
 
-		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+			minifyEnabled false
+        }
+    }
+
+	kotlinOptions {
+		jvmTarget = Settings.JVM_TARGET
 	}
 
-	buildTypes {
-		release {
-			minifyEnabled false
-			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-		}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
 	}
 }
 
 dependencies {
-	implementation fileTree(dir: "libs", include: ["*.jar"])
-	implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
-	implementation Dependencies.CORE
-	implementation Dependencies.APP_COMPAT
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
+    implementation Dependencies.CORE
+    implementation Dependencies.APP_COMPAT
 }
