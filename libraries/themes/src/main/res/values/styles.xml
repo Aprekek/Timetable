@@ -8,6 +8,7 @@
         <item name="textAllCaps">false</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="ApplicationTheme.BodyBase">
@@ -16,6 +17,7 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="textAllCaps">false</item>
         <item name="android:letterSpacing">0</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="ApplicationTheme.Title1Black" parent="ApplicationTheme.TitleBase">
