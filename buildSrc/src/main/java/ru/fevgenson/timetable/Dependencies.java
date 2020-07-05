@@ -65,5 +65,8 @@ public class Dependencies {
 
     public static class Koin {
         public static final String KOIN_CORE = "org.koin:koin-core:" + Versions.KOIN;
+        public static final String KOIN_SCOPE = "org.koin:koin-androidx-scope:" + Versions.KOIN;
+        public static final String KOIN_VIEWMODEL = "org.koin:koin-androidx-viewmodel:" + Versions.KOIN;
+        public static final String KOIN_EXT = "org.koin:koin-androidx-ext:" + Versions.KOIN;
     }
 }

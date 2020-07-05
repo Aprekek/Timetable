@@ -1,2 +1,4 @@
 rootProject.name = "timetable"
 include ":app"
+include ":features:main"
+include ":libraries:navigation"
