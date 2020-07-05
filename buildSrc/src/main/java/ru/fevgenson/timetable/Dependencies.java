@@ -18,7 +18,7 @@ public class Dependencies {
         public static final String GRADLE = "4.0.0";
 
         public static final String LIFECYCLE = "2.2.0";
-        public static final String MATERIAL = "1.2.0";
+        public static final String MATERIAL = "1.2.0-beta01";
         public static final String CONSTRAINT_LAYOUT = "1.1.3";
         public static final String CORE = "1.3.0";
         public static final String APP_COMPAT = "1.1.0";
