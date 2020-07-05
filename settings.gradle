@@ -1,3 +1,4 @@
+include ':libraries:themes'
 rootProject.name = "timetable"
 include ":app"
 include ":features:main"
