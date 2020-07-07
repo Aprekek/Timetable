@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lesson_create_button_next">Далее</string>
+    <string name="lesson_create_button_done">Готово</string>
+    <string name="lesson_create_button_cancel">Отмена</string>
+</resources>

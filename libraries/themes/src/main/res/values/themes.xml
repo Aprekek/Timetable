@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="colorSecondary">@color/blue</item>
 
+        <item name="android:ambientShadowAlpha">0.3</item>
+
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorError">@color/red</item>

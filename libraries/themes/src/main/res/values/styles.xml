@@ -48,6 +48,7 @@
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="ApplicationTheme.CaptionGrey">
@@ -58,5 +59,40 @@
         <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@font/roboto_light</item>
         <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <!-- Стиль для кнопок -->
+    <style name="ApplicationTheme.BaseButtonSettings" parent="Widget.MaterialComponents.Button">
+
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:translationZ">10dp</item>
+    </style>
+
+    <style name="ApplicationTheme.PrimaryButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="backgroundTint">@color/blue</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1White</item>
+    </style>
+
+    <style name="ApplicationTheme.SecondaryButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1White</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ApplicationTheme.CancelButton" parent="Widget.MaterialComponents.Button.TextButton">
+
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1White</item>
+        <item name="android:textColor">@color/red</item>
     </style>
 </resources>
