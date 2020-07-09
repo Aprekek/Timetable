@@ -23,4 +23,8 @@
     <string name="housing">Корпус</string>
     <string name="classroom">Аудитория</string>
     <string name="lesson_type">Тип занятия</string>
+
+    <string name="full_name">Ф.И.О</string>
+    <string name="phone">Телефон</string>
+    <string name="email">Email</string>
 </resources>
