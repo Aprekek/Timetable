@@ -95,4 +95,30 @@
         <item name="android:textAppearance">@style/ApplicationTheme.Body1White</item>
         <item name="android:textColor">@color/red</item>
     </style>
+
+    <style name="ApplicationTheme.NotPickedButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="android:backgroundTint">@color/light_grey</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1Black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Стиль для TextInputLayout -->
+    <style name="ApplicationTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <item name="android:padding">20dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="hintTextColor">@color/blue</item>
+        <item name="boxStrokeColor">@color/blue</item>
+    </style>
+
+    <!-- Стиль для CardView -->
+    <style name="ApplicationTheme.CardViewBase">
+
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">10dp</item>
+    </style>
 </resources>

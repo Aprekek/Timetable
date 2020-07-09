@@ -56,6 +56,8 @@ dependencies {
     implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
 
+    implementation Dependencies.CONSTRAINT_LAYOUT
+
     implementation project(Modules.NAVIGATION)
     implementation project(Modules.THEMES)
 }

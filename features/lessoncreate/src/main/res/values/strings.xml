@@ -3,4 +3,20 @@
     <string name="lesson_create_button_next">Далее</string>
     <string name="lesson_create_button_done">Готово</string>
     <string name="lesson_create_button_cancel">Отмена</string>
+
+    <string name="subject">Предмет</string>
+    <string name="start_caps">НАЧАЛО:</string>
+    <string name="end_caps">КОНЕЦ:</string>
+    <string name="time_not_set">-- : --</string>
+
+    <string name="monday_short">ПН</string>
+    <string name="tuesday_short">ВТ</string>
+    <string name="wednesday_short">СР</string>
+    <string name="thursday_short">ЧТ</string>
+    <string name="friday_short">ПТ</string>
+    <string name="saturday_short">СБ</string>
+    <string name="sunday_short">ВС</string>
+
+    <string name="first_week">ПЕРВАЯ</string>
+    <string name="second_week">ВТОРАЯ</string>
 </resources>
