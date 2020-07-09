@@ -19,4 +19,8 @@
 
     <string name="first_week">ПЕРВАЯ</string>
     <string name="second_week">ВТОРАЯ</string>
+
+    <string name="housing">Корпус</string>
+    <string name="classroom">Аудитория</string>
+    <string name="lesson_type">Тип занятия</string>
 </resources>

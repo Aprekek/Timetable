@@ -142,7 +142,7 @@
         </androidx.cardview.widget.CardView>
 
         <include
-            android:id="@+id/buttons"
+            android:id="@+id/buttons_main_page"
             layout="@layout/include_lesson_create_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
