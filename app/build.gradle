@@ -40,6 +40,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -49,6 +53,8 @@ dependencies {
     implementation Dependencies.APP_COMPAT
     implementation Dependencies.MATERIAL
 
+    kapt Dependencies.DATABINDING
+
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT
     implementation Dependencies.Koin.KOIN_SCOPE
@@ -57,6 +63,10 @@ dependencies {
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
 
     implementation project(Modules.MAIN)
+    implementation project(Modules.TIMETABLE)
+    implementation project(Modules.HOMEWORK)
+    implementation project(Modules.DICTIONARY)
+    implementation project(Modules.SETTINGS)
     implementation project(Modules.NAVIGATION)
     implementation project(Modules.THEMES)
 }
