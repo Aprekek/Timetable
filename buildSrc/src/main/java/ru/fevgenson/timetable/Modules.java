@@ -8,4 +8,5 @@ public class Modules {
     public static final String SETTINGS = ":features:settings";
     public static final String NAVIGATION = ":libraries:navigation";
     public static final String THEMES = ":libraries:themes";
+    public static final String CORE = ":libraries:core";
 }
