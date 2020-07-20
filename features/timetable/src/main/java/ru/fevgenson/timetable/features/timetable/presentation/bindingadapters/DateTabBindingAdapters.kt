@@ -31,7 +31,7 @@ fun TabLayout.setTabsColors(selectedColor: Int, normalColor: Int) {
 }
 
 private fun TabTimetableBinding.setColor(color: Int) {
-    name.setTextColor(color)
-    date.setTextColor(color)
+    nameTextView.setTextColor(color)
+    dateTextView.setTextColor(color)
     icon.drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 }

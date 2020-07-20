@@ -12,6 +12,7 @@ import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.DayViewPagerAdapter
+import ru.fevgenson.timetable.libraries.core.dateutils.DateUtils
 
 class TimetableFragment : Fragment() {
 
@@ -27,14 +28,16 @@ class TimetableFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_timetable, container, false)
-        initViewPagerAdapter()
         initWeekTabLayout()
+        initViewPagerAdapter()
         return binding.root
     }
 
     private fun initViewPagerAdapter() {
         binding.dayViewPager.adapter = DayViewPagerAdapter(this)
         val tabsTitles = resources.getStringArray(R.array.timetable_day_tabs)
+        val tabsDates =
+            DateUtils.getWeekDates(binding.includeTimetableToolbar.weekTabLayout.selectedTabPosition)
         TabLayoutMediator(
             binding.includeTimetableToolbar.dayTabLayout,
             binding.dayViewPager
@@ -46,6 +49,7 @@ class TimetableFragment : Fragment() {
                 false
             )
             tabBinding.text = tabsTitles[position]
+            tabBinding.date = tabsDates[position]
             tab.customView = tabBinding.root
         }.attach()
     }
@@ -66,6 +70,31 @@ class TimetableFragment : Fragment() {
                         customView = tabBinding.root
                     }
                 )
+            }
+        }
+        binding.includeTimetableToolbar.weekTabLayout.addOnTabSelectedListener(
+            object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    updateDayTabs()
+                }
+            }
+        )
+    }
+
+    private fun updateDayTabs() {
+        val tabDates =
+            DateUtils.getWeekDates(binding.includeTimetableToolbar.weekTabLayout.selectedTabPosition)
+        with(binding.includeTimetableToolbar.dayTabLayout) {
+            for (position in 0 until tabCount) {
+                val tabView = getTabAt(position)?.customView
+                    ?: throw IllegalAccessException("Can't find day tab at $position")
+                val tabBinding = DataBindingUtil.getBinding<TabTimetableBinding>(tabView)
+                tabBinding?.date = tabDates[position]
+                tabBinding?.executePendingBindings()
             }
         }
     }

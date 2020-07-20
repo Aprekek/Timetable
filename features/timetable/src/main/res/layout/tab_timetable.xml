@@ -34,7 +34,7 @@
             android:paddingHorizontal="12dp">
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/name_text_view"
                 style="@style/ApplicationTheme.Body3Grey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 tools:text="Понедельник" />
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/date_text_view"
                 style="@style/ApplicationTheme.CaptionGrey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
