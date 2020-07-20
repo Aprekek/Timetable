@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/week_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:normalColor="@{@color/grey}"
+            app:selectedColor="@{@color/blue}"
+            app:tabMode="fixed" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/day_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:normalColor="@{@color/grey}"
+            app:selectedColor="@{@color/blue}"
+            app:tabMode="scrollable" />
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>

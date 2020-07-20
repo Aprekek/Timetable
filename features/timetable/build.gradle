@@ -5,6 +5,7 @@ import ru.fevgenson.timetable.Plugins
 apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 apply plugin: Plugins.KOTLIN_EXTENSIONS
+apply plugin: Plugins.KOTLIN_KAPT
 
 android {
     compileSdkVersion ru.fevgenson.timetable.Settings.COMPILE_SDK_VERSION
@@ -34,6 +35,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -41,6 +46,8 @@ dependencies {
     implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
     implementation Dependencies.CORE
     implementation Dependencies.APP_COMPAT
+
+    kapt Dependencies.DATABINDING
 
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT
@@ -50,4 +57,5 @@ dependencies {
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
 
     implementation project(Modules.NAVIGATION)
+    implementation project(Modules.THEMES)
 }
