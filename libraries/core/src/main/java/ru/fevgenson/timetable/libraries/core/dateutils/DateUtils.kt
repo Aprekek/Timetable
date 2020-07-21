@@ -7,10 +7,10 @@ object DateUtils {
 
     const val FIRST_WEEK = 0
     const val SECOND_WEEK = 1
+    const val WEEK_DAYS = 7
+    const val WEEK_TYPES = 2
 
     private const val DAY_MILLISECOND = 86400000
-    private const val WEEK_DAYS = 7
-    private const val WEEK_TYPES = 2
     private const val CALENDAR_DAY_DIFF = 2
     private const val SUNDAY = 6
 

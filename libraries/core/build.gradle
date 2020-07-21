@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
+    implementation Dependencies.MATERIAL
 
     kapt Dependencies.DATABINDING
 

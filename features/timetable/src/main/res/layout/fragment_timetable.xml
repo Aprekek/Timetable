@@ -2,16 +2,45 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <!--TABS-->
-        <include
-            android:id="@+id/include_timetable_toolbar"
-            layout="@layout/include_timetable_toolbar" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/week_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:normalColor="@{@color/grey}"
+                app:selectedColor="@{@color/blue}"
+                app:selectedTab="@={viewModel.selectedWeekLiveData}"
+                app:tabMode="fixed" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/day_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                app:normalColor="@{@color/grey}"
+                app:selectedColor="@{@color/blue}"
+                app:selectedTab="@={viewModel.selectedDayLiveData}"
+                app:selectedWeekTab="@{viewModel.selectedWeekLiveData}"
+                app:tabMode="scrollable" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!--Content-->
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/day_view_pager"
             android:layout_width="match_parent"
