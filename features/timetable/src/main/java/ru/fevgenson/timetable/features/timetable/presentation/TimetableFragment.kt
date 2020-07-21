@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
@@ -11,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
+import ru.fevgenson.timetable.features.timetable.presentation.bindingadapters.setColor
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.DayViewPagerAdapter
 import ru.fevgenson.timetable.libraries.core.dateutils.DateUtils
 
@@ -38,6 +40,7 @@ class TimetableFragment : Fragment() {
         val tabsTitles = resources.getStringArray(R.array.timetable_day_tabs)
         val tabsDates =
             DateUtils.getWeekDates(binding.includeTimetableToolbar.weekTabLayout.selectedTabPosition)
+        val currentDay = DateUtils.getCurrentDay()
         TabLayoutMediator(
             binding.includeTimetableToolbar.dayTabLayout,
             binding.dayViewPager
@@ -48,14 +51,21 @@ class TimetableFragment : Fragment() {
                 binding.includeTimetableToolbar.dayTabLayout,
                 false
             )
+            val isToday = position == currentDay
+            tabBinding.showIcon = isToday
             tabBinding.text = tabsTitles[position]
             tabBinding.date = tabsDates[position]
+            if (isToday) {
+                tabBinding.setColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                tabBinding.root.post { tab.select() }
+            }
             tab.customView = tabBinding.root
         }.attach()
     }
 
     private fun initWeekTabLayout() {
         val tabTitles = resources.getStringArray(R.array.timetable_week_tabs)
+        val currentWeek = DateUtils.getCurrentWeek()
         for (position in 0 until WEEK_COUNT) {
             with(binding.includeTimetableToolbar.weekTabLayout) {
                 addTab(
@@ -66,7 +76,18 @@ class TimetableFragment : Fragment() {
                             binding.includeTimetableToolbar.weekTabLayout,
                             false
                         )
+                        val isCurrentWeekTab = currentWeek == position
+                        tabBinding.showIcon = isCurrentWeekTab
                         tabBinding.text = tabTitles[position]
+                        if (isCurrentWeekTab) {
+                            tabBinding.setColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.blue
+                                )
+                            )
+                            tabBinding.root.post { select() }
+                        }
                         customView = tabBinding.root
                     }
                 )
@@ -79,20 +100,23 @@ class TimetableFragment : Fragment() {
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    updateDayTabs()
+                    tab?.let { updateDayTabs(it.position) }
                 }
             }
         )
     }
 
-    private fun updateDayTabs() {
+    private fun updateDayTabs(selectedWeekType: Int) {
         val tabDates =
             DateUtils.getWeekDates(binding.includeTimetableToolbar.weekTabLayout.selectedTabPosition)
+        val isCurrentWeek = DateUtils.getCurrentWeek() == selectedWeekType
+        val currentDay = DateUtils.getCurrentDay()
         with(binding.includeTimetableToolbar.dayTabLayout) {
             for (position in 0 until tabCount) {
                 val tabView = getTabAt(position)?.customView
                     ?: throw IllegalAccessException("Can't find day tab at $position")
                 val tabBinding = DataBindingUtil.getBinding<TabTimetableBinding>(tabView)
+                tabBinding?.showIcon = isCurrentWeek && currentDay == position
                 tabBinding?.date = tabDates[position]
                 tabBinding?.executePendingBindings()
             }
