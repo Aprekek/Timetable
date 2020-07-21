@@ -16,7 +16,9 @@ object DateUtils {
 
     fun getWeekDates(weekTypes: Int): List<String> {
         val calendar = Calendar.getInstance()
-        calendar.add(Calendar.WEEK_OF_YEAR, weekTypes)
+        if (weekTypes != getCurrentWeek()) {
+            calendar.add(Calendar.WEEK_OF_YEAR, 1)
+        }
         val formatter = SimpleDateFormat("dd.MM.yy", Locale("rus"))
         val result = mutableListOf<String>()
         for (day in Calendar.SUNDAY..Calendar.SATURDAY) {
