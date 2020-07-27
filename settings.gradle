@@ -1,9 +1,10 @@
-include ':features:settings'
 rootProject.name = "timetable"
 include ':app'
 include ':features:main'
 include ':features:timetable'
 include ':features:homework'
 include ':features:dictionary'
+include ':features:settings'
 include ':libraries:navigation'
 include ':libraries:themes'
+include ':libraries:core'

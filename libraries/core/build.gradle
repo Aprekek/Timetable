@@ -1,5 +1,4 @@
 import ru.fevgenson.timetable.Dependencies
-import ru.fevgenson.timetable.Modules
 import ru.fevgenson.timetable.Plugins
 
 apply plugin: Plugins.ANDROID_LIBRARY
@@ -44,20 +43,11 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
-    implementation Dependencies.CORE
-    implementation Dependencies.APP_COMPAT
-    implementation Dependencies.SWIPE_REFRESH_LAYOUT
+    implementation Dependencies.MATERIAL
 
     kapt Dependencies.DATABINDING
 
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT
     implementation Dependencies.Koin.KOIN_SCOPE
-
-    implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
-    implementation Dependencies.Navigation.NAVIGATION_UI_KTX
-
-    implementation project(Modules.NAVIGATION)
-    implementation project(Modules.THEMES)
-    implementation project(Modules.CORE)
 }
