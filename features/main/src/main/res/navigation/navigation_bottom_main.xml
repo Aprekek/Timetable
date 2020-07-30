@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_bottom_main"
+    app:startDestination="@id/timetable"
+    tools:ignore="UnusedNavigation">
+
+    <keep_state_fragment
+        android:id="@+id/timetable"
+        android:name="ru.fevgenson.timetable.features.timetable.presentation.TimetableFragment" />
+
+    <keep_state_fragment
+        android:id="@+id/homework"
+        android:name="ru.fevgenson.timetable.features.homework.presentation.HomeworkFragment" />
+
+    <keep_state_fragment
+        android:id="@+id/dictionary"
+        android:name="ru.fevgenson.timetable.features.dictionary.presentation.DictionaryFragment" />
+
+    <keep_state_fragment
+        android:id="@+id/settings"
+        android:name="ru.fevgenson.timetable.features.settings.presentation.SettingsFragment" />
+</navigation>

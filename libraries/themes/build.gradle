@@ -12,6 +12,7 @@ android {
     defaultConfig {
         minSdkVersion ru.fevgenson.timetable.Settings.MIN_SDK_VERSION
         targetSdkVersion ru.fevgenson.timetable.Settings.TARGET_SDK_VERSION
+        vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
 

@@ -1,6 +1,11 @@
 rootProject.name = "timetable"
-include ":app"
+include ':app'
+include ':features:main'
 include ':features:lessoncreate'
-include ":features:main"
-include ":libraries:navigation"
+include ':features:timetable'
+include ':features:homework'
+include ':features:dictionary'
+include ':features:settings'
+include ':libraries:navigation'
 include ':libraries:themes'
+include ':libraries:core'
