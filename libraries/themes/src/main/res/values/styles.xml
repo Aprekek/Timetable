@@ -121,4 +121,14 @@
         <item name="cardCornerRadius">10dp</item>
         <item name="cardElevation">10dp</item>
     </style>
+
+    <!-- Стиль для ChipView -->
+    <style name="ApplicationTheme.ChipView" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipCornerRadius">10dp</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1Black</item>
+        <item name="chipStartPadding">20dp</item>
+        <item name="chipEndPadding">20dp</item>
+        <item name="chipBackgroundColor">@color/color_state_chip_background</item>
+        <item name="android:textColor">@color/color_state_chip_text</item>
+    </style>
 </resources>

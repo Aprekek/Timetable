@@ -1,85 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<com.google.android.material.chip.ChipGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chip_group"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="12dp"
-    android:paddingTop="10dp"
-    android:paddingEnd="12dp"
-    android:paddingBottom="20dp">
+    android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/monday_button"
-        style="@style/ApplicationTheme.NotPickedButton"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_monday"
+        style="@style/ApplicationTheme.ChipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/monday_short"
-        app:layout_constraintEnd_toStartOf="@+id/tuesday_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/monday_short" />
 
-    <Button
-        android:id="@+id/tuesday_button"
-        style="@style/ApplicationTheme.NotPickedButton"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_tuesday"
+        style="@style/ApplicationTheme.ChipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tuesday_short"
-        app:layout_constraintEnd_toStartOf="@+id/wednesday_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/monday_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/tuesday_short" />
 
-    <Button
-        android:id="@+id/wednesday_button"
-        style="@style/ApplicationTheme.NotPickedButton"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_wednesday"
+        style="@style/ApplicationTheme.ChipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/wednesday_short"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tuesday_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/wednesday_short" />
 
-    <Button
-        android:id="@+id/thursday_button"
-        style="@style/ApplicationTheme.NotPickedButton"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_thursday"
+        style="@style/ApplicationTheme.ChipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/thursday_short"
-        app:layout_constraintEnd_toStartOf="@+id/friday_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/monday_button" />
+        android:text="@string/thursday_short" />
 
-    <Button
-        android:id="@+id/friday_button"
-        style="@style/ApplicationTheme.NotPickedButton"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_friday"
+        style="@style/ApplicationTheme.ChipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/friday_short"
-        app:layout_constraintEnd_toStartOf="@+id/saturday_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/thursday_button"
-        app:layout_constraintTop_toBottomOf="@id/tuesday_button" />
+        android:text="@string/friday_short" />
 
-    <Button
-        android:id="@+id/saturday_button"
-        style="@style/ApplicationTheme.NotPickedButton"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_saturday"
+        style="@style/ApplicationTheme.ChipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/saturday_short"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/friday_button"
-        app:layout_constraintTop_toBottomOf="@id/wednesday_button" />
+        android:text="@string/saturday_short" />
 
-    <Button
-        android:id="@+id/sunday_button"
-        style="@style/ApplicationTheme.NotPickedButton"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_sunday"
+        style="@style/ApplicationTheme.ChipView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sunday_short"
-        app:layout_constraintStart_toStartOf="@id/monday_button"
-        app:layout_constraintTop_toBottomOf="@id/thursday_button" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="@string/sunday_short" />
+</com.google.android.material.chip.ChipGroup>
