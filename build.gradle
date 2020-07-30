@@ -10,6 +10,7 @@ buildscript {
         classpath Dependencies.GRADLE
         classpath Dependencies.Kotlin.KOTLIN
         classpath Dependencies.Navigation.NAVIGATION_SAVE_ARGS
+        classpath Dependencies.GOOGLE.GOOGLE_SERVICES
     }
 }
 
