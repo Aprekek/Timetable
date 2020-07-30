@@ -24,7 +24,6 @@ class LessonCreateFragment : Fragment() {
     ): View? {
         initBinding(inflater, container)
         initViewPager()
-        setObservers()
         overrideSystemBackButton()
 
         return binding.root
@@ -40,14 +39,6 @@ class LessonCreateFragment : Fragment() {
     private fun initViewPager() {
         binding.viewPagerCreateLesson.adapter = LessonCreateVPAdapter(lessonCreateViewModel)
         binding.viewPagerCreateLesson.isUserInputEnabled = false
-    }
-
-    private fun setObservers() {
-        lessonCreateViewModel.currentPage.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it?.let {
-                binding.viewPagerCreateLesson.currentItem = it
-            }
-        })
     }
 
     private fun overrideSystemBackButton() {

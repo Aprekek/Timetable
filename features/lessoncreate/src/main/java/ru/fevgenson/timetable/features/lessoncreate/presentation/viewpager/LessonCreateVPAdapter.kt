@@ -15,11 +15,7 @@ class LessonCreateVPAdapter(private val viewModel: LessonCreateViewModel) :
         const val PAGES_COUNT = 3
     }
 
-    override fun getItemViewType(position: Int): Int = when (position) {
-        0 -> MAIN_PAGE
-        1 -> LOCATION_AND_TYPE_PAGE
-        else -> TEACHER_PAGE
-    }
+    override fun getItemViewType(position: Int): Int = position
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         when (viewType) {
