@@ -6,7 +6,7 @@
 
         <variable
             name="lessonCreateViewModel"
-            type="ru.fevgenson.timetable.features.lessoncreate.presentation.viewModels.LessonCreateViewModel" />
+            type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
     </data>
 
     <ScrollView

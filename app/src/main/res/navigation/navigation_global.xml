@@ -2,10 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/global_navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/lessonCreateFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="ru.fevgenson.timetable.features.main.presentation.MainFragment"
         android:label="MainFragment" />
+    <fragment
+        android:id="@+id/lessonCreateFragment"
+        android:name="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateFragment"
+        android:label="LessonCreateFragment" />
 </navigation>

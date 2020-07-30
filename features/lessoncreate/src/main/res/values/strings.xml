@@ -27,4 +27,6 @@
     <string name="full_name">Ф.И.О</string>
     <string name="phone">Телефон</string>
     <string name="email">Email</string>
+    <string name="clear">Очистить поля</string>
+    <string name="top_back_menu">Меню</string>
 </resources>
