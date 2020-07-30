@@ -29,6 +29,13 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/action_back"
+                    android:onClick="@{()->lessonCreateViewModel.onTopBackButtonClick()}"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:contentDescription="@string/top_back_menu"
                     android:src="@drawable/ic_menu_grey_24"

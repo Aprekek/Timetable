@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,9 +24,8 @@ class LessonCreateFragment : Fragment() {
     ): View? {
         initBinding(inflater, container)
         initViewPager()
-//        initToolBar()
-
-//        setHasOptionsMenu(true)
+        setObservers()
+        overrideSystemBackButton()
 
         return binding.root
     }
@@ -42,17 +42,17 @@ class LessonCreateFragment : Fragment() {
         binding.viewPagerCreateLesson.isUserInputEnabled = false
     }
 
-//    private fun initToolBar() {
-////        binding.toolbarCreateLesson.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-////        binding.toolbarCreateLesson.setNavigationOnClickListener {
-////            Toast.makeText(
-////                requireContext(),
-////                "tap",
-////                Toast.LENGTH_SHORT
-////            ).show()
-////        }
-////        binding.toolbarCreateLesson.inflateMenu(R.menu.lesson_create_menu)
-//
-//    }
+    private fun setObservers() {
+        lessonCreateViewModel.currentPage.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                binding.viewPagerCreateLesson.currentItem = it
+            }
+        })
+    }
 
+    private fun overrideSystemBackButton() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            lessonCreateViewModel.onTopBackButtonClick()
+        }
+    }
 }

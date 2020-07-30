@@ -20,6 +20,7 @@
             style="@style/ApplicationTheme.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.onNextButtonClick()}"
             android:text="@string/lesson_create_button_next" />
 
         <Button
