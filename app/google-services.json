@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "533770861834",
+    "firebase_url": "https://timetable-fevgenson-aprekek.firebaseio.com",
+    "project_id": "timetable-fevgenson-aprekek",
+    "storage_bucket": "timetable-fevgenson-aprekek.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533770861834:android:6c478631c7a01f374f8ef3",
+        "android_client_info": {
+          "package_name": "ru.fevgenson.timetable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533770861834-kqtnca5n6eg6n6j1n04gfttcn03ooeil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.fevgenson.timetable",
+            "certificate_hash": "cd5795540fc32aefd444017208f70f594f67d5c2"
+          }
+        },
+        {
+          "client_id": "533770861834-mq3suka6pamkj82jlelbbihn0h7f3e0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDddmE2GWRLTgbShcBNNDyf0hx0gvKVxIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533770861834-mq3suka6pamkj82jlelbbihn0h7f3e0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
