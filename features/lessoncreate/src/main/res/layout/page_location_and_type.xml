@@ -20,43 +20,42 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/include_lesson_housing_TIL"
                 style="@style/ApplicationTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:hint="@string/housing">
+                android:hint="@string/lesson_create_hint_housing"
+                android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/include_lesson_housing_TIET"
+                    android:id="@+id/housing_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/include_lesson_classroom_TIL"
                 style="@style/ApplicationTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/classroom">
+                android:hint="@string/lesson_create_hint_classroom"
+                android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/include_lesson_classroom_TIET"
+                    android:id="@+id/classroom_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/include_lesson_type_TIL"
                 style="@style/ApplicationTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/lesson_type">
+                android:hint="@string/lesson_create_hint_lesson_type"
+                android:padding="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/include_lesson_type_TIET"
+                    android:id="@+id/type_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,7 +65,6 @@
                 android:layout_height="match_parent">
 
                 <include
-                    android:id="@+id/buttons_location_page"
                     layout="@layout/include_lesson_create_buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -3,5 +3,5 @@
 
     <item
         android:id="@+id/action_clear"
-        android:title="@string/clear" />
+        android:title="@string/lesson_create_button_clear" />
 </menu>

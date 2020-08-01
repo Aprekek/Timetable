@@ -13,7 +13,7 @@
         android:theme="@style/ApplicationTheme">
         <activity
             android:name=".presentation.MainActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
