@@ -4,12 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.fevgenson.timetable.libraries.core.presentation.eventutils.EventsDispatcher
+import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 
 class LessonCreateViewModel : ViewModel() {
 
     interface EventListener {
         fun navigateToTimetable()
+        fun closeKeyboard()
     }
 
     companion object {
@@ -27,6 +28,7 @@ class LessonCreateViewModel : ViewModel() {
         get() = _currentPage
 
     fun onTopBackButtonClick() {
+        eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == MAIN_PAGE) {
             eventsDispatcher.dispatchEvent { navigateToTimetable() }
         } else {
@@ -35,6 +37,7 @@ class LessonCreateViewModel : ViewModel() {
     }
 
     fun onNextButtonClick() {
+        eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == TEACHER_PAGE) {
             eventsDispatcher.dispatchEvent { navigateToTimetable() }
         } else {

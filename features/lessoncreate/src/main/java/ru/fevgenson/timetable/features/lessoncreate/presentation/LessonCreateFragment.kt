@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
+import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
 
 class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
 
@@ -39,7 +40,9 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
     }
 
     private fun initViewPager() {
-        binding.viewPagerCreateLesson.adapter = LessonCreateVPAdapter(lessonCreateViewModel)
+        val adapter = LessonCreateVPAdapter(lessonCreateViewModel)
+        binding.viewPagerCreateLesson.offscreenPageLimit = adapter.itemCount
+        binding.viewPagerCreateLesson.adapter = adapter
         binding.viewPagerCreateLesson.isUserInputEnabled = false
     }
 
@@ -55,5 +58,9 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
 
     override fun navigateToTimetable() {
         findNavController().popBackStack()
+    }
+
+    override fun closeKeyboard() {
+        closeKeyboard(binding)
     }
 }

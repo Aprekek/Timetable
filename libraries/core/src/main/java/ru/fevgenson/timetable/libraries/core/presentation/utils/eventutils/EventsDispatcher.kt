@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.libraries.core.presentation.eventutils
+package ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
