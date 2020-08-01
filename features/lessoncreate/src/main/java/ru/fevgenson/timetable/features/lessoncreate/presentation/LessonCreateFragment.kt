@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
 
-class LessonCreateFragment : Fragment() {
+class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
 
     private lateinit var binding: FragmentLessonCreateBinding
     private val lessonCreateViewModel: LessonCreateViewModel by viewModel()
@@ -25,6 +26,7 @@ class LessonCreateFragment : Fragment() {
         initBinding(inflater, container)
         initViewPager()
         overrideSystemBackButton()
+        initEventListener()
 
         return binding.root
     }
@@ -45,5 +47,13 @@ class LessonCreateFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             lessonCreateViewModel.onTopBackButtonClick()
         }
+    }
+
+    private fun initEventListener() {
+        lessonCreateViewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
+    }
+
+    override fun navigateToTimetable() {
+        findNavController().popBackStack()
     }
 }

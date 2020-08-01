@@ -74,6 +74,7 @@
                     style="@style/ApplicationTheme.PrimaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> lessonCreateViewModel.onNextButtonClick()}"
                     android:text="@string/lesson_create_button_done" />
 
                 <Button

@@ -84,13 +84,13 @@
     <style name="ApplicationTheme.PrimaryButton" parent="ApplicationTheme.BaseButtonSettings">
 
         <item name="backgroundTint">@color/blue</item>
-        <item name="android:textAppearance">@style/ApplicationTheme.Body1White</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
     </style>
 
     <style name="ApplicationTheme.SecondaryButton" parent="ApplicationTheme.BaseButtonSettings">
 
         <item name="backgroundTint">@color/white</item>
-        <item name="android:textAppearance">@style/ApplicationTheme.Body1White</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -100,7 +100,7 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
-        <item name="android:textAppearance">@style/ApplicationTheme.Body1White</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
         <item name="android:textColor">@color/red</item>
     </style>
 

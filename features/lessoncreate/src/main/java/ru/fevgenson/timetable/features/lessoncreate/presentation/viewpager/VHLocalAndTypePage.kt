@@ -8,10 +8,6 @@ import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateVie
 class VHLocalAndTypePage private constructor(override val binding: PageLocationAndTypeBinding) :
     ViewHolder(binding) {
 
-//    override fun bind(viewModel: LessonCreateViewModel) {
-//        binding.lessonCreateViewModel = viewModel
-//    }
-
     companion object {
         fun from(parent: ViewGroup, viewModel: LessonCreateViewModel): VHLocalAndTypePage {
             val page = VHLocalAndTypePage(
