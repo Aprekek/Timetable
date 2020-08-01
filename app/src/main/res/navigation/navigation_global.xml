@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="ru.fevgenson.timetable.features.main.presentation.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_lessonCreateFragment"
+            app:destination="@id/lessonCreateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lessonCreateFragment"
+        android:name="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateFragment"
+        android:label="LessonCreateFragment" />
 </navigation>

@@ -6,6 +6,7 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.fevgenson.timetable.di.appListModules
+import ru.fevgenson.timetable.features.lessoncreate.di.lessonCreateListModules
 import ru.fevgenson.timetable.features.timetable.di.timetableListModules
 
 class App : Application() {
@@ -18,6 +19,7 @@ class App : Application() {
             androidFileProperties()
 
             modules(appListModules)
+            modules(lessonCreateListModules)
             modules(timetableListModules)
         }
     }

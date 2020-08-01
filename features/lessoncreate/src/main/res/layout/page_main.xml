@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="lessonCreateViewModel"
+            type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ApplicationTheme.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lesson_create_hint_subject"
+                android:padding="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/subject_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    style="@style/ApplicationTheme.Body1Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="29dp"
+                    android:paddingVertical="18dp"
+                    android:text="@string/lesson_create_title_start_caps" />
+
+                <Button
+                    style="@style/ApplicationTheme.PrimaryButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="29dp"
+                    android:paddingHorizontal="55dp"
+                    android:text="@string/lesson_create_button_time_not_set" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    style="@style/ApplicationTheme.Body1Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="29dp"
+                    android:paddingVertical="18dp"
+                    android:text="@string/lesson_create_title_end_caps" />
+
+                <Button
+                    style="@style/ApplicationTheme.PrimaryButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="29dp"
+                    android:paddingHorizontal="55dp"
+                    android:text="@string/lesson_create_button_time_not_set" />
+            </FrameLayout>
+
+            <androidx.cardview.widget.CardView
+                style="@style/ApplicationTheme.CardViewBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="35dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        style="@style/ApplicationTheme.Body1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/lesson_create_title_first_week" />
+
+                    <include
+                        layout="@layout/include_lesson_days_buttons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/ApplicationTheme.CardViewBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        style="@style/ApplicationTheme.Body1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/lesson_create_title_second_week" />
+
+                    <include
+                        layout="@layout/include_lesson_days_buttons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <include
+                layout="@layout/include_lesson_create_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:viewModel="@{lessonCreateViewModel}" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

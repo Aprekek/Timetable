@@ -48,6 +48,7 @@
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="ApplicationTheme.Body3Grey" parent="ApplicationTheme.BodyBase">
@@ -66,5 +67,75 @@
         <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@font/roboto_light</item>
         <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <!-- Стиль для кнопок -->
+    <style name="ApplicationTheme.BaseButtonSettings" parent="Widget.MaterialComponents.Button">
+
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:translationZ">10dp</item>
+    </style>
+
+    <style name="ApplicationTheme.PrimaryButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="backgroundTint">@color/blue</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
+    </style>
+
+    <style name="ApplicationTheme.SecondaryButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ApplicationTheme.CancelButton" parent="Widget.MaterialComponents.Button.TextButton">
+
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="ApplicationTheme.NotPickedButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="android:backgroundTint">@color/light_grey</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1Black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Стиль для TextInputLayout -->
+    <style name="ApplicationTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="hintTextColor">@color/blue</item>
+        <item name="boxStrokeColor">@color/blue</item>
+    </style>
+
+    <!-- Стиль для CardView -->
+    <style name="ApplicationTheme.CardViewBase">
+
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">10dp</item>
+    </style>
+
+    <!-- Стиль для ChipView -->
+    <style name="ApplicationTheme.ChipView" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipCornerRadius">10dp</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1Black</item>
+        <item name="chipStartPadding">20dp</item>
+        <item name="chipEndPadding">20dp</item>
+        <item name="chipBackgroundColor">@color/color_state_chip_background</item>
+        <item name="android:textColor">@color/color_state_chip_text</item>
     </style>
 </resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lesson_create_button_next">Далее</string>
+    <string name="lesson_create_button_done">Готово</string>
+    <string name="lesson_create_button_cancel">Отмена</string>
+
+    <string name="lesson_create_hint_subject">Предмет</string>
+
+    <string name="lesson_create_title_start_caps">НАЧАЛО:</string>
+    <string name="lesson_create_title_end_caps">КОНЕЦ:</string>
+    <string name="lesson_create_button_time_not_set">-- : --</string>
+
+    <string name="lesson_create_chip_monday_short">ПН</string>
+    <string name="lesson_create_chip_tuesday_short">ВТ</string>
+    <string name="lesson_create_chip_wednesday_short">СР</string>
+    <string name="lesson_create_chip_thursday_short">ЧТ</string>
+    <string name="lesson_create_chip_friday_short">ПТ</string>
+    <string name="lesson_create_chip_saturday_short">СБ</string>
+    <string name="lesson_create_chip_sunday_short">ВС</string>
+
+    <string name="lesson_create_title_first_week">ПЕРВАЯ</string>
+    <string name="lesson_create_title_second_week">ВТОРАЯ</string>
+
+    <string name="lesson_create_hint_housing">Корпус</string>
+    <string name="lesson_create_hint_classroom">Аудитория</string>
+    <string name="lesson_create_hint_lesson_type">Тип занятия</string>
+
+    <string name="lesson_create_hint_full_name">Ф.И.О</string>
+    <string name="lesson_create_hint_phone">Телефон</string>
+    <string name="lesson_create_hint_email">Email</string>
+
+    <string name="lesson_create_button_clear">Очистить поля</string>
+
+    <string name="lesson_create_description_top_back_menu">Меню</string>
+    <string name="lesson_create_description_action_back">Назад</string>
+</resources>

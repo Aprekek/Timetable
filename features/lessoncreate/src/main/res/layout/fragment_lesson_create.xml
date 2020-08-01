@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="lessonCreateViewModel"
+            type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_create_lesson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/lesson_create_description_action_back"
+                    android:onClick="@{()->lessonCreateViewModel.onTopBackButtonClick()}"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/lesson_create_description_top_back_menu"
+                    android:src="@drawable/ic_menu_grey_24"
+                    app:menuItemClickListener="@{lessonCreateViewModel::onClearItemClick}"
+                    app:menuRes="@{ru.fevgenson.timetable.features.lessoncreate.R.menu.lesson_create_menu}" />
+            </FrameLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_create_lesson"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:page="@{lessonCreateViewModel.currentPage}" />
+    </LinearLayout>
+</layout>

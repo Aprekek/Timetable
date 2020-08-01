@@ -6,16 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
+import ru.fevgenson.libraries.navigation.di.NavigationDIConstants
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.DayViewPagerAdapter
 import ru.fevgenson.timetable.libraries.core.dateutils.DateUtils
 
-class TimetableFragment : Fragment() {
+class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
 
     private lateinit var binding: FragmentTimetableBinding
     private val viewModel: TimetableViewModel by viewModel()
@@ -29,6 +33,7 @@ class TimetableFragment : Fragment() {
         initViewPagerAdapter()
         initWeekTabs()
         initDayTab()
+        initEventListener()
         return binding.root
     }
 
@@ -75,6 +80,10 @@ class TimetableFragment : Fragment() {
         }.attach()
     }
 
+    private fun initEventListener() {
+        viewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
+    }
+
     private fun TabLayout.Tab.createTab(
         parent: ViewGroup,
         text: String,
@@ -91,5 +100,12 @@ class TimetableFragment : Fragment() {
         tabBinding.text = text
         tabBinding.date = date
         customView = tabBinding.root
+    }
+
+    override fun navigateToCreate() {
+        Navigation.findNavController(
+            requireActivity(),
+            get(named(NavigationDIConstants.GLOBAL_HOST))
+        ).navigate(get<Int>(named(NavigationDIConstants.MAIN_TO_LESSON_CREATE)))
     }
 }
