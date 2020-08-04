@@ -52,7 +52,8 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="29dp"
                     android:paddingHorizontal="55dp"
-                    android:text="@string/lesson_create_button_time_not_set" />
+                    android:text="@string/lesson_create_button_time_not_set"
+                    app:invokeTimePickerDialog="@{Boolean.TRUE}" />
             </FrameLayout>
 
             <FrameLayout
@@ -75,7 +76,8 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="29dp"
                     android:paddingHorizontal="55dp"
-                    android:text="@string/lesson_create_button_time_not_set" />
+                    android:text="@string/lesson_create_button_time_not_set"
+                    app:invokeTimePickerDialog="@{Boolean.TRUE}" />
             </FrameLayout>
 
             <androidx.cardview.widget.CardView

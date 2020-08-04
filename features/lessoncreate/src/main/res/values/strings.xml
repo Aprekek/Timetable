@@ -9,6 +9,7 @@
     <string name="lesson_create_title_start_caps">НАЧАЛО:</string>
     <string name="lesson_create_title_end_caps">КОНЕЦ:</string>
     <string name="lesson_create_button_time_not_set">-- : --</string>
+    <string name="lesson_create_button_time_set">%1$s : %2$s</string>
 
     <string name="lesson_create_chip_monday_short">ПН</string>
     <string name="lesson_create_chip_tuesday_short">ВТ</string>
