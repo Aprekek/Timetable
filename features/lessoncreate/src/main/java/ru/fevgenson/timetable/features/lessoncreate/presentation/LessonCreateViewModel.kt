@@ -60,7 +60,40 @@ class LessonCreateViewModel : ViewModel() {
 
     fun onTimeSetButtonClick(isBegin: Boolean) {
         this.isBegin = isBegin
+
+        if (isBegin) {
+            if (timeStartMin == null) {
+                timeStartMin = if (timeEndMin == null) {
+                    0
+                } else {
+                    if (timeEndMin!! >= LESSON_LENGTH_MIN) timeEndMin!! - LESSON_LENGTH_MIN
+                    else MINUTES_IN_DAY + timeEndMin!! - LESSON_LENGTH_MIN
+                }
+            }
+        } else {
+            if (timeEndMin == null) {
+                timeEndMin = if (timeStartMin == null) {
+                    0
+                } else {
+                    (timeStartMin!! + LESSON_LENGTH_MIN) % MINUTES_IN_DAY
+                }
+            }
+        }
+
         eventsDispatcher.dispatchEvent { setTimeAndInvokeTimePicker() }
+    }
+
+    fun onDoneTimePickerSetTime(ours: Int, min: Int) {
+        val oursStr = if (ours < 10) "0$ours" else ours.toString()
+        val minStr = if (min < 10) "0$min" else min.toString()
+
+        if (isBegin!!) {
+            timeStartMin = ours * 60 + min
+            timeStartString.set("$oursStr : $minStr")
+        } else {
+            timeEndMin = ours * 60 + min
+            timeEndString.set("$oursStr : $minStr")
+        }
     }
 
     fun onClearItemClick() {

@@ -67,49 +67,22 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
     }
 
     override fun setTimeAndInvokeTimePicker() {
-        var timeStartMin = binding.lessonCreateViewModel?.timeStartMin
-        var timeEndMin = binding.lessonCreateViewModel?.timeEndMin
-
-        if (binding.lessonCreateViewModel?.isBegin == true) {
-            if (timeStartMin == null) {
-                timeStartMin = if (timeEndMin == null) {
-                    0
-                } else {
-                    if (timeEndMin >= LessonCreateViewModel.LESSON_LENGTH_MIN) timeEndMin - LessonCreateViewModel.LESSON_LENGTH_MIN
-                    else LessonCreateViewModel.MINUTES_IN_DAY + timeEndMin - LessonCreateViewModel.LESSON_LENGTH_MIN
-                }
-            }
-
-            invokeTimePickerDialog(timeStartMin / 60, timeStartMin % 60, true)
+        if (binding.lessonCreateViewModel?.isBegin!!) {
+            invokeTimePickerDialog(
+                binding.lessonCreateViewModel?.timeStartMin!!.div(60),
+                binding.lessonCreateViewModel?.timeStartMin!!.rem(60)
+            )
         } else {
-            if (timeEndMin == null) {
-                timeEndMin = if (timeStartMin == null) {
-                    0
-                } else {
-                    (timeStartMin + LessonCreateViewModel.LESSON_LENGTH_MIN) % LessonCreateViewModel.MINUTES_IN_DAY
-                }
-            }
-
-            invokeTimePickerDialog(timeEndMin / 60, timeEndMin % 60, false)
+            invokeTimePickerDialog(
+                binding.lessonCreateViewModel?.timeEndMin!!.div(60),
+                binding.lessonCreateViewModel?.timeEndMin!!.rem(60)
+            )
         }
     }
 
-    private fun invokeTimePickerDialog(oursOnStart: Int, minOnStart: Int, isBegin: Boolean) {
+    private fun invokeTimePickerDialog(oursOnStart: Int, minOnStart: Int) {
         val listener = TimePickerDialog.OnTimeSetListener { _: TimePicker, ours: Int, min: Int ->
-            val oursStr = if (ours < 10) "0$ours" else ours.toString()
-            val minStr = if (min < 10) "0$min" else min.toString()
-
-            if (isBegin) {
-                binding.lessonCreateViewModel?.timeStartMin = ours * 60 + min
-                binding.lessonCreateViewModel?.timeStartString?.set(
-                    getString(R.string.lesson_create_button_time_set).format(oursStr, minStr)
-                )
-            } else {
-                binding.lessonCreateViewModel?.timeEndMin = ours * 60 + min
-                binding.lessonCreateViewModel?.timeEndString?.set(
-                    getString(R.string.lesson_create_button_time_set).format(oursStr, minStr)
-                )
-            }
+            binding.lessonCreateViewModel?.onDoneTimePickerSetTime(ours, min)
         }
 
         TimePickerDialog(requireContext(), listener, oursOnStart, minOnStart, true).show()
