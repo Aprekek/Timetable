@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation
 
 import android.util.Log
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ class LessonCreateViewModel : ViewModel() {
     interface EventListener {
         fun navigateToTimetable()
         fun closeKeyboard()
+        fun setTimeAndInvokeTimePicker()
     }
 
     companion object {
@@ -19,7 +21,18 @@ class LessonCreateViewModel : ViewModel() {
         const val TEACHER_PAGE = 2
 
         const val PAGES_COUNT = 3
+
+        const val LESSON_LENGTH_MIN = 95
+        const val MINUTES_IN_DAY = 1440
     }
+
+    //Temporarily |----
+    var isBegin: Boolean? = null
+    var timeStartMin: Int? = null
+    var timeEndMin: Int? = null
+    var timeStartString = ObservableField<String>("")
+    var timeEndString = ObservableField<String>("")
+    //----|
 
     val eventsDispatcher = EventsDispatcher<EventListener>()
 
@@ -43,6 +56,11 @@ class LessonCreateViewModel : ViewModel() {
         } else {
             _currentPage.value = currentPage.value?.plus(1)
         }
+    }
+
+    fun onTimeSetButtonClick(isBegin: Boolean) {
+        this.isBegin = isBegin
+        eventsDispatcher.dispatchEvent { setTimeAndInvokeTimePicker() }
     }
 
     fun onClearItemClick() {

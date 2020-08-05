@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -51,9 +52,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="29dp"
+                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(Boolean.TRUE)}"
                     android:paddingHorizontal="55dp"
-                    android:text="@string/lesson_create_button_time_not_set"
-                    app:invokeTimePickerDialog="@{Boolean.TRUE}" />
+                    android:text="@{lessonCreateViewModel.timeStartString.empty ? @string/lesson_create_button_time_not_set : lessonCreateViewModel.timeStartString}"
+                    tools:text="@string/lesson_create_button_time_not_set" />
             </FrameLayout>
 
             <FrameLayout
@@ -75,10 +77,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="29dp"
+                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(Boolean.FALSE)}"
                     android:paddingHorizontal="55dp"
-                    android:text="@string/lesson_create_button_time_not_set"
-                    app:invokeTimePickerDialog="@{Boolean.TRUE}" />
+                    android:text="@{lessonCreateViewModel.timeEndString.empty ? @string/lesson_create_button_time_not_set : lessonCreateViewModel.timeEndString}"
+                    tools:text="@string/lesson_create_button_time_not_set" />
             </FrameLayout>
+
+            <Button
+                style="@style/ApplicationTheme.PrimaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/lesson_create_button_choose_time" />
 
             <androidx.cardview.widget.CardView
                 style="@style/ApplicationTheme.CardViewBase"
@@ -101,6 +112,7 @@
                         android:text="@string/lesson_create_title_first_week" />
 
                     <include
+                        android:id="@+id/first_week_chips"
                         layout="@layout/include_lesson_days_buttons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -129,6 +141,7 @@
                         android:text="@string/lesson_create_title_second_week" />
 
                     <include
+                        android:id="@+id/second_week_chips"
                         layout="@layout/include_lesson_days_buttons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
