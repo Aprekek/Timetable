@@ -30,6 +30,7 @@
     <string name="lesson_create_hint_full_name">Ф.И.О</string>
     <string name="lesson_create_hint_phone">Телефон</string>
     <string name="lesson_create_hint_email">Email</string>
+    <string name="lesson_create_value_starting_slots">+7 (</string>
 
     <string name="lesson_create_button_clear">Очистить поля</string>
 
