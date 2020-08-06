@@ -10,6 +10,7 @@ import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
@@ -46,6 +47,18 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
         binding.viewPagerCreateLesson.offscreenPageLimit = adapter.itemCount
         binding.viewPagerCreateLesson.adapter = adapter
         binding.viewPagerCreateLesson.isUserInputEnabled = false
+
+        binding.viewPagerCreateLesson.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.toolbarTitle.text = when (position) {
+                    LessonCreateViewModel.MAIN_PAGE -> getString(R.string.lesson_create_title_main_info)
+                    LessonCreateViewModel.LOCATION_AND_TYPE_PAGE -> getString(R.string.lesson_create_title_location_and_type)
+                    LessonCreateViewModel.TEACHER_PAGE -> getString(R.string.lesson_create_title_teacher)
+                    else -> throw IllegalStateException("Page $position not found")
+                }
+            }
+        })
     }
 
     private fun overrideSystemBackButton() {

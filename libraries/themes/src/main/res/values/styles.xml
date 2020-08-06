@@ -30,6 +30,14 @@
         <item name="android:textSize">26sp</item>
     </style>
 
+    <style name="ApplicationTheme.Title3DarkGrey" parent="ApplicationTheme.BodyBase">
+
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
     <style name="ApplicationTheme.Body1Black" parent="ApplicationTheme.BodyBase">
 
         <item name="android:textSize">14sp</item>
