@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:text="@={lessonCreateViewModel.phone}"
-                    app:startingPhoneSlots="@{@string/lesson_create_value_starting_slots}" />
+                    app:startingSlots="@{@string/lesson_create_value_starting_slots}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
