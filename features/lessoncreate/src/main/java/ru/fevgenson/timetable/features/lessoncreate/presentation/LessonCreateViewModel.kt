@@ -27,6 +27,14 @@ class LessonCreateViewModel : ViewModel() {
         const val MINUTES_IN_DAY = 1440
     }
 
+    val subject = MutableLiveData<String>("")
+    val housing = MutableLiveData<String>("")
+    val classroom = MutableLiveData<String>("")
+    val type = MutableLiveData<String>("")
+    val teachersName = MutableLiveData<String>("")
+    val email = MutableLiveData<String>("")
+    val phone = MutableLiveData<String>("")
+
     val timeStartMinutes = MutableLiveData<Int?>(null)
     val timeEndMinutes = MutableLiveData<Int?>(null)
     val timeStartString: LiveData<String> = Transformations.map(timeStartMinutes) {

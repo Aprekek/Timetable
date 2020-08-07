@@ -30,7 +30,8 @@
                     android:id="@+id/housing_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="@={lessonCreateViewModel.housing}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +46,8 @@
                     android:id="@+id/classroom_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="@={lessonCreateViewModel.classroom}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -60,7 +62,8 @@
                     android:id="@+id/type_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="@={lessonCreateViewModel.type}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout
