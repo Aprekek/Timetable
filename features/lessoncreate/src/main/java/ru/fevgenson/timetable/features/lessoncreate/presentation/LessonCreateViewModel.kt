@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
+import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
 import ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils
 
-class LessonCreateViewModel : ViewModel() {
+class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : ViewModel() {
 
     interface EventListener {
         fun navigateToTimetable()
@@ -67,6 +69,15 @@ class LessonCreateViewModel : ViewModel() {
     val currentPage: LiveData<Int>
         get() = _currentPage
 
+    val toolbarTitle: LiveData<String> = Transformations.map(currentPage) { page ->
+        return@map when (page) {
+            MAIN_PAGE -> resourceProvider.getStringById(R.string.lesson_create_title_main_info)
+            LOCATION_AND_TYPE_PAGE -> resourceProvider.getStringById(R.string.lesson_create_title_location_and_type)
+            TEACHER_PAGE -> resourceProvider.getStringById(R.string.lesson_create_title_teacher)
+            else -> throw IllegalStateException("Page $page not found")
+        }
+    }
+
     fun onTopBackButtonClick() {
         eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == MAIN_PAGE) {
@@ -101,8 +112,7 @@ class LessonCreateViewModel : ViewModel() {
         return if (time != null) {
             MyTimeUtils.convertTimeInMinutesToString(time)
         } else {
-//            R.string.lesson_create_button_time_not_set
-            "-- : --"
+            resourceProvider.getStringById(R.string.lesson_create_button_time_not_set)
         }
     }
 

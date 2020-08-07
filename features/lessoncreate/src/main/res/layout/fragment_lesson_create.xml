@@ -40,6 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60dp"
+                    android:text="@{lessonCreateViewModel.toolbarTitle}"
                     tools:text="@string/lesson_create_title_main_info" />
 
                 <ImageView

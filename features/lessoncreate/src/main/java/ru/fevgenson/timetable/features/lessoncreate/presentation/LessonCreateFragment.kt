@@ -10,18 +10,23 @@ import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
+import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
 import ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils
 
 class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
 
     private lateinit var binding: FragmentLessonCreateBinding
-    private val lessonCreateViewModel: LessonCreateViewModel by viewModel()
+    private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
+        parametersOf(
+            ResourceProvider(requireContext())
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,18 +53,6 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
         binding.viewPagerCreateLesson.offscreenPageLimit = adapter.itemCount
         binding.viewPagerCreateLesson.adapter = adapter
         binding.viewPagerCreateLesson.isUserInputEnabled = false
-
-        binding.viewPagerCreateLesson.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                binding.toolbarTitle.text = when (position) {
-                    LessonCreateViewModel.MAIN_PAGE -> getString(R.string.lesson_create_title_main_info)
-                    LessonCreateViewModel.LOCATION_AND_TYPE_PAGE -> getString(R.string.lesson_create_title_location_and_type)
-                    LessonCreateViewModel.TEACHER_PAGE -> getString(R.string.lesson_create_title_teacher)
-                    else -> throw IllegalStateException("Page $position not found")
-                }
-            }
-        })
     }
 
     private fun overrideSystemBackButton() {
