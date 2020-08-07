@@ -16,6 +16,7 @@ import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
+import ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils
 
 class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
 
@@ -43,7 +44,7 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
     }
 
     private fun initViewPager() {
-        val adapter = LessonCreateVPAdapter(lessonCreateViewModel)
+        val adapter = LessonCreateVPAdapter(lessonCreateViewModel, viewLifecycleOwner)
         binding.viewPagerCreateLesson.offscreenPageLimit = adapter.itemCount
         binding.viewPagerCreateLesson.adapter = adapter
         binding.viewPagerCreateLesson.isUserInputEnabled = false
@@ -79,23 +80,29 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
         closeKeyboard(binding)
     }
 
-    override fun setTimeAndInvokeTimePicker() {
-        if (binding.lessonCreateViewModel?.isBegin!!) {
+    override fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders) {
+        if (timeBorder == MyTimeUtils.TimeBorders.START) {
             invokeTimePickerDialog(
-                binding.lessonCreateViewModel?.timeStartMin!!.div(60),
-                binding.lessonCreateViewModel?.timeStartMin!!.rem(60)
+                lessonCreateViewModel.timeStartMinutes.value?.div(60) ?: 0,
+                lessonCreateViewModel.timeStartMinutes.value?.rem(60) ?: 0,
+                timeBorder
             )
         } else {
             invokeTimePickerDialog(
-                binding.lessonCreateViewModel?.timeEndMin!!.div(60),
-                binding.lessonCreateViewModel?.timeEndMin!!.rem(60)
+                lessonCreateViewModel.timeEndMinutes.value?.div(60) ?: 0,
+                lessonCreateViewModel.timeEndMinutes.value?.rem(60) ?: 0,
+                timeBorder
             )
         }
     }
 
-    private fun invokeTimePickerDialog(oursOnStart: Int, minOnStart: Int) {
+    private fun invokeTimePickerDialog(
+        oursOnStart: Int,
+        minOnStart: Int,
+        timeBorder: MyTimeUtils.TimeBorders
+    ) {
         val listener = TimePickerDialog.OnTimeSetListener { _: TimePicker, ours: Int, min: Int ->
-            binding.lessonCreateViewModel?.onDoneTimePickerSetTime(ours, min)
+            binding.lessonCreateViewModel?.onDoneTimePickerSetTime(ours, min, timeBorder)
         }
 
         TimePickerDialog(requireContext(), listener, oursOnStart, minOnStart, true).show()

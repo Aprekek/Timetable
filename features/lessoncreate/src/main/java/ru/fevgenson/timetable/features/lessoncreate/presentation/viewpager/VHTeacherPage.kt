@@ -2,6 +2,7 @@ package ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.lessoncreate.databinding.PageTeacherBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel
@@ -18,9 +19,14 @@ class VHTeacherPage private constructor(private val binding: PageTeacherBinding)
     }
 
     companion object {
-        fun from(parent: ViewGroup, viewModel: LessonCreateViewModel): VHTeacherPage {
+        fun from(
+            parent: ViewGroup,
+            viewModel: LessonCreateViewModel,
+            lifecycleOwner: LifecycleOwner
+        ): VHTeacherPage {
             val inflater = LayoutInflater.from(parent.context)
             val binding = PageTeacherBinding.inflate(inflater, parent, false)
+            binding.lifecycleOwner = lifecycleOwner
             binding.lessonCreateViewModel = viewModel
             return VHTeacherPage(binding)
         }

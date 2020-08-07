@@ -17,7 +17,7 @@ import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.DayViewPagerAdapter
-import ru.fevgenson.timetable.libraries.core.dateutils.DateUtils
+import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
 

@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils" />
+
         <variable
             name="lessonCreateViewModel"
             type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
@@ -52,9 +54,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="29dp"
-                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(Boolean.TRUE)}"
+                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.START)}"
                     android:paddingHorizontal="55dp"
-                    android:text="@{lessonCreateViewModel.timeStartString.empty ? @string/lesson_create_button_time_not_set : lessonCreateViewModel.timeStartString}"
+                    android:text="@{lessonCreateViewModel.timeStartString}"
                     tools:text="@string/lesson_create_button_time_not_set" />
             </FrameLayout>
 
@@ -77,9 +79,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="29dp"
-                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(Boolean.FALSE)}"
+                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.END)}"
                     android:paddingHorizontal="55dp"
-                    android:text="@{lessonCreateViewModel.timeEndString.empty ? @string/lesson_create_button_time_not_set : lessonCreateViewModel.timeEndString}"
+                    android:text="@{lessonCreateViewModel.timeEndString}"
                     tools:text="@string/lesson_create_button_time_not_set" />
             </FrameLayout>
 

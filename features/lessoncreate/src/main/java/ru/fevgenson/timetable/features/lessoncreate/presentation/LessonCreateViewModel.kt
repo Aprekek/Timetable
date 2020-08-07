@@ -1,18 +1,19 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation
 
 import android.util.Log
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
+import ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils
 
 class LessonCreateViewModel : ViewModel() {
 
     interface EventListener {
         fun navigateToTimetable()
         fun closeKeyboard()
-        fun setTimeAndInvokeTimePicker()
+        fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders)
     }
 
     companion object {
@@ -26,13 +27,31 @@ class LessonCreateViewModel : ViewModel() {
         const val MINUTES_IN_DAY = 1440
     }
 
-    //Temporarily |----
-    var isBegin: Boolean? = null
-    var timeStartMin: Int? = null
-    var timeEndMin: Int? = null
-    var timeStartString = ObservableField<String>("")
-    var timeEndString = ObservableField<String>("")
-    //----|
+    val timeStartMinutes = MutableLiveData<Int?>(null)
+    val timeEndMinutes = MutableLiveData<Int?>(null)
+    val timeStartString: LiveData<String> = Transformations.map(timeStartMinutes) {
+        convertTimeToString(it)
+    }
+    val timeEndString: LiveData<String> = Transformations.map(timeEndMinutes) {
+        convertTimeToString(it)
+    }
+
+    init {
+        timeStartMinutes.observeForever { timeStartMinutes ->
+            if (timeEndMinutes.value == null && timeStartMinutes != null) {
+                timeEndMinutes.value = (timeStartMinutes + LESSON_LENGTH_MIN).rem(MINUTES_IN_DAY)
+            }
+        }
+        timeEndMinutes.observeForever { timeEndMinutes ->
+            if (timeStartMinutes.value == null && timeEndMinutes != null) {
+                timeStartMinutes.value = if (timeEndMinutes >= LESSON_LENGTH_MIN) {
+                    timeEndMinutes - LESSON_LENGTH_MIN
+                } else {
+                    MINUTES_IN_DAY + timeEndMinutes - LESSON_LENGTH_MIN
+                }
+            }
+        }
+    }
 
     val eventsDispatcher = EventsDispatcher<EventListener>()
 
@@ -58,41 +77,24 @@ class LessonCreateViewModel : ViewModel() {
         }
     }
 
-    fun onTimeSetButtonClick(isBegin: Boolean) {
-        this.isBegin = isBegin
-
-        if (isBegin) {
-            if (timeStartMin == null) {
-                timeStartMin = if (timeEndMin == null) {
-                    0
-                } else {
-                    if (timeEndMin!! >= LESSON_LENGTH_MIN) timeEndMin!! - LESSON_LENGTH_MIN
-                    else MINUTES_IN_DAY + timeEndMin!! - LESSON_LENGTH_MIN
-                }
-            }
-        } else {
-            if (timeEndMin == null) {
-                timeEndMin = if (timeStartMin == null) {
-                    0
-                } else {
-                    (timeStartMin!! + LESSON_LENGTH_MIN) % MINUTES_IN_DAY
-                }
-            }
-        }
-
-        eventsDispatcher.dispatchEvent { setTimeAndInvokeTimePicker() }
+    fun onTimeSetButtonClick(timeBound: MyTimeUtils.TimeBorders) {
+        eventsDispatcher.dispatchEvent { setTimeAndInvokeTimePicker(timeBound) }
     }
 
-    fun onDoneTimePickerSetTime(ours: Int, min: Int) {
-        val oursStr = if (ours < 10) "0$ours" else ours.toString()
-        val minStr = if (min < 10) "0$min" else min.toString()
-
-        if (isBegin!!) {
-            timeStartMin = ours * 60 + min
-            timeStartString.set("$oursStr : $minStr")
+    fun onDoneTimePickerSetTime(ours: Int, min: Int, timeBound: MyTimeUtils.TimeBorders) {
+        if (timeBound == MyTimeUtils.TimeBorders.START) {
+            timeStartMinutes.value = ours * 60 + min
         } else {
-            timeEndMin = ours * 60 + min
-            timeEndString.set("$oursStr : $minStr")
+            timeEndMinutes.value = ours * 60 + min
+        }
+    }
+
+    private fun convertTimeToString(time: Int?): String {
+        return if (time != null) {
+            MyTimeUtils.convertTimeInMinutesToString(time)
+        } else {
+//            R.string.lesson_create_button_time_not_set
+            "-- : --"
         }
     }
 

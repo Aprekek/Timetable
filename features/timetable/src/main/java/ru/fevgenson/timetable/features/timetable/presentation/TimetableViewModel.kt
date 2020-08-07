@@ -2,8 +2,8 @@ package ru.fevgenson.timetable.features.timetable.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.fevgenson.timetable.libraries.core.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
+import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class TimetableViewModel : ViewModel() {
 
