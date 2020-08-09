@@ -9,8 +9,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class NoticeDialogFragment : DialogFragment() {
     interface NoticeDialogListener {
-        fun onDialogPositiveClick(dialog: DialogFragment)
-        fun onDialogNegativeClick(dialog: DialogFragment)
+        fun onDialogPositiveClick(dialog: DialogFragment, action: Int)
     }
 
     private lateinit var listener: NoticeDialogListener
@@ -18,17 +17,20 @@ class NoticeDialogFragment : DialogFragment() {
     private var description: String? = null
     private var confirmButtonText: String? = null
     private var cancelButtonText: String? = null
+    private var action: Int? = null
 
     fun initialize(
         _title: String,
         _description: String,
         _cancelButtonText: String = "Отмена",
-        _confirmButtonText: String = "Подтвердить"
+        _confirmButtonText: String = "Подтвердить",
+        _action: Int
     ) {
         title = _title
         description = _description
         cancelButtonText = _cancelButtonText
         confirmButtonText = _confirmButtonText
+        action = _action
     }
 
     override fun onAttach(context: Context) {
@@ -48,15 +50,16 @@ class NoticeDialogFragment : DialogFragment() {
             description = savedInstanceState.getString("description")
             confirmButtonText = savedInstanceState.getString("confirmButtonText")
             cancelButtonText = savedInstanceState.getString("cancelButtonText")
+            action = savedInstanceState.getInt("action")
         }
 
         builder.setTitle(title).setMessage(description).setPositiveButton(confirmButtonText)
         { _: DialogInterface, _: Int ->
-            listener.onDialogPositiveClick(this)
-        }.setNegativeButton(cancelButtonText)
-        { _: DialogInterface, _: Int ->
-            listener.onDialogNegativeClick(this)
-        }
+            listener.onDialogPositiveClick(
+                this,
+                action ?: throw NullPointerException("\"action\" must be not null")
+            )
+        }.setNegativeButton(cancelButtonText) { _: DialogInterface, _: Int -> }
 
         return builder.create()
     }
@@ -66,6 +69,10 @@ class NoticeDialogFragment : DialogFragment() {
         outState.putString("description", description)
         outState.putString("confirmButtonText", confirmButtonText)
         outState.putString("cancelButtonText", cancelButtonText)
+        outState.putInt(
+            "action",
+            action ?: throw NullPointerException("\"action\" must be not null")
+        )
 
         super.onSaveInstanceState(outState)
     }

@@ -40,4 +40,9 @@
     <string name="lesson_create_title_main_info">Основная информация</string>
     <string name="lesson_create_title_location_and_type">Местонахождение и тип</string>
     <string name="lesson_create_title_teacher">Преподаватель</string>
+
+    <string name="lesson_create_cancel_dialog_title">Выйти?</string>
+    <string name="lesson_create_cancel_dialog_description">Введенные данные не сохранятся!</string>
+    <string name="lesson_create_done_dialog_title">Сохранить?</string>
+    <string name="lesson_create_done_dialog_description">"Добавить данный экземпляр к расписанию?"</string>
 </resources>

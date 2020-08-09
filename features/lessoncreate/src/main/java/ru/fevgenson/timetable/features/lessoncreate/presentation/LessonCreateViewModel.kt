@@ -13,11 +13,11 @@ import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
 class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : ViewModel() {
 
     interface EventListener {
-        fun navigateToTimetable(action: Int)
+        fun navigateToTimetable()
         fun closeKeyboard()
         fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders)
         fun onValidationFailed()
-        fun showDialog()
+        fun showDialog(title: String, description: String, action: Int)
     }
 
     companion object {
@@ -86,7 +86,7 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     fun onTopBackButtonClick() {
         eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == MAIN_PAGE) {
-            onCancel()
+            onCancelButtonClick()
         } else {
             _currentPage.value = currentPage.value?.minus(1)
         }
@@ -95,7 +95,7 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     fun onNextButtonClick() {
         eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == TEACHER_PAGE) {
-            onDone()
+            onDoneButtonClick()
         } else {
             _currentPage.value = currentPage.value?.plus(1)
         }
@@ -126,25 +126,36 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     }
 
     fun onCancelButtonClick() {
-        //onCancel()
-        eventsDispatcher.dispatchEvent { showDialog() }
+        eventsDispatcher.dispatchEvent {
+            showDialog(
+                resourceProvider.getStringById(R.string.lesson_create_cancel_dialog_title),
+                resourceProvider.getStringById(R.string.lesson_create_cancel_dialog_description),
+                ACTION_CANCEL
+            )
+        }
     }
 
-    private fun onCancel() {
-        eventsDispatcher.dispatchEvent { navigateToTimetable(ACTION_CANCEL) }
+    fun onCancel() {
+        eventsDispatcher.dispatchEvent { navigateToTimetable() }
     }
 
     fun onDoneButtonClick() {
         if (validation())
-            onDone()
+            eventsDispatcher.dispatchEvent {
+                showDialog(
+                    resourceProvider.getStringById(R.string.lesson_create_done_dialog_title),
+                    resourceProvider.getStringById(R.string.lesson_create_done_dialog_description),
+                    ACTION_DONE
+                )
+            }
         else {
             _currentPage.value = MAIN_PAGE
             eventsDispatcher.dispatchEvent { onValidationFailed() }
         }
     }
 
-    private fun onDone() {
-        eventsDispatcher.dispatchEvent { navigateToTimetable(ACTION_DONE) }
+    fun onDone() {
+        eventsDispatcher.dispatchEvent { navigateToTimetable() }
     }
 
     //Написать проверку для chips

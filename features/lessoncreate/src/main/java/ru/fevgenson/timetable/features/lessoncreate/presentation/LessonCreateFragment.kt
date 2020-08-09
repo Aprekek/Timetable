@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -105,22 +104,21 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
 
     }
 
-    override fun navigateToTimetable(action: Int) {
+    override fun navigateToTimetable() {
         findNavController().popBackStack()
     }
 
-    override fun showDialog() {
+    override fun showDialog(title: String, description: String, action: Int) {
         val dialog = NoticeDialogFragment()
-        dialog.initialize("Exit?", "Data will not saved")
+        dialog.initialize(title, description, _action = action)
         dialog.setTargetFragment(this, 0)
         dialog.show(parentFragmentManager, "notification")
     }
 
-    override fun onDialogPositiveClick(dialog: DialogFragment) {
-        Toast.makeText(requireContext(), "Отмена", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onDialogNegativeClick(dialog: DialogFragment) {
-        Toast.makeText(requireContext(), "Продолжить", Toast.LENGTH_SHORT).show()
+    override fun onDialogPositiveClick(dialog: DialogFragment, action: Int) {
+        if (action == LessonCreateViewModel.ACTION_CANCEL)
+            lessonCreateViewModel.onCancel()
+        else
+            lessonCreateViewModel.onDone()
     }
 }
