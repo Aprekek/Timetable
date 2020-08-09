@@ -79,13 +79,14 @@
                     style="@style/ApplicationTheme.PrimaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> lessonCreateViewModel.onNextButtonClick()}"
+                    android:onClick="@{() -> lessonCreateViewModel.onDoneButtonClick()}"
                     android:text="@string/lesson_create_button_done" />
 
                 <Button
                     style="@style/ApplicationTheme.CancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->lessonCreateViewModel.onCancelButtonClick()}"
                     android:text="@string/lesson_create_button_cancel" />
             </LinearLayout>
         </LinearLayout>

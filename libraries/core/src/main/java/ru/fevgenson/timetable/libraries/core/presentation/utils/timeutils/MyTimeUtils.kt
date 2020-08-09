@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.libraries.core.utils.timeutils
+package ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils
 
 object MyTimeUtils {
     enum class TimeBorders {

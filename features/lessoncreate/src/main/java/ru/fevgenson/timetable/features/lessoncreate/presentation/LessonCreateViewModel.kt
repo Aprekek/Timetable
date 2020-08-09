@@ -7,15 +7,17 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
+import ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
-import ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils
 
 class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : ViewModel() {
 
     interface EventListener {
-        fun navigateToTimetable()
+        fun navigateToTimetable(action: Int)
         fun closeKeyboard()
         fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders)
+        fun onValidationFailed()
+        fun showDialog()
     }
 
     companion object {
@@ -27,6 +29,9 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
 
         const val LESSON_LENGTH_MIN = 95
         const val MINUTES_IN_DAY = 1440
+
+        const val ACTION_DONE = 0
+        const val ACTION_CANCEL = 1
     }
 
     val subject = MutableLiveData<String>("")
@@ -81,7 +86,7 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     fun onTopBackButtonClick() {
         eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == MAIN_PAGE) {
-            eventsDispatcher.dispatchEvent { navigateToTimetable() }
+            onCancel()
         } else {
             _currentPage.value = currentPage.value?.minus(1)
         }
@@ -90,7 +95,7 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     fun onNextButtonClick() {
         eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == TEACHER_PAGE) {
-            eventsDispatcher.dispatchEvent { navigateToTimetable() }
+            onDone()
         } else {
             _currentPage.value = currentPage.value?.plus(1)
         }
@@ -118,5 +123,41 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
 
     fun onClearItemClick() {
         Log.d("LessonCreateViewModel", "Button was clicked")
+    }
+
+    fun onCancelButtonClick() {
+        //onCancel()
+        eventsDispatcher.dispatchEvent { showDialog() }
+    }
+
+    private fun onCancel() {
+        eventsDispatcher.dispatchEvent { navigateToTimetable(ACTION_CANCEL) }
+    }
+
+    fun onDoneButtonClick() {
+        if (validation())
+            onDone()
+        else {
+            _currentPage.value = MAIN_PAGE
+            eventsDispatcher.dispatchEvent { onValidationFailed() }
+        }
+    }
+
+    private fun onDone() {
+        eventsDispatcher.dispatchEvent { navigateToTimetable(ACTION_DONE) }
+    }
+
+    //Написать проверку для chips
+    private fun validation(): Boolean {
+        if (subject.value?.isEmpty() == true)
+            return false
+
+        val timeNotSet = resourceProvider.getStringById(R.string.lesson_create_button_time_not_set)
+        if (timeStartString.value?.equals(timeNotSet) == true)
+            return false
+        if (timeEndString.value?.equals(timeNotSet) == true)
+            return false
+
+        return true
     }
 }

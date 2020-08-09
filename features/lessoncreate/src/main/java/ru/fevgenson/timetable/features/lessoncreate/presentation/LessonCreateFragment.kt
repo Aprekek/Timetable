@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,11 +17,13 @@ import org.koin.core.parameter.parametersOf
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
+import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
+import ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
-import ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils
 
-class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
+class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
+    NoticeDialogFragment.NoticeDialogListener {
 
     private lateinit var binding: FragmentLessonCreateBinding
     private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
@@ -65,10 +69,6 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
         lessonCreateViewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
     }
 
-    override fun navigateToTimetable() {
-        findNavController().popBackStack()
-    }
-
     override fun closeKeyboard() {
         closeKeyboard(binding)
     }
@@ -99,5 +99,28 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener {
         }
 
         TimePickerDialog(requireContext(), listener, oursOnStart, minOnStart, true).show()
+    }
+
+    override fun onValidationFailed() {
+
+    }
+
+    override fun navigateToTimetable(action: Int) {
+        findNavController().popBackStack()
+    }
+
+    override fun showDialog() {
+        val dialog = NoticeDialogFragment()
+        dialog.initialize("Exit?", "Data will not saved")
+        dialog.setTargetFragment(this, 0)
+        dialog.show(parentFragmentManager, "notification")
+    }
+
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        Toast.makeText(requireContext(), "Отмена", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        Toast.makeText(requireContext(), "Продолжить", Toast.LENGTH_SHORT).show()
     }
 }

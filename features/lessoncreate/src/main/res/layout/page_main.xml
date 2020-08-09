@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="ru.fevgenson.timetable.libraries.core.utils.timeutils.MyTimeUtils" />
+        <import type="ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils" />
 
         <variable
             name="lessonCreateViewModel"

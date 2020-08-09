@@ -2,7 +2,7 @@ package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.libraries.core.presentation.utils.dateutils.DateUtils
 
 class DayViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

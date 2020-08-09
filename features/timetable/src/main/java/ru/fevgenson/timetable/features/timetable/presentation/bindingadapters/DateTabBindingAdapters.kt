@@ -6,7 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayout
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.libraries.core.presentation.utils.dateutils.DateUtils
 
 @BindingAdapter("selectedColor", "normalColor")
 fun TabLayout.setTabsColors(selectedColor: Int, normalColor: Int) {
