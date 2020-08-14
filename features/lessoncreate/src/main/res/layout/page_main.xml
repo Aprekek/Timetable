@@ -32,7 +32,8 @@
                     android:id="@+id/subject_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapSentences"
                     android:text="@={lessonCreateViewModel.subject}" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +120,8 @@
                         layout="@layout/include_lesson_days_buttons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        app:checkedChips="@{lessonCreateViewModel.firstWeekChips}" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -148,7 +150,8 @@
                         layout="@layout/include_lesson_days_buttons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        app:checkedChips="@{lessonCreateViewModel.secondWeekChips}" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

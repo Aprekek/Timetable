@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.fevgenson.timetable.features.lessoncreate.R
+import ru.fevgenson.timetable.libraries.core.presentation.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
@@ -82,6 +83,14 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
             else -> throw IllegalStateException("Page $page not found")
         }
     }
+
+    val firstWeekChips = MutableLiveData(
+        List(DateUtils.WEEK_DAYS) { false }
+    )
+
+    val secondWeekChips = MutableLiveData(
+        List(DateUtils.WEEK_DAYS) { false }
+    )
 
     fun onTopBackButtonClick() {
         eventsDispatcher.dispatchEvent { closeKeyboard() }
