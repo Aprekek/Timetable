@@ -125,14 +125,6 @@ class LessonCreateViewModel : ViewModel() {
         }
     }
 
-    private fun convertTimeToString(time: Int?): String {
-        return if (time != null) {
-            MyTimeUtils.convertTimeInMinutesToString(time)
-        } else {
-            TIME_NOT_SET_STRING
-        }
-    }
-
     fun onClearItemClick() {
         when (_currentPage.value) {
             MAIN_PAGE -> {
@@ -169,7 +161,7 @@ class LessonCreateViewModel : ViewModel() {
         }
     }
 
-    fun onCancel() {
+    private fun onCancel() {
         eventsDispatcher.dispatchEvent { navigateToTimetable() }
     }
 
@@ -193,11 +185,23 @@ class LessonCreateViewModel : ViewModel() {
         }
     }
 
-    fun onDone() {
+    private fun onDone() {
         eventsDispatcher.dispatchEvent { navigateToTimetable() }
+    }
+
+    fun onDialogResult(action: Int) {
+        if (action == ACTION_DONE)
+            onDone()
+        else
+            onCancel()
     }
 
     private fun isDataValid() = subjectError.value == null &&
             timeStartMinutes.value != null &&
             (firstWeekChips.value?.find { it } != null || secondWeekChips.value?.find { it } != null)
+
+    private fun convertTimeToString(time: Int?): String = time?.let {
+        MyTimeUtils.convertTimeInMinutesToString(it)
+    } ?: TIME_NOT_SET_STRING
+
 }

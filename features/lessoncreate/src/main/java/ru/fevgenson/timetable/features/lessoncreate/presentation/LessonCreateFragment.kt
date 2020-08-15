@@ -124,9 +124,6 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
     }
 
     override fun onDialogPositiveClick(action: Int) {
-        if (action == LessonCreateViewModel.ACTION_CANCEL)
-            lessonCreateViewModel.onCancel()
-        else
-            lessonCreateViewModel.onDone()
+        lessonCreateViewModel.onDialogResult(action)
     }
 }

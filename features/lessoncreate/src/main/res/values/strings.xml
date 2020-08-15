@@ -9,7 +9,6 @@
 
     <string name="lesson_create_title_start_caps">НАЧАЛО:</string>
     <string name="lesson_create_title_end_caps">КОНЕЦ:</string>
-    <string name="lesson_create_button_time_not_set">-- : --</string>
     <string name="lesson_create_button_time_set">%1$s : %2$s</string>
     <string name="lesson_create_button_choose_time">Выбрать время</string>
 
