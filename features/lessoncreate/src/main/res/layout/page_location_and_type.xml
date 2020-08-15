@@ -29,7 +29,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/housing_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:text="@={lessonCreateViewModel.housing}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -43,7 +45,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/classroom_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:text="@={lessonCreateViewModel.classroom}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +61,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/type_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:text="@={lessonCreateViewModel.type}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout

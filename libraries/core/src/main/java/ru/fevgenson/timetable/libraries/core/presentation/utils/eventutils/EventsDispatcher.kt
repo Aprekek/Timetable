@@ -32,7 +32,7 @@ class EventsDispatcher<T> : LifecycleObserver {
         eventListener = null
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun clear() {
         eventListener = null
         mainListener = null

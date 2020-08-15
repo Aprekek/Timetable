@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:onClick="@{()->viewModel.onDoneButtonClick()}"
             android:text="@string/lesson_create_button_done" />
 
         <Button
@@ -34,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:onClick="@{()->viewModel.onCancelButtonClick()}"
             android:text="@string/lesson_create_button_cancel" />
     </LinearLayout>
 </layout>

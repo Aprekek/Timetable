@@ -3,12 +3,14 @@
     <string name="lesson_create_button_next">Далее</string>
     <string name="lesson_create_button_done">Готово</string>
     <string name="lesson_create_button_cancel">Отмена</string>
+    <string name="lesson_create_button_confirm">Подтвердить</string>
 
     <string name="lesson_create_hint_subject">Предмет</string>
 
     <string name="lesson_create_title_start_caps">НАЧАЛО:</string>
     <string name="lesson_create_title_end_caps">КОНЕЦ:</string>
-    <string name="lesson_create_button_time_not_set">-- : --</string>
+    <string name="lesson_create_button_time_set">%1$s : %2$s</string>
+    <string name="lesson_create_button_choose_time">Выбрать время</string>
 
     <string name="lesson_create_chip_monday_short">ПН</string>
     <string name="lesson_create_chip_tuesday_short">ВТ</string>
@@ -28,9 +30,23 @@
     <string name="lesson_create_hint_full_name">Ф.И.О</string>
     <string name="lesson_create_hint_phone">Телефон</string>
     <string name="lesson_create_hint_email">Email</string>
+    <string name="lesson_create_value_starting_slots">+7 (</string>
 
     <string name="lesson_create_button_clear">Очистить поля</string>
 
     <string name="lesson_create_description_top_back_menu">Меню</string>
     <string name="lesson_create_description_action_back">Назад</string>
+
+    <string name="lesson_create_title_main_info">Основная информация</string>
+    <string name="lesson_create_title_location_and_type">Местонахождение и тип</string>
+    <string name="lesson_create_title_teacher">Преподаватель</string>
+
+    <string name="lesson_create_cancel_dialog_title">Выйти?</string>
+    <string name="lesson_create_cancel_dialog_description">Введенные данные не сохранятся!</string>
+    <string name="lesson_create_done_dialog_title">Закончить?</string>
+    <string name="lesson_create_done_dialog_description">"Пара будет добавлена к расписанию"</string>
+
+    <string name="lesson_create_edit_text_error_message">"Поле обязательно к заполнению"</string>
+    <string name="lesson_create_fields_filling_request">"Пожалуйста, заполните пустые поля для этой страницы"</string>
+    <string name="lesson_create_clear_message">Поля страницы очищены</string>
 </resources>

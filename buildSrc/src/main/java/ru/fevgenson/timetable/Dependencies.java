@@ -18,6 +18,7 @@ public class Dependencies {
         public static final String GRADLE = "4.0.0";
         public static final String GOOGLE = "4.3.3";
         public static final String FIREBASE = "17.2.2";
+        public static final String DECORO = "1.4.1";
 
         public static final String LIFECYCLE = "2.2.0";
         public static final String MATERIAL = "1.2.0-beta01";
@@ -39,6 +40,10 @@ public class Dependencies {
     public static class GOOGLE {
         public static final String GOOGLE_SERVICES = "com.google.gms:google-services:" + Versions.GOOGLE;
         public static final String FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics:" + Versions.FIREBASE;
+    }
+
+    public static class TINKOFF {
+        public static final String DECORO = "ru.tinkoff.decoro:decoro:" + Versions.DECORO;
     }
 
     public static class Kotlin {

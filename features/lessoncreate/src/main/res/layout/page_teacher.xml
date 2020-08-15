@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -28,7 +29,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:text="@={lessonCreateViewModel.teachersName}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -42,7 +45,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:text="@={lessonCreateViewModel.email}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +62,9 @@
                     android:id="@+id/phone_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:text="@={lessonCreateViewModel.phone}"
+                    app:startingSlots="@{@string/lesson_create_value_starting_slots}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -72,13 +79,14 @@
                     style="@style/ApplicationTheme.PrimaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> lessonCreateViewModel.onNextButtonClick()}"
+                    android:onClick="@{() -> lessonCreateViewModel.onDoneButtonClick()}"
                     android:text="@string/lesson_create_button_done" />
 
                 <Button
                     style="@style/ApplicationTheme.CancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->lessonCreateViewModel.onCancelButtonClick()}"
                     android:text="@string/lesson_create_button_cancel" />
             </LinearLayout>
         </LinearLayout>
