@@ -5,7 +5,6 @@ import ru.fevgenson.timetable.Plugins
 apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 apply plugin: Plugins.KOTLIN_EXTENSIONS
-apply plugin: Plugins.KOTLIN_KAPT
 
 android {
     compileSdkVersion ru.fevgenson.timetable.Settings.COMPILE_SDK_VERSION
