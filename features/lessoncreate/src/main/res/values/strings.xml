@@ -21,16 +21,6 @@
     <string name="lesson_create_chip_saturday_short">СБ</string>
     <string name="lesson_create_chip_sunday_short">ВС</string>
 
-    <string-array name="lesson_create_days_names">
-        <item>@string/lesson_create_chip_monday_short</item>
-        <item>@string/lesson_create_chip_tuesday_short</item>
-        <item>@string/lesson_create_chip_wednesday_short</item>
-        <item>@string/lesson_create_chip_thursday_short</item>
-        <item>@string/lesson_create_chip_friday_short</item>
-        <item>@string/lesson_create_chip_saturday_short</item>
-        <item>@string/lesson_create_chip_sunday_short</item>
-    </string-array>
-
     <string name="lesson_create_title_first_week">ПЕРВАЯ</string>
     <string name="lesson_create_title_second_week">ВТОРАЯ</string>
 

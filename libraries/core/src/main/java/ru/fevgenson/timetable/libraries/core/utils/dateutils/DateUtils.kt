@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.libraries.core.presentation.utils.dateutils
+package ru.fevgenson.timetable.libraries.core.utils.dateutils
 
 import java.text.SimpleDateFormat
 import java.util.*

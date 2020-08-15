@@ -10,13 +10,8 @@ import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
-class VHTeacherPage private constructor(private val binding: PageTeacherBinding) :
+class VHTeacherPage private constructor(binding: PageTeacherBinding) :
     RecyclerView.ViewHolder(binding.root) {
-
-    fun bind() {
-        val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
-        MaskFormatWatcher(mask).installOn(binding.phoneEditText)
-    }
 
     companion object {
         fun from(
@@ -28,6 +23,10 @@ class VHTeacherPage private constructor(private val binding: PageTeacherBinding)
             val binding = PageTeacherBinding.inflate(inflater, parent, false)
             binding.lifecycleOwner = lifecycleOwner
             binding.lessonCreateViewModel = viewModel
+
+            val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
+            MaskFormatWatcher(mask).installOn(binding.phoneEditText)
+
             return VHTeacherPage(binding)
         }
     }

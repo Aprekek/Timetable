@@ -36,8 +36,5 @@ class LessonCreateVPAdapter(
     override fun getItemCount() = LessonCreateViewModel.PAGES_COUNT
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is VHTeacherPage) {
-            holder.bind()
-        }
     }
 }

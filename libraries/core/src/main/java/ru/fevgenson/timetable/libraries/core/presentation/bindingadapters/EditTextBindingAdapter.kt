@@ -9,7 +9,7 @@ import com.google.android.material.textfield.TextInputEditText
 fun TextInputEditText.setupStartingSlots(slots: String) {
     setOnTouchListener { view: View, motionEvent: MotionEvent ->
         view.performClick()
-        if (text?.isEmpty()!!) {
+        if (text?.isEmpty() == true) {
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> setText(slots)
             }

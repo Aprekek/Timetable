@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.fevgenson.timetable.features.lessoncreate.R
-import ru.fevgenson.timetable.libraries.core.presentation.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
-import ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils
+import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 
 class LessonCreateViewModel : ViewModel() {
 
@@ -95,7 +95,7 @@ class LessonCreateViewModel : ViewModel() {
         List(DateUtils.WEEK_DAYS) { false }
     )
 
-    fun onTopBackButtonClick() {
+    fun onBackButtonClick() {
         eventsDispatcher.dispatchEvent { closeKeyboard() }
         if (_currentPage.value == MAIN_PAGE) {
             onCancelButtonClick()
@@ -117,11 +117,11 @@ class LessonCreateViewModel : ViewModel() {
         eventsDispatcher.dispatchEvent { setTimeAndInvokeTimePicker(timeBound) }
     }
 
-    fun onDoneTimePickerSetTime(ours: Int, min: Int, timeBound: MyTimeUtils.TimeBorders) {
+    fun onDoneTimePickerSetTime(hours: Int, min: Int, timeBound: MyTimeUtils.TimeBorders) {
         if (timeBound == MyTimeUtils.TimeBorders.START) {
-            timeStartMinutes.value = ours * 60 + min
+            timeStartMinutes.value = hours * MyTimeUtils.MINUTES_IN_HOUR + min
         } else {
-            timeEndMinutes.value = ours * 60 + min
+            timeEndMinutes.value = hours * MyTimeUtils.MINUTES_IN_HOUR + min
         }
     }
 

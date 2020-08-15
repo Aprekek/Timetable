@@ -9,6 +9,15 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class NoticeDialogFragment : DialogFragment() {
+
+    private companion object {
+        const val TITLE = "title"
+        const val DESCRIPTION = "description"
+        const val CONFIRM_BUTTON_TEXT = "confirmButtonText"
+        const val CANCEL_BUTTON_TEXT = "cancelButtonText"
+        const val ACTION = "action"
+    }
+
     interface NoticeDialogListener {
         fun onDialogPositiveClick(action: Int)
     }
@@ -49,12 +58,17 @@ class NoticeDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = MaterialAlertDialogBuilder(requireContext())
 
-        if (savedInstanceState?.isEmpty == false) {
-            title = savedInstanceState.getString("title")
-            description = savedInstanceState.getString("description")
-            confirmButtonText = savedInstanceState.getString("confirmButtonText")
-            cancelButtonText = savedInstanceState.getString("cancelButtonText")
-            action = savedInstanceState.getInt("action")
+        with(savedInstanceState)
+        {
+            this?.let {
+                if (!isEmpty) {
+                    title = getString(TITLE)
+                    description = getString(DESCRIPTION)
+                    confirmButtonText = getString(CONFIRM_BUTTON_TEXT)
+                    cancelButtonText = getString(CANCEL_BUTTON_TEXT)
+                    action = getInt(ACTION)
+                }
+            }
         }
 
         builder.setTitle(title).setMessage(description)
@@ -66,12 +80,12 @@ class NoticeDialogFragment : DialogFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("title", title)
-        outState.putString("description", description)
-        outState.putString("confirmButtonText", confirmButtonText)
-        outState.putString("cancelButtonText", cancelButtonText)
+        outState.putString(TITLE, title)
+        outState.putString(DESCRIPTION, description)
+        outState.putString(CONFIRM_BUTTON_TEXT, confirmButtonText)
+        outState.putString(CANCEL_BUTTON_TEXT, cancelButtonText)
         outState.putInt(
-            "action",
+            ACTION,
             action ?: throw NullPointerException("\"action\" must be not null")
         )
 

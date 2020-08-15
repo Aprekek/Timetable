@@ -17,7 +17,7 @@ import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCr
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
-import ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils
+import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 
 
 class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
@@ -55,7 +55,7 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
 
     private fun overrideSystemBackButton() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            lessonCreateViewModel.onTopBackButtonClick()
+            lessonCreateViewModel.onBackButtonClick()
         }
     }
 
@@ -68,23 +68,30 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
     }
 
     override fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders) {
+        val minutesInHour = MyTimeUtils.MINUTES_IN_HOUR
+        val defaultTimeInMinutes = MyTimeUtils.DEFAULT_TIME
+
         if (timeBorder == MyTimeUtils.TimeBorders.START) {
             invokeTimePickerDialog(
-                lessonCreateViewModel.timeStartMinutes.value?.div(60) ?: 0,
-                lessonCreateViewModel.timeStartMinutes.value?.rem(60) ?: 0,
+                lessonCreateViewModel.timeStartMinutes.value?.div(minutesInHour)
+                    ?: defaultTimeInMinutes,
+                lessonCreateViewModel.timeStartMinutes.value?.rem(minutesInHour)
+                    ?: defaultTimeInMinutes,
                 timeBorder
             )
         } else {
             invokeTimePickerDialog(
-                lessonCreateViewModel.timeEndMinutes.value?.div(60) ?: 0,
-                lessonCreateViewModel.timeEndMinutes.value?.rem(60) ?: 0,
+                lessonCreateViewModel.timeEndMinutes.value?.div(minutesInHour)
+                    ?: defaultTimeInMinutes,
+                lessonCreateViewModel.timeEndMinutes.value?.rem(minutesInHour)
+                    ?: defaultTimeInMinutes,
                 timeBorder
             )
         }
     }
 
     private fun invokeTimePickerDialog(
-        oursOnStart: Int,
+        hoursOnStart: Int,
         minOnStart: Int,
         timeBorder: MyTimeUtils.TimeBorders
     ) {
@@ -92,7 +99,7 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
             binding.lessonCreateViewModel?.onDoneTimePickerSetTime(ours, min, timeBorder)
         }
 
-        TimePickerDialog(requireContext(), listener, oursOnStart, minOnStart, true).show()
+        TimePickerDialog(requireContext(), listener, hoursOnStart, minOnStart, true).show()
     }
 
     override fun showPopupMessage(message: Int) {

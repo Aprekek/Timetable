@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/lesson_create_description_action_back"
-                    android:onClick="@{()->lessonCreateViewModel.onTopBackButtonClick()}"
+                    android:onClick="@{()->lessonCreateViewModel.onBackButtonClick()}"
                     android:src="@drawable/ic_baseline_arrow_back_24" />
 
                 <TextView
