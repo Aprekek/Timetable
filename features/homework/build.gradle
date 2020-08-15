@@ -5,6 +5,7 @@ import ru.fevgenson.timetable.Plugins
 apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 apply plugin: Plugins.KOTLIN_EXTENSIONS
+apply plugin: Plugins.KOTLIN_KAPT
 
 android {
     compileSdkVersion ru.fevgenson.timetable.Settings.COMPILE_SDK_VERSION
@@ -45,6 +46,9 @@ dependencies {
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT
     implementation Dependencies.Koin.KOIN_SCOPE
+
+    implementation Dependencies.Dagger2.DAGGER2
+    kapt Dependencies.Dagger2.DAGGER2_COMPILER
 
     implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX

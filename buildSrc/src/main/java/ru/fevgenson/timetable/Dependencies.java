@@ -34,11 +34,18 @@ public class Dependencies {
         public static final String NAVIGATION = "2.3.0";
 
         public static final String DATABINDING = "3.1.4";
+
+        public static final String DAGGER2 = "2.28.3";
     }
 
     public static class GOOGLE {
         public static final String GOOGLE_SERVICES = "com.google.gms:google-services:" + Versions.GOOGLE;
         public static final String FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics:" + Versions.FIREBASE;
+    }
+
+    public static class Dagger2 {
+        public static final String DAGGER2_COMPILER = "com.google.dagger:dagger-compiler:" + Versions.DAGGER2;
+        public static final String DAGGER2 = "com.google.dagger:dagger:" + Versions.DAGGER2;
     }
 
     public static class Kotlin {
