@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="global_host" type="id" />
+
+    <item name="navigation_from_main_to_lesson_create" type="id" />
+</resources>

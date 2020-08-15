@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.qualifier.named
-import ru.fevgenson.libraries.navigation.di.NavigationDIConstants
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
@@ -105,7 +102,7 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
     override fun navigateToCreate() {
         Navigation.findNavController(
             requireActivity(),
-            get(named(NavigationDIConstants.GLOBAL_HOST))
-        ).navigate(get<Int>(named(NavigationDIConstants.MAIN_TO_LESSON_CREATE)))
+            R.id.global_host
+        ).navigate(R.id.navigation_from_main_to_lesson_create)
     }
 }
