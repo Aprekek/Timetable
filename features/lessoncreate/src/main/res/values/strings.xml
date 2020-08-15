@@ -3,6 +3,7 @@
     <string name="lesson_create_button_next">Далее</string>
     <string name="lesson_create_button_done">Готово</string>
     <string name="lesson_create_button_cancel">Отмена</string>
+    <string name="lesson_create_button_confirm">Подтвердить</string>
 
     <string name="lesson_create_hint_subject">Предмет</string>
 
@@ -58,4 +59,5 @@
 
     <string name="lesson_create_edit_text_error_message">"Поле обязательно к заполнению"</string>
     <string name="lesson_create_fields_filling_request">"Пожалуйста, заполните пустые поля для этой страницы"</string>
+    <string name="lesson_create_clear_message">Поля страницы очищены</string>
 </resources>

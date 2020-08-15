@@ -4,12 +4,13 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class NoticeDialogFragment : DialogFragment() {
     interface NoticeDialogListener {
-        fun onDialogPositiveClick(dialog: DialogFragment, action: Int)
+        fun onDialogPositiveClick(action: Int)
     }
 
     private lateinit var listener: NoticeDialogListener
@@ -22,8 +23,8 @@ class NoticeDialogFragment : DialogFragment() {
     fun initialize(
         _title: String,
         _description: String,
-        _cancelButtonText: String = "Отмена",
-        _confirmButtonText: String = "Подтвердить",
+        _cancelButtonText: String = "",
+        _confirmButtonText: String = "",
         _action: Int
     ) {
         title = _title
@@ -38,7 +39,10 @@ class NoticeDialogFragment : DialogFragment() {
         try {
             listener = targetFragment as NoticeDialogListener
         } catch (e: ClassCastException) {
-            throw ClassCastException("$context + must implements NoticeDialogListener")
+            Log.d(
+                "NoticeDialogFragment",
+                "$targetFragment + must implements NoticeDialogListener"
+            )
         }
     }
 
@@ -53,13 +57,10 @@ class NoticeDialogFragment : DialogFragment() {
             action = savedInstanceState.getInt("action")
         }
 
-        builder.setTitle(title).setMessage(description).setPositiveButton(confirmButtonText)
-        { _: DialogInterface, _: Int ->
-            listener.onDialogPositiveClick(
-                this,
-                action ?: throw NullPointerException("\"action\" must be not null")
-            )
-        }.setNegativeButton(cancelButtonText) { _: DialogInterface, _: Int -> }
+        builder.setTitle(title).setMessage(description)
+            .setPositiveButton(confirmButtonText) { _: DialogInterface, _: Int ->
+                action?.let { listener.onDialogPositiveClick(it) }
+            }.setNegativeButton(cancelButtonText) { _: DialogInterface, _: Int -> }
 
         return builder.create()
     }

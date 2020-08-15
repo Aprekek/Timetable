@@ -6,31 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
 import ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils
-import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
+
 
 class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
     NoticeDialogFragment.NoticeDialogListener {
 
     private lateinit var binding: FragmentLessonCreateBinding
-    private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
-        parametersOf(
-            ResourceProvider(requireContext())
-        )
-    }
+    private val lessonCreateViewModel: LessonCreateViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,26 +95,28 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
         TimePickerDialog(requireContext(), listener, oursOnStart, minOnStart, true).show()
     }
 
-    override fun onValidationFailed() {
-        Snackbar.make(
-            binding.root,
-            R.string.lesson_create_fields_filling_request,
-            Snackbar.LENGTH_LONG
-        ).show()
+    override fun showPopupMessage(message: Int) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
     override fun navigateToTimetable() {
         findNavController().popBackStack()
     }
 
-    override fun showDialog(title: String, description: String, action: Int) {
+    override fun showDialog(title: Int, description: Int, action: Int) {
         val dialog = NoticeDialogFragment()
-        dialog.initialize(title, description, _action = action)
+        dialog.initialize(
+            getString(title),
+            getString(description),
+            getString(R.string.lesson_create_button_cancel),
+            getString(R.string.lesson_create_button_confirm),
+            action
+        )
         dialog.setTargetFragment(this, 0)
         dialog.show(parentFragmentManager, "notification")
     }
 
-    override fun onDialogPositiveClick(dialog: DialogFragment, action: Int) {
+    override fun onDialogPositiveClick(action: Int) {
         if (action == LessonCreateViewModel.ACTION_CANCEL)
             lessonCreateViewModel.onCancel()
         else

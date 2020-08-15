@@ -27,8 +27,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/lesson_create_hint_subject"
                 android:padding="20dp"
-                app:errorMessage="@{@string/lesson_create_edit_text_error_message}"
-                app:requestError="@={lessonCreateViewModel.requestError}">
+                app:errorMessage="@{lessonCreateViewModel.subjectError}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/subject_edit_text"

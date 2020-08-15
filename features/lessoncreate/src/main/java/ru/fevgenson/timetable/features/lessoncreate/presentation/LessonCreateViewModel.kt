@@ -1,6 +1,5 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -9,16 +8,15 @@ import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.libraries.core.presentation.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.presentation.utils.timeutils.MyTimeUtils
-import ru.fevgenson.timetable.libraries.core.providers.ResourceProvider
 
-class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : ViewModel() {
+class LessonCreateViewModel : ViewModel() {
 
     interface EventListener {
         fun navigateToTimetable()
         fun closeKeyboard()
         fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders)
-        fun onValidationFailed()
-        fun showDialog(title: String, description: String, action: Int)
+        fun showPopupMessage(message: Int)
+        fun showDialog(title: Int, description: Int, action: Int)
     }
 
     companion object {
@@ -28,22 +26,25 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
 
         const val PAGES_COUNT = 3
 
-        const val LESSON_LENGTH_MIN = 95
-        const val MINUTES_IN_DAY = 1440
+        private const val LESSON_LENGTH_MIN = 95
+        private const val MINUTES_IN_DAY = 1440
 
-        const val ACTION_DONE = 0
+        private const val ACTION_DONE = 0
         const val ACTION_CANCEL = 1
+
+        private const val TIME_NOT_SET_STRING = "-- : --"
     }
 
-    var requestError = MutableLiveData<Boolean>(false)
-
-    val subject = MutableLiveData<String>("")
-    val housing = MutableLiveData<String>("")
-    val classroom = MutableLiveData<String>("")
-    val type = MutableLiveData<String>("")
-    val teachersName = MutableLiveData<String>("")
-    val email = MutableLiveData<String>("")
-    val phone = MutableLiveData<String>("")
+    val subject = MutableLiveData<String>()
+    val subjectError: LiveData<Int?> = Transformations.map(subject) {
+        if (it.isNullOrEmpty()) R.string.lesson_create_edit_text_error_message else null
+    }
+    val housing = MutableLiveData<String>()
+    val classroom = MutableLiveData<String>()
+    val type = MutableLiveData<String>()
+    val teachersName = MutableLiveData<String>()
+    val email = MutableLiveData<String>()
+    val phone = MutableLiveData<String>()
 
     val timeStartMinutes = MutableLiveData<Int?>(null)
     val timeEndMinutes = MutableLiveData<Int?>(null)
@@ -77,11 +78,11 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     val currentPage: LiveData<Int>
         get() = _currentPage
 
-    val toolbarTitle: LiveData<String> = Transformations.map(currentPage) { page ->
-        return@map when (page) {
-            MAIN_PAGE -> resourceProvider.getStringById(R.string.lesson_create_title_main_info)
-            LOCATION_AND_TYPE_PAGE -> resourceProvider.getStringById(R.string.lesson_create_title_location_and_type)
-            TEACHER_PAGE -> resourceProvider.getStringById(R.string.lesson_create_title_teacher)
+    val toolbarTitle: LiveData<Int> = Transformations.map(currentPage) { page ->
+        when (page) {
+            MAIN_PAGE -> R.string.lesson_create_title_main_info
+            LOCATION_AND_TYPE_PAGE -> R.string.lesson_create_title_location_and_type
+            TEACHER_PAGE -> R.string.lesson_create_title_teacher
             else -> throw IllegalStateException("Page $page not found")
         }
     }
@@ -128,19 +129,41 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
         return if (time != null) {
             MyTimeUtils.convertTimeInMinutesToString(time)
         } else {
-            resourceProvider.getStringById(R.string.lesson_create_button_time_not_set)
+            TIME_NOT_SET_STRING
         }
     }
 
     fun onClearItemClick() {
-        Log.d("LessonCreateViewModel", "Button was clicked")
+        when (_currentPage.value) {
+            MAIN_PAGE -> {
+                subject.value = null
+                timeStartMinutes.value = null
+                timeEndMinutes.value = null
+                firstWeekChips.value = List(DateUtils.WEEK_DAYS) { false }
+                secondWeekChips.value = List(DateUtils.WEEK_DAYS) { false }
+            }
+            LOCATION_AND_TYPE_PAGE -> {
+                housing.value = null
+                classroom.value = null
+                type.value = null
+            }
+            TEACHER_PAGE -> {
+                teachersName.value = null
+                email.value = null
+                phone.value = null
+            }
+        }
+
+        eventsDispatcher.dispatchEvent {
+            showPopupMessage(R.string.lesson_create_clear_message)
+        }
     }
 
     fun onCancelButtonClick() {
         eventsDispatcher.dispatchEvent {
             showDialog(
-                resourceProvider.getStringById(R.string.lesson_create_cancel_dialog_title),
-                resourceProvider.getStringById(R.string.lesson_create_cancel_dialog_description),
+                R.string.lesson_create_cancel_dialog_title,
+                R.string.lesson_create_cancel_dialog_description,
                 ACTION_CANCEL
             )
         }
@@ -151,19 +174,22 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     }
 
     fun onDoneButtonClick() {
-        requestError.value = !validation()
-
-        if (requestError.value == false)
+        if (isDataValid())
             eventsDispatcher.dispatchEvent {
                 showDialog(
-                    resourceProvider.getStringById(R.string.lesson_create_done_dialog_title),
-                    resourceProvider.getStringById(R.string.lesson_create_done_dialog_description),
+                    R.string.lesson_create_done_dialog_title,
+                    R.string.lesson_create_done_dialog_description,
                     ACTION_DONE
                 )
             }
         else {
+            subject.value = subject.value
             _currentPage.value = MAIN_PAGE
-            eventsDispatcher.dispatchEvent { onValidationFailed() }
+            eventsDispatcher.dispatchEvent {
+                showPopupMessage(
+                    R.string.lesson_create_fields_filling_request
+                )
+            }
         }
     }
 
@@ -171,22 +197,7 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
         eventsDispatcher.dispatchEvent { navigateToTimetable() }
     }
 
-    private fun validation(): Boolean {
-        val timeNotSet = resourceProvider.getStringById(R.string.lesson_create_button_time_not_set)
-
-        if (subject.value?.isEmpty() == true ||
-            timeStartString.value?.equals(timeNotSet) == true ||
-            timeEndString.value?.equals(timeNotSet) == true
-        ) {
-            return false
-        }
-        firstWeekChips.value?.forEach {
-            if (it) return true
-        }
-        secondWeekChips.value?.forEach {
-            if (it) return true
-        }
-
-        return false
-    }
+    private fun isDataValid() = subjectError.value == null &&
+            timeStartMinutes.value != null &&
+            (firstWeekChips.value?.find { it } != null || secondWeekChips.value?.find { it } != null)
 }
