@@ -44,9 +44,6 @@ dependencies {
     implementation Dependencies.Koin.KOIN_EXT
     implementation Dependencies.Koin.KOIN_SCOPE
 
-    implementation Dependencies.Dagger2.DAGGER2
-    kapt Dependencies.Dagger2.DAGGER2_COMPILER
-
     implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
 }
