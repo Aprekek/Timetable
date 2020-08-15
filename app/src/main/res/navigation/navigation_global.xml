@@ -9,7 +9,7 @@
         android:name="ru.fevgenson.timetable.features.main.presentation.MainFragment"
         android:label="MainFragment">
         <action
-            android:id="@+id/action_mainFragment_to_lessonCreateFragment"
+            android:id="@id/navigation_from_main_to_lesson_create"
             app:destination="@id/lessonCreateFragment" />
     </fragment>
     <fragment
