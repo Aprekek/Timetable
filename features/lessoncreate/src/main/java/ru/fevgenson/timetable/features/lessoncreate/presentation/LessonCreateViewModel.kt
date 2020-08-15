@@ -35,6 +35,8 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
         const val ACTION_CANCEL = 1
     }
 
+    var requestError = MutableLiveData<Boolean>(false)
+
     val subject = MutableLiveData<String>("")
     val housing = MutableLiveData<String>("")
     val classroom = MutableLiveData<String>("")
@@ -149,7 +151,9 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
     }
 
     fun onDoneButtonClick() {
-        if (validation())
+        requestError.value = !validation()
+
+        if (requestError.value == false)
             eventsDispatcher.dispatchEvent {
                 showDialog(
                     resourceProvider.getStringById(R.string.lesson_create_done_dialog_title),
@@ -167,17 +171,22 @@ class LessonCreateViewModel(private val resourceProvider: ResourceProvider) : Vi
         eventsDispatcher.dispatchEvent { navigateToTimetable() }
     }
 
-    //Написать проверку для chips
     private fun validation(): Boolean {
-        if (subject.value?.isEmpty() == true)
-            return false
-
         val timeNotSet = resourceProvider.getStringById(R.string.lesson_create_button_time_not_set)
-        if (timeStartString.value?.equals(timeNotSet) == true)
-            return false
-        if (timeEndString.value?.equals(timeNotSet) == true)
-            return false
 
-        return true
+        if (subject.value?.isEmpty() == true ||
+            timeStartString.value?.equals(timeNotSet) == true ||
+            timeEndString.value?.equals(timeNotSet) == true
+        ) {
+            return false
+        }
+        firstWeekChips.value?.forEach {
+            if (it) return true
+        }
+        secondWeekChips.value?.forEach {
+            if (it) return true
+        }
+
+        return false
     }
 }

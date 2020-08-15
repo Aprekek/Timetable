@@ -30,7 +30,6 @@
         <item>@string/lesson_create_chip_sunday_short</item>
     </string-array>
 
-
     <string name="lesson_create_title_first_week">ПЕРВАЯ</string>
     <string name="lesson_create_title_second_week">ВТОРАЯ</string>
 
@@ -56,4 +55,7 @@
     <string name="lesson_create_cancel_dialog_description">Введенные данные не сохранятся!</string>
     <string name="lesson_create_done_dialog_title">Закончить?</string>
     <string name="lesson_create_done_dialog_description">"Пара будет добавлена к расписанию"</string>
+
+    <string name="lesson_create_edit_text_error_message">"Поле обязательно к заполнению"</string>
+    <string name="lesson_create_fields_filling_request">"Пожалуйста, заполните пустые поля для этой страницы"</string>
 </resources>

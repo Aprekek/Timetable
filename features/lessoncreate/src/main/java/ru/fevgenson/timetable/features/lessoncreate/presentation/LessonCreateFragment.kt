@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.fevgenson.timetable.features.lessoncreate.R
@@ -101,7 +102,11 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
     }
 
     override fun onValidationFailed() {
-
+        Snackbar.make(
+            binding.root,
+            R.string.lesson_create_fields_filling_request,
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     override fun navigateToTimetable() {
