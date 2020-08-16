@@ -8,7 +8,7 @@ class DayViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = DateUtils.WEEK_DAYS
 
-    override fun createFragment(position: Int): Fragment = PageDayFragment()
+    override fun createFragment(position: Int): Fragment = PageDayFragment.newInstance(position)
 
     override fun getItemId(position: Int): Long = position.toLong()
 }
