@@ -59,6 +59,8 @@ dependencies {
     implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
 
+    implementation Dependencies.Lifecycle.LIFECYCLE_LIVEDATA
+
     implementation project(Modules.NAVIGATION)
     implementation project(Modules.THEMES)
     implementation project(Modules.CORE)

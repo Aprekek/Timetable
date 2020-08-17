@@ -54,20 +54,33 @@ class PageDayFragment : Fragment() {
             container,
             false
         )
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun initRecyclerView() {
-        val adapter = LessonListAdapter()
         val dp20 = resources.getDimensionPixelSize(R.dimen.space_20)
-        binding.lessonsRecyclerView.addItemDecoration(
+        binding.firstWeekRecyclerView.addItemDecoration(
             LessonRecyclerViewItemDecoration(
                 verticalSpacePx = dp20,
                 horizontalSpacePx = dp20
             )
         )
-        binding.lessonsRecyclerView.adapter = adapter
-        viewModel.lessonsLiveData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        binding.secondWeekRecyclerView.addItemDecoration(
+            LessonRecyclerViewItemDecoration(
+                verticalSpacePx = dp20,
+                horizontalSpacePx = dp20
+            )
+        )
+        val firstWeekAdapter = LessonListAdapter()
+        val secondWeekAdapter = LessonListAdapter()
+        binding.firstWeekRecyclerView.adapter = firstWeekAdapter
+        binding.secondWeekRecyclerView.adapter = secondWeekAdapter
+        viewModel.firstWeekLessons.observe(viewLifecycleOwner) {
+            firstWeekAdapter.submitList(it)
+        }
+        viewModel.secondWeekLessons.observe(viewLifecycleOwner) {
+            secondWeekAdapter.submitList(it)
         }
     }
 }

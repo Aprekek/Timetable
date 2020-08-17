@@ -14,6 +14,7 @@ import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.DayViewPagerAdapter
+import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayTransformer
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
@@ -44,6 +45,7 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
         val adapter = DayViewPagerAdapter(this)
         binding.dayViewPager.adapter = adapter
         binding.dayViewPager.offscreenPageLimit = adapter.itemCount
+        binding.dayViewPager.setPageTransformer(PageDayTransformer())
     }
 
     private fun initWeekTabs() {

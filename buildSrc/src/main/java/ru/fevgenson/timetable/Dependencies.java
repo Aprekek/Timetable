@@ -54,6 +54,7 @@ public class Dependencies {
     public static class Lifecycle {
         public static final String LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:" + Versions.LIFECYCLE;
         public static final String LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:" + Versions.LIFECYCLE;
+        public static final String LIFECYCLE_LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:" + Versions.LIFECYCLE;
         public static final String LIFECYCLE_COMMON_JAVA8 = "androidx.lifecycle:lifecycle-common-java8:" + Versions.LIFECYCLE;
         public static final String LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:" + Versions.LIFECYCLE;
     }
