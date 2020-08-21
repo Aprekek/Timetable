@@ -49,10 +49,10 @@ class PageDayViewModel(
         )
     }
 
-    val firstWeekUIState = MediatorLiveData<PageDayUIState>().apply {
+    val firstWeekUIState: LiveData<PageDayUIState> = MediatorLiveData<PageDayUIState>().apply {
         initUIStateLiveData(firstWeekLessons, DateUtils.FIRST_WEEK)
     }
-    val secondWeekUIState = MediatorLiveData<PageDayUIState>().apply {
+    val secondWeekUIState: LiveData<PageDayUIState> = MediatorLiveData<PageDayUIState>().apply {
         initUIStateLiveData(secondWeekLessons, DateUtils.SECOND_WEEK)
     }
 
