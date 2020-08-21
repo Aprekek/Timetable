@@ -18,8 +18,6 @@ class PageDayViewHolder(
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var recyclerViewWasInit = false
-
     companion object {
 
         fun from(
@@ -36,11 +34,11 @@ class PageDayViewHolder(
     }
 
     init {
+        viewModel.bind()
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
-        recyclerViewWasInit = true
         initSingleRecyclerView(
             recyclerView = binding.firstWeekRecyclerView,
             adapter = LessonListAdapter(),

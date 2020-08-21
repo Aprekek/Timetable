@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
-class DayViewPagerAdapter(
+class PageDayViewPagerAdapter(
     private val viewModels: List<PageDayViewModel>,
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<PageDayViewHolder>() {

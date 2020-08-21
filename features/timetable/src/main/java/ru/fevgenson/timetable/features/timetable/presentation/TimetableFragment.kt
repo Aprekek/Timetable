@@ -13,8 +13,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
-import ru.fevgenson.timetable.features.timetable.presentation.viewpager.DayViewPagerAdapter
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayTransformer
+import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewPagerAdapter
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
@@ -42,7 +42,7 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
     }
 
     private fun initViewPagerAdapter() {
-        val adapter = DayViewPagerAdapter(viewModel.dayViewModelsList, viewLifecycleOwner)
+        val adapter = PageDayViewPagerAdapter(viewModel.dayViewModelsList, viewLifecycleOwner)
         binding.dayViewPager.adapter = adapter
         binding.dayViewPager.offscreenPageLimit = adapter.itemCount
         binding.dayViewPager.setPageTransformer(PageDayTransformer())
