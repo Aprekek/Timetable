@@ -39,12 +39,12 @@ class GetLessonsUseCase {
                         Lesson(
                             id = 2,
                             subject = "Физра $weekType $day",
-                            type = "Практика",
+                            type = null,
                             teacher = null,
                             classroom = null,
                             day = 5,
                             time = "16:00-17:30",
-                            housing = "Старый корпус",
+                            housing = null,
                             weekType = 0
                         ),
                         Lesson(

@@ -42,7 +42,7 @@ fun TextView.setHousingAndClassroom(housing: String?, classroom: String?) {
             visibility = View.VISIBLE
         }
         housing != null -> {
-            text = classroom
+            text = housing
             visibility = View.VISIBLE
         }
         classroom != null -> {
