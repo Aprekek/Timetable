@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
@@ -103,10 +105,19 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
         customView = tabBinding.root
     }
 
-    override fun navigateToCreate() {
+    override fun navigateToCreate(
+        weekType: Int,
+        day: Int
+    ) {
         Navigation.findNavController(
             requireActivity(),
             R.id.global_host
-        ).navigate(R.id.navigation_from_main_to_lesson_create)
+        ).navigate(
+            R.id.navigation_from_main_to_lesson_create,
+            bundleOf(
+                Pair(NavigationConstants.WEEK_TYPE, weekType),
+                Pair(NavigationConstants.DAY, day)
+            )
+        )
     }
 }

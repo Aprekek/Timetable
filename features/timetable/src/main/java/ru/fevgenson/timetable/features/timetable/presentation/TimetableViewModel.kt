@@ -11,7 +11,7 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 class TimetableViewModel : ViewModel() {
 
     interface EventListener {
-        fun navigateToCreate()
+        fun navigateToCreate(weekType: Int, day: Int)
     }
 
     val selectedWeekLiveData = MutableLiveData(DateUtils.getCurrentWeek())
@@ -28,6 +28,13 @@ class TimetableViewModel : ViewModel() {
     }
 
     fun onCreateLessonButtonClick() {
-        eventsDispatcher.dispatchEvent { navigateToCreate() }
+        eventsDispatcher.dispatchEvent {
+            navigateToCreate(
+                weekType = selectedWeekLiveData.value
+                    ?: throw IllegalStateException("wrong week constant"),
+                day = selectedDayLiveData.value
+                    ?: throw IllegalStateException("wrong day constant")
+            )
+        }
     }
 }
