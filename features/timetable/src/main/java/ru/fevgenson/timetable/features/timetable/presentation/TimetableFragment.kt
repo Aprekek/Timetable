@@ -42,7 +42,7 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
     }
 
     private fun initViewPagerAdapter() {
-        val adapter = DayViewPagerAdapter(this)
+        val adapter = DayViewPagerAdapter(viewModel.dayViewModelsList, viewLifecycleOwner)
         binding.dayViewPager.adapter = adapter
         binding.dayViewPager.offscreenPageLimit = adapter.itemCount
         binding.dayViewPager.setPageTransformer(PageDayTransformer())

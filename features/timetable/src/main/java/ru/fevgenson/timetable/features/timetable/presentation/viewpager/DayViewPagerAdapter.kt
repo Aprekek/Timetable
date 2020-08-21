@@ -1,14 +1,23 @@
 package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
-class DayViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class DayViewPagerAdapter(
+    private val viewModels: List<PageDayViewModel>,
+    private val lifecycleOwner: LifecycleOwner
+) : RecyclerView.Adapter<PageDayViewHolder>() {
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PageDayViewHolder = PageDayViewHolder.from(parent, lifecycleOwner, viewModels[viewType])
 
     override fun getItemCount(): Int = DateUtils.WEEK_DAYS
 
-    override fun createFragment(position: Int): Fragment = PageDayFragment.newInstance(position)
+    override fun onBindViewHolder(holder: PageDayViewHolder, position: Int) {}
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemViewType(position: Int): Int = position
 }

@@ -8,9 +8,9 @@ import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCas
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class PageDayViewModel(
-    private val currentDay: Int,
     private val currentWeekType: LiveData<Int>,
-    private val getLessonsUseCase: GetLessonsUseCase
+    currentDay: Int,
+    getLessonsUseCase: GetLessonsUseCase
 ) : ViewModel() {
 
     val firstWeekLessons = getLessonsUseCase(
