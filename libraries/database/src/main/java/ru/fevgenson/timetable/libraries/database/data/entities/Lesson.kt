@@ -1,9 +1,6 @@
 package ru.fevgenson.timetable.libraries.database.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = "lesson_table",
@@ -82,75 +79,81 @@ import androidx.room.PrimaryKey
     ]
 )
 data class LessonEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(index = true) val subject: Long = 0,
-    @ColumnInfo(index = true) val housing: Long = 0,
-    @ColumnInfo(index = true) val classroom: Long = 0,
-    @ColumnInfo(index = true) val type: Long = 0,
-    @ColumnInfo(index = true) val teachersName: Long = 0,
-    @ColumnInfo(index = true) val email: Long = 0,
-    @ColumnInfo(index = true) val phone: Long = 0,
     @ColumnInfo(index = true) val time: Long = 0,
     @ColumnInfo(index = true) val day: Long = 0,
-    @ColumnInfo(index = true) val weekType: Long = 0
+    @ColumnInfo(index = true) val weekType: Long = 0,
+    @ColumnInfo(index = true) val housing: Long? = null,
+    @ColumnInfo(index = true) val classroom: Long? = null,
+    @ColumnInfo(index = true) val type: Long? = null,
+    @ColumnInfo(index = true) val teachersName: Long? = null,
+    @ColumnInfo(index = true) val email: Long? = null,
+    @ColumnInfo(index = true) val phone: Long? = null
 )
 
-@Entity(tableName = "subject_table")
+@Entity(tableName = "subject_table", indices = [Index(value = ["subject"], unique = true)])
 data class SubjectEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val subject: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val subject: String
 )
 
-@Entity(tableName = "housing_table")
+@Entity(tableName = "housing_table", indices = [Index(value = ["housing"], unique = true)])
 data class HousingEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val housing: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val housing: String
 )
 
-@Entity(tableName = "classroom_table")
+@Entity(tableName = "classroom_table", indices = [Index(value = ["classroom"], unique = true)])
 data class ClassroomEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val classroom: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val classroom: String
 )
 
-@Entity(tableName = "type_table")
+@Entity(tableName = "type_table", indices = [Index(value = ["type"], unique = true)])
 data class TypeEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val type: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val type: String
 )
 
-@Entity(tableName = "teachers_name_table")
+@Entity(
+    tableName = "teachers_name_table",
+    indices = [Index(value = ["teachersName"], unique = true)]
+)
 data class TeachersNameEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val teachersName: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val teachersName: String
 )
 
-@Entity(tableName = "email_table")
+@Entity(
+    tableName = "email_table",
+    indices = [androidx.room.Index(value = ["email"], unique = true)]
+)
 data class EmailEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val email: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val email: String
 )
 
-@Entity(tableName = "phone_table")
+@Entity(tableName = "phone_table", indices = [Index(value = ["phone"], unique = true)])
 data class PhoneEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val phone: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val phone: String
 )
 
-@Entity(tableName = "time_table")
+@Entity(tableName = "time_table", indices = [Index(value = ["time"], unique = true)])
 data class TimeEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val time: String
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val time: String
 )
 
-@Entity(tableName = "day_table")
+@Entity(tableName = "day_table", indices = [Index(value = ["day"], unique = true)])
 data class DayEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val day: Int
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val day: Int
 )
 
-@Entity(tableName = "week_type_table")
+@Entity(tableName = "week_type_table", indices = [Index(value = ["weekType"], unique = true)])
 data class WeekTypeEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(index = true) val weekType: Int
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val weekType: Int
 )

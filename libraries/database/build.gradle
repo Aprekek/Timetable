@@ -14,6 +14,8 @@ android {
         minSdkVersion ru.fevgenson.timetable.Settings.MIN_SDK_VERSION
         targetSdkVersion ru.fevgenson.timetable.Settings.TARGET_SDK_VERSION
         multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -45,7 +47,13 @@ dependencies {
     implementation Dependencies.Coroutine.COROUTINE_CORE
     implementation Dependencies.Coroutine.COROUTINE_ANDROID
 
-    implementation Dependencies.Room.ROOM_RUNTIME
+    kapt Dependencies.Room.ROOM_RUNTIME
     implementation Dependencies.Room.ROOM_COMPILER
     implementation Dependencies.Room.ROOM_KTX
+
+    testImplementation Dependencies.Test.JUNIT
+    androidTestImplementation Dependencies.Test.ANDROIDX_TEST_EXT
+    androidTestImplementation Dependencies.Test.ANDROIDX_CORE
+    androidTestImplementation Dependencies.Test.ANDROIDX_RUNNER
+    androidTestImplementation Dependencies.Test.ANDROIDX_RULES
 }
