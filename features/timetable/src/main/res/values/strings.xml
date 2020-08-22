@@ -22,4 +22,8 @@
         <item>Первая</item>
         <item>Вторая</item>
     </string-array>
+
+    <string name="timetable_menu_copy">Копировать</string>
+    <string name="timetable_menu_edit">Редактировать</string>
+    <string name="timetable_menu_delete">Удалить</string>
 </resources>

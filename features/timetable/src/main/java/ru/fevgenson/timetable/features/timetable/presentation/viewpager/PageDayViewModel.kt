@@ -2,6 +2,7 @@ package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -54,6 +55,18 @@ class PageDayViewModel(
     }
     val secondWeekUIState: LiveData<PageDayUIState> = MediatorLiveData<PageDayUIState>().apply {
         initUIStateLiveData(secondWeekLessons, DateUtils.SECOND_WEEK)
+    }
+
+    fun copyLesson(id: Long) {
+        Log.d("menu", "copy $id")
+    }
+
+    fun deleteLesson(id: Long) {
+        Log.d("menu", "delete $id")
+    }
+
+    fun editLesson(id: Long) {
+        Log.d("menu", "edit $id")
     }
 
     private fun MediatorLiveData<PageDayUIState>.initUIStateLiveData(

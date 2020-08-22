@@ -41,12 +41,12 @@ class PageDayViewHolder(
     private fun initRecyclerView() {
         initSingleRecyclerView(
             recyclerView = binding.firstWeekRecyclerView,
-            adapter = LessonListAdapter(),
+            adapter = LessonListAdapter(viewModel),
             liveData = viewModel.firstWeekLessons
         )
         initSingleRecyclerView(
             recyclerView = binding.secondWeekRecyclerView,
-            adapter = LessonListAdapter(),
+            adapter = LessonListAdapter(viewModel),
             liveData = viewModel.secondWeekLessons
         )
     }

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.timetable.databinding.ItemLessonBinding
 import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
+import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 
 class LessonViewHolder private constructor(
     private val binding: ItemLessonBinding
@@ -12,9 +13,13 @@ class LessonViewHolder private constructor(
 
     companion object {
 
-        fun from(parent: ViewGroup): LessonViewHolder {
+        fun from(
+            parent: ViewGroup,
+            viewModel: PageDayViewModel
+        ): LessonViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemLessonBinding.inflate(inflater, parent, false)
+            binding.viewModel = viewModel
             return LessonViewHolder(binding)
         }
     }

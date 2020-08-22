@@ -4,13 +4,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
+import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 
-class LessonListAdapter : ListAdapter<Lesson, LessonViewHolder>(LessonDiffUtils()) {
+class LessonListAdapter(
+    private val viewModel: PageDayViewModel
+) : ListAdapter<Lesson, LessonViewHolder>(LessonDiffUtils()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): LessonViewHolder = LessonViewHolder.from(parent)
+    ): LessonViewHolder = LessonViewHolder.from(parent, viewModel)
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         holder.bind(getItem(position))
