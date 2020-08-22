@@ -48,23 +48,40 @@ abstract class DaoImplementations :
     open suspend fun updateLesson(lesson: Lesson) {
         val ids = getIds(lesson)
 
-        ids.lessonId?.let { lessonId ->
-            updateLesson(
-                LessonEntity(
-                    id = lessonId,
-                    subject = ids.subjectId,
-                    time = ids.timeId,
-                    day = ids.dayId,
-                    weekType = ids.weekTypeId,
-                    housing = ids.housingId,
-                    classroom = ids.classroomId,
-                    type = ids.typeId,
-                    teachersName = ids.teachersNameId,
-                    email = ids.emailId,
-                    phone = ids.phoneId
-                )
+        updateLesson(
+            LessonEntity(
+                id = lesson.id,
+                subject = ids.subjectId,
+                time = ids.timeId,
+                day = ids.dayId,
+                weekType = ids.weekTypeId,
+                housing = ids.housingId,
+                classroom = ids.classroomId,
+                type = ids.typeId,
+                teachersName = ids.teachersNameId,
+                email = ids.emailId,
+                phone = ids.phoneId
             )
-        }
+        )
+    }
+
+    @Transaction
+    open suspend fun getLessonForEdit(lessonId: Long): Lesson {
+        val lessonEntity = getLesson(lessonId)
+
+        return Lesson(
+            id = lessonEntity.id,
+            subject = getSubject(lessonEntity.subject).subject,
+            time = getTime(lessonEntity.time).time,
+            day = getDay(lessonEntity.day).day,
+            weekType = getWeekType(lessonEntity.weekType).weekType,
+            housing = lessonEntity.housing?.let { getHousing(it).housing },
+            classroom = lessonEntity.classroom?.let { getClassroom(it).classroom },
+            type = lessonEntity.type?.let { getType(it).type },
+            teachersName = lessonEntity.teachersName?.let { getTeachersName(it).teachersName },
+            email = lessonEntity.email?.let { getEmail(it).email },
+            phone = lessonEntity.phone?.let { getPhone(it).phone }
+        )
     }
 
     private suspend fun getIds(lesson: Lesson) = Ids(
@@ -128,6 +145,9 @@ interface SubjectDao {
     @Query("SELECT * from subject_table WHERE subject = :subject")
     suspend fun getSubject(subject: String): SubjectEntity?
 
+    @Query("SELECT * from subject_table WHERE id = :id")
+    suspend fun getSubject(id: Long): SubjectEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSubject(subject: SubjectEntity): Long
 
@@ -146,6 +166,9 @@ interface TimeDao {
 
     @Query("SELECT * from time_table WHERE time = :time")
     suspend fun getTime(time: String): TimeEntity?
+
+    @Query("SELECT * from time_table WHERE id = :id")
+    suspend fun getTime(id: Long): TimeEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTime(time: TimeEntity): Long
@@ -166,6 +189,9 @@ interface DayDao {
     @Query("SELECT * from day_table WHERE day = :day")
     suspend fun getDay(day: Int): DayEntity?
 
+    @Query("SELECT * from day_table WHERE id = :id")
+    suspend fun getDay(id: Long): DayEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDay(day: DayEntity): Long
 
@@ -184,6 +210,9 @@ interface WeekTypeDao {
 
     @Query("SELECT * from week_type_table WHERE weekType = :weekType")
     suspend fun getWeekType(weekType: Int): WeekTypeEntity?
+
+    @Query("SELECT * from week_type_table WHERE id = :id")
+    suspend fun getWeekType(id: Long): WeekTypeEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeekType(weekType: WeekTypeEntity): Long
@@ -204,6 +233,9 @@ interface HousingDao {
     @Query("SELECT * from housing_table WHERE housing = :housing")
     suspend fun getHousing(housing: String): HousingEntity?
 
+    @Query("SELECT * from housing_table WHERE id = :id")
+    suspend fun getHousing(id: Long): HousingEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHousing(housing: HousingEntity): Long
 
@@ -222,6 +254,9 @@ interface ClassroomDao {
 
     @Query("SELECT * from classroom_table WHERE classroom = :classroom")
     suspend fun getClassroom(classroom: String): ClassroomEntity?
+
+    @Query("SELECT * from classroom_table WHERE id = :id")
+    suspend fun getClassroom(id: Long): ClassroomEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertClassroom(classroom: ClassroomEntity): Long
@@ -242,6 +277,9 @@ interface TypeDao {
     @Query("SELECT * from type_table WHERE type = :type")
     suspend fun getType(type: String): TypeEntity?
 
+    @Query("SELECT * from type_table WHERE id = :id")
+    suspend fun getType(id: Long): TypeEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertType(type: TypeEntity): Long
 
@@ -260,6 +298,9 @@ interface TeachersNameDao {
 
     @Query("SELECT * from teachers_name_table WHERE teachersName = :teachersName")
     suspend fun getTeachersName(teachersName: String): TeachersNameEntity?
+
+    @Query("SELECT * from teachers_name_table WHERE id = :id")
+    suspend fun getTeachersName(id: Long): TeachersNameEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTeachersName(teachersName: TeachersNameEntity): Long
@@ -280,6 +321,9 @@ interface EmailDao {
     @Query("SELECT * from email_table WHERE email = :email")
     suspend fun getEmail(email: String): EmailEntity?
 
+    @Query("SELECT * from email_table WHERE id = :id")
+    suspend fun getEmail(id: Long): EmailEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEmail(email: EmailEntity): Long
 
@@ -298,6 +342,9 @@ interface PhoneDao {
 
     @Query("SELECT * from phone_table WHERE phone = :phone")
     suspend fun getPhone(phone: String): PhoneEntity?
+
+    @Query("SELECT * from phone_table WHERE id = :id")
+    suspend fun getPhone(id: Long): PhoneEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPhone(phone: PhoneEntity): Long

@@ -2,15 +2,15 @@ package ru.fevgenson.timetable.libraries.database.data
 
 data class Lesson(
 
-    val id: Long? = null,
-    val subject: String,
-    val time: String,
-    val day: Int,
-    val weekType: Int,
-    val housing: String? = null,
-    val classroom: String? = null,
-    val type: String? = null,
-    val teachersName: String? = null,
-    val email: String? = null,
-    val phone: String? = null
+    var id: Long = 0,
+    var subject: String,
+    var time: String,
+    var day: Int,
+    var weekType: Int,
+    var housing: String? = null,
+    var classroom: String? = null,
+    var type: String? = null,
+    var teachersName: String? = null,
+    var email: String? = null,
+    var phone: String? = null
 )
