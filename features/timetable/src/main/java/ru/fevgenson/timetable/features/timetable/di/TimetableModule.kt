@@ -13,7 +13,7 @@ private val viewModelModule = module {
     factory { (currentDay: Int, timetableViewModel: TimetableViewModel) ->
         PageDayViewModel(
             currentDay = currentDay,
-            currentWeekType = timetableViewModel.selectedWeekLiveData,
+            parentViewModel = timetableViewModel,
             getLessonsUseCase = get()
         )
     }
