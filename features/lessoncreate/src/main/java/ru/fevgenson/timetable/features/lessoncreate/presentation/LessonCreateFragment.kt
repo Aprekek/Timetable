@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
+import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
@@ -24,7 +26,12 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
     NoticeDialogFragment.NoticeDialogListener {
 
     private lateinit var binding: FragmentLessonCreateBinding
-    private val lessonCreateViewModel: LessonCreateViewModel by viewModel()
+    private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
+        parametersOf(
+            arguments?.getInt(NavigationConstants.WEEK_TYPE),
+            arguments?.getInt(NavigationConstants.DAY)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

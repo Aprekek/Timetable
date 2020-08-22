@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
-import ru.fevgenson.timetable.features.timetable.presentation.viewpager.DayViewPagerAdapter
+import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayTransformer
+import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewPagerAdapter
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
@@ -41,7 +44,10 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
     }
 
     private fun initViewPagerAdapter() {
-        binding.dayViewPager.adapter = DayViewPagerAdapter(this)
+        val adapter = PageDayViewPagerAdapter(viewModel.dayViewModelsList, viewLifecycleOwner)
+        binding.dayViewPager.adapter = adapter
+        binding.dayViewPager.offscreenPageLimit = adapter.itemCount
+        binding.dayViewPager.setPageTransformer(PageDayTransformer())
     }
 
     private fun initWeekTabs() {
@@ -99,10 +105,19 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
         customView = tabBinding.root
     }
 
-    override fun navigateToCreate() {
+    override fun navigateToCreate(
+        weekType: Int,
+        day: Int
+    ) {
         Navigation.findNavController(
             requireActivity(),
             R.id.global_host
-        ).navigate(R.id.navigation_from_main_to_lesson_create)
+        ).navigate(
+            R.id.navigation_from_main_to_lesson_create,
+            bundleOf(
+                Pair(NavigationConstants.WEEK_TYPE, weekType),
+                Pair(NavigationConstants.DAY, day)
+            )
+        )
     }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/first_week_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:uiState="@{viewModel.firstWeekUIState}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/second_week_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:uiState="@{viewModel.secondWeekUIState}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            app:firstWeekUIState="@{viewModel.firstWeekUIState}"
+            app:secondWeekUIState="@{viewModel.secondWeekUIState}" />
+
+        <TextView
+            style="@style/ApplicationTheme.Body1Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:text="@string/timetable_empty"
+            app:firstWeekUIState="@{viewModel.firstWeekUIState}"
+            app:secondWeekUIState="@{viewModel.secondWeekUIState}" />
+    </FrameLayout>
+</layout>

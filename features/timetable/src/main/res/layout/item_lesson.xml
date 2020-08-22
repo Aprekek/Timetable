@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="lesson"
+            type="ru.fevgenson.timetable.features.timetable.domain.entities.Lesson" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:cardCornerRadius="15dp"
+        app:contentPadding="15dp"
+        app:strokeColor="?attr/colorSecondary"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ApplicationTheme.Title1Black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{lesson.subject}"
+                    app:layout_constraintEnd_toStartOf="@id/icons_linear_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Математика" />
+
+                <LinearLayout
+                    android:id="@+id/icons_linear_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/timetable_content_description_home_work"
+                        android:tint="?attr/colorSecondary"
+                        app:srcCompat="@drawable/ic_homework" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/timetable_content_description_now"
+                        app:srcCompat="@drawable/ic_now_24" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/ApplicationTheme.Body1Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:teacher="@{lesson.teacher}"
+                app:type="@{lesson.type}"
+                tools:text="Лекция (Турцев)" />
+
+            <TextView
+                style="@style/ApplicationTheme.Body2Grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:classroom="@{lesson.classroom}"
+                app:housing="@{lesson.housing}"
+                tools:text="Главный корпус, аудитория 22" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="?attr/colorSecondary"
+                app:cardCornerRadius="200dp"
+                app:contentPadding="10dp">
+
+                <TextView
+                    style="@style/ApplicationTheme.Body3White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{lesson.time}"
+                    tools:text="15:40-17:20" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

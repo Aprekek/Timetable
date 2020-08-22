@@ -5,8 +5,8 @@ import org.koin.dsl.module
 import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel
 
 private val viewModelModule = module {
-    viewModel {
-        LessonCreateViewModel()
+    viewModel { (weekType: Int, day: Int) ->
+        LessonCreateViewModel(weekType, day)
     }
 }
 

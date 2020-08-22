@@ -9,7 +9,10 @@ import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.Event
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 
-class LessonCreateViewModel : ViewModel() {
+class LessonCreateViewModel(
+    weekType: Int,
+    day: Int
+) : ViewModel() {
 
     interface EventListener {
         fun navigateToTimetable()
@@ -87,12 +90,20 @@ class LessonCreateViewModel : ViewModel() {
         }
     }
 
-    val firstWeekChips = MutableLiveData(
-        List(DateUtils.WEEK_DAYS) { false }
+    val firstWeekChips = MutableLiveData<List<Boolean>>(
+        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
+            if (weekType == DateUtils.FIRST_WEEK) {
+                set(day, true)
+            }
+        }
     )
 
-    val secondWeekChips = MutableLiveData(
-        List(DateUtils.WEEK_DAYS) { false }
+    val secondWeekChips = MutableLiveData<List<Boolean>>(
+        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
+            if (weekType == DateUtils.SECOND_WEEK) {
+                set(day, true)
+            }
+        }
     )
 
     fun onBackButtonClick() {
