@@ -27,10 +27,16 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
 
     private lateinit var binding: FragmentLessonCreateBinding
     private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
-        parametersOf(
-            arguments?.getInt(NavigationConstants.LessonCreate.WEEK_TYPE),
-            arguments?.getInt(NavigationConstants.LessonCreate.DAY)
-        )
+        with(requireArguments()) {
+            with(NavigationConstants.LessonCreate) {
+                parametersOf(
+                    getInt(WEEK_TYPE, NOT_INIT),
+                    getInt(DAY, NOT_INIT),
+                    getLong(LESSON_ID, NOT_INIT.toLong()),
+                    getInt(OPEN_TYPE)
+                )
+            }
+        }
     }
 
     override fun onCreateView(

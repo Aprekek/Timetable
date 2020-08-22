@@ -10,5 +10,6 @@ object NavigationConstants {
         const val CREATE = 0
         const val EDIT = 1
         const val COPY = 2
+        const val NOT_INIT = -1
     }
 }
