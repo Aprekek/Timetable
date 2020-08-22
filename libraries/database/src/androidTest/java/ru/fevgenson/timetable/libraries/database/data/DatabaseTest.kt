@@ -5,7 +5,8 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -63,21 +64,47 @@ class DatabaseTest {
 
     @Test
     fun insertLesson() {
-        val subject = "Rus"
-        val time = "11:40-13:15"
-        val day = 1
-        val week = 2
-
-        dao.insertLesson(
-            Lesson(
-                subject,
-                time,
-                day,
-                week
+        runBlocking {
+            val subject = "Rus"
+            val time = "11:40-13:15"
+            val day = 1
+            val week = 2
+            val lesson = Lesson(
+                subject = subject,
+                time = time,
+                day = day,
+                weekType = week
             )
-        )
 
-        val dayEntity = dao.getDay(day)
-        assertNotNull(dayEntity)
+            val id = dao.insertLesson(lesson)
+            val returnedLessonId = dao.getLesson(id).id
+
+            assertEquals(id, returnedLessonId)
+        }
+    }
+
+    @Test
+    fun updateLesson() {
+        runBlocking {
+            val subject = "Rus"
+            val time = "11:40-13:15"
+            val day = 1
+            val week = 2
+            var lesson = Lesson(
+                subject = subject,
+                time = time,
+                day = day,
+                weekType = week
+            )
+
+            val id = dao.insertLesson(lesson)
+
+            lesson = lesson.copy(subject = "PE")
+            dao.updateLesson(lesson)
+
+            val updatedLessonId = dao.getLesson(id).id
+
+            assertEquals(id, updatedLessonId)
+        }
     }
 }

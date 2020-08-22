@@ -2,6 +2,7 @@ package ru.fevgenson.timetable.libraries.database.data
 
 data class Lesson(
 
+    val id: Long? = null,
     val subject: String,
     val time: String,
     val day: Int,
