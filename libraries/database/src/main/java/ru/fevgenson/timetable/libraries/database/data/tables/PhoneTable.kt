@@ -28,4 +28,7 @@ interface PhoneDao {
 
     @Delete
     suspend fun deletePhone(phone: PhoneEntity)
+
+    @Query("DELETE from phone_table")
+    suspend fun deleteAllPhones()
 }

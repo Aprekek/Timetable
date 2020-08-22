@@ -28,4 +28,7 @@ interface HousingDao {
 
     @Delete
     suspend fun deleteHousing(housing: HousingEntity)
+
+    @Query("DELETE from housing_table")
+    suspend fun deleteAllHousings()
 }

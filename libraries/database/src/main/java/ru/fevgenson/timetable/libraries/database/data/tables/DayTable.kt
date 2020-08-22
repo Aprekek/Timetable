@@ -28,4 +28,7 @@ interface DayDao {
 
     @Delete
     suspend fun deleteDay(day: DayEntity)
+
+    @Query("DELETE from day_table")
+    suspend fun deleteAllDays()
 }

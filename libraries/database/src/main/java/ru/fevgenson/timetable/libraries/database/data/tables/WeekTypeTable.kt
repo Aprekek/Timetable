@@ -28,4 +28,7 @@ interface WeekTypeDao {
 
     @Delete
     suspend fun deleteWeekType(weekType: WeekTypeEntity)
+
+    @Query("DELETE from week_type_table")
+    suspend fun deleteAllWeekTypes()
 }

@@ -28,4 +28,7 @@ interface ClassroomDao {
 
     @Delete
     suspend fun deleteClassroom(classroom: ClassroomEntity)
+
+    @Query("DELETE from classroom_table")
+    suspend fun deleteAllClassrooms()
 }
