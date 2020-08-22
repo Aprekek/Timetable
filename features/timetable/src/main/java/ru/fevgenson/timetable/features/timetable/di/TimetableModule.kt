@@ -7,8 +7,10 @@ import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 
 private val viewModelModule = module {
-    viewModel { TimetableViewModel() }
-    viewModel { (currentDay: Int, timetableViewModel: TimetableViewModel) ->
+    viewModel {
+        TimetableViewModel()
+    }
+    factory { (currentDay: Int, timetableViewModel: TimetableViewModel) ->
         PageDayViewModel(
             currentDay = currentDay,
             currentWeekType = timetableViewModel.selectedWeekLiveData,

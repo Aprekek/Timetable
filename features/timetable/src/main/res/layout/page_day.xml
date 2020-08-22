@@ -4,10 +4,6 @@
 
     <data>
 
-        <import
-            alias="DateUtils"
-            type="ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils" />
-
         <variable
             name="viewModel"
             type="ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel" />

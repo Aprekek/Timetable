@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
@@ -22,7 +22,7 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
 
     private lateinit var binding: FragmentTimetableBinding
-    private val viewModel: TimetableViewModel by sharedViewModel()
+    private val viewModel: TimetableViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
