@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lesson_create_hint_housing"
-                android:padding="20dp">
+                android:padding="@dimen/padding_20">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/housing_edit_text"
@@ -38,9 +38,9 @@
                 style="@style/ApplicationTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_20"
                 android:hint="@string/lesson_create_hint_classroom"
-                android:padding="20dp">
+                android:padding="@dimen/padding_20">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/classroom_edit_text"
@@ -54,9 +54,9 @@
                 style="@style/ApplicationTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_20"
                 android:hint="@string/lesson_create_hint_lesson_type"
-                android:padding="20dp">
+                android:padding="@dimen/padding_20">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/type_edit_text"

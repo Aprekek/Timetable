@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/padding_20">
 
         <Button
             style="@style/ApplicationTheme.PrimaryButton"
