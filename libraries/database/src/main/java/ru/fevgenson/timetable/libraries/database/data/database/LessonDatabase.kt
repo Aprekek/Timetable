@@ -24,6 +24,5 @@ import ru.fevgenson.timetable.libraries.database.data.entities.*
 )
 abstract class LessonDatabase : RoomDatabase() {
 
-    //    abstract fun lessonDao(): LessonDao
     abstract fun lessonDao(): DaoImplementations
 }

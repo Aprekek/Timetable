@@ -2,12 +2,61 @@ package ru.fevgenson.timetable.libraries.database.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import ru.fevgenson.timetable.libraries.database.data.Lesson
 import ru.fevgenson.timetable.libraries.database.data.entities.*
 
 @Dao
 abstract class DaoImplementations :
     LessonDao, SubjectDao, TimeDao, DayDao, WeekTypeDao, HousingDao,
-    ClassroomDao, TypeDao, TeachersNameDao, EmailDao, PhoneDao
+    ClassroomDao, TypeDao, TeachersNameDao, EmailDao, PhoneDao {
+
+    @Transaction
+    open fun insertLesson(lesson: Lesson) {
+
+        val subjectId =
+            getSubject(lesson.subject)?.id ?: insertSubject(SubjectEntity(subject = lesson.subject))
+        val timeId =
+            getTime(lesson.time)?.id ?: insertTime(TimeEntity(time = lesson.time))
+        val dayId =
+            getDay(lesson.day)?.id ?: insertDay(DayEntity(day = lesson.day))
+        val weekTypeId =
+            getWeekType(lesson.weekType)?.id
+                ?: insertWeekType(WeekTypeEntity(weekType = lesson.weekType))
+        val housingId = lesson.housing?.let {
+            getHousing(it)?.id ?: insertHousing(HousingEntity(housing = it))
+        }
+        val classroomId = lesson.classroom?.let {
+            getClassroom(it)?.id ?: insertClassroom(ClassroomEntity(classroom = it))
+        }
+        val typeId = lesson.type?.let {
+            getType(it)?.id ?: insertType(TypeEntity(type = it))
+        }
+        val teachersNameId = lesson.teachersName?.let {
+            getTeachersName(it)?.id ?: insertTeachersName(TeachersNameEntity(teachersName = it))
+        }
+        val emailId = lesson.email?.let {
+            getEmail(it)?.id ?: insertEmail(EmailEntity(email = it))
+        }
+        val phoneId = lesson.phone?.let {
+            getPhone(it)?.id ?: insertPhone(PhoneEntity(phone = it))
+        }
+
+        insertLesson(
+            LessonEntity(
+                subject = subjectId,
+                time = timeId,
+                day = dayId,
+                weekType = weekTypeId,
+                housing = housingId,
+                classroom = classroomId,
+                type = typeId,
+                teachersName = teachersNameId,
+                email = emailId,
+                phone = phoneId
+            )
+        )
+    }
+}
 
 @Dao
 interface LessonDao {
@@ -16,10 +65,10 @@ interface LessonDao {
     fun getLessonsForDay(day: Int, week: Int): LiveData<List<LessonEntity>>
 
     @Query("SELECT * from lesson_table WHERE id = :id")
-    suspend fun getLesson(id: Int): LessonEntity
+    fun getLesson(id: Int): LessonEntity
 
     @Insert
-    suspend fun insertLesson(lesson: LessonEntity)
+    fun insertLesson(lesson: LessonEntity)
 
     @Update
     suspend fun updateLesson(lesson: LessonEntity)
@@ -38,13 +87,13 @@ interface SubjectDao {
     suspend fun getSubjects(): List<SubjectEntity>
 
     @Query("SELECT * from subject_table WHERE subject = :subject")
-    suspend fun getSubject(subject: String): SubjectEntity?
+    fun getSubject(subject: String): SubjectEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertSubject(subject: SubjectEntity): Long
+    fun insertSubject(subject: SubjectEntity): Long
 
     @Update
-    suspend fun updateSubject(subject: SubjectEntity)
+    fun updateSubject(subject: SubjectEntity)
 
     @Delete
     suspend fun deleteSubject(subject: SubjectEntity)
@@ -57,10 +106,10 @@ interface TimeDao {
     suspend fun getTimes(): List<TimeEntity>
 
     @Query("SELECT * from time_table WHERE time = :time")
-    suspend fun getTime(time: String): TimeEntity?
+    fun getTime(time: String): TimeEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertTime(time: TimeEntity): Long
+    fun insertTime(time: TimeEntity): Long
 
     @Update
     suspend fun updateTime(time: TimeEntity)
@@ -76,10 +125,10 @@ interface DayDao {
     suspend fun getDays(): List<DayEntity>
 
     @Query("SELECT * from day_table WHERE day = :day")
-    suspend fun getDay(day: Int): DayEntity?
+    fun getDay(day: Int): DayEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertDay(day: DayEntity): Long
+    fun insertDay(day: DayEntity): Long
 
     @Update
     suspend fun updateDay(day: DayEntity)
@@ -95,10 +144,10 @@ interface WeekTypeDao {
     suspend fun getWeekTypes(): List<WeekTypeEntity>
 
     @Query("SELECT * from week_type_table WHERE weekType = :weekType")
-    suspend fun getWeekType(weekType: Int): WeekTypeEntity?
+    fun getWeekType(weekType: Int): WeekTypeEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWeekType(weekType: WeekTypeEntity): Long
+    fun insertWeekType(weekType: WeekTypeEntity): Long
 
     @Update
     suspend fun updateWeekType(weekType: WeekTypeEntity)
@@ -114,10 +163,10 @@ interface HousingDao {
     suspend fun getHousings(): List<HousingEntity>
 
     @Query("SELECT * from housing_table WHERE housing = :housing")
-    suspend fun getHousing(housing: String): HousingEntity?
+    fun getHousing(housing: String): HousingEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertHousing(housing: HousingEntity): Long
+    fun insertHousing(housing: HousingEntity): Long
 
     @Update
     suspend fun updateHousing(housing: HousingEntity)
@@ -133,10 +182,10 @@ interface ClassroomDao {
     suspend fun getClassrooms(): List<ClassroomEntity>
 
     @Query("SELECT * from classroom_table WHERE classroom = :classroom")
-    suspend fun getClassroom(classroom: String): ClassroomEntity?
+    fun getClassroom(classroom: String): ClassroomEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertClassroom(classroom: ClassroomEntity): Long
+    fun insertClassroom(classroom: ClassroomEntity): Long
 
     @Update
     suspend fun updateClassroom(classroom: ClassroomEntity)
@@ -152,10 +201,10 @@ interface TypeDao {
     suspend fun getTypes(): List<TypeEntity>
 
     @Query("SELECT * from type_table WHERE type = :type")
-    suspend fun getType(type: String): TypeEntity?
+    fun getType(type: String): TypeEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertType(type: TypeEntity): Long
+    fun insertType(type: TypeEntity): Long
 
     @Update
     suspend fun updateType(type: TypeEntity)
@@ -171,10 +220,10 @@ interface TeachersNameDao {
     suspend fun getTeachersNames(): List<TeachersNameEntity>
 
     @Query("SELECT * from teachers_name_table WHERE teachersName = :teachersName")
-    suspend fun getTeachersName(teachersName: String): TeachersNameEntity?
+    fun getTeachersName(teachersName: String): TeachersNameEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertTeachersName(teachersName: TeachersNameEntity): Long
+    fun insertTeachersName(teachersName: TeachersNameEntity): Long
 
     @Update
     suspend fun updateTeachersName(teachersName: TeachersNameEntity)
@@ -190,10 +239,10 @@ interface EmailDao {
     suspend fun getEmails(): List<EmailEntity>
 
     @Query("SELECT * from email_table WHERE email = :email")
-    suspend fun getEmail(email: String): EmailEntity?
+    fun getEmail(email: String): EmailEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertEmail(email: EmailEntity): Long
+    fun insertEmail(email: EmailEntity): Long
 
     @Update
     suspend fun updateEmail(email: EmailEntity)
@@ -209,10 +258,10 @@ interface PhoneDao {
     suspend fun getPhones(): List<PhoneEntity>
 
     @Query("SELECT * from phone_table WHERE phone = :phone")
-    suspend fun getPhone(phone: String): PhoneEntity?
+    fun getPhone(phone: String): PhoneEntity?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertPhone(phone: PhoneEntity): Long
+    fun insertPhone(phone: PhoneEntity): Long
 
     @Update
     suspend fun updatePhone(phone: PhoneEntity)

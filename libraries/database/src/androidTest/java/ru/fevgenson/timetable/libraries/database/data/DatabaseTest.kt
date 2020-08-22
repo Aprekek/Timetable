@@ -5,8 +5,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,5 +59,25 @@ class DatabaseTest {
             val returnedSubject = dao.getSubject("Rus")
             assertNull(returnedSubject)
         }
+    }
+
+    @Test
+    fun insertLesson() {
+        val subject = "Rus"
+        val time = "11:40-13:15"
+        val day = 1
+        val week = 2
+
+        dao.insertLesson(
+            Lesson(
+                subject,
+                time,
+                day,
+                week
+            )
+        )
+
+        val dayEntity = dao.getDay(day)
+        assertNotNull(dayEntity)
     }
 }
