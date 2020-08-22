@@ -1,9 +1,9 @@
-package ru.fevgenson.timetable.libraries.database.data.database
+package ru.fevgenson.timetable.libraries.database.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.fevgenson.timetable.libraries.database.data.dao.DaoImplementations
-import ru.fevgenson.timetable.libraries.database.data.entities.*
+import ru.fevgenson.timetable.libraries.database.data.generalDao.GeneralDao
+import ru.fevgenson.timetable.libraries.database.data.tables.*
 
 @Database(
     entities = [
@@ -24,5 +24,5 @@ import ru.fevgenson.timetable.libraries.database.data.entities.*
 )
 abstract class LessonDatabase : RoomDatabase() {
 
-    abstract fun lessonDao(): DaoImplementations
+    abstract fun lessonDao(): GeneralDao
 }

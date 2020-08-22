@@ -9,21 +9,22 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.fevgenson.timetable.libraries.database.data.dao.DaoImplementations
-import ru.fevgenson.timetable.libraries.database.data.database.LessonDatabase
-import ru.fevgenson.timetable.libraries.database.data.entities.SubjectEntity
+import ru.fevgenson.timetable.libraries.database.data.generalDao.GeneralDao
+import ru.fevgenson.timetable.libraries.database.data.tables.SubjectEntity
+import ru.fevgenson.timetable.libraries.database.database.LessonDatabase
+
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class DatabaseTest {
 
-    private lateinit var dao: DaoImplementations
+    private lateinit var generalDao: GeneralDao
     private lateinit var database: LessonDatabase
 
     @Before
     fun createDB() {
         val context = InstrumentationRegistry.getInstrumentation().context
         database = Room.inMemoryDatabaseBuilder(context, LessonDatabase::class.java).build()
-        dao = database.lessonDao()
+        generalDao = database.lessonDao()
     }
 
     @After
@@ -35,8 +36,8 @@ class DatabaseTest {
     fun insertAndRead() {
         runBlocking {
             val subject = SubjectEntity(subject = "Math")
-            val id = dao.insertSubject(subject = subject)
-            val returnedSubjects = dao.getSubjects()
+            val id = generalDao.insertSubject(subject = subject)
+            val returnedSubjects = generalDao.getSubjects()
             assertEquals(subject.copy(id = id), returnedSubjects[0])
         }
     }
@@ -46,7 +47,7 @@ class DatabaseTest {
         runBlocking {
             SubjectEntity(subject = "Math")
             val subject2 = SubjectEntity(subject = "Math")
-            val id2 = dao.insertSubject(subject = subject2)
+            val id2 = generalDao.insertSubject(subject = subject2)
 
             val expectedId = 2
             assertEquals(id2, expectedId)
@@ -56,7 +57,7 @@ class DatabaseTest {
     @Test
     fun check_QuerySelectReturnedValue_OnNothingSelected() {
         runBlocking {
-            val returnedSubject = dao.getSubject("Rus")
+            val returnedSubject = generalDao.getSubject("Rus")
             assertNull(returnedSubject)
         }
     }
@@ -75,8 +76,8 @@ class DatabaseTest {
                 weekType = week
             )
 
-            val id = dao.insertLesson(lesson)
-            val returnedLessonId = dao.getLesson(id).id
+            val id = generalDao.insertLesson(lesson)
+            val returnedLessonId = generalDao.getLesson(id).id
 
             assertEquals(id, returnedLessonId)
         }
@@ -96,10 +97,10 @@ class DatabaseTest {
                 weekType = week
             )
 
-            val id = dao.insertLesson(lesson)
+            val id = generalDao.insertLesson(lesson)
             lesson = lesson.copy(id = id, subject = "PE")
-            dao.updateLesson(lesson)
-            val updatedSubject = dao.getSubject(dao.getLesson(id).subject)
+            generalDao.updateLesson(lesson)
+            val updatedSubject = generalDao.getSubject(generalDao.getLesson(id).subject)
 
             assertNotEquals(subject, updatedSubject.subject)
         }
@@ -119,8 +120,8 @@ class DatabaseTest {
                 weekType = week
             )
 
-            lesson.id = dao.insertLesson(lesson)
-            val returnedLesson = dao.getLessonForEdit(lesson.id)
+            lesson.id = generalDao.insertLesson(lesson)
+            val returnedLesson = generalDao.getLessonForEdit(lesson.id)
 
             assertEquals(lesson, returnedLesson)
         }

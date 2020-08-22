@@ -1,5 +1,6 @@
-package ru.fevgenson.timetable.libraries.database.data.entities
+package ru.fevgenson.timetable.libraries.database.data.tables
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Entity(
@@ -92,68 +93,24 @@ data class LessonEntity(
     @ColumnInfo(index = true) val phone: Long? = null
 )
 
-@Entity(tableName = "subject_table", indices = [Index(value = ["subject"], unique = true)])
-data class SubjectEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val subject: String
-)
+@Dao
+interface LessonDao {
 
-@Entity(tableName = "housing_table", indices = [Index(value = ["housing"], unique = true)])
-data class HousingEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val housing: String
-)
+    @Query("SELECT * from lesson_table WHERE day = :day AND weekType = :week")
+    fun getLessonsForDay(day: Int, week: Int): LiveData<List<LessonEntity>>
 
-@Entity(tableName = "classroom_table", indices = [Index(value = ["classroom"], unique = true)])
-data class ClassroomEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val classroom: String
-)
+    @Query("SELECT * from lesson_table WHERE id = :id")
+    fun getLesson(id: Long): LessonEntity
 
-@Entity(tableName = "type_table", indices = [Index(value = ["type"], unique = true)])
-data class TypeEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val type: String
-)
+    @Insert
+    fun insertLesson(lesson: LessonEntity): Long
 
-@Entity(
-    tableName = "teachers_name_table",
-    indices = [Index(value = ["teachersName"], unique = true)]
-)
-data class TeachersNameEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val teachersName: String
-)
+    @Update
+    suspend fun updateLesson(lesson: LessonEntity)
 
-@Entity(
-    tableName = "email_table",
-    indices = [androidx.room.Index(value = ["email"], unique = true)]
-)
-data class EmailEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val email: String
-)
+    @Delete
+    suspend fun deleteLesson(lesson: LessonEntity)
 
-@Entity(tableName = "phone_table", indices = [Index(value = ["phone"], unique = true)])
-data class PhoneEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val phone: String
-)
-
-@Entity(tableName = "time_table", indices = [Index(value = ["time"], unique = true)])
-data class TimeEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val time: String
-)
-
-@Entity(tableName = "day_table", indices = [Index(value = ["day"], unique = true)])
-data class DayEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val day: Int
-)
-
-@Entity(tableName = "week_type_table", indices = [Index(value = ["weekType"], unique = true)])
-data class WeekTypeEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val weekType: Int
-)
+    @Query("DELETE from lesson_table")
+    suspend fun deleteAllLessons()
+}
