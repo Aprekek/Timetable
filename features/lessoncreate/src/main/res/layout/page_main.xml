@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lesson_create_hint_subject"
-                android:padding="20dp"
+                android:padding="@dimen/padding_20"
                 app:errorMessage="@{lessonCreateViewModel.subjectError}">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -41,14 +41,14 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="@dimen/margin_15"
+                android:paddingHorizontal="@dimen/padding_30">
 
                 <TextView
                     style="@style/ApplicationTheme.Body1Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="29dp"
-                    android:paddingVertical="18dp"
+                    android:paddingVertical="@dimen/padding_20"
                     android:text="@string/lesson_create_title_start_caps" />
 
                 <Button
@@ -56,24 +56,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="29dp"
                     android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.START)}"
-                    android:paddingHorizontal="55dp"
+                    android:paddingHorizontal="@dimen/padding_55"
                     android:text="@{lessonCreateViewModel.timeStartString}"
-                    tools:text="@string/lesson_create_button_time_not_set" />
+                    tools:text="@string/lesson_create_button_choose_time" />
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="@dimen/margin_15"
+                android:paddingHorizontal="@dimen/padding_30">
 
                 <TextView
                     style="@style/ApplicationTheme.Body1Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="29dp"
-                    android:paddingVertical="18dp"
+                    android:paddingVertical="@dimen/padding_20"
                     android:text="@string/lesson_create_title_end_caps" />
 
                 <Button
@@ -81,33 +80,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="29dp"
                     android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.END)}"
-                    android:paddingHorizontal="55dp"
+                    android:paddingHorizontal="@dimen/padding_55"
                     android:text="@{lessonCreateViewModel.timeEndString}"
-                    tools:text="@string/lesson_create_button_time_not_set" />
+                    tools:text="@string/lesson_create_button_choose_time" />
             </FrameLayout>
 
             <Button
                 style="@style/ApplicationTheme.PrimaryButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
                 android:text="@string/lesson_create_button_choose_time" />
 
             <androidx.cardview.widget.CardView
                 style="@style/ApplicationTheme.CardViewBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="35dp">
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_30">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="@dimen/padding_15">
 
                     <TextView
                         style="@style/ApplicationTheme.Body1Black"
@@ -121,7 +119,7 @@
                         layout="@layout/include_lesson_days_buttons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/margin_10"
                         app:checkedChips="@{lessonCreateViewModel.firstWeekChips}" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -130,14 +128,14 @@
                 style="@style/ApplicationTheme.CardViewBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="15dp">
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_15">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="@dimen/padding_15">
 
                     <TextView
                         style="@style/ApplicationTheme.Body1Black"
@@ -151,7 +149,7 @@
                         layout="@layout/include_lesson_days_buttons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/margin_10"
                         app:checkedChips="@{lessonCreateViewModel.secondWeekChips}" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -160,7 +158,7 @@
                 layout="@layout/include_lesson_create_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/margin_15"
                 app:viewModel="@{lessonCreateViewModel}" />
         </LinearLayout>
     </ScrollView>

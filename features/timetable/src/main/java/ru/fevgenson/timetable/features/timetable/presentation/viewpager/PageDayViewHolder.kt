@@ -56,7 +56,7 @@ class PageDayViewHolder(
         adapter: LessonListAdapter,
         liveData: LiveData<List<Lesson>>
     ) {
-        val dp20 = binding.root.context.resources.getDimensionPixelSize(R.dimen.space_20)
+        val dp20 = binding.root.context.resources.getDimensionPixelSize(R.dimen.margin_20)
         recyclerView.addItemDecoration(
             LessonRecyclerViewItemDecoration(
                 verticalSpacePx = dp20,

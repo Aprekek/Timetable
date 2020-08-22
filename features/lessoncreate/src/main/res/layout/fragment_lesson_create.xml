@@ -25,7 +25,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="@dimen/padding_20">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
                     style="@style/ApplicationTheme.Title3DarkGrey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="@dimen/margin_60"
                     android:text="@{lessonCreateViewModel.toolbarTitle}"
                     tools:text="@string/lesson_create_title_main_info" />
 
