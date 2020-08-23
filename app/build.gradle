@@ -42,6 +42,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
+    }
+
     buildFeatures {
         dataBinding = true
     }
@@ -74,4 +78,5 @@ dependencies {
     implementation project(Modules.THEMES)
     implementation project(Modules.CORE)
     implementation project(Modules.LESSON_CREATE)
+    implementation project(Modules.DATABASE)
 }

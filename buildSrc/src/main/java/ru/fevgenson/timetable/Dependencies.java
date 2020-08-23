@@ -35,6 +35,11 @@ public class Dependencies {
         public static final String NAVIGATION = "2.3.0";
 
         public static final String DATABINDING = "3.1.4";
+
+        public static final String JUNIT = "4.12";
+        public static final String MOCKITO = "1.10.19";
+        public static final String ANDROIDX_TEST_EXT = "1.1.1";
+        public static final String ANDROIDX_TEST = "1.2.0";
     }
 
     public static class GOOGLE {
@@ -81,5 +86,14 @@ public class Dependencies {
         public static final String KOIN_SCOPE = "org.koin:koin-androidx-scope:" + Versions.KOIN;
         public static final String KOIN_VIEWMODEL = "org.koin:koin-androidx-viewmodel:" + Versions.KOIN;
         public static final String KOIN_EXT = "org.koin:koin-androidx-ext:" + Versions.KOIN;
+    }
+
+    public static class Test {
+        public static final String JUNIT = "junit:junit:" + Versions.JUNIT;
+        public static final String MOCKITO = "org.mockito:mockito-core:" + Versions.MOCKITO;
+        public static final String ANDROIDX_TEST_EXT = "androidx.test.ext:junit:" + Versions.ANDROIDX_TEST_EXT;
+        public static final String ANDROIDX_CORE = "androidx.test:core:" + Versions.ANDROIDX_TEST;
+        public static final String ANDROIDX_RUNNER = "androidx.test:runner:" + Versions.ANDROIDX_TEST;
+        public static final String ANDROIDX_RULES = "androidx.test:rules:" + Versions.ANDROIDX_TEST;
     }
 }

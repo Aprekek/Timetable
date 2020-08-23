@@ -11,4 +11,5 @@ public class Modules {
     public static final String NAVIGATION = ":libraries:navigation";
     public static final String THEMES = ":libraries:themes";
     public static final String CORE = ":libraries:core";
+    public static final String DATABASE = ":libraries:database";
 }
