@@ -16,6 +16,12 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.incremental": "true"]
+            }
+        }
     }
 
     buildTypes {
@@ -47,8 +53,8 @@ dependencies {
     implementation Dependencies.Coroutine.COROUTINE_CORE
     implementation Dependencies.Coroutine.COROUTINE_ANDROID
 
-    kapt Dependencies.Room.ROOM_RUNTIME
-    implementation Dependencies.Room.ROOM_COMPILER
+    implementation Dependencies.Room.ROOM_RUNTIME
+    kapt Dependencies.Room.ROOM_COMPILER
     implementation Dependencies.Room.ROOM_KTX
 
     testImplementation Dependencies.Test.JUNIT

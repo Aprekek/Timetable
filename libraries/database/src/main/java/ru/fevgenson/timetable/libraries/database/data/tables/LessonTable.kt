@@ -100,10 +100,10 @@ interface LessonDao {
     fun getLessonsForDay(day: Int, week: Int): LiveData<List<LessonEntity>>
 
     @Query("SELECT * from lesson_table WHERE id = :id")
-    fun getLesson(id: Long): LessonEntity
+    suspend fun getLesson(id: Long): LessonEntity
 
     @Insert
-    fun insertLesson(lesson: LessonEntity): Long
+    suspend fun insertLesson(lesson: LessonEntity): Long
 
     @Update
     suspend fun updateLesson(lesson: LessonEntity)
