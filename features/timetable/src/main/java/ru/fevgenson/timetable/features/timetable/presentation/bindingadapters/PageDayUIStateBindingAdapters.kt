@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayUIState
 
 @BindingAdapter("uiState")
-fun RecyclerView.setUIState(uiState: PageDayUIState) {
+fun RecyclerView.setUIState(uiState: PageDayUIState?) {
     visibility = when (uiState) {
         is PageDayUIState.Content -> View.VISIBLE
         else -> View.GONE
@@ -16,7 +16,7 @@ fun RecyclerView.setUIState(uiState: PageDayUIState) {
 }
 
 @BindingAdapter("uiState")
-fun ProgressBar.setUIState(uiState: PageDayUIState) {
+fun ProgressBar.setUIState(uiState: PageDayUIState?) {
     visibility = when (uiState) {
         is PageDayUIState.Loading -> View.VISIBLE
         else -> View.GONE
@@ -24,7 +24,7 @@ fun ProgressBar.setUIState(uiState: PageDayUIState) {
 }
 
 @BindingAdapter("uiState")
-fun TextView.setUIState(uiState: PageDayUIState) {
+fun TextView.setUIState(uiState: PageDayUIState?) {
     visibility = when (uiState) {
         is PageDayUIState.Empty -> View.VISIBLE
         else -> View.GONE

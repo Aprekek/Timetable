@@ -3,8 +3,7 @@ package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.observe
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -17,66 +16,69 @@ import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.Lesso
 
 class PageDayViewHolder(
     private val binding: PageDayBinding,
-    private val viewModel: PageDayViewModel,
     private val lifecycleOwner: LifecycleOwner,
     private val lessonViewHolderPool: LessonViewHolderPool
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private lateinit var viewModel: PageDayViewModel
+    private lateinit var lessonListAdapter: LessonListAdapter
+    private var recyclerViewWasInit = false
+    private val listChangeObserver = Observer<List<Lesson>> {
+        lessonListAdapter.submitList(it)
+    }
 
     companion object {
 
         fun from(
             parent: ViewGroup,
             lifecycleOwner: LifecycleOwner,
-            viewModel: PageDayViewModel,
             lessonViewHolderPool: LessonViewHolderPool
         ): PageDayViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = PageDayBinding.inflate(inflater, parent, false)
-            binding.viewModel = viewModel
             binding.lifecycleOwner = lifecycleOwner
             return PageDayViewHolder(
                 binding = binding,
-                viewModel = viewModel,
                 lifecycleOwner = lifecycleOwner,
                 lessonViewHolderPool = lessonViewHolderPool
             )
         }
     }
 
-    init {
-        initRecyclerView()
+    fun onBind(viewModel: PageDayViewModel) {
+        if (recyclerViewWasInit) {
+            this.viewModel.lessons.removeObserver(listChangeObserver)
+            lessonListAdapter = LessonListAdapter(viewModel)
+            binding.firstWeekRecyclerView.swapAdapter(lessonListAdapter, true)
+            viewModel.lessons.observe(lifecycleOwner, listChangeObserver)
+        }
+        this.viewModel = viewModel
+        binding.viewModel = viewModel
+        if (!recyclerViewWasInit) {
+            initRecyclerView()
+            recyclerViewWasInit = true
+        }
     }
 
     private fun initRecyclerView() {
-        initSingleRecyclerView(
-            recyclerView = binding.firstWeekRecyclerView,
-            adapter = LessonListAdapter(viewModel),
-            liveData = viewModel.lessons
-        )
-    }
-
-    private fun initSingleRecyclerView(
-        recyclerView: RecyclerView,
-        adapter: LessonListAdapter,
-        liveData: LiveData<List<Lesson>>
-    ) {
-        val dp20 = binding.root.context.resources.getDimensionPixelSize(R.dimen.margin_20)
-        recyclerView.addItemDecoration(
-            LessonRecyclerViewItemDecoration(
-                verticalSpacePx = dp20,
-                horizontalSpacePx = dp20
+        with(binding.firstWeekRecyclerView) {
+            lessonListAdapter = LessonListAdapter(viewModel)
+            val dp20 = binding.root.context.resources.getDimensionPixelSize(R.dimen.margin_20)
+            addItemDecoration(
+                LessonRecyclerViewItemDecoration(
+                    verticalSpacePx = dp20,
+                    horizontalSpacePx = dp20
+                )
             )
-        )
-        recyclerView.setRecycledViewPool(lessonViewHolderPool)
-        recyclerView.layoutManager = LinearLayoutManager(binding.root.context).apply {
-            recycleChildrenOnDetach = true
-        }
-        recyclerView.swapAdapter(adapter, true)
-        (recyclerView.itemAnimator as? SimpleItemAnimator)?.apply {
-            supportsChangeAnimations = false
-        }
-        liveData.observe(lifecycleOwner) {
-            adapter.submitList(it)
+            setRecycledViewPool(lessonViewHolderPool)
+            layoutManager = LinearLayoutManager(binding.root.context).apply {
+                recycleChildrenOnDetach = true
+            }
+            swapAdapter(lessonListAdapter, true)
+            (itemAnimator as? SimpleItemAnimator)?.apply {
+                supportsChangeAnimations = false
+            }
+            viewModel.lessons.observe(lifecycleOwner, listChangeObserver)
         }
     }
 }

@@ -49,8 +49,7 @@ class TimetableFragment : Fragment(),
         viewModel.selectedDayLiveData.value?.let {
             binding.dayViewPager.setCurrentItem(it, false)
         }
-        binding.dayViewPager.offscreenPageLimit = adapter.itemCount
-//        binding.dayViewPager.setPageTransformer(PageDayTransformer())
+        binding.dayViewPager.offscreenPageLimit = 2
     }
 
     private fun initWeekTabs() {

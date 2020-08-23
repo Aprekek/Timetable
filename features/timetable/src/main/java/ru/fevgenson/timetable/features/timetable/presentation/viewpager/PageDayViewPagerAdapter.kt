@@ -16,13 +16,16 @@ class PageDayViewPagerAdapter(
 
     private var lessonViewHolderPool: LessonViewHolderPool? = null
 
+    init {
+        setHasStableIds(true)
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PageDayViewHolder = PageDayViewHolder.from(
         parent = parent,
         lifecycleOwner = lifecycleOwner,
-        viewModel = viewModels[viewType],
         lessonViewHolderPool = lessonViewHolderPool ?: get<LessonViewHolderPool> {
             parametersOf(parent)
         }.also { lessonViewHolderPool = it }
@@ -30,7 +33,9 @@ class PageDayViewPagerAdapter(
 
     override fun getItemCount(): Int = DateUtils.WEEK_DAYS
 
-    override fun onBindViewHolder(holder: PageDayViewHolder, position: Int) {}
+    override fun onBindViewHolder(holder: PageDayViewHolder, position: Int) {
+        holder.onBind(viewModels[position])
+    }
 
-    override fun getItemViewType(position: Int): Int = position
+    override fun getItemId(position: Int): Long = position.toLong()
 }
