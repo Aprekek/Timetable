@@ -20,7 +20,7 @@ interface TypeDao {
     @Query("SELECT * from type_table WHERE id = :id")
     suspend fun getType(id: Long): TypeEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertType(type: TypeEntity): Long
 
     @Update

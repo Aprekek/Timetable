@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.libraries.database.data
+package ru.fevgenson.timetable.libraries.database.domain.entities
 
 data class Lesson(
 

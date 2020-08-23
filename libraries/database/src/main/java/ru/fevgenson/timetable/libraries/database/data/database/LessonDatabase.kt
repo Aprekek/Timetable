@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.libraries.database.database
+package ru.fevgenson.timetable.libraries.database.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

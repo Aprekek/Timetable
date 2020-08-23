@@ -20,7 +20,7 @@ interface SubjectDao {
     @Query("SELECT * from subject_table WHERE id = :id")
     suspend fun getSubject(id: Long): SubjectEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertSubject(subject: SubjectEntity): Long
 
     @Update

@@ -20,7 +20,7 @@ interface PhoneDao {
     @Query("SELECT * from phone_table WHERE id = :id")
     suspend fun getPhone(id: Long): PhoneEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertPhone(phone: PhoneEntity): Long
 
     @Update

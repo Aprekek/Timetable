@@ -20,7 +20,7 @@ interface TimeDao {
     @Query("SELECT * from time_table WHERE id = :id")
     suspend fun getTime(id: Long): TimeEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTime(time: TimeEntity): Long
 
     @Update

@@ -23,7 +23,7 @@ interface TeachersNameDao {
     @Query("SELECT * from teachers_name_table WHERE id = :id")
     suspend fun getTeachersName(id: Long): TeachersNameEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTeachersName(teachersName: TeachersNameEntity): Long
 
     @Update

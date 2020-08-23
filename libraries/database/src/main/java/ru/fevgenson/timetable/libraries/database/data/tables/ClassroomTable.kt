@@ -20,7 +20,7 @@ interface ClassroomDao {
     @Query("SELECT * from classroom_table WHERE id = :id")
     suspend fun getClassroom(id: Long): ClassroomEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertClassroom(classroom: ClassroomEntity): Long
 
     @Update

@@ -20,7 +20,7 @@ interface DayDao {
     @Query("SELECT * from day_table WHERE id = :id")
     suspend fun getDay(id: Long): DayEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertDay(day: DayEntity): Long
 
     @Update

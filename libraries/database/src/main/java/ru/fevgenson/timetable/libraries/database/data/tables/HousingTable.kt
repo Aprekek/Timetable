@@ -20,7 +20,7 @@ interface HousingDao {
     @Query("SELECT * from housing_table WHERE id = :id")
     suspend fun getHousing(id: Long): HousingEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertHousing(housing: HousingEntity): Long
 
     @Update

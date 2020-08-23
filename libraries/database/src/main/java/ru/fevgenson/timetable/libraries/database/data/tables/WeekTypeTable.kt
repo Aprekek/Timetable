@@ -20,7 +20,7 @@ interface WeekTypeDao {
     @Query("SELECT * from week_type_table WHERE id = :id")
     suspend fun getWeekType(id: Long): WeekTypeEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertWeekType(weekType: WeekTypeEntity): Long
 
     @Update

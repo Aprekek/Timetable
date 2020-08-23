@@ -2,8 +2,8 @@ package ru.fevgenson.timetable.libraries.database.data.generalDao
 
 import androidx.room.Dao
 import androidx.room.Transaction
-import ru.fevgenson.timetable.libraries.database.data.Lesson
 import ru.fevgenson.timetable.libraries.database.data.tables.*
+import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 @Dao
 abstract class GeneralDao :

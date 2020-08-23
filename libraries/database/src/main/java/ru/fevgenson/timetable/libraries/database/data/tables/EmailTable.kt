@@ -23,7 +23,7 @@ interface EmailDao {
     @Query("SELECT * from email_table WHERE id = :id")
     suspend fun getEmail(id: Long): EmailEntity
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertEmail(email: EmailEntity): Long
 
     @Update
