@@ -13,7 +13,11 @@ class PageDayViewPagerAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PageDayViewHolder = PageDayViewHolder.from(parent, lifecycleOwner, viewModels[viewType])
+    ): PageDayViewHolder = PageDayViewHolder.from(
+        parent = parent,
+        lifecycleOwner = lifecycleOwner,
+        viewModel = viewModels[viewType]
+    )
 
     override fun getItemCount(): Int = DateUtils.WEEK_DAYS
 

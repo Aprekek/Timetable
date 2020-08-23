@@ -13,6 +13,8 @@ class LessonViewHolder private constructor(
 
     companion object {
 
+        const val VIEW_HOLDER_TYPE = 1
+
         fun from(
             parent: ViewGroup,
             viewModel: PageDayViewModel

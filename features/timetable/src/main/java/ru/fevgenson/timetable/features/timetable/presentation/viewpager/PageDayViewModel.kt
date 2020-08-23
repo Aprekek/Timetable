@@ -1,12 +1,8 @@
 package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 
-import android.os.Handler
-import android.os.Looper
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import kotlinx.coroutines.delay
 import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
@@ -18,43 +14,42 @@ class PageDayViewModel(
     getLessonsUseCase: GetLessonsUseCase
 ) : ViewModel() {
 
-    private companion object {
-        const val INIT_TIME = 500L
-    }
+    private val firstWeekLessons = getLessonsUseCase(
+        weekType = DateUtils.FIRST_WEEK,
+        day = currentDay
+    )
 
-    private var needInitTime = mutableSetOf<Int>()
+    private val secondWeekLessons = getLessonsUseCase(
+        weekType = DateUtils.SECOND_WEEK,
+        day = currentDay
+    )
 
-    fun bind() {
-        when (parentViewModel.selectedWeekLiveData.value) {
-            DateUtils.FIRST_WEEK -> needInitTime.add(DateUtils.SECOND_WEEK)
-            DateUtils.SECOND_WEEK -> needInitTime.add(DateUtils.FIRST_WEEK)
+    val lessons = MediatorLiveData<List<Lesson>>().apply {
+        addSource(firstWeekLessons) {
+            if (parentViewModel.selectedWeekLiveData.value == DateUtils.FIRST_WEEK) {
+                value = it
+            }
+        }
+        addSource(secondWeekLessons) {
+            if (parentViewModel.selectedWeekLiveData.value == DateUtils.SECOND_WEEK) {
+                value = it
+            }
+        }
+        addSource(parentViewModel.selectedWeekLiveData) {
+            value = when (it) {
+                DateUtils.FIRST_WEEK -> firstWeekLessons.value
+                DateUtils.SECOND_WEEK -> secondWeekLessons.value
+                else -> throw IllegalArgumentException()
+            }
         }
     }
 
-    val firstWeekLessons = liveData {
-        delay(INIT_TIME)
-        emitSource(
-            getLessonsUseCase(
-                weekType = DateUtils.FIRST_WEEK,
-                day = currentDay
-            )
-        )
-    }
-    val secondWeekLessons = liveData {
-        delay(INIT_TIME)
-        emitSource(
-            getLessonsUseCase(
-                weekType = DateUtils.SECOND_WEEK,
-                day = currentDay
-            )
-        )
-    }
-
-    val firstWeekUIState: LiveData<PageDayUIState> = MediatorLiveData<PageDayUIState>().apply {
-        initUIStateLiveData(firstWeekLessons, DateUtils.FIRST_WEEK)
-    }
-    val secondWeekUIState: LiveData<PageDayUIState> = MediatorLiveData<PageDayUIState>().apply {
-        initUIStateLiveData(secondWeekLessons, DateUtils.SECOND_WEEK)
+    val uiState = Transformations.map(lessons) {
+        when {
+            it == null -> PageDayUIState.Loading
+            it.isEmpty() -> PageDayUIState.Empty
+            else -> PageDayUIState.Content
+        }
     }
 
     fun copyLesson(id: Long) {
@@ -67,41 +62,5 @@ class PageDayViewModel(
 
     fun editLesson(id: Long) {
         parentViewModel.onEditLessonMenuClick(id)
-    }
-
-    private fun MediatorLiveData<PageDayUIState>.initUIStateLiveData(
-        contentLiveData: LiveData<List<Lesson>>,
-        contentWeekType: Int
-    ) {
-        addSource(contentLiveData) {
-            syncWithWeekType(contentWeekType, contentLiveData)
-        }
-        addSource(parentViewModel.selectedWeekLiveData) {
-            syncWithWeekType(contentWeekType, contentLiveData)
-        }
-    }
-
-    private fun MediatorLiveData<PageDayUIState>.syncWithWeekType(
-        contentWeekType: Int,
-        content: LiveData<List<Lesson>>
-    ) {
-        value = when (parentViewModel.selectedWeekLiveData.value) {
-            contentWeekType -> if (needInitTime.contains(contentWeekType)) {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    syncWithWeekType(contentWeekType, content)
-                }, INIT_TIME)
-                needInitTime.remove(contentWeekType)
-                PageDayUIState.Loading
-            } else {
-                getContentUIState(content.value)
-            }
-            else -> PageDayUIState.Hide
-        }
-    }
-
-    private fun getContentUIState(content: List<Lesson>?): PageDayUIState = when {
-        content == null -> PageDayUIState.Loading
-        content.isEmpty() -> PageDayUIState.Empty
-        else -> PageDayUIState.Content
     }
 }

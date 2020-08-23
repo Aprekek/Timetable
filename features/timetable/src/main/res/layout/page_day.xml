@@ -18,22 +18,14 @@
             android:id="@+id/first_week_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:uiState="@{viewModel.firstWeekUIState}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/second_week_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:uiState="@{viewModel.secondWeekUIState}" />
+            app:uiState="@{viewModel.uiState}" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            app:firstWeekUIState="@{viewModel.firstWeekUIState}"
-            app:secondWeekUIState="@{viewModel.secondWeekUIState}" />
+            app:uiState="@{viewModel.uiState}" />
 
         <TextView
             style="@style/ApplicationTheme.Body1Black"
@@ -41,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:text="@string/timetable_empty"
-            app:firstWeekUIState="@{viewModel.firstWeekUIState}"
-            app:secondWeekUIState="@{viewModel.secondWeekUIState}" />
+            app:uiState="@{viewModel.uiState}" />
     </FrameLayout>
 </layout>

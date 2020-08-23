@@ -10,6 +10,11 @@ class LessonListAdapter(
     private val viewModel: PageDayViewModel
 ) : ListAdapter<Lesson, LessonViewHolder>(LessonDiffUtils()) {
 
+    init {
+        setHasStableIds(true)
+    }
+
+    @ExperimentalStdlibApi
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -18,6 +23,10 @@ class LessonListAdapter(
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+    override fun getItemId(position: Int): Long = getItem(position).id
+
+    override fun getItemViewType(position: Int): Int = LessonViewHolder.VIEW_HOLDER_TYPE
 }
 
 private class LessonDiffUtils : DiffUtil.ItemCallback<Lesson>() {
@@ -25,7 +34,7 @@ private class LessonDiffUtils : DiffUtil.ItemCallback<Lesson>() {
     override fun areItemsTheSame(
         oldItem: Lesson,
         newItem: Lesson
-    ): Boolean = oldItem.id == newItem.id
+    ): Boolean = newItem.id == oldItem.id
 
     override fun areContentsTheSame(
         oldItem: Lesson,

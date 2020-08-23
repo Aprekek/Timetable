@@ -15,26 +15,18 @@ fun RecyclerView.setUIState(uiState: PageDayUIState) {
     }
 }
 
-@BindingAdapter("firstWeekUIState", "secondWeekUIState")
-fun ProgressBar.setUIState(
-    firstWeekUiState: PageDayUIState,
-    secondWeekUIState: PageDayUIState
-) {
-    visibility = when {
-        secondWeekUIState is PageDayUIState.Loading ||
-                firstWeekUiState is PageDayUIState.Loading -> View.VISIBLE
+@BindingAdapter("uiState")
+fun ProgressBar.setUIState(uiState: PageDayUIState) {
+    visibility = when (uiState) {
+        is PageDayUIState.Loading -> View.VISIBLE
         else -> View.GONE
     }
 }
 
-@BindingAdapter("firstWeekUIState", "secondWeekUIState")
-fun TextView.setUIState(
-    firstWeekUiState: PageDayUIState,
-    secondWeekUIState: PageDayUIState
-) {
-    visibility = when {
-        firstWeekUiState is PageDayUIState.Empty ||
-                secondWeekUIState is PageDayUIState.Empty -> View.VISIBLE
+@BindingAdapter("uiState")
+fun TextView.setUIState(uiState: PageDayUIState) {
+    visibility = when (uiState) {
+        is PageDayUIState.Empty -> View.VISIBLE
         else -> View.GONE
     }
 }

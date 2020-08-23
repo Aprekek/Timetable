@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.PageDayBinding
 import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
@@ -34,7 +35,6 @@ class PageDayViewHolder(
     }
 
     init {
-        viewModel.bind()
         initRecyclerView()
     }
 
@@ -42,12 +42,7 @@ class PageDayViewHolder(
         initSingleRecyclerView(
             recyclerView = binding.firstWeekRecyclerView,
             adapter = LessonListAdapter(viewModel),
-            liveData = viewModel.firstWeekLessons
-        )
-        initSingleRecyclerView(
-            recyclerView = binding.secondWeekRecyclerView,
-            adapter = LessonListAdapter(viewModel),
-            liveData = viewModel.secondWeekLessons
+            liveData = viewModel.lessons
         )
     }
 
@@ -63,7 +58,10 @@ class PageDayViewHolder(
                 horizontalSpacePx = dp20
             )
         )
-        recyclerView.adapter = adapter
+        recyclerView.swapAdapter(adapter, true)
+        (recyclerView.itemAnimator as? SimpleItemAnimator)?.apply {
+            supportsChangeAnimations = false
+        }
         liveData.observe(lifecycleOwner) {
             adapter.submitList(it)
         }
