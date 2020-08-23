@@ -14,7 +14,6 @@ import ru.fevgenson.timetable.libraries.database.data.generalDao.GeneralDao
 import ru.fevgenson.timetable.libraries.database.data.tables.SubjectEntity
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
-
 @RunWith(AndroidJUnit4ClassRunner::class)
 class DatabaseTest {
 
@@ -40,30 +39,32 @@ class DatabaseTest {
     }
 
     @Test
-    fun insertAndRead() {
+    fun commonInsetAndRead() {
         runBlocking {
             val subject = SubjectEntity(subject = "Math")
             val id = dao.insertSubject(subject = subject)
             val returnedSubjects = dao.getSubjects()
+
             assertEquals(subject.copy(id = id), returnedSubjects[0])
         }
     }
 
     @Test
-    fun check_InsertReturnedValue_OnConflict() {
+    fun checkingInsertReturnedValue_OnConflict() {
         runBlocking {
             dao.insertSubject(SubjectEntity(subject = "Math"))
             val id2 = dao.insertSubject(SubjectEntity(subject = "Math"))
-
             val expectedId = -1L
+
             assertEquals(expectedId, id2)
         }
     }
 
     @Test
-    fun check_QuerySelectReturnedValue_OnNothingSelected() {
+    fun checkingQuerySelectReturnedValue_OnNothingSelected() {
         runBlocking {
             val returnedSubject = dao.getSubject("Rus")
+
             assertNull(returnedSubject)
         }
     }
@@ -107,6 +108,7 @@ class DatabaseTest {
             lesson.id = dao.insertLesson(lesson)
             dao.deleteLesson(lesson.id)
             val returnedLesson = dao.getLesson(lesson.id)
+
             assertNull(returnedLesson)
         }
     }
@@ -117,6 +119,7 @@ class DatabaseTest {
             lesson.id = dao.insertLesson(lesson)
             dao.deleteLesson(lesson.id)
             val stillExistingSubject = dao.getSubject(lesson.subject)
+
             assertNotNull(stillExistingSubject)
         }
     }
@@ -127,6 +130,7 @@ class DatabaseTest {
             lesson.id = dao.insertLesson(lesson)
             dao.deleteAllSubjects()
             val isLessonStillExist = dao.getLesson(lesson.id)
+
             assertNull(isLessonStillExist)
         }
     }

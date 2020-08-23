@@ -63,7 +63,7 @@ abstract class GeneralDao :
         )
     }
 
-    @Transaction // Или liveData<Lesson>
+    @Transaction
     open suspend fun getLessonForEdit(lessonId: Long): Lesson {
         val lessonEntity = getLesson(lessonId)
 
