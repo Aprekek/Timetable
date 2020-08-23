@@ -29,6 +29,9 @@ interface TypeDao {
     @Delete
     suspend fun deleteType(type: TypeEntity)
 
+    @Query("DELETE from type_table WHERE id = :id")
+    suspend fun deleteType(id: Long)
+
     @Query("DELETE from type_table")
     suspend fun deleteAllHTypes()
 }

@@ -93,6 +93,9 @@ interface LessonDao {
     @Delete
     suspend fun deleteLesson(lesson: LessonEntity)
 
+    @Query("DELETE from lesson_table WHERE id = :id")
+    suspend fun deleteLesson(id: Long)
+
     @Query("DELETE from lesson_table")
     suspend fun deleteAllLessons()
 }

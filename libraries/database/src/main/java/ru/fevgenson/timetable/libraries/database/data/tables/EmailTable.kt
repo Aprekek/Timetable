@@ -32,6 +32,9 @@ interface EmailDao {
     @Delete
     suspend fun deleteEmail(email: EmailEntity)
 
+    @Query("DELETE from email_table WHERE id = :id")
+    suspend fun deleteEmail(id: Long)
+
     @Query("DELETE from email_table")
     suspend fun deleteAllEmails()
 }

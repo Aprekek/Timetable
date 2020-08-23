@@ -100,4 +100,34 @@ class DatabaseTest {
             assertEquals(lesson, returnedLesson)
         }
     }
+
+    @Test
+    fun deleteRowInTable() {
+        runBlocking {
+            lesson.id = dao.insertLesson(lesson)
+            dao.deleteLesson(lesson.id)
+            val returnedLesson = dao.getLesson(lesson.id)
+            assertNull(returnedLesson)
+        }
+    }
+
+    @Test
+    fun isRowsInAnotherTablesContinueToExist_WhenLessonTableWasDeleted() {
+        runBlocking {
+            lesson.id = dao.insertLesson(lesson)
+            dao.deleteLesson(lesson.id)
+            val stillExistingSubject = dao.getSubject(lesson.subject)
+            assertNotNull(stillExistingSubject)
+        }
+    }
+
+    @Test
+    fun isLessonTableWillBeDeleted_WhenTheRowBeingReferenced_WillBeRemoved() {
+        runBlocking {
+            lesson.id = dao.insertLesson(lesson)
+            dao.deleteAllSubjects()
+            val isLessonStillExist = dao.getLesson(lesson.id)
+            assertNull(isLessonStillExist)
+        }
+    }
 }

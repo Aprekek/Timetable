@@ -29,6 +29,9 @@ interface TimeDao {
     @Delete
     suspend fun deleteTime(time: TimeEntity)
 
+    @Query("DELETE from time_table WHERE id = :id")
+    suspend fun deleteTime(id: Long)
+
     @Query("DELETE from time_table")
     suspend fun deleteAllTimes()
 }

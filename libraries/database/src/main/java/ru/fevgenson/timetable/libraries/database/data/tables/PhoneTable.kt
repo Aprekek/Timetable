@@ -29,6 +29,9 @@ interface PhoneDao {
     @Delete
     suspend fun deletePhone(phone: PhoneEntity)
 
+    @Query("DELETE from phone_table WHERE id = :id")
+    suspend fun deletePhone(id: Long)
+
     @Query("DELETE from phone_table")
     suspend fun deleteAllPhones()
 }

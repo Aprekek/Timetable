@@ -32,6 +32,9 @@ interface TeachersNameDao {
     @Delete
     suspend fun deleteTeachersName(teachersName: TeachersNameEntity)
 
+    @Query("DELETE from teachers_name_table WHERE id = :id")
+    suspend fun deleteTeachersName(id: Long)
+
     @Query("DELETE from teachers_name_table")
     suspend fun deleteAllTeachersNames()
 }
