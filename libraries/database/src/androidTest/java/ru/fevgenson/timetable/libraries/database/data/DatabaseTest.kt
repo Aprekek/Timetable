@@ -18,14 +18,20 @@ import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 @RunWith(AndroidJUnit4ClassRunner::class)
 class DatabaseTest {
 
-    private lateinit var generalDao: GeneralDao
+    private var lesson = Lesson(
+        subject = "Math",
+        time = "11:40-13:15",
+        day = 1,
+        weekType = 2
+    )
+    private lateinit var dao: GeneralDao
     private lateinit var database: LessonDatabase
 
     @Before
     fun createDB() {
         val context = InstrumentationRegistry.getInstrumentation().context
         database = Room.inMemoryDatabaseBuilder(context, LessonDatabase::class.java).build()
-        generalDao = database.lessonDao()
+        dao = database.lessonDao()
     }
 
     @After
@@ -37,8 +43,8 @@ class DatabaseTest {
     fun insertAndRead() {
         runBlocking {
             val subject = SubjectEntity(subject = "Math")
-            val id = generalDao.insertSubject(subject = subject)
-            val returnedSubjects = generalDao.getSubjects()
+            val id = dao.insertSubject(subject = subject)
+            val returnedSubjects = dao.getSubjects()
             assertEquals(subject.copy(id = id), returnedSubjects[0])
         }
     }
@@ -46,19 +52,18 @@ class DatabaseTest {
     @Test
     fun check_InsertReturnedValue_OnConflict() {
         runBlocking {
-            SubjectEntity(subject = "Math")
-            val subject2 = SubjectEntity(subject = "Math")
-            val id2 = generalDao.insertSubject(subject = subject2)
+            dao.insertSubject(SubjectEntity(subject = "Math"))
+            val id2 = dao.insertSubject(SubjectEntity(subject = "Math"))
 
-            val expectedId = 2
-            assertEquals(id2, expectedId)
+            val expectedId = -1L
+            assertEquals(expectedId, id2)
         }
     }
 
     @Test
     fun check_QuerySelectReturnedValue_OnNothingSelected() {
         runBlocking {
-            val returnedSubject = generalDao.getSubject("Rus")
+            val returnedSubject = dao.getSubject("Rus")
             assertNull(returnedSubject)
         }
     }
@@ -66,19 +71,8 @@ class DatabaseTest {
     @Test
     fun insertLesson() {
         runBlocking {
-            val subject = "Rus"
-            val time = "11:40-13:15"
-            val day = 1
-            val week = 2
-            val lesson = Lesson(
-                subject = subject,
-                time = time,
-                day = day,
-                weekType = week
-            )
-
-            val id = generalDao.insertLesson(lesson)
-            val returnedLessonId = generalDao.getLesson(id).id
+            val id = dao.insertLesson(lesson)
+            val returnedLessonId = dao.getLesson(id).id
 
             assertEquals(id, returnedLessonId)
         }
@@ -87,21 +81,11 @@ class DatabaseTest {
     @Test
     fun updateLesson() {
         runBlocking {
-            val subject = "Rus"
-            val time = "11:40-13:15"
-            val day = 1
-            val week = 2
-            var lesson = Lesson(
-                subject = subject,
-                time = time,
-                day = day,
-                weekType = week
-            )
-
-            val id = generalDao.insertLesson(lesson)
+            val id = dao.insertLesson(lesson)
+            val subject = lesson.subject
             lesson = lesson.copy(id = id, subject = "PE")
-            generalDao.updateLesson(lesson)
-            val updatedSubject = generalDao.getSubject(generalDao.getLesson(id).subject)
+            dao.updateLesson(lesson)
+            val updatedSubject = dao.getSubject(dao.getLesson(id).subject)
 
             assertNotEquals(subject, updatedSubject.subject)
         }
@@ -110,19 +94,8 @@ class DatabaseTest {
     @Test
     fun getLessonForEdit() {
         runBlocking {
-            val subject = "Rus"
-            val time = "11:40-13:15"
-            val day = 1
-            val week = 2
-            val lesson = Lesson(
-                subject = subject,
-                time = time,
-                day = day,
-                weekType = week
-            )
-
-            lesson.id = generalDao.insertLesson(lesson)
-            val returnedLesson = generalDao.getLessonForEdit(lesson.id)
+            lesson.id = dao.insertLesson(lesson)
+            val returnedLesson = dao.getLessonForEdit(lesson.id)
 
             assertEquals(lesson, returnedLesson)
         }

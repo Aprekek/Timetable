@@ -1,6 +1,5 @@
 package ru.fevgenson.timetable.libraries.database.data.tables
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Entity(
@@ -62,20 +61,6 @@ import androidx.room.*
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE,
             deferred = true
-        ), ForeignKey(
-            entity = DayEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["day"],
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE,
-            deferred = true
-        ), ForeignKey(
-            entity = WeekTypeEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["weekType"],
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE,
-            deferred = true
         )
     ]
 )
@@ -83,8 +68,8 @@ data class LessonEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(index = true) val subject: Long = 0,
     @ColumnInfo(index = true) val time: Long = 0,
-    @ColumnInfo(index = true) val day: Long = 0,
-    @ColumnInfo(index = true) val weekType: Long = 0,
+    @ColumnInfo(index = true) val day: Int = 0,
+    @ColumnInfo(index = true) val weekType: Int = 0,
     @ColumnInfo(index = true) val housing: Long? = null,
     @ColumnInfo(index = true) val classroom: Long? = null,
     @ColumnInfo(index = true) val type: Long? = null,
@@ -95,9 +80,6 @@ data class LessonEntity(
 
 @Dao
 interface LessonDao {
-
-    @Query("SELECT * from lesson_table WHERE day = :day AND weekType = :week")
-    fun getLessonsForDay(day: Int, week: Int): LiveData<List<LessonEntity>>
 
     @Query("SELECT * from lesson_table WHERE id = :id")
     suspend fun getLesson(id: Long): LessonEntity

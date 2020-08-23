@@ -15,9 +15,7 @@ import ru.fevgenson.timetable.libraries.database.data.tables.*
         TeachersNameEntity::class,
         EmailEntity::class,
         PhoneEntity::class,
-        TimeEntity::class,
-        DayEntity::class,
-        WeekTypeEntity::class
+        TimeEntity::class
     ],
     version = 1,
     exportSchema = false

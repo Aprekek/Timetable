@@ -7,15 +7,13 @@ import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 @Dao
 abstract class GeneralDao :
-    LessonDao, SubjectDao, TimeDao, DayDao, WeekTypeDao, HousingDao,
+    LessonDao, SubjectDao, TimeDao, HousingDao,
     ClassroomDao, TypeDao, TeachersNameDao, EmailDao, PhoneDao {
 
     private data class Ids(
         val lessonId: Long? = null,
         val subjectId: Long = 0,
         val timeId: Long = 0,
-        val dayId: Long = 0,
-        val weekTypeId: Long = 0,
         val housingId: Long? = null,
         val classroomId: Long? = null,
         val typeId: Long? = null,
@@ -32,8 +30,8 @@ abstract class GeneralDao :
             LessonEntity(
                 subject = ids.subjectId,
                 time = ids.timeId,
-                day = ids.dayId,
-                weekType = ids.weekTypeId,
+                day = lesson.day,
+                weekType = lesson.weekType,
                 housing = ids.housingId,
                 classroom = ids.classroomId,
                 type = ids.typeId,
@@ -53,8 +51,8 @@ abstract class GeneralDao :
                 id = lesson.id,
                 subject = ids.subjectId,
                 time = ids.timeId,
-                day = ids.dayId,
-                weekType = ids.weekTypeId,
+                day = lesson.day,
+                weekType = lesson.weekType,
                 housing = ids.housingId,
                 classroom = ids.classroomId,
                 type = ids.typeId,
@@ -65,7 +63,7 @@ abstract class GeneralDao :
         )
     }
 
-    @Transaction
+    @Transaction // Или liveData<Lesson>
     open suspend fun getLessonForEdit(lessonId: Long): Lesson {
         val lessonEntity = getLesson(lessonId)
 
@@ -73,8 +71,8 @@ abstract class GeneralDao :
             id = lessonEntity.id,
             subject = getSubject(lessonEntity.subject).subject,
             time = getTime(lessonEntity.time).time,
-            day = getDay(lessonEntity.day).day,
-            weekType = getWeekType(lessonEntity.weekType).weekType,
+            day = lessonEntity.day,
+            weekType = lessonEntity.weekType,
             housing = lessonEntity.housing?.let { getHousing(it).housing },
             classroom = lessonEntity.classroom?.let { getClassroom(it).classroom },
             type = lessonEntity.type?.let { getType(it).type },
@@ -89,10 +87,6 @@ abstract class GeneralDao :
             ?: insertSubject(SubjectEntity(subject = lesson.subject)),
         timeId = getTime(lesson.time)?.id
             ?: insertTime(TimeEntity(time = lesson.time)),
-        dayId = getDay(lesson.day)?.id
-            ?: insertDay(DayEntity(day = lesson.day)),
-        weekTypeId = getWeekType(lesson.weekType)?.id
-            ?: insertWeekType(WeekTypeEntity(weekType = lesson.weekType)),
         housingId = lesson.housing?.let {
             getHousing(it)?.id ?: insertHousing(HousingEntity(housing = it))
         },
