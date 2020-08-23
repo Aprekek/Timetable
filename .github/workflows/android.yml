@@ -4,10 +4,13 @@ on:
   pull_request:
     branches:
       - 'master'
+  push:
+    branches:
+      - 'master'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - name: set up JDK 1.8
@@ -16,5 +19,19 @@ jobs:
           java-version: 1.8
       - name: Set gradlew permission
         run: chmod +x gradlew
+      - name: Clean cache
+        run: ./gradlew clean
       - name: Build with Gradle
         run: ./gradlew assembleDebug
+      - name: Run android tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedAndroidTest
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest
+      - name: Push artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: timetable
+          path: app/build/outputs/apk/debug/app-debug.apk
