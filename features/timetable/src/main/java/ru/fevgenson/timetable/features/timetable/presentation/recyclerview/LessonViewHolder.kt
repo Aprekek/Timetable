@@ -13,20 +13,19 @@ class LessonViewHolder private constructor(
 
     companion object {
 
-        const val VIEW_HOLDER_TYPE = 1
+        const val VIEW_HOLDER_TYPE = -1
 
         fun from(
-            parent: ViewGroup,
-            viewModel: PageDayViewModel
+            parent: ViewGroup
         ): LessonViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemLessonBinding.inflate(inflater, parent, false)
-            binding.viewModel = viewModel
             return LessonViewHolder(binding)
         }
     }
 
-    fun bind(lesson: Lesson) {
+    fun bind(lesson: Lesson, viewModel: PageDayViewModel) {
         binding.lesson = lesson
+        binding.viewModel = viewModel
     }
 }

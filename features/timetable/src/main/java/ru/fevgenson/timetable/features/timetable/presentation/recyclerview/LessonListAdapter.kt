@@ -14,14 +14,13 @@ class LessonListAdapter(
         setHasStableIds(true)
     }
 
-    @ExperimentalStdlibApi
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): LessonViewHolder = LessonViewHolder.from(parent, viewModel)
+    ): LessonViewHolder = LessonViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), viewModel)
     }
 
     override fun getItemId(position: Int): Long = getItem(position).id
