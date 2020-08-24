@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.PageDayBinding
-import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
+import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonListAdapter
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonRecyclerViewItemDecoration
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
@@ -23,7 +23,7 @@ class PageDayViewHolder(
     private lateinit var viewModel: PageDayViewModel
     private lateinit var lessonListAdapter: LessonListAdapter
     private var recyclerViewWasInit = false
-    private val listChangeObserver = Observer<List<Lesson>> {
+    private val listChangeObserver = Observer<List<TimetableLesson>> {
         lessonListAdapter.submitList(it)
     }
 

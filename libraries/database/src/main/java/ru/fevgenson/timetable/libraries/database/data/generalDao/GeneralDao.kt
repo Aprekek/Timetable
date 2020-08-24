@@ -93,7 +93,7 @@ internal abstract class GeneralDao :
                 type = lessonEntity.type?.let { getType(it).type },
                 teacher = lessonEntity.teacher?.let { getTeacher(it) }
             )
-        }
+        }.sortedBy { it.time }
     }
 
     private suspend fun getIds(lesson: Lesson) = Ids(

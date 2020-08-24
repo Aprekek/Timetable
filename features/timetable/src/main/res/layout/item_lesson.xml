@@ -11,7 +11,7 @@
 
         <variable
             name="lesson"
-            type="ru.fevgenson.timetable.features.timetable.domain.entities.Lesson" />
+            type="ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

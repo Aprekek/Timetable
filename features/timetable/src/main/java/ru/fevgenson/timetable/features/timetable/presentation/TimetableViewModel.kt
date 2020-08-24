@@ -1,17 +1,21 @@
 package ru.fevgenson.timetable.features.timetable.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.koin.core.parameter.parametersOf
 import org.koin.java.KoinJavaComponent.get
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
+import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
-class TimetableViewModel : ViewModel() {
+class TimetableViewModel(
+    private val deleteLessonUseCase: DeleteLessonUseCase
+) : ViewModel() {
 
     interface EventListener {
         fun navigateToCreate(bundle: Bundle)
@@ -80,6 +84,8 @@ class TimetableViewModel : ViewModel() {
     }
 
     fun onDeleteDialogOkButtonClick(lessonId: Long) {
-        Log.d("menu", "delete $lessonId")
+        viewModelScope.launch {
+            deleteLessonUseCase(lessonId)
+        }
     }
 }
