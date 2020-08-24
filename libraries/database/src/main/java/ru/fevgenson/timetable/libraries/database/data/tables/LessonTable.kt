@@ -34,23 +34,9 @@ import androidx.room.*
             onUpdate = ForeignKey.CASCADE,
             deferred = true
         ), ForeignKey(
-            entity = TeachersNameEntity::class,
+            entity = TeacherEntity::class,
             parentColumns = ["id"],
-            childColumns = ["teachersName"],
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE,
-            deferred = true
-        ), ForeignKey(
-            entity = EmailEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["email"],
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE,
-            deferred = true
-        ), ForeignKey(
-            entity = PhoneEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["phone"],
+            childColumns = ["teacher"],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE,
             deferred = true
@@ -73,9 +59,7 @@ data class LessonEntity(
     @ColumnInfo(index = true) val housing: Long? = null,
     @ColumnInfo(index = true) val classroom: Long? = null,
     @ColumnInfo(index = true) val type: Long? = null,
-    @ColumnInfo(index = true) val teachersName: Long? = null,
-    @ColumnInfo(index = true) val email: Long? = null,
-    @ColumnInfo(index = true) val phone: Long? = null
+    @ColumnInfo(index = true) val teacher: Long? = null
 )
 
 @Dao

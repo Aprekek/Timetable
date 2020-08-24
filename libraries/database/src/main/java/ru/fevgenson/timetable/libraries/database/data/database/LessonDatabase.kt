@@ -12,9 +12,7 @@ import ru.fevgenson.timetable.libraries.database.data.tables.*
         HousingEntity::class,
         ClassroomEntity::class,
         TypeEntity::class,
-        TeachersNameEntity::class,
-        EmailEntity::class,
-        PhoneEntity::class,
+        TeacherEntity::class,
         TimeEntity::class
     ],
     version = 1,

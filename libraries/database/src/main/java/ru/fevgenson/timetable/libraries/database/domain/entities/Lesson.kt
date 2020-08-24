@@ -1,5 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.domain.entities
 
+import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
+
 data class Lesson(
 
     var id: Long = 0,
@@ -10,7 +12,5 @@ data class Lesson(
     var housing: String? = null,
     var classroom: String? = null,
     var type: String? = null,
-    var teachersName: String? = null,
-    var email: String? = null,
-    var phone: String? = null
+    var teacher: TeacherEntity? = null
 )
