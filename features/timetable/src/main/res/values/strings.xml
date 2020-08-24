@@ -28,7 +28,7 @@
     <string name="timetable_menu_delete">Удалить</string>
 
     <string name="timetable_dialog_title">Удалить?</string>
-    <string name="timetable_dialog_description">Пара будет удалена на всегда</string>
+    <string name="timetable_dialog_description">Пара будет удалена навсегда</string>
     <string name="timetable_dialog_ok">Удалить</string>
     <string name="timetable_dialog_cancel">Отмена</string>
 </resources>
