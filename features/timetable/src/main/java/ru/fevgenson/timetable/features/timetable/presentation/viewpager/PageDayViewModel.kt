@@ -52,15 +52,15 @@ class PageDayViewModel(
         }
     }
 
-    fun copyLesson(id: Long) {
-        parentViewModel.onCopyLessonMenuClick(id)
+    fun copyLesson(lessonId: Long) {
+        parentViewModel.onCopyLessonMenuClick(lessonId)
     }
 
-    fun deleteLesson(id: Long) {
-        parentViewModel.onDeleteLessonMenuClick(id)
+    fun deleteLesson(lessonId: Long) {
+        parentViewModel.onDeleteLessonMenuClick(lessonId)
     }
 
-    fun editLesson(id: Long) {
-        parentViewModel.onEditLessonMenuClick(id)
+    fun editLesson(lessonId: Long) {
+        parentViewModel.onEditLessonMenuClick(lessonId)
     }
 }

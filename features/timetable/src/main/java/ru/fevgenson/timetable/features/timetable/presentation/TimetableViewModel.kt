@@ -15,7 +15,7 @@ class TimetableViewModel : ViewModel() {
 
     interface EventListener {
         fun navigateToCreate(bundle: Bundle)
-        fun showDeleteDialog(id: Long)
+        fun showDeleteDialog(lessonId: Long)
     }
 
     val selectedWeekLiveData = MutableLiveData(DateUtils.getCurrentWeek())
@@ -49,12 +49,12 @@ class TimetableViewModel : ViewModel() {
         }
     }
 
-    fun onEditLessonMenuClick(id: Long) {
+    fun onEditLessonMenuClick(lessonId: Long) {
         eventsDispatcher.dispatchEvent {
             with(NavigationConstants.LessonCreate) {
                 navigateToCreate(
                     Bundle().apply {
-                        putLong(LESSON_ID, id)
+                        putLong(LESSON_ID, lessonId)
                         putInt(OPEN_TYPE, EDIT)
                     }
                 )
@@ -62,12 +62,12 @@ class TimetableViewModel : ViewModel() {
         }
     }
 
-    fun onCopyLessonMenuClick(id: Long) {
+    fun onCopyLessonMenuClick(lessonId: Long) {
         eventsDispatcher.dispatchEvent {
             with(NavigationConstants.LessonCreate) {
                 navigateToCreate(
                     Bundle().apply {
-                        putLong(LESSON_ID, id)
+                        putLong(LESSON_ID, lessonId)
                         putInt(OPEN_TYPE, COPY)
                     }
                 )
@@ -75,11 +75,11 @@ class TimetableViewModel : ViewModel() {
         }
     }
 
-    fun onDeleteLessonMenuClick(id: Long) {
-        eventsDispatcher.dispatchEvent { showDeleteDialog(id) }
+    fun onDeleteLessonMenuClick(lessonId: Long) {
+        eventsDispatcher.dispatchEvent { showDeleteDialog(lessonId) }
     }
 
-    fun onDeleteDialogOkButtonClick(id: Long) {
-        Log.d("menu", "delete $id")
+    fun onDeleteDialogOkButtonClick(lessonId: Long) {
+        Log.d("menu", "delete $lessonId")
     }
 }

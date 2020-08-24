@@ -117,13 +117,13 @@ class TimetableFragment : Fragment(),
         )
     }
 
-    override fun showDeleteDialog(id: Long) {
+    override fun showDeleteDialog(lessonId: Long) {
         val dialog = NoticeDialogFragment.newInstance(
             title = R.string.timetable_dialog_title,
             description = R.string.timetable_dialog_description,
             confirmButtonText = R.string.timetable_dialog_ok,
             cancelButtonText = R.string.timetable_dialog_cancel,
-            action = id
+            action = lessonId
         )
         dialog.setTargetFragment(this, 0)
         dialog.show(parentFragmentManager, "notification")
