@@ -29,13 +29,15 @@
                 android:padding="@dimen/padding_20"
                 app:errorMessage="@{lessonCreateViewModel.subjectError}">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/subject_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="textCapSentences"
-                    android:text="@={lessonCreateViewModel.subject}" />
+                    android:padding="@dimen/padding_10"
+                    android:text="@={lessonCreateViewModel.subject}"
+                    app:autocompleteData="@{lessonCreateViewModel.subjectAutoComplete}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout

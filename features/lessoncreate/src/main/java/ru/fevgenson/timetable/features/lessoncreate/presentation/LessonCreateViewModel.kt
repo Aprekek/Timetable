@@ -64,8 +64,32 @@ class LessonCreateViewModel(
     val typeAutocomplete = liveData { emit(getTypesValuesUseCase()) }
     val teachersName = MutableLiveData<String>()
     val teacherAutocomplete = liveData { emit(getTeachersUseCase()) }
-    val email = MutableLiveData<String>()
-    val phone = MutableLiveData<String>()
+    val email: MutableLiveData<String> = MediatorLiveData<String>().apply {
+        addSource(teachersName) { teachersName ->
+            var teacherEntity: TeacherEntity?
+            if (
+                teacherAutocomplete.value
+                    ?.find { it.name == teachersName }
+                    .also { teacherEntity = it } != null &&
+                value.isNullOrBlank()
+            ) {
+                value = teacherEntity?.email
+            }
+        }
+    }
+    val phone: MutableLiveData<String> = MediatorLiveData<String>().apply {
+        addSource(teachersName) { teachersName ->
+            var teacherEntity: TeacherEntity?
+            if (
+                teacherAutocomplete.value
+                    ?.find { it.name == teachersName }
+                    .also { teacherEntity = it } != null &&
+                value.isNullOrBlank()
+            ) {
+                value = teacherEntity?.phone
+            }
+        }
+    }
 
     val timeStartMinutes = MutableLiveData<Int?>(null)
     val timeEndMinutes = MutableLiveData<Int?>(null)
