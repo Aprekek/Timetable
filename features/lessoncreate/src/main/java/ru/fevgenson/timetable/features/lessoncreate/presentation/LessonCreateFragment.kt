@@ -17,13 +17,17 @@ import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
+import ru.fevgenson.timetable.libraries.core.presentation.dialogs.ListDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 
 
-class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
-    NoticeDialogFragment.NoticeDialogListener<Int> {
+class LessonCreateFragment :
+    Fragment(),
+    LessonCreateViewModel.EventListener,
+    NoticeDialogFragment.NoticeDialogListener<Int>,
+    ListDialogFragment.ListDialogListener {
 
     private lateinit var binding: FragmentLessonCreateBinding
     private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
@@ -135,7 +139,21 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
         dialog.show(parentFragmentManager, "notification")
     }
 
+    override fun showDialog(title: Int, content: List<String>) {
+        val dialog = ListDialogFragment.newInstance(
+            title = title,
+            cancelButtonText = R.string.lesson_create_button_cancel,
+            list = content
+        )
+        dialog.setTargetFragment(this, 0)
+        dialog.show(parentFragmentManager, "notification")
+    }
+
     override fun onDialogPositiveClick(action: Int) {
         lessonCreateViewModel.onDialogResult(action)
+    }
+
+    override fun onItemSelected(item: String) {
+        lessonCreateViewModel.onDialogResult(item)
     }
 }

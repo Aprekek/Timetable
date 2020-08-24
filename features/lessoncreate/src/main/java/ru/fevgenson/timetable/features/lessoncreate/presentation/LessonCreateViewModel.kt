@@ -33,6 +33,7 @@ class LessonCreateViewModel(
         fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders)
         fun showPopupMessage(message: Int)
         fun showDialog(title: Int, description: Int, action: Int)
+        fun showDialog(title: Int, content: List<String>)
     }
 
     companion object {
@@ -99,6 +100,7 @@ class LessonCreateViewModel(
     val timeEndString: LiveData<String> = Transformations.map(timeEndMinutes) {
         convertTimeToString(it)
     }
+    val timeAutoComplete = liveData { emit(getTimesValuesUseCase()) }
 
     val eventsDispatcher = EventsDispatcher<EventListener>()
 
@@ -259,6 +261,17 @@ class LessonCreateViewModel(
         }
     }
 
+    fun onAutocompleteTimeButtonClick() {
+        eventsDispatcher.dispatchEvent {
+            showDialog(
+                R.string.lesson_create_content_dialog_title,
+                requireNotNull(timeAutoComplete.value) {
+                    "time autocomplete cant be null"
+                }
+            )
+        }
+    }
+
     fun onClearItemClick() {
         when (_currentPage.value) {
             MAIN_PAGE -> {
@@ -328,6 +341,13 @@ class LessonCreateViewModel(
             saveChanges()
         else
             onCancel()
+    }
+
+    fun onDialogResult(time: String) {
+        timeStartMinutes.value =
+            MyTimeUtils.convertDbTimeToMinutes(time, MyTimeUtils.TimeBorders.START)
+        timeEndMinutes.value =
+            MyTimeUtils.convertDbTimeToMinutes(time, MyTimeUtils.TimeBorders.END)
     }
 
     private fun isDataValid() = subjectError.value == null &&

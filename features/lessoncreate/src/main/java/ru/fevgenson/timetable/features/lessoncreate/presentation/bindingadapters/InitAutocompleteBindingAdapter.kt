@@ -1,7 +1,9 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation.bindingadapters
 
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import androidx.databinding.BindingAdapter
 import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 
@@ -26,5 +28,13 @@ fun AutoCompleteTextView.setupTeacherData(data: List<TeacherEntity>?) {
         )
         threshold = MIN_THRESHOLD
         setAdapter(adapter)
+    }
+}
+
+@BindingAdapter("stateAutocompleteData")
+fun Button.setAutocompleteState(data: List<String>?) {
+    visibility = when {
+        data.isNullOrEmpty() -> View.GONE
+        else -> View.VISIBLE
     }
 }
