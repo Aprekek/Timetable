@@ -49,6 +49,8 @@ dependencies {
 
     implementation Dependencies.TINKOFF.DECORO
 
+    implementation Dependencies.Lifecycle.LIFECYCLE_LIVEDATA
+
     kapt Dependencies.DATABINDING
 
     implementation Dependencies.Koin.KOIN_CORE
@@ -63,4 +65,5 @@ dependencies {
     implementation project(Modules.NAVIGATION)
     implementation project(Modules.THEMES)
     implementation project(Modules.CORE)
+    implementation project(Modules.DATABASE)
 }
