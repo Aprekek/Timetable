@@ -10,6 +10,7 @@ public class Dependencies {
     public static final String ACTIVITY = "androidx.activity:activity-ktx:" + Versions.ACTIVITY;
     public static final String FRAGMENT = "androidx.fragment:fragment-ktx:" + Versions.FRAGMENT;
     public static final String RECYCLE_VIEW = "androidx.recyclerview:recyclerview:" + Versions.RECYCLE_VIEW;
+    public static final String VIEW_PAGER_2 = "androidx.viewpager2:viewpager2:" + Versions.VIEW_PAGER_2;
     public static final String SWIPE_REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:" + Versions.SWIPE_REFRESH_LAYOUT;
     public static final String DATABINDING = "com.android.databinding:compiler:" + Versions.DATABINDING;
 
@@ -28,6 +29,7 @@ public class Dependencies {
         public static final String ACTIVITY = "1.1.0";
         public static final String FRAGMENT = "1.2.4";
         public static final String RECYCLE_VIEW = "1.1.0";
+        public static final String VIEW_PAGER_2 = "1.0.0";
         public static final String SWIPE_REFRESH_LAYOUT = "1.0.0";
         public static final String ROOM = "2.2.5";
         public static final String COROUTINE = "1.3.7";
