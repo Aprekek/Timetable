@@ -1,9 +1,12 @@
 package ru.fevgenson.timetable.features.timetable.presentation
 
+import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.java.KoinJavaComponent.get
+import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
@@ -11,7 +14,8 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 class TimetableViewModel : ViewModel() {
 
     interface EventListener {
-        fun navigateToCreate(weekType: Int, day: Int)
+        fun navigateToCreate(bundle: Bundle)
+        fun showDeleteDialog(lessonId: Long)
     }
 
     val selectedWeekLiveData = MutableLiveData(DateUtils.getCurrentWeek())
@@ -27,12 +31,55 @@ class TimetableViewModel : ViewModel() {
 
     fun onCreateLessonButtonClick() {
         eventsDispatcher.dispatchEvent {
-            navigateToCreate(
-                weekType = selectedWeekLiveData.value
-                    ?: throw IllegalStateException("wrong week constant"),
-                day = selectedDayLiveData.value
-                    ?: throw IllegalStateException("wrong day constant")
-            )
+            with(NavigationConstants.LessonCreate) {
+                navigateToCreate(
+                    Bundle().apply {
+                        putInt(
+                            DAY,
+                            requireNotNull(selectedDayLiveData.value) { "day can't be null" }
+                        )
+                        putInt(
+                            WEEK_TYPE,
+                            requireNotNull(selectedWeekLiveData.value) { "week can't be null" }
+                        )
+                        putInt(OPEN_TYPE, CREATE)
+                    }
+                )
+            }
         }
+    }
+
+    fun onEditLessonMenuClick(lessonId: Long) {
+        eventsDispatcher.dispatchEvent {
+            with(NavigationConstants.LessonCreate) {
+                navigateToCreate(
+                    Bundle().apply {
+                        putLong(LESSON_ID, lessonId)
+                        putInt(OPEN_TYPE, EDIT)
+                    }
+                )
+            }
+        }
+    }
+
+    fun onCopyLessonMenuClick(lessonId: Long) {
+        eventsDispatcher.dispatchEvent {
+            with(NavigationConstants.LessonCreate) {
+                navigateToCreate(
+                    Bundle().apply {
+                        putLong(LESSON_ID, lessonId)
+                        putInt(OPEN_TYPE, COPY)
+                    }
+                )
+            }
+        }
+    }
+
+    fun onDeleteLessonMenuClick(lessonId: Long) {
+        eventsDispatcher.dispatchEvent { showDeleteDialog(lessonId) }
+    }
+
+    fun onDeleteDialogOkButtonClick(lessonId: Long) {
+        Log.d("menu", "delete $lessonId")
     }
 }

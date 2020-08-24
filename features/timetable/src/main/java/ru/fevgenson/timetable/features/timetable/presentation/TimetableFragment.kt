@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
-import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayTransformer
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewPagerAdapter
+import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
-class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
+class TimetableFragment : Fragment(),
+    TimetableViewModel.EventListener,
+    NoticeDialogFragment.NoticeDialogListener<Long> {
 
     private lateinit var binding: FragmentTimetableBinding
     private val viewModel: TimetableViewModel by viewModel()
@@ -46,8 +46,10 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
     private fun initViewPagerAdapter() {
         val adapter = PageDayViewPagerAdapter(viewModel.dayViewModelsList, viewLifecycleOwner)
         binding.dayViewPager.adapter = adapter
-        binding.dayViewPager.offscreenPageLimit = adapter.itemCount
-        binding.dayViewPager.setPageTransformer(PageDayTransformer())
+        viewModel.selectedDayLiveData.value?.let {
+            binding.dayViewPager.setCurrentItem(it, false)
+        }
+        binding.dayViewPager.offscreenPageLimit = 2
     }
 
     private fun initWeekTabs() {
@@ -105,19 +107,29 @@ class TimetableFragment : Fragment(), TimetableViewModel.EventListener {
         customView = tabBinding.root
     }
 
-    override fun navigateToCreate(
-        weekType: Int,
-        day: Int
-    ) {
+    override fun navigateToCreate(bundle: Bundle) {
         Navigation.findNavController(
             requireActivity(),
             R.id.global_host
         ).navigate(
             R.id.navigation_from_main_to_lesson_create,
-            bundleOf(
-                Pair(NavigationConstants.WEEK_TYPE, weekType),
-                Pair(NavigationConstants.DAY, day)
-            )
+            bundle
         )
+    }
+
+    override fun showDeleteDialog(lessonId: Long) {
+        val dialog = NoticeDialogFragment.newInstance(
+            title = R.string.timetable_dialog_title,
+            description = R.string.timetable_dialog_description,
+            confirmButtonText = R.string.timetable_dialog_ok,
+            cancelButtonText = R.string.timetable_dialog_cancel,
+            action = lessonId
+        )
+        dialog.setTargetFragment(this, 0)
+        dialog.show(parentFragmentManager, "notification")
+    }
+
+    override fun onDialogPositiveClick(action: Long) {
+        viewModel.onDeleteDialogOkButtonClick(action)
     }
 }

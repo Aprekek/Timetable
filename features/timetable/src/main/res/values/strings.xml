@@ -22,4 +22,13 @@
         <item>Первая</item>
         <item>Вторая</item>
     </string-array>
+
+    <string name="timetable_menu_copy">Копировать</string>
+    <string name="timetable_menu_edit">Редактировать</string>
+    <string name="timetable_menu_delete">Удалить</string>
+
+    <string name="timetable_dialog_title">Удалить?</string>
+    <string name="timetable_dialog_description">Пара будет удалена навсегда</string>
+    <string name="timetable_dialog_ok">Удалить</string>
+    <string name="timetable_dialog_cancel">Отмена</string>
 </resources>
