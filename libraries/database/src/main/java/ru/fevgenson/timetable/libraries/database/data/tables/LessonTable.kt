@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.data.tables
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Entity(
     tableName = "lesson_table",
@@ -63,10 +64,13 @@ data class LessonEntity(
 )
 
 @Dao
-interface LessonDao {
+internal interface LessonDao {
 
     @Query("SELECT * from lesson_table WHERE id = :id")
     suspend fun getLesson(id: Long): LessonEntity
+
+    @Query("SELECT * from lesson_table WHERE weekType = :weekType AND day = :day")
+    fun getLessons(weekType: Int, day: Int): Flow<List<LessonEntity>>
 
     @Insert
     suspend fun insertLesson(lesson: LessonEntity): Long

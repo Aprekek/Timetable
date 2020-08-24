@@ -2,11 +2,13 @@ package ru.fevgenson.timetable.libraries.database.data.generalDao
 
 import androidx.room.Dao
 import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.fevgenson.timetable.libraries.database.data.tables.*
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 @Dao
-abstract class GeneralDao :
+internal abstract class GeneralDao :
     LessonDao, SubjectDao, TimeDao, HousingDao,
     ClassroomDao, TypeDao, TeachersNameDao {
 
@@ -72,6 +74,26 @@ abstract class GeneralDao :
             type = lessonEntity.type?.let { getType(it).type },
             teacher = lessonEntity.teacher?.let { getTeacher(it) }
         )
+    }
+
+    @Transaction
+    open fun getLessonsForEdit(
+        weekType: Int,
+        day: Int
+    ): Flow<List<Lesson>> = getLessons(weekType, day).map { entityList ->
+        entityList.map { lessonEntity ->
+            Lesson(
+                id = lessonEntity.id,
+                subject = getSubject(lessonEntity.subject).subject,
+                time = getTime(lessonEntity.time).time,
+                day = lessonEntity.day,
+                weekType = lessonEntity.weekType,
+                housing = lessonEntity.housing?.let { getHousing(it).housing },
+                classroom = lessonEntity.classroom?.let { getClassroom(it).classroom },
+                type = lessonEntity.type?.let { getType(it).type },
+                teacher = lessonEntity.teacher?.let { getTeacher(it) }
+            )
+        }
     }
 
     private suspend fun getIds(lesson: Lesson) = Ids(

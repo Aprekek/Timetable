@@ -9,7 +9,7 @@ data class TimeEntity(
 )
 
 @Dao
-interface TimeDao {
+internal interface TimeDao {
 
     @Query("SELECT * from time_table")
     suspend fun getTimes(): List<TimeEntity>

@@ -57,6 +57,10 @@ dependencies {
     kapt Dependencies.Room.ROOM_COMPILER
     implementation Dependencies.Room.ROOM_KTX
 
+    implementation Dependencies.Koin.KOIN_CORE
+    implementation Dependencies.Koin.KOIN_EXT
+    implementation Dependencies.Koin.KOIN_SCOPE
+
     testImplementation Dependencies.Test.JUNIT
     androidTestImplementation Dependencies.Test.ANDROIDX_TEST_EXT
     androidTestImplementation Dependencies.Test.ANDROIDX_CORE

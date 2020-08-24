@@ -9,7 +9,7 @@ data class ClassroomEntity(
 )
 
 @Dao
-interface ClassroomDao {
+internal interface ClassroomDao {
 
     @Query("SELECT * from classroom_table")
     suspend fun getClassrooms(): List<ClassroomEntity>

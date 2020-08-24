@@ -18,7 +18,11 @@ import ru.fevgenson.timetable.libraries.database.data.tables.*
     version = 1,
     exportSchema = false
 )
-abstract class LessonDatabase : RoomDatabase() {
+internal abstract class LessonDatabase : RoomDatabase() {
+
+    companion object {
+        const val DEVELOP_DB_NAME = "DEVELOP_DB_NAME"
+    }
 
     abstract fun lessonDao(): GeneralDao
 }

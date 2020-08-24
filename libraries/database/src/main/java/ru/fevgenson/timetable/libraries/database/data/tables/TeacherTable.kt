@@ -14,7 +14,7 @@ data class TeacherEntity(
 )
 
 @Dao
-interface TeachersNameDao {
+internal interface TeachersNameDao {
 
     @Query("SELECT * from teacher_table")
     suspend fun getTeachers(): List<TeacherEntity>
