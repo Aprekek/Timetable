@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel" />
+
+        <variable
             name="lesson"
             type="ru.fevgenson.timetable.features.timetable.domain.entities.Lesson" />
     </data>
@@ -13,9 +17,14 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         app:cardBackgroundColor="?attr/colorSurface"
         app:cardCornerRadius="@dimen/radius_15"
         app:contentPadding="@dimen/padding_15"
+        app:copyMenuListener="@{() -> viewModel.copyLesson(lesson.id)}"
+        app:deleteMenuListener="@{() -> viewModel.deleteLesson(lesson.id)}"
+        app:editMenuListener="@{() -> viewModel.editLesson(lesson.id)}"
         app:strokeColor="?attr/colorSecondary"
         app:strokeWidth="1dp">
 

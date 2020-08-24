@@ -23,14 +23,20 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 
 
 class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
-    NoticeDialogFragment.NoticeDialogListener {
+    NoticeDialogFragment.NoticeDialogListener<Int> {
 
     private lateinit var binding: FragmentLessonCreateBinding
     private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
-        parametersOf(
-            arguments?.getInt(NavigationConstants.WEEK_TYPE),
-            arguments?.getInt(NavigationConstants.DAY)
-        )
+        with(requireArguments()) {
+            with(NavigationConstants.LessonCreate) {
+                parametersOf(
+                    getInt(WEEK_TYPE, NOT_INIT),
+                    getInt(DAY, NOT_INIT),
+                    getLong(LESSON_ID, NOT_INIT.toLong()),
+                    getInt(OPEN_TYPE)
+                )
+            }
+        }
     }
 
     override fun onCreateView(
@@ -118,13 +124,12 @@ class LessonCreateFragment : Fragment(), LessonCreateViewModel.EventListener,
     }
 
     override fun showDialog(title: Int, description: Int, action: Int) {
-        val dialog = NoticeDialogFragment()
-        dialog.initialize(
-            getString(title),
-            getString(description),
-            getString(R.string.lesson_create_button_cancel),
-            getString(R.string.lesson_create_button_confirm),
-            action
+        val dialog = NoticeDialogFragment.newInstance(
+            title = title,
+            description = description,
+            confirmButtonText = R.string.lesson_create_button_confirm,
+            cancelButtonText = R.string.lesson_create_button_cancel,
+            action = action
         )
         dialog.setTargetFragment(this, 0)
         dialog.show(parentFragmentManager, "notification")

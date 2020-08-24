@@ -10,8 +10,10 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 
 class LessonCreateViewModel(
-    weekType: Int,
-    day: Int
+    weekType: Int?,
+    day: Int?,
+    private val id: Long?,
+    private val openType: Int
 ) : ViewModel() {
 
     interface EventListener {
@@ -59,6 +61,10 @@ class LessonCreateViewModel(
     }
 
     init {
+        initTime()
+    }
+
+    private fun initTime() {
         timeStartMinutes.observeForever { timeStartMinutes ->
             if (timeEndMinutes.value == null && timeStartMinutes != null) {
                 timeEndMinutes.value = (timeStartMinutes + LESSON_LENGTH_MIN).rem(MINUTES_IN_DAY)
@@ -92,7 +98,7 @@ class LessonCreateViewModel(
 
     val firstWeekChips = MutableLiveData<List<Boolean>>(
         MutableList(DateUtils.WEEK_DAYS) { false }.apply {
-            if (weekType == DateUtils.FIRST_WEEK) {
+            if (weekType == DateUtils.FIRST_WEEK && day != null) {
                 set(day, true)
             }
         }
@@ -100,7 +106,7 @@ class LessonCreateViewModel(
 
     val secondWeekChips = MutableLiveData<List<Boolean>>(
         MutableList(DateUtils.WEEK_DAYS) { false }.apply {
-            if (weekType == DateUtils.SECOND_WEEK) {
+            if (weekType == DateUtils.SECOND_WEEK && day != null) {
                 set(day, true)
             }
         }
