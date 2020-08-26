@@ -17,7 +17,6 @@
                 android:layout_height="wrap_content"
                 app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable" />
-            <!--           TODO засунуть ручками-->
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
