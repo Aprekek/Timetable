@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="categories">
+    <string-array name="dictionary_categories">
         <item>Предмет</item>
         <item>Преподаватель</item>
         <item>Аудитория</item>

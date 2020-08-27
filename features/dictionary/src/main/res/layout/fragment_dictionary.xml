@@ -15,8 +15,12 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:backgroundColorSelected="@{@color/blue}"
+                app:backgroundColorUnselected="@{@color/light_grey}"
                 app:tabIndicatorHeight="0dp"
-                app:tabMode="scrollable" />
+                app:tabMode="scrollable"
+                app:textColorSelected="@{@color/white}"
+                app:textColorUnselected="@{@color/black}" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2

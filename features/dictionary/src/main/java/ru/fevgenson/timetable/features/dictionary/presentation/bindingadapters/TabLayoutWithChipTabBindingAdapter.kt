@@ -17,30 +17,32 @@ fun TabLayout.setColorStateList(
     textColorSelected: ColorStateList,
     textColorUnselected: ColorStateList
 ) {
-    addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+    addOnTabSelectedListener(
+        object : TabLayout.OnTabSelectedListener {
 
-        override fun onTabSelected(tab: TabLayout.Tab?) {
-            tab?.setColors(backgroundColorSelected, textColorSelected)
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.setColors(backgroundColorSelected, textColorSelected)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.setColors(backgroundColorUnselected, textColorUnselected)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                tab?.setColors(backgroundColorSelected, textColorSelected)
+            }
         }
+    )
 
-        override fun onTabUnselected(tab: TabLayout.Tab?) {
-            tab?.setColors(backgroundColorUnselected, textColorUnselected)
-        }
-
-        override fun onTabReselected(tab: TabLayout.Tab?) {
-        }
-
-    })
+    selectTab(getTabAt(0))
 }
 
 fun TabLayout.Tab.setColors(
     backgroundColor: ColorStateList,
     textColor: ColorStateList
 ) {
-    if (customView is Chip) {
-        (customView as Chip).apply {
-            setTextColor(textColor)
-            chipBackgroundColor = backgroundColor
-        }
+    (customView as? Chip)?.apply {
+        setTextColor(textColor)
+        chipBackgroundColor = backgroundColor
     }
 }
