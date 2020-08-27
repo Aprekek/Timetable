@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
+import ru.fevgenson.timetable.features.dictionary.R
 
 @BindingAdapter(
     "backgroundColorSelected",
@@ -21,15 +22,27 @@ fun TabLayout.setColorStateList(
         object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.setColors(backgroundColorSelected, textColorSelected)
+                tab?.setColors(
+                    backgroundColorSelected,
+                    textColorSelected,
+                    resources.getDimension(R.dimen.stroke_width_0)
+                )
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.setColors(backgroundColorUnselected, textColorUnselected)
+                tab?.setColors(
+                    backgroundColorUnselected,
+                    textColorUnselected,
+                    resources.getDimension(R.dimen.stroke_width_1)
+                )
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                tab?.setColors(backgroundColorSelected, textColorSelected)
+                tab?.setColors(
+                    backgroundColorSelected,
+                    textColorSelected,
+                    resources.getDimension(R.dimen.stroke_width_0)
+                )
             }
         }
     )
@@ -39,10 +52,12 @@ fun TabLayout.setColorStateList(
 
 fun TabLayout.Tab.setColors(
     backgroundColor: ColorStateList,
-    textColor: ColorStateList
+    textColor: ColorStateList,
+    strokeWidth: Float
 ) {
     (customView as? Chip)?.apply {
         setTextColor(textColor)
         chipBackgroundColor = backgroundColor
+        chipStrokeWidth = strokeWidth
     }
 }

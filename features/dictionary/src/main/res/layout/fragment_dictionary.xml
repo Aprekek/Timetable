@@ -16,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:backgroundColorSelected="@{@color/blue}"
-                app:backgroundColorUnselected="@{@color/light_grey}"
+                app:backgroundColorUnselected="@{@color/white}"
                 app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable"
                 app:textColorSelected="@{@color/white}"
