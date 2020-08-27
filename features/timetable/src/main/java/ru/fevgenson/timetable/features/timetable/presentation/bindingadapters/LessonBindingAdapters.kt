@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.observe
+import com.google.android.material.card.MaterialCardView
 import org.koin.java.KoinJavaComponent.get
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver
@@ -93,7 +94,12 @@ fun CardView.initPopUpMenu(
     }
 }
 
-@BindingAdapter("currentWeek", "currentDay", "timeDiapason", "lifecycleOwner")
+@BindingAdapter(
+    "currentWeek",
+    "currentDay",
+    "timeDiapason",
+    "lifecycleOwner"
+)
 fun ImageView.initCurrentLessonObserver(
     currentWeek: Int,
     currentDay: Int,
@@ -102,36 +108,87 @@ fun ImageView.initCurrentLessonObserver(
 ) {
     var itsToday = DateUtils.getCurrentDay() == currentDay &&
             DateUtils.getCurrentWeek() == currentWeek
-    visibility = when {
-        itsToday && currentTimeInThisDiapason(timeDiapason) -> View.VISIBLE
-        else -> View.GONE
-    }
+    setTimeState(itsToday, timeDiapason)
+
     val dateBroadcastReceiver = get(DateBroadcastReceiver::class.java)
     dateBroadcastReceiver.callbacks.observe(lifecycleOwner) {
-        when {
-            it.day == currentDay &&
-                    it.weekType == currentWeek &&
-                    currentTimeInThisDiapason(timeDiapason) -> {
-                visibility = View.VISIBLE
-                itsToday = true
-            }
-            it.day == currentDay &&
-                    it.weekType == currentWeek -> {
-                visibility = View.GONE
-                itsToday = true
-            }
-            else -> {
-                visibility = View.GONE
-                itsToday = false
-            }
-        }
+        itsToday = it.day == currentDay && it.weekType == currentWeek
+        setTimeState(itsToday, timeDiapason)
     }
     val minutesBroadcastReceiver = get(MinutesBroadcastReceiver::class.java)
     minutesBroadcastReceiver.callbacks.observe(lifecycleOwner) {
-        visibility = when {
-            itsToday && currentTimeInThisDiapason(timeDiapason) -> View.VISIBLE
-            else -> View.GONE
+        setTimeState(itsToday, timeDiapason)
+    }
+}
+
+@BindingAdapter(
+    "currentWeek",
+    "currentDay",
+    "timeDiapason",
+    "lifecycleOwner"
+)
+fun MaterialCardView.initTimeObserver(
+    currentWeek: Int,
+    currentDay: Int,
+    timeDiapason: String,
+    lifecycleOwner: LifecycleOwner
+) {
+    var itsToday = DateUtils.getCurrentDay() == currentDay &&
+            DateUtils.getCurrentWeek() == currentWeek
+    var minutesBeforeStart = getMinutesBeforeStart(timeDiapason)
+    var minutesBeforeEnd = getMinutesBeforeEnd(timeDiapason)
+    val textView = findViewById<TextView>(R.id.dynamic_time)
+    setTimeState(textView, minutesBeforeStart, minutesBeforeEnd, itsToday)
+
+    val dateBroadcastReceiver = get(DateBroadcastReceiver::class.java)
+    dateBroadcastReceiver.callbacks.observe(lifecycleOwner) {
+        itsToday = it.day == currentDay && it.weekType == currentWeek
+        minutesBeforeStart = getMinutesBeforeStart(timeDiapason)
+        minutesBeforeEnd = getMinutesBeforeEnd(timeDiapason)
+        setTimeState(textView, minutesBeforeStart, minutesBeforeEnd, itsToday)
+    }
+    val minutesBroadcastReceiver = get(MinutesBroadcastReceiver::class.java)
+    minutesBroadcastReceiver.callbacks.observe(lifecycleOwner) {
+        minutesBeforeStart = getMinutesBeforeStart(timeDiapason)
+        minutesBeforeEnd = getMinutesBeforeEnd(timeDiapason)
+        setTimeState(textView, minutesBeforeStart, minutesBeforeEnd, itsToday)
+    }
+}
+
+private fun ImageView.setTimeState(
+    itsToday: Boolean,
+    timeDiapason: String
+) {
+    visibility = when {
+        !itsToday -> View.GONE
+        currentTimeInThisDiapason(timeDiapason) -> View.VISIBLE
+        else -> View.GONE
+    }
+}
+
+private fun MaterialCardView.setTimeState(
+    textView: TextView,
+    minutesBeforeStart: Int?,
+    minutesBeforeEnd: Int?,
+    itsToday: Boolean
+) {
+    when {
+        !itsToday -> visibility = View.GONE
+        minutesBeforeStart != null -> {
+            textView.text = context.getString(
+                R.string.timetable_mask_before_start,
+                minutesBeforeStart.toString()
+            )
+            visibility = View.VISIBLE
         }
+        minutesBeforeEnd != null -> {
+            textView.text = context.getString(
+                R.string.timetable_mask_before_end,
+                minutesBeforeEnd.toString()
+            )
+            visibility = View.VISIBLE
+        }
+        else -> visibility = View.GONE
     }
 }
 
@@ -139,5 +196,28 @@ private fun currentTimeInThisDiapason(diapason: String): Boolean =
     MyTimeUtils.getCurrentTime().let { currentTime ->
         val startTime = MyTimeUtils.convertDbTimeToMinutes(diapason, MyTimeUtils.TimeBorders.START)
         val endTime = MyTimeUtils.convertDbTimeToMinutes(diapason, MyTimeUtils.TimeBorders.END)
-        return@let currentTime in startTime..endTime
+        currentTime in startTime..endTime
+    }
+
+private fun getMinutesBeforeStart(diapason: String): Int? =
+    MyTimeUtils.getCurrentTime().let { currentTime ->
+        val startTime = MyTimeUtils.convertDbTimeToMinutes(diapason, MyTimeUtils.TimeBorders.START)
+        if (startTime < currentTime) {
+            null
+        } else {
+            startTime - currentTime
+        }
+    }
+
+private fun getMinutesBeforeEnd(diapason: String): Int? =
+    MyTimeUtils.getCurrentTime().let { currentTime ->
+        val startTime = MyTimeUtils.convertDbTimeToMinutes(diapason, MyTimeUtils.TimeBorders.START)
+        if (startTime > currentTime) {
+            return@let null
+        }
+        val endTime = MyTimeUtils.convertDbTimeToMinutes(diapason, MyTimeUtils.TimeBorders.END)
+        if (endTime < currentTime) {
+            return@let null
+        }
+        endTime - currentTime
     }

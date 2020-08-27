@@ -65,8 +65,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10"
                         android:contentDescription="@string/timetable_content_description_home_work"
-                        android:tint="?attr/colorSecondary"
-                        app:srcCompat="@drawable/ic_homework" />
+                        app:srcCompat="@drawable/ic_homework"
+                        app:tint="?attr/colorSecondary" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -99,21 +99,48 @@
                 app:housing="@{lesson.housing}"
                 tools:text="Главный корпус, аудитория 22" />
 
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
-                app:cardBackgroundColor="?attr/colorSecondary"
-                app:cardCornerRadius="@dimen/radius_200"
-                app:contentPadding="@dimen/padding_10">
+                android:orientation="horizontal">
 
-                <TextView
-                    style="@style/ApplicationTheme.Body3White"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{lesson.time}"
-                    tools:text="15:40-17:20" />
-            </com.google.android.material.card.MaterialCardView>
+                    app:cardBackgroundColor="?attr/colorSecondary"
+                    app:cardCornerRadius="@dimen/radius_200"
+                    app:contentPadding="@dimen/padding_10">
+
+                    <TextView
+                        style="@style/ApplicationTheme.Body3White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{lesson.time}"
+                        tools:text="15:40-17:20" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    app:cardBackgroundColor="?attr/colorSecondary"
+                    app:cardCornerRadius="@dimen/radius_200"
+                    app:contentPadding="@dimen/padding_10"
+                    app:currentDay="@{lesson.day}"
+                    app:currentWeek="@{lesson.weekType}"
+                    app:lifecycleOwner="@{lifecycle}"
+                    app:timeDiapason="@{lesson.time}">
+
+                    <TextView
+                        android:id="@+id/dynamic_time"
+                        style="@style/ApplicationTheme.Body3White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{lesson.time}"
+                        tools:text="До начала 15 мин" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
