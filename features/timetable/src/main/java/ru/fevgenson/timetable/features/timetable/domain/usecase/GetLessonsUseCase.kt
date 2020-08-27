@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
-import ru.fevgenson.timetable.features.timetable.domain.entities.toTimetableLesson
+import ru.fevgenson.timetable.features.timetable.domain.entities.toTimetableLessons
 import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
 
 class GetLessonsUseCase(private val repository: LessonRepository) {
@@ -18,7 +18,7 @@ class GetLessonsUseCase(private val repository: LessonRepository) {
     ): LiveData<List<TimetableLesson>> = liveData {
         withContext(Dispatchers.IO) {
             repository.getLessons(weekType, day).map { lessons ->
-                lessons.map { it.toTimetableLesson() }
+                lessons.toTimetableLessons()
             }.collect {
                 emit(it)
             }

@@ -11,17 +11,21 @@ data class TimetableLesson(
     val teacher: String?,
     val time: String,
     val day: Int,
-    val weekType: Int
+    val weekType: Int,
+    val position: Int
 )
 
-fun Lesson.toTimetableLesson(): TimetableLesson = TimetableLesson(
-    id = id,
-    subject = subject,
-    type = type,
-    housing = housing,
-    classroom = classroom,
-    teacher = teacher?.name,
-    time = time,
-    day = day,
-    weekType = weekType
-)
+fun List<Lesson>.toTimetableLessons(): List<TimetableLesson> = mapIndexed { index, lesson ->
+    TimetableLesson(
+        id = lesson.id,
+        subject = lesson.subject,
+        type = lesson.type,
+        housing = lesson.housing,
+        classroom = lesson.classroom,
+        teacher = lesson.teacher?.name,
+        time = lesson.time,
+        day = lesson.day,
+        weekType = lesson.weekType,
+        position = index
+    )
+}

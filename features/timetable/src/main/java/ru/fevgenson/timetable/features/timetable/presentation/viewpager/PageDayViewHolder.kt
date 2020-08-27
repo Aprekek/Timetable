@@ -6,7 +6,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.PageDayBinding
 import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
@@ -75,9 +74,7 @@ class PageDayViewHolder(
                 recycleChildrenOnDetach = true
             }
             swapAdapter(lessonListAdapter, true)
-            (itemAnimator as? SimpleItemAnimator)?.apply {
-                supportsChangeAnimations = false
-            }
+            itemAnimator = null
             viewModel.lessons.observe(lifecycleOwner, listChangeObserver)
         }
     }

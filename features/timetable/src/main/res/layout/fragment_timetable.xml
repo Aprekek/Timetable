@@ -55,6 +55,7 @@
             android:layout_marginBottom="@dimen/margin_20"
             android:onClick="@{() -> viewModel.onCreateLessonButtonClick()}"
             android:src="@drawable/ic_add_24"
-            app:fabSize="normal" />
+            app:fabSize="normal"
+            app:tint="@null" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

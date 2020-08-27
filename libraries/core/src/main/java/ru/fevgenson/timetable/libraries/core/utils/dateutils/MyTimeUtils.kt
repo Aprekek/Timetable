@@ -14,7 +14,7 @@ object MyTimeUtils {
     private const val DB_SECOND_TIME_START = 6
     private const val DB_HOURS_START = 0
     private const val DB_HOURS_END = 2
-    private const val DB_MINUTES_START = 4
+    private const val DB_MINUTES_START = 3
 
     fun convertTimeInMinutesToString(timeMinutes: Int): String {
         val ours = timeMinutes.div(MINUTES_IN_HOUR)

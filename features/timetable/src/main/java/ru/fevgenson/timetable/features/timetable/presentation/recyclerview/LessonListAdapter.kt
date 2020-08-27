@@ -23,9 +23,9 @@ class LessonListAdapter(
         holder.bind(getItem(position), viewModel)
     }
 
-    override fun getItemId(position: Int): Long = getItem(position).id
-
     override fun getItemViewType(position: Int): Int = LessonViewHolder.VIEW_HOLDER_TYPE
+
+    override fun getItemId(position: Int): Long = getItem(position).position.toLong()
 }
 
 private class LessonDiffUtils : DiffUtil.ItemCallback<TimetableLesson>() {
@@ -33,15 +33,10 @@ private class LessonDiffUtils : DiffUtil.ItemCallback<TimetableLesson>() {
     override fun areItemsTheSame(
         oldItem: TimetableLesson,
         newItem: TimetableLesson
-    ): Boolean = newItem.time == oldItem.time
+    ): Boolean = newItem.position == oldItem.position
 
     override fun areContentsTheSame(
         oldItem: TimetableLesson,
         newItem: TimetableLesson
-    ): Boolean = oldItem.subject == newItem.subject ||
-            oldItem.time == newItem.time ||
-            oldItem.type == newItem.type ||
-            oldItem.housing == newItem.housing ||
-            oldItem.classroom == newItem.classroom ||
-            oldItem.teacher == newItem.teacher
+    ): Boolean = oldItem == newItem
 }
