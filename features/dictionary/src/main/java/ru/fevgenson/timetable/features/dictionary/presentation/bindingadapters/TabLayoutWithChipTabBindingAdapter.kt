@@ -25,7 +25,7 @@ fun TabLayout.setColorStateList(
                 tab?.setColors(
                     backgroundColorSelected,
                     textColorSelected,
-                    resources.getDimension(R.dimen.stroke_width_0)
+                    resources.getDimension(R.dimen.width_0)
                 )
             }
 
@@ -33,7 +33,7 @@ fun TabLayout.setColorStateList(
                 tab?.setColors(
                     backgroundColorUnselected,
                     textColorUnselected,
-                    resources.getDimension(R.dimen.stroke_width_1)
+                    resources.getDimension(R.dimen.width_1)
                 )
             }
 
@@ -41,7 +41,7 @@ fun TabLayout.setColorStateList(
                 tab?.setColors(
                     backgroundColorSelected,
                     textColorSelected,
-                    resources.getDimension(R.dimen.stroke_width_0)
+                    resources.getDimension(R.dimen.width_0)
                 )
             }
         }

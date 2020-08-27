@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         app:chipBackgroundColor="@color/white"
         app:chipStrokeColor="@color/black"
-        app:chipStrokeWidth="@dimen/stroke_width_1"
+        app:chipStrokeWidth="@dimen/width_1"
         tools:text="Math" />
 </layout>

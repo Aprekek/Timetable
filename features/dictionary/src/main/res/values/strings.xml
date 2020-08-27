@@ -8,4 +8,7 @@
         <item>Корпус</item>
         <item>Время</item>
     </string-array>
+
+    <string name="dictionary_description_action_back">Назад</string>
+    <string name="dictionary_description_delete_category">Удалить категорию</string>
 </resources>

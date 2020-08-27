@@ -49,6 +49,8 @@ dependencies {
     implementation Dependencies.VIEW_PAGER_2
 
     kapt Dependencies.DATABINDING
+    
+    implementation Dependencies.CONSTRAINT_LAYOUT
 
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT

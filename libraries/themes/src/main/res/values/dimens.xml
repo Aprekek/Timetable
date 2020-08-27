@@ -26,6 +26,6 @@
     <dimen name="radius_15">15dp</dimen>
     <dimen name="radius_200">200dp</dimen>
 
-    <dimen name="stroke_width_0">0dp</dimen>
-    <dimen name="stroke_width_1">1dp</dimen>
+    <dimen name="width_0">0dp</dimen>
+    <dimen name="width_1">1dp</dimen>
 </resources>
