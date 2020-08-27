@@ -45,7 +45,7 @@
     <string name="lesson_create_cancel_dialog_description">Введенные данные не сохранятся!</string>
     <string name="lesson_create_done_dialog_title">Закончить?</string>
     <string name="lesson_create_done_dialog_description">"Пара будет добавлена к расписанию"</string>
-    <string name="lesson_create_content_dialog_title">Выберите время</string>
+    <string name="lesson_create_time_autocomplete_dialog_title">Выберите время</string>
 
     <string name="lesson_create_edit_text_error_message">"Поле обязательно к заполнению"</string>
     <string name="lesson_create_fields_filling_request">"Пожалуйста, заполните пустые поля для этой страницы"</string>

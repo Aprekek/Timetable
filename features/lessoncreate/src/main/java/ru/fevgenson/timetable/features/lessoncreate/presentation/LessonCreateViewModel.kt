@@ -264,7 +264,7 @@ class LessonCreateViewModel(
     fun onAutocompleteTimeButtonClick() {
         eventsDispatcher.dispatchEvent {
             showDialog(
-                R.string.lesson_create_content_dialog_title,
+                R.string.lesson_create_time_autocomplete_dialog_title,
                 requireNotNull(timeAutoComplete.value) {
                     "time autocomplete cant be null"
                 }
