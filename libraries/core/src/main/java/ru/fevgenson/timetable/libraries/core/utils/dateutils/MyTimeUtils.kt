@@ -1,5 +1,7 @@
 package ru.fevgenson.timetable.libraries.core.utils.dateutils
 
+import java.util.*
+
 object MyTimeUtils {
     enum class TimeBorders {
         START, END
@@ -43,5 +45,10 @@ object MyTimeUtils {
         val hours = time.substring(DB_HOURS_START, DB_HOURS_END)
         val minutes = time.substring(DB_MINUTES_START)
         return hours.toInt() * MINUTES_IN_HOUR + minutes.toInt()
+    }
+
+    fun getCurrentTime(): Int {
+        val calendar = Calendar.getInstance().apply { time = Date() }
+        return calendar.get(Calendar.HOUR_OF_DAY) * MINUTES_IN_HOUR + calendar.get(Calendar.MINUTE)
     }
 }

@@ -12,6 +12,10 @@
         <variable
             name="lesson"
             type="ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson" />
+
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -69,7 +73,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_10"
                         android:contentDescription="@string/timetable_content_description_now"
-                        app:srcCompat="@drawable/ic_now_24" />
+                        app:currentDay="@{lesson.day}"
+                        app:currentWeek="@{lesson.weekType}"
+                        app:lifecycleOwner="@{lifecycle}"
+                        app:srcCompat="@drawable/ic_now_24"
+                        app:timeDiapason="@{lesson.time}" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

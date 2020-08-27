@@ -47,7 +47,7 @@ class PageDayViewHolder(
     fun onBind(viewModel: PageDayViewModel) {
         if (recyclerViewWasInit) {
             this.viewModel.lessons.removeObserver(listChangeObserver)
-            lessonListAdapter = LessonListAdapter(viewModel)
+            lessonListAdapter = LessonListAdapter(viewModel, lifecycleOwner)
             binding.firstWeekRecyclerView.swapAdapter(lessonListAdapter, true)
             viewModel.lessons.observe(lifecycleOwner, listChangeObserver)
         }
@@ -61,7 +61,7 @@ class PageDayViewHolder(
 
     private fun initRecyclerView() {
         with(binding.firstWeekRecyclerView) {
-            lessonListAdapter = LessonListAdapter(viewModel)
+            lessonListAdapter = LessonListAdapter(viewModel, lifecycleOwner)
             val dp20 = binding.root.context.resources.getDimensionPixelSize(R.dimen.margin_20)
             addItemDecoration(
                 LessonRecyclerViewItemDecoration(

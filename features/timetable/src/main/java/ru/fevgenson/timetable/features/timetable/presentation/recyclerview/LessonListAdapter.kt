@@ -1,13 +1,15 @@
 package ru.fevgenson.timetable.features.timetable.presentation.recyclerview
 
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 
 class LessonListAdapter(
-    private val viewModel: PageDayViewModel
+    private val viewModel: PageDayViewModel,
+    private val lifecycleOwner: LifecycleOwner
 ) : ListAdapter<TimetableLesson, LessonViewHolder>(LessonDiffUtils()) {
 
     init {
@@ -20,7 +22,7 @@ class LessonListAdapter(
     ): LessonViewHolder = LessonViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
-        holder.bind(getItem(position), viewModel)
+        holder.bind(getItem(position), viewModel, lifecycleOwner)
     }
 
     override fun getItemViewType(position: Int): Int = LessonViewHolder.VIEW_HOLDER_TYPE
