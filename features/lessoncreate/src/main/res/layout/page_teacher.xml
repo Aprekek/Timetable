@@ -26,12 +26,14 @@
                 android:hint="@string/lesson_create_hint_full_name"
                 android:padding="@dimen/padding_20">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:text="@={lessonCreateViewModel.teachersName}" />
+                    android:padding="@dimen/padding_10"
+                    android:text="@={lessonCreateViewModel.teachersName}"
+                    app:teacherAutocompleteData="@{lessonCreateViewModel.teacherAutocomplete}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -42,11 +44,12 @@
                 android:hint="@string/lesson_create_hint_email"
                 android:padding="@dimen/padding_20">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/email_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:padding="@dimen/padding_10"
                     android:text="@={lessonCreateViewModel.email}" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,11 +61,12 @@
                 android:hint="@string/lesson_create_hint_phone"
                 android:padding="@dimen/padding_20">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/phone_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
+                    android:padding="@dimen/padding_10"
                     android:text="@={lessonCreateViewModel.phone}"
                     app:startingSlots="@{@string/lesson_create_value_starting_slots}" />
             </com.google.android.material.textfield.TextInputLayout>

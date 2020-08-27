@@ -3,82 +3,25 @@ package ru.fevgenson.timetable.features.timetable.domain.usecase
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
+import ru.fevgenson.timetable.features.timetable.domain.entities.toTimetableLessons
+import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
 
-class GetLessonsUseCase {
-    //TODO: ждем бд
-    operator fun invoke(weekType: Int, day: Int): LiveData<List<Lesson>> =
-        liveData {
-            emit(
-                withContext(Dispatchers.IO) {
-                    mutableListOf(
-                        Lesson(
-                            id = 0,
-                            subject = "Математика $weekType $day",
-                            type = "Лекция",
-                            teacher = "Лыткина",
-                            classroom = "208a",
-                            day = 5,
-                            time = "14:00-15:30",
-                            housing = "Главный корпус",
-                            weekType = 0
-                        ),
-                        Lesson(
-                            id = 1,
-                            subject = "САОД $weekType $day",
-                            type = "Практика",
-                            teacher = "Турцев",
-                            classroom = "302",
-                            day = 5,
-                            time = "10:00-11:30",
-                            housing = "Новый корпус",
-                            weekType = 0
-                        ),
-                        Lesson(
-                            id = 2,
-                            subject = "Физра $weekType $day",
-                            type = null,
-                            teacher = null,
-                            classroom = null,
-                            day = 5,
-                            time = "16:00-17:30",
-                            housing = null,
-                            weekType = 0
-                        )
-                    ).apply {
-                        if (weekType == DateUtils.SECOND_WEEK) {
-                            addAll(
-                                1,
-                                listOf(
-                                    Lesson(
-                                        id = 3,
-                                        subject = "Физика $weekType $day",
-                                        type = null,
-                                        teacher = "Дед",
-                                        classroom = null,
-                                        day = 5,
-                                        time = "14:00-15:30",
-                                        housing = "Главный корпус",
-                                        weekType = 0
-                                    ),
-                                    Lesson(
-                                        id = 4,
-                                        subject = "Математика $weekType $day",
-                                        type = "Лекция",
-                                        teacher = "Лыткина",
-                                        classroom = "208a",
-                                        day = 5,
-                                        time = "09:00-8:30",
-                                        housing = "Главный корпус",
-                                        weekType = 0
-                                    )
-                                )
-                            )
-                        }
-                    }.toList()
-                }
-            )
+class GetLessonsUseCase(private val repository: LessonRepository) {
+
+    operator fun invoke(
+        weekType: Int,
+        day: Int
+    ): LiveData<List<TimetableLesson>> = liveData {
+        withContext(Dispatchers.IO) {
+            repository.getLessons(weekType, day).map { lessons ->
+                lessons.toTimetableLessons()
+            }.collect {
+                emit(it)
+            }
         }
+    }
 }

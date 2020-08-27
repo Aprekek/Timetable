@@ -9,7 +9,7 @@ data class HousingEntity(
 )
 
 @Dao
-interface HousingDao {
+internal interface HousingDao {
 
     @Query("SELECT * from housing_table")
     suspend fun getHousings(): List<HousingEntity>

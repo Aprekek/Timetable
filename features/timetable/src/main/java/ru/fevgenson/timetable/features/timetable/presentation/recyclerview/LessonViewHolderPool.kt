@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 class LessonViewHolderPool(parent: ViewGroup) : RecyclerView.RecycledViewPool() {
 
     companion object {
-        const val MAX_PRE_CREATE_VIEW_HOLDERS = 56
+        const val MAX_PRE_CREATE_VIEW_HOLDERS = 35
     }
 
     init {

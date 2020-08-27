@@ -9,7 +9,7 @@ data class SubjectEntity(
 )
 
 @Dao
-interface SubjectDao {
+internal interface SubjectDao {
 
     @Query("SELECT * from subject_table")
     suspend fun getSubjects(): List<SubjectEntity>

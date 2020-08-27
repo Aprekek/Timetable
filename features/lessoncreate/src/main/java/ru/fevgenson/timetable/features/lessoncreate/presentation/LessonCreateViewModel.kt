@@ -1,19 +1,30 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
+import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.lessoncreate.R
+import ru.fevgenson.timetable.features.lessoncreate.domain.usecase.*
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
+import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
+import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 class LessonCreateViewModel(
-    weekType: Int?,
-    day: Int?,
-    private val id: Long?,
-    private val openType: Int
+    weekType: Int,
+    day: Int,
+    private val id: Long,
+    private val openType: Int,
+    private val getClassroomsValuesUseCase: GetClassroomsValuesUseCase,
+    private val getHousingsValuesUseCase: GetHousingsValuesUseCase,
+    private val getSubjectsValuesUseCase: GetSubjectsValuesUseCase,
+    private val getTimesValuesUseCase: GetTimesValuesUseCase,
+    private val getTypesValuesUseCase: GetTypesValuesUseCase,
+    private val getTeachersUseCase: GetTeachersUseCase,
+    private val getLessonUseCase: GetLessonUseCase,
+    private val saveLessonsUseCase: SaveLessonsUseCase,
+    private val updateLessonUseCase: UpdateLessonUseCase
 ) : ViewModel() {
 
     interface EventListener {
@@ -22,6 +33,7 @@ class LessonCreateViewModel(
         fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders)
         fun showPopupMessage(message: Int)
         fun showDialog(title: Int, description: Int, action: Int)
+        fun showDialog(title: Int, content: List<String>)
     }
 
     companion object {
@@ -41,15 +53,44 @@ class LessonCreateViewModel(
     }
 
     val subject = MutableLiveData<String>()
+    val subjectAutoComplete = liveData { emit(getSubjectsValuesUseCase()) }
     val subjectError: LiveData<Int?> = Transformations.map(subject) {
         if (it.isNullOrEmpty()) R.string.lesson_create_edit_text_error_message else null
     }
     val housing = MutableLiveData<String>()
+    val housingAutoComplete = liveData { emit(getHousingsValuesUseCase()) }
     val classroom = MutableLiveData<String>()
+    val classroomAutoComplete = liveData { emit(getClassroomsValuesUseCase()) }
     val type = MutableLiveData<String>()
+    val typeAutocomplete = liveData { emit(getTypesValuesUseCase()) }
     val teachersName = MutableLiveData<String>()
-    val email = MutableLiveData<String>()
-    val phone = MutableLiveData<String>()
+    val teacherAutocomplete = liveData { emit(getTeachersUseCase()) }
+    val email: MutableLiveData<String> = MediatorLiveData<String>().apply {
+        addSource(teachersName) { teachersName ->
+            var teacherEntity: TeacherEntity?
+            if (
+                teacherAutocomplete.value
+                    ?.find { it.name == teachersName }
+                    .also { teacherEntity = it } != null &&
+                value.isNullOrBlank()
+            ) {
+                value = teacherEntity?.email
+            }
+        }
+    }
+    val phone: MutableLiveData<String> = MediatorLiveData<String>().apply {
+        addSource(teachersName) { teachersName ->
+            var teacherEntity: TeacherEntity?
+            if (
+                teacherAutocomplete.value
+                    ?.find { it.name == teachersName }
+                    .also { teacherEntity = it } != null &&
+                value.isNullOrBlank()
+            ) {
+                value = teacherEntity?.phone
+            }
+        }
+    }
 
     val timeStartMinutes = MutableLiveData<Int?>(null)
     val timeEndMinutes = MutableLiveData<Int?>(null)
@@ -59,9 +100,50 @@ class LessonCreateViewModel(
     val timeEndString: LiveData<String> = Transformations.map(timeEndMinutes) {
         convertTimeToString(it)
     }
+    val timeAutoComplete = liveData { emit(getTimesValuesUseCase()) }
+
+    val eventsDispatcher = EventsDispatcher<EventListener>()
+
+    private val _currentPage: MutableLiveData<Int> = MutableLiveData(0)
+    val currentPage: LiveData<Int>
+        get() = _currentPage
+
+    val toolbarTitle: LiveData<Int> = Transformations.map(currentPage) { page ->
+        when (page) {
+            MAIN_PAGE -> R.string.lesson_create_title_main_info
+            LOCATION_AND_TYPE_PAGE -> R.string.lesson_create_title_location_and_type
+            TEACHER_PAGE -> R.string.lesson_create_title_teacher
+            else -> throw IllegalStateException("Page $page not found")
+        }
+    }
+
+    val firstWeekChips = MutableLiveData<List<Boolean>>(
+        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
+            if (weekType == DateUtils.FIRST_WEEK) {
+                set(day, true)
+            }
+        }
+    )
+
+    val secondWeekChips = MutableLiveData<List<Boolean>>(
+        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
+            if (weekType == DateUtils.SECOND_WEEK) {
+                set(day, true)
+            }
+        }
+    )
 
     init {
         initTime()
+        initOpenType()
+    }
+
+    private fun initOpenType() {
+        if (openType == NavigationConstants.LessonCreate.COPY ||
+            openType == NavigationConstants.LessonCreate.EDIT
+        ) {
+            loadLesson()
+        }
     }
 
     private fun initTime() {
@@ -81,34 +163,71 @@ class LessonCreateViewModel(
         }
     }
 
-    val eventsDispatcher = EventsDispatcher<EventListener>()
-
-    private val _currentPage: MutableLiveData<Int> = MutableLiveData(0)
-    val currentPage: LiveData<Int>
-        get() = _currentPage
-
-    val toolbarTitle: LiveData<Int> = Transformations.map(currentPage) { page ->
-        when (page) {
-            MAIN_PAGE -> R.string.lesson_create_title_main_info
-            LOCATION_AND_TYPE_PAGE -> R.string.lesson_create_title_location_and_type
-            TEACHER_PAGE -> R.string.lesson_create_title_teacher
-            else -> throw IllegalStateException("Page $page not found")
+    private fun loadLesson() {
+        viewModelScope.launch {
+            getLessonUseCase(id).let {
+                subject.value = it.subject
+                housing.value = it.housing
+                classroom.value = it.classroom
+                type.value = it.type
+                teachersName.value = it.teacher?.name
+                email.value = it.teacher?.email
+                phone.value = it.teacher?.phone
+                timeStartMinutes.value =
+                    MyTimeUtils.convertDbTimeToMinutes(it.time, MyTimeUtils.TimeBorders.START)
+                timeEndMinutes.value =
+                    MyTimeUtils.convertDbTimeToMinutes(it.time, MyTimeUtils.TimeBorders.END)
+                when (it.weekType) {
+                    DateUtils.FIRST_WEEK -> firstWeekChips.value =
+                        firstWeekChips.value?.toMutableList()?.apply { set(it.day, true) }
+                    DateUtils.SECOND_WEEK -> secondWeekChips.value =
+                        secondWeekChips.value?.toMutableList()?.apply { set(it.day, true) }
+                }
+            }
         }
     }
 
-    val firstWeekChips = MutableLiveData<List<Boolean>>(
-        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
-            if (weekType == DateUtils.FIRST_WEEK && day != null) {
-                set(day, true)
+    private fun saveChanges() {
+        viewModelScope.launch {
+            val lessons = mutableListOf<Lesson>()
+            firstWeekChips.value?.forEachIndexed { day, checked ->
+                if (checked) {
+                    lessons.add(createLesson(day, DateUtils.FIRST_WEEK))
+                }
             }
+            secondWeekChips.value?.forEachIndexed { day, checked ->
+                if (checked) {
+                    lessons.add(createLesson(day, DateUtils.SECOND_WEEK))
+                }
+            }
+            when (openType) {
+                NavigationConstants.LessonCreate.EDIT -> updateLessonUseCase(
+                    lessons.map { it.apply { id = this@LessonCreateViewModel.id } }
+                )
+                NavigationConstants.LessonCreate.CREATE,
+                NavigationConstants.LessonCreate.COPY -> saveLessonsUseCase(lessons)
+            }
+            close()
         }
-    )
+    }
 
-    val secondWeekChips = MutableLiveData<List<Boolean>>(
-        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
-            if (weekType == DateUtils.SECOND_WEEK && day != null) {
-                set(day, true)
-            }
+    private fun createLesson(day: Int, weekType: Int) = Lesson(
+        subject = requireNotNull(subject.value) { "subject cant be null" },
+        time = MyTimeUtils.convertEditTimesToDbTimes(
+            requireNotNull(timeStartString.value) { "time cant be null" },
+            requireNotNull(timeEndString.value) { "time cant be null" }
+        ),
+        day = day,
+        weekType = weekType,
+        housing = housing.value?.takeIf { it.isNotBlank() }?.trim(),
+        classroom = classroom.value?.takeIf { it.isNotBlank() }?.trim(),
+        type = type.value?.takeIf { it.isNotBlank() }?.trim(),
+        teacher = teachersName.value?.let { teacherName ->
+            TeacherEntity(
+                name = teacherName,
+                phone = phone.value?.takeIf { it.isNotBlank() },
+                email = email.value?.takeIf { it.isNotBlank() }?.trim()
+            )
         }
     )
 
@@ -139,6 +258,17 @@ class LessonCreateViewModel(
             timeStartMinutes.value = hours * MyTimeUtils.MINUTES_IN_HOUR + min
         } else {
             timeEndMinutes.value = hours * MyTimeUtils.MINUTES_IN_HOUR + min
+        }
+    }
+
+    fun onAutocompleteTimeButtonClick() {
+        eventsDispatcher.dispatchEvent {
+            showDialog(
+                R.string.lesson_create_time_autocomplete_dialog_title,
+                requireNotNull(timeAutoComplete.value) {
+                    "time autocomplete cant be null"
+                }
+            )
         }
     }
 
@@ -202,15 +332,22 @@ class LessonCreateViewModel(
         }
     }
 
-    private fun onDone() {
+    private fun close() {
         eventsDispatcher.dispatchEvent { navigateToTimetable() }
     }
 
     fun onDialogResult(action: Int) {
         if (action == ACTION_DONE)
-            onDone()
+            saveChanges()
         else
             onCancel()
+    }
+
+    fun onDialogResult(time: String) {
+        timeStartMinutes.value =
+            MyTimeUtils.convertDbTimeToMinutes(time, MyTimeUtils.TimeBorders.START)
+        timeEndMinutes.value =
+            MyTimeUtils.convertDbTimeToMinutes(time, MyTimeUtils.TimeBorders.END)
     }
 
     private fun isDataValid() = subjectError.value == null &&

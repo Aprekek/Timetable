@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.timetable.databinding.ItemLessonBinding
-import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
+import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 
 class LessonViewHolder private constructor(
@@ -24,8 +24,8 @@ class LessonViewHolder private constructor(
         }
     }
 
-    fun bind(lesson: Lesson, viewModel: PageDayViewModel) {
-        binding.lesson = lesson
+    fun bind(timetableLesson: TimetableLesson, viewModel: PageDayViewModel) {
+        binding.lesson = timetableLesson
         binding.viewModel = viewModel
     }
 }

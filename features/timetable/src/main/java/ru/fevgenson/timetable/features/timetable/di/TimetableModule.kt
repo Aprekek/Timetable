@@ -3,6 +3,7 @@ package ru.fevgenson.timetable.features.timetable.di
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
@@ -10,7 +11,7 @@ import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayV
 
 private val viewModelModule = module {
     viewModel {
-        TimetableViewModel()
+        TimetableViewModel(get())
     }
     factory { (currentDay: Int, timetableViewModel: TimetableViewModel) ->
         PageDayViewModel(
@@ -22,7 +23,8 @@ private val viewModelModule = module {
 }
 
 private val useCaseModule = module {
-    factory { GetLessonsUseCase() }
+    factory { GetLessonsUseCase(get()) }
+    factory { DeleteLessonUseCase(get()) }
 }
 
 private val viewHolderModule = module {

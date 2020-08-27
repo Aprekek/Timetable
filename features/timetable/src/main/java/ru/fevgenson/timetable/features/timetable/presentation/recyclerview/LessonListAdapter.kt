@@ -3,12 +3,12 @@ package ru.fevgenson.timetable.features.timetable.presentation.recyclerview
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
+import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 
 class LessonListAdapter(
     private val viewModel: PageDayViewModel
-) : ListAdapter<Lesson, LessonViewHolder>(LessonDiffUtils()) {
+) : ListAdapter<TimetableLesson, LessonViewHolder>(LessonDiffUtils()) {
 
     init {
         setHasStableIds(true)
@@ -23,20 +23,20 @@ class LessonListAdapter(
         holder.bind(getItem(position), viewModel)
     }
 
-    override fun getItemId(position: Int): Long = getItem(position).id
-
     override fun getItemViewType(position: Int): Int = LessonViewHolder.VIEW_HOLDER_TYPE
+
+    override fun getItemId(position: Int): Long = getItem(position).position.toLong()
 }
 
-private class LessonDiffUtils : DiffUtil.ItemCallback<Lesson>() {
+private class LessonDiffUtils : DiffUtil.ItemCallback<TimetableLesson>() {
 
     override fun areItemsTheSame(
-        oldItem: Lesson,
-        newItem: Lesson
-    ): Boolean = newItem.id == oldItem.id
+        oldItem: TimetableLesson,
+        newItem: TimetableLesson
+    ): Boolean = newItem.position == oldItem.position
 
     override fun areContentsTheSame(
-        oldItem: Lesson,
-        newItem: Lesson
+        oldItem: TimetableLesson,
+        newItem: TimetableLesson
     ): Boolean = oldItem == newItem
 }

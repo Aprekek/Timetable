@@ -38,6 +38,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
+    implementation Dependencies.Kotlin.KOTLIN_REFLECT
 
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT
