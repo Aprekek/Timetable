@@ -5,6 +5,14 @@
     <data>
 
         <variable
+            name="normalColor"
+            type="Integer" />
+
+        <variable
+            name="selectedColor"
+            type="Integer" />
+
+        <variable
             name="viewModel"
             type="ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel" />
     </data>
@@ -23,8 +31,8 @@
                 android:id="@+id/week_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:normalColor="@{@color/grey}"
-                app:selectedColor="@{@color/blue}"
+                app:normalColor="@{normalColor}"
+                app:selectedColor="@{selectedColor}"
                 app:selectedTab="@={viewModel.selectedWeekLiveData}"
                 app:tabMode="fixed" />
 
@@ -33,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/padding_5"
-                app:normalColor="@{@color/grey}"
-                app:selectedColor="@{@color/blue}"
+                app:normalColor="@{normalColor}"
+                app:selectedColor="@{selectedColor}"
                 app:selectedTab="@={viewModel.selectedDayLiveData}"
                 app:selectedWeekTab="@{viewModel.selectedWeekLiveData}"
                 app:tabMode="scrollable" />
@@ -55,7 +63,8 @@
             android:layout_marginBottom="@dimen/margin_20"
             android:onClick="@{() -> viewModel.onCreateLessonButtonClick()}"
             android:src="@drawable/ic_add_24"
+            app:backgroundTint="?attr/colorSurface"
             app:fabSize="normal"
-            app:tint="@null" />
+            app:tint="?attr/colorOnSurface" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

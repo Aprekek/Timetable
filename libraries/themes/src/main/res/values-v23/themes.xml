@@ -9,6 +9,7 @@
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorError">@color/red</item>
+        <item name="colorControlNormal">@color/grey</item>
 
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:navigationBarColor">@color/black</item>

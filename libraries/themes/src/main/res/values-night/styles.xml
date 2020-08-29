@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ApplicationTheme.TitleBase">
+
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="ApplicationTheme.BodyBase">
+
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="ApplicationTheme.Title1Black" parent="ApplicationTheme.TitleBase">
+
+        <item name="android:textSize">@dimen/text_size_34</item>
+    </style>
+
+    <style name="ApplicationTheme.Title2Black" parent="ApplicationTheme.TitleBase">
+
+        <item name="android:textSize">@dimen/text_size_26</item>
+    </style>
+
+    <style name="ApplicationTheme.Title3DarkGrey" parent="ApplicationTheme.BodyBase">
+
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+
+    <style name="ApplicationTheme.Body1Black" parent="ApplicationTheme.BodyBase">
+
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ApplicationTheme.Body2Grey" parent="ApplicationTheme.BodyBase">
+
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="ApplicationTheme.Body3White" parent="ApplicationTheme.BodyBase">
+
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="ApplicationTheme.Body3Grey" parent="ApplicationTheme.BodyBase">
+
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+
+    <style name="ApplicationTheme.CaptionGrey">
+
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="fontFamily">@font/roboto_light</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+
+    <!-- Стиль для кнопок -->
+    <style name="ApplicationTheme.BaseButtonSettings" parent="Widget.MaterialComponents.Button">
+
+        <item name="android:paddingTop">@dimen/padding_10</item>
+        <item name="android:paddingBottom">@dimen/padding_10</item>
+        <item name="android:paddingStart">@dimen/padding_8</item>
+        <item name="android:paddingEnd">@dimen/padding_8</item>
+        <item name="android:elevation">4dp</item>
+        <item name="cornerRadius">@dimen/radius_10</item>
+        <item name="android:translationZ">10dp</item>
+    </style>
+
+    <style name="ApplicationTheme.PrimaryButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="backgroundTint">@color/blue</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ApplicationTheme.SecondaryButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ApplicationTheme.CancelButton" parent="Widget.MaterialComponents.Button.TextButton">
+
+        <item name="android:paddingTop">@dimen/padding_10</item>
+        <item name="android:paddingBottom">@dimen/padding_10</item>
+        <item name="android:paddingStart">@dimen/padding_8</item>
+        <item name="android:paddingEnd">@dimen/padding_8</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body3White</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="ApplicationTheme.NotPickedButton" parent="ApplicationTheme.BaseButtonSettings">
+
+        <item name="android:backgroundTint">@color/light_grey</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1Black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Стиль для TextInputLayout -->
+    <style name="ApplicationTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <item name="boxCornerRadiusTopStart">@dimen/radius_10</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_10</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_10</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_10</item>
+        <item name="hintTextColor">@color/color_state_edit_text_box_night</item>
+        <item name="boxStrokeColor">@color/color_state_edit_text_box_night</item>
+        <item name="android:textColorHint">@color/color_state_edit_text_box_night</item>
+    </style>
+
+    <!-- Стиль для CardView -->
+    <style name="ApplicationTheme.CardViewBase">
+
+        <item name="cardCornerRadius">@dimen/radius_10</item>
+        <item name="cardElevation">10dp</item>
+    </style>
+
+    <!-- Стиль для ChipView -->
+    <style name="ApplicationTheme.ChipView" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipCornerRadius">@dimen/radius_10</item>
+        <item name="android:textAppearance">@style/ApplicationTheme.Body1Black</item>
+        <item name="chipStartPadding">@dimen/padding_20</item>
+        <item name="chipEndPadding">@dimen/padding_20</item>
+        <item name="chipBackgroundColor">@color/color_state_chip_background</item>
+        <item name="android:textColor">@color/color_state_chip_text</item>
+    </style>
+</resources>

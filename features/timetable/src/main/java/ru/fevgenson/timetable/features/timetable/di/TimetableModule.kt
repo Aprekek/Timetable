@@ -1,10 +1,10 @@
 package ru.fevgenson.timetable.features.timetable.di
 
-import android.view.ViewGroup
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
+import ru.fevgenson.timetable.features.timetable.presentation.TimetableFragment
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
@@ -28,8 +28,8 @@ private val useCaseModule = module {
 }
 
 private val viewHolderModule = module {
-    single { (parent: ViewGroup) ->
-        LessonViewHolderPool(parent)
+    scope<TimetableFragment> {
+        scoped { LessonViewHolderPool() }
     }
 }
 
