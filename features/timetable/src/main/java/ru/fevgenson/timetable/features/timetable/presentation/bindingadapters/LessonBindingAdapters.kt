@@ -9,7 +9,6 @@ import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.observe
-import com.google.android.material.card.MaterialCardView
 import org.koin.java.KoinJavaComponent.get
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver
@@ -127,7 +126,7 @@ fun ImageView.initCurrentLessonObserver(
     "timeDiapason",
     "lifecycleOwner"
 )
-fun MaterialCardView.initTimeObserver(
+fun TextView.initTimeObserver(
     currentWeek: Int,
     currentDay: Int,
     timeDiapason: String,
@@ -137,21 +136,20 @@ fun MaterialCardView.initTimeObserver(
             DateUtils.getCurrentWeek() == currentWeek
     var minutesBeforeStart = getMinutesBeforeStart(timeDiapason)
     var minutesBeforeEnd = getMinutesBeforeEnd(timeDiapason)
-    val textView = findViewById<TextView>(R.id.dynamic_time)
-    setTimeState(textView, minutesBeforeStart, minutesBeforeEnd, itsToday)
+    setTimeState(minutesBeforeStart, minutesBeforeEnd, itsToday)
 
     val dateBroadcastReceiver = get(DateBroadcastReceiver::class.java)
     dateBroadcastReceiver.callbacks.observe(lifecycleOwner) {
         itsToday = it.day == currentDay && it.weekType == currentWeek
         minutesBeforeStart = getMinutesBeforeStart(timeDiapason)
         minutesBeforeEnd = getMinutesBeforeEnd(timeDiapason)
-        setTimeState(textView, minutesBeforeStart, minutesBeforeEnd, itsToday)
+        setTimeState(minutesBeforeStart, minutesBeforeEnd, itsToday)
     }
     val minutesBroadcastReceiver = get(MinutesBroadcastReceiver::class.java)
     minutesBroadcastReceiver.callbacks.observe(lifecycleOwner) {
         minutesBeforeStart = getMinutesBeforeStart(timeDiapason)
         minutesBeforeEnd = getMinutesBeforeEnd(timeDiapason)
-        setTimeState(textView, minutesBeforeStart, minutesBeforeEnd, itsToday)
+        setTimeState(minutesBeforeStart, minutesBeforeEnd, itsToday)
     }
 }
 
@@ -166,8 +164,7 @@ private fun ImageView.setTimeState(
     }
 }
 
-private fun MaterialCardView.setTimeState(
-    textView: TextView,
+private fun TextView.setTimeState(
     minutesBeforeStart: Int?,
     minutesBeforeEnd: Int?,
     itsToday: Boolean
@@ -175,14 +172,14 @@ private fun MaterialCardView.setTimeState(
     when {
         !itsToday -> visibility = View.GONE
         minutesBeforeStart != null -> {
-            textView.text = context.getString(
+            text = context.getString(
                 R.string.timetable_mask_before_start,
                 MyTimeUtils.convertTimeInMinutesToString(minutesBeforeStart)
             )
             visibility = View.VISIBLE
         }
         minutesBeforeEnd != null -> {
-            textView.text = context.getString(
+            text = context.getString(
                 R.string.timetable_mask_before_end,
                 MyTimeUtils.convertTimeInMinutesToString(minutesBeforeEnd)
             )

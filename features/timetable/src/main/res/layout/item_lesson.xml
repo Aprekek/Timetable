@@ -100,7 +100,7 @@
                 tools:text="Главный корпус, аудитория 22" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
                 android:orientation="horizontal">
@@ -120,26 +120,18 @@
                         tools:text="15:40-17:20" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/dynamic_time"
+                    style="@style/ApplicationTheme.Body1Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_10"
-                    app:cardBackgroundColor="?attr/colorSecondary"
-                    app:cardCornerRadius="@dimen/radius_200"
-                    app:contentPadding="@dimen/padding_10"
+                    android:gravity="end|bottom"
                     app:currentDay="@{lesson.day}"
                     app:currentWeek="@{lesson.weekType}"
                     app:lifecycleOwner="@{lifecycle}"
-                    app:timeDiapason="@{lesson.time}">
-
-                    <TextView
-                        android:id="@+id/dynamic_time"
-                        style="@style/ApplicationTheme.Body3White"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{lesson.time}"
-                        tools:text="До начала 15 мин" />
-                </com.google.android.material.card.MaterialCardView>
+                    app:timeDiapason="@{lesson.time}"
+                    tools:text="До начала: 00:15" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
