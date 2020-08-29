@@ -10,7 +10,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentDictionaryBinding
-import ru.fevgenson.timetable.features.dictionary.databinding.TabCategoryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.CategoriesViewPagerAdapter
 
 class DictionaryFragment : Fragment() {
@@ -47,18 +46,7 @@ class DictionaryFragment : Fragment() {
             binding.tabLayout,
             binding.viewPager
         ) { tab: TabLayout.Tab, i: Int ->
-            val tabCategoryBinding = DataBindingUtil.inflate<TabCategoryBinding>(
-                LayoutInflater.from(context),
-                R.layout.tab_category,
-                binding.tabLayout,
-                false
-            )
-            tabCategoryBinding.categoryChip.text = tabCategories[i]
-            tabCategoryBinding.categoryChip.setOnClickListener {
-                tab.parent?.selectTab(tab)
-            }
-            tab.customView = tabCategoryBinding.root
-            tab.view.isClickable = false
+            tab.text = tabCategories[i]
         }.attach()
     }
 }

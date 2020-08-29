@@ -49,7 +49,7 @@ dependencies {
     implementation Dependencies.VIEW_PAGER_2
 
     kapt Dependencies.DATABINDING
-    
+
     implementation Dependencies.CONSTRAINT_LAYOUT
 
     implementation Dependencies.Koin.KOIN_CORE
@@ -61,4 +61,5 @@ dependencies {
 
     implementation project(Modules.NAVIGATION)
     implementation project(Modules.THEMES)
+    implementation project(Modules.CORE)
 }

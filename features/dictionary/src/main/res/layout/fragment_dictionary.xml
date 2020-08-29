@@ -13,14 +13,14 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
+                style="@style/ApplicationTheme.ChipTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:backgroundColorSelected="@{@color/blue}"
-                app:backgroundColorUnselected="@{@color/white}"
+                android:background="@color/white"
                 app:tabIndicatorHeight="0dp"
-                app:tabMode="scrollable"
-                app:textColorSelected="@{@color/white}"
-                app:textColorUnselected="@{@color/black}" />
+                app:tabMarginDpHorizontal="@{@dimen/padding_5}"
+                app:tabMarginDpVertical="@{@dimen/padding_8}"
+                app:tabMode="scrollable" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
