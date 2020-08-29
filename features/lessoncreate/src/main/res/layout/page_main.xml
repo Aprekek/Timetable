@@ -98,7 +98,7 @@
                 android:text="@string/lesson_create_button_choose_time"
                 app:stateAutocompleteData="@{lessonCreateViewModel.timeAutoComplete}" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 style="@style/ApplicationTheme.CardViewBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,9 +127,9 @@
                         android:layout_marginTop="@dimen/margin_10"
                         app:checkedChips="@{lessonCreateViewModel.firstWeekChips}" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 style="@style/ApplicationTheme.CardViewBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
                         android:layout_marginTop="@dimen/margin_10"
                         app:checkedChips="@{lessonCreateViewModel.secondWeekChips}" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <include
                 layout="@layout/include_lesson_create_buttons"
