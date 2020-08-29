@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.settings.presentation
+package ru.fevgenson.timetable.features.settings.presentation.style
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.settings.R
-import ru.fevgenson.timetable.features.settings.databinding.FragmentSettingsBinding
+import ru.fevgenson.timetable.features.settings.databinding.FragmentSettingsStyleBinding
 
-class SettingsFragment : Fragment(), SettingsViewModel.EventListener {
+class SettingsStyleFragment : Fragment() {
 
-    private lateinit var binding: FragmentSettingsBinding
-    private val viewModel by viewModel<SettingsViewModel>()
+    private lateinit var binding: FragmentSettingsStyleBinding
+    private val viewModel by viewModel<SettingsStyleViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,13 +28,13 @@ class SettingsFragment : Fragment(), SettingsViewModel.EventListener {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_settings_style,
+            container,
+            false
+        )
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        viewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
-    }
-
-    override fun navigate(navigationId: Int) {
-        Navigation.findNavController(requireActivity(), R.id.global_host).navigate(navigationId)
     }
 }
