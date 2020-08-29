@@ -177,14 +177,14 @@ private fun MaterialCardView.setTimeState(
         minutesBeforeStart != null -> {
             textView.text = context.getString(
                 R.string.timetable_mask_before_start,
-                minutesBeforeStart.toString()
+                MyTimeUtils.convertTimeInMinutesToString(minutesBeforeStart)
             )
             visibility = View.VISIBLE
         }
         minutesBeforeEnd != null -> {
             textView.text = context.getString(
                 R.string.timetable_mask_before_end,
-                minutesBeforeEnd.toString()
+                MyTimeUtils.convertTimeInMinutesToString(minutesBeforeEnd)
             )
             visibility = View.VISIBLE
         }
