@@ -47,19 +47,23 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_20">
+            android:layout_margin="@dimen/margin_20"
+            app:theme="@={viewModel.selectedTheme}">
 
             <RadioButton
+                android:id="@+id/dark_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_title_night_theme" />
 
             <RadioButton
+                android:id="@+id/light_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_title_light_theme" />
 
             <RadioButton
+                android:id="@+id/system_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_title_system_theme" />

@@ -60,4 +60,5 @@ dependencies {
     implementation project(Modules.NAVIGATION)
     implementation project(Modules.THEMES)
     implementation project(Modules.CORE)
+    implementation project(Modules.DATABASE)
 }

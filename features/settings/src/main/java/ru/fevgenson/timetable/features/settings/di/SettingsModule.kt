@@ -7,7 +7,7 @@ import ru.fevgenson.timetable.features.settings.presentation.style.SettingsStyle
 
 private val viewModelModule = module {
     viewModel { SettingsViewModel() }
-    viewModel { SettingsStyleViewModel() }
+    viewModel { SettingsStyleViewModel(get()) }
 }
 
 val settingsModule = listOf(
