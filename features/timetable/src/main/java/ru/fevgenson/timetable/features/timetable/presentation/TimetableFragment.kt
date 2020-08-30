@@ -75,6 +75,7 @@ class TimetableFragment : Fragment(),
                     )
                 )
             }
+            getTabAt(viewModel.selectedWeekLiveData.value ?: currentWeek)?.select()
         }
     }
 

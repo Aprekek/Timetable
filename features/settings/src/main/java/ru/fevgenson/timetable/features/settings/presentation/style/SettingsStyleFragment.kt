@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.settings.R
 import ru.fevgenson.timetable.features.settings.databinding.FragmentSettingsStyleBinding
 
-class SettingsStyleFragment : Fragment() {
+class SettingsStyleFragment : Fragment(), SettingsStyleViewModel.EventListener {
 
     private lateinit var binding: FragmentSettingsStyleBinding
     private val viewModel by viewModel<SettingsStyleViewModel>()
@@ -21,7 +23,17 @@ class SettingsStyleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         initBinding(inflater, container)
+        initViewModel()
         return binding.root
+    }
+
+    private fun initViewModel() {
+        viewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
+        viewModel.selectedTheme.observe(viewLifecycleOwner) {
+            if (it != AppCompatDelegate.getDefaultNightMode()) {
+                AppCompatDelegate.setDefaultNightMode(it)
+            }
+        }
     }
 
     private fun initBinding(
@@ -36,5 +48,9 @@ class SettingsStyleFragment : Fragment() {
         )
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+    }
+
+    override fun navigateBack() {
+        findNavController().popBackStack()
     }
 }

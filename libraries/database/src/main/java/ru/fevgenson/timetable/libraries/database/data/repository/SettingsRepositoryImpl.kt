@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.data.repository
 
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
 
 internal class SettingsRepositoryImpl(
@@ -14,7 +15,8 @@ internal class SettingsRepositoryImpl(
         private const val THEME = "THEME"
     }
 
-    override fun getSavedTheme(): Int = sharedPreferences.getInt(THEME, SettingsRepository.SYSTEM)
+    override fun getSavedTheme(): Int =
+        sharedPreferences.getInt(THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
     override fun saveTheme(theme: Int) {
         sharedPreferences.edit().putInt(THEME, theme).apply()

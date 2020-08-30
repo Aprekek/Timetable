@@ -2,22 +2,28 @@ package ru.fevgenson.timetable.features.settings.presentation.style.bindingadapt
 
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import ru.fevgenson.timetable.features.settings.R
-import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
 
 @BindingAdapter("theme")
 fun RadioGroup.selectTheme(theme: Int) {
-    (getChildAt(theme) as? RadioButton)?.isChecked = true
+    val radioButton: RadioButton = when (theme) {
+        AppCompatDelegate.MODE_NIGHT_YES -> findViewById(R.id.dark_theme)
+        AppCompatDelegate.MODE_NIGHT_NO -> findViewById(R.id.light_theme)
+        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> findViewById(R.id.system_theme)
+        else -> throw IllegalArgumentException("wrong day night constant $theme")
+    }
+    radioButton.isChecked = true
 }
 
 @InverseBindingAdapter(attribute = "theme", event = "checkChangeListener")
 fun RadioGroup.getTheme(): Int = when (checkedRadioButtonId) {
-    R.id.dark_theme -> SettingsRepository.DARK
-    R.id.light_theme -> SettingsRepository.LIGHT
-    R.id.system_theme -> SettingsRepository.SYSTEM
+    R.id.dark_theme -> AppCompatDelegate.MODE_NIGHT_YES
+    R.id.light_theme -> AppCompatDelegate.MODE_NIGHT_NO
+    R.id.system_theme -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     else -> throw IllegalArgumentException("wrong radio button id $checkedRadioButtonId")
 }
 
