@@ -4,17 +4,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.core.KoinComponent
-import org.koin.core.get
-import org.koin.core.parameter.parametersOf
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class PageDayViewPagerAdapter(
     private val viewModels: List<PageDayViewModel>,
-    private val lifecycleOwner: LifecycleOwner
+    private val lifecycleOwner: LifecycleOwner,
+    private val lessonViewHolderPool: LessonViewHolderPool
 ) : RecyclerView.Adapter<PageDayViewHolder>(), KoinComponent {
-
-    private var lessonViewHolderPool: LessonViewHolderPool? = null
 
     init {
         setHasStableIds(true)
@@ -26,9 +23,7 @@ class PageDayViewPagerAdapter(
     ): PageDayViewHolder = PageDayViewHolder.from(
         parent = parent,
         lifecycleOwner = lifecycleOwner,
-        lessonViewHolderPool = lessonViewHolderPool ?: get<LessonViewHolderPool> {
-            parametersOf(parent)
-        }.also { lessonViewHolderPool = it }
+        lessonViewHolderPool = lessonViewHolderPool
     )
 
     override fun getItemCount(): Int = DateUtils.WEEK_DAYS

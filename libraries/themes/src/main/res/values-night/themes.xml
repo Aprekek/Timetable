@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="ApplicationTheme" parent="Theme.MaterialComponents.NoActionBar">
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+
+        <item name="android:ambientShadowAlpha">0.3</item>
+
+        <item name="android:colorBackground">@color/background_dark_theme_black</item>
+        <item name="colorSurface">@color/background_dark_theme_black</item>
+        <item name="colorError">@color/red</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorControlNormal">@color/light_grey</item>
+
+        <item name="android:statusBarColor">@color/background_dark_theme_black</item>
+        <item name="android:navigationBarColor">@color/background_dark_theme_black</item>
+    </style>
+</resources>
