@@ -52,6 +52,8 @@ dependencies {
 
     implementation Dependencies.CONSTRAINT_LAYOUT
 
+    implementation Dependencies.Lifecycle.LIFECYCLE_LIVEDATA
+
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT
     implementation Dependencies.Koin.KOIN_SCOPE
@@ -59,6 +61,7 @@ dependencies {
     implementation Dependencies.Navigation.NAVIGATION_FRAGMENT_KTX
     implementation Dependencies.Navigation.NAVIGATION_UI_KTX
 
+    implementation project(Modules.DATABASE)
     implementation project(Modules.NAVIGATION)
     implementation project(Modules.THEMES)
     implementation project(Modules.CORE)

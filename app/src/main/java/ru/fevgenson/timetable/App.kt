@@ -5,6 +5,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import ru.fevgenson.timetable.features.dictionary.di.dictionaryListModules
 import ru.fevgenson.timetable.features.lessoncreate.di.lessonCreateListModules
 import ru.fevgenson.timetable.features.timetable.di.timetableListModules
 
@@ -19,6 +20,7 @@ class App : Application() {
 
             modules(lessonCreateListModules)
             modules(timetableListModules)
+            modules(dictionaryListModules)
         }
     }
 }

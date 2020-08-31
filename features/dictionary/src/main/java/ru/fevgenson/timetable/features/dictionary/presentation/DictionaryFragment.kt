@@ -8,12 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentDictionaryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.CategoriesViewPagerAdapter
 
 class DictionaryFragment : Fragment() {
 
+    private val dictionaryViewModel: DictionaryViewModel by viewModel()
     private lateinit var binding: FragmentDictionaryBinding
 
     override fun onCreateView(
@@ -32,11 +34,12 @@ class DictionaryFragment : Fragment() {
         container: ViewGroup?
     ) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dictionary, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun initViewPager2() {
         binding.viewPager.adapter =
-            CategoriesViewPagerAdapter(resources.getStringArray(R.array.dictionary_categories))
+            CategoriesViewPagerAdapter(dictionaryViewModel, viewLifecycleOwner)
     }
 
     private fun initTabLayoutMediator() {
