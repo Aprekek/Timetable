@@ -5,4 +5,5 @@
 
     <item name="navigation_from_main_to_lesson_create" type="id" />
     <item name="navigation_from_main_to_settings_style" type="id" />
+    <item name="navigation_from_main_to_settings_notifications" type="id" />
 </resources>

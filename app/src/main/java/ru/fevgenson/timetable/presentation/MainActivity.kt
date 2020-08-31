@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.android.get
 import ru.fevgenson.timetable.R
+import ru.fevgenson.timetable.features.notifications.presentation.ForegroundNotificationService
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.MinutesBroadcastReceiver
 import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         subscribeBroadcastReceivers()
-        setDayNightMode()
+        setupSettings()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
@@ -23,9 +24,16 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun setDayNightMode() {
+    private fun setupSettings() {
         val settingsRepository: SettingsRepository = get()
+        //выбираем тему
         AppCompatDelegate.setDefaultNightMode(settingsRepository.getSavedTheme())
+        //запускаем обновляемое уведомление
+        if (settingsRepository.getForegroundServiceEnabled()) {
+            ForegroundNotificationService.startService(this)
+        } else {
+            ForegroundNotificationService.stopService(this)
+        }
     }
 
     private fun subscribeBroadcastReceivers() {

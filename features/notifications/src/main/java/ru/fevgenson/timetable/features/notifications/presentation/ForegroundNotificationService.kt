@@ -1,5 +1,6 @@
 package ru.fevgenson.timetable.features.notifications.presentation
 
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleService
@@ -15,9 +16,22 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 class ForegroundNotificationService : LifecycleService() {
 
-    private companion object {
-        const val CHANNEL_ID = "TIMETABLE_FOREGROUND_CHANNEL_ID"
-        const val FOREGROUND_ID = 215
+    companion object {
+        private const val CHANNEL_ID = "TIMETABLE_FOREGROUND_CHANNEL_ID"
+        private const val FOREGROUND_ID = 215
+        private var serviceInstanceRunning = false
+
+        fun startService(context: Context) {
+            if (!serviceInstanceRunning) {
+                context.startService(Intent(context, ForegroundNotificationService::class.java))
+            }
+        }
+
+        fun stopService(context: Context) {
+            if (serviceInstanceRunning) {
+                context.stopService(Intent(context, ForegroundNotificationService::class.java))
+            }
+        }
     }
 
     private var isLessonShowed = true
@@ -29,8 +43,16 @@ class ForegroundNotificationService : LifecycleService() {
     private var lessons: LiveData<List<NotificationLesson>> =
         getLessonsUseCase(DateUtils.getCurrentWeek(), DateUtils.getCurrentDay())
 
+    override fun onCreate() {
+        super.onCreate()
+        if (serviceInstanceRunning) {
+            stopSelf()
+        }
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
+        serviceInstanceRunning = true
         NotificationUtils.createChannel(
             channelId = CHANNEL_ID,
             channelName = getString(R.string.notification_foreground_channel_id),
@@ -45,6 +67,7 @@ class ForegroundNotificationService : LifecycleService() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceivers()
+        serviceInstanceRunning = false
     }
 
     private fun registerReceivers() {

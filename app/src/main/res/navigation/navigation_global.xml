@@ -14,6 +14,9 @@
         <action
             android:id="@id/navigation_from_main_to_settings_style"
             app:destination="@id/settingsStyleFragment" />
+        <action
+            android:id="@id/navigation_from_main_to_settings_notifications"
+            app:destination="@id/settingsNotificationsFragment" />
     </fragment>
 
     <fragment
@@ -24,4 +27,8 @@
     <fragment
         android:id="@+id/settingsStyleFragment"
         android:name="ru.fevgenson.timetable.features.settings.presentation.style.SettingsStyleFragment" />
+
+    <fragment
+        android:id="@+id/settingsNotificationsFragment"
+        android:name="ru.fevgenson.timetable.features.settings.presentation.notifications.SettingsNotificationsFragment" />
 </navigation>

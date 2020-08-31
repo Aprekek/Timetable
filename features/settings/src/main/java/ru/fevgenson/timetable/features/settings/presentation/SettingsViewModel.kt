@@ -16,5 +16,7 @@ class SettingsViewModel : ViewModel() {
         eventsDispatcher.dispatchEvent { navigate(R.id.navigation_from_main_to_settings_style) }
     }
 
-    fun onNotificationsClick() {}
+    fun onNotificationsClick() {
+        eventsDispatcher.dispatchEvent { navigate(R.id.navigation_from_main_to_settings_notifications) }
+    }
 }
