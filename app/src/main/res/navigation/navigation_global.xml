@@ -11,9 +11,17 @@
         <action
             android:id="@id/navigation_from_main_to_lesson_create"
             app:destination="@id/lessonCreateFragment" />
+        <action
+            android:id="@id/navigation_from_main_to_settings_style"
+            app:destination="@id/settingsStyleFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/lessonCreateFragment"
         android:name="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateFragment"
         android:label="LessonCreateFragment" />
+
+    <fragment
+        android:id="@+id/settingsStyleFragment"
+        android:name="ru.fevgenson.timetable.features.settings.presentation.style.SettingsStyleFragment" />
 </navigation>

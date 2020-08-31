@@ -2,15 +2,18 @@ package ru.fevgenson.timetable.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.android.get
 import ru.fevgenson.timetable.R
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.MinutesBroadcastReceiver
+import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         subscribeBroadcastReceivers()
+        setDayNightMode()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
@@ -18,6 +21,11 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         unsubscribeBroadcastReceivers()
         super.onDestroy()
+    }
+
+    private fun setDayNightMode() {
+        val settingsRepository: SettingsRepository = get()
+        AppCompatDelegate.setDefaultNightMode(settingsRepository.getSavedTheme())
     }
 
     private fun subscribeBroadcastReceivers() {

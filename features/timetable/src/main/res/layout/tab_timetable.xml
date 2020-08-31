@@ -30,6 +30,7 @@
             android:layout_gravity="end"
             android:contentDescription="@string/timetable_content_description_today"
             android:src="@drawable/shape_circle_blue"
+            app:tint="?attr/colorControlNormal"
             app:visibleOrGone="@{showIcon}" />
 
         <LinearLayout

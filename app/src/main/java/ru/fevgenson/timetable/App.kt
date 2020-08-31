@@ -8,6 +8,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import ru.fevgenson.timetable.features.lessoncreate.di.lessonCreateListModules
 import ru.fevgenson.timetable.features.notifications.di.notificationsModule
+import ru.fevgenson.timetable.features.settings.di.settingsModule
 import ru.fevgenson.timetable.features.timetable.di.timetableListModules
 import ru.fevgenson.timetable.libraries.core.di.coreModule
 import ru.fevgenson.timetable.libraries.database.di.databaseModule
@@ -26,6 +27,7 @@ class App : Application() {
             modules(databaseModule)
             modules(coreModule)
             modules(notificationsModule)
+            modules(settingsModule)
         }
     }
 }
