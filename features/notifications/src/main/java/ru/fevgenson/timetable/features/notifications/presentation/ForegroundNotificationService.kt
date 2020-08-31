@@ -2,6 +2,7 @@ package ru.fevgenson.timetable.features.notifications.presentation
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.LiveData
@@ -23,7 +24,12 @@ class ForegroundNotificationService : LifecycleService() {
 
         fun startService(context: Context) {
             if (!serviceInstanceRunning) {
-                context.startService(Intent(context, ForegroundNotificationService::class.java))
+                val intent = Intent(context, ForegroundNotificationService::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(intent)
+                } else {
+                    context.startService(intent)
+                }
             }
         }
 
