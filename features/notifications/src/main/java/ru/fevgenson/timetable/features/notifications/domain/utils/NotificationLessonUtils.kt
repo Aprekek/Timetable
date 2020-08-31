@@ -4,14 +4,14 @@ import ru.fevgenson.timetable.features.notifications.domain.entities.Notificatio
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
-fun List<NotificationLesson>.getCurrentLesson(): NotificationLesson? = find {
+internal fun List<NotificationLesson>.getCurrentLesson(): NotificationLesson? = find {
     val currentTime = MyTimeUtils.getCurrentTime()
     val startTime = MyTimeUtils.convertDbTimeToMinutes(it.time, MyTimeUtils.TimeBorders.START)
     val endTime = MyTimeUtils.convertDbTimeToMinutes(it.time, MyTimeUtils.TimeBorders.END)
     currentTime < startTime || currentTime in startTime..endTime
 }
 
-fun Lesson.toNotificationLesson(): NotificationLesson = NotificationLesson(
+internal fun Lesson.toNotificationLesson(): NotificationLesson = NotificationLesson(
     id = id,
     title = "$subject($time)",
     text = createTextString(housing, classroom, type),

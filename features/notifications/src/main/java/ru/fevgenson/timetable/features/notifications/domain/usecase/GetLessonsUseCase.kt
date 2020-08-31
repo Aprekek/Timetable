@@ -10,7 +10,7 @@ import ru.fevgenson.timetable.features.notifications.domain.entities.Notificatio
 import ru.fevgenson.timetable.features.notifications.domain.utils.toNotificationLesson
 import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
 
-class GetLessonsUseCase(private val repository: LessonRepository) {
+internal class GetLessonsUseCase(private val repository: LessonRepository) {
 
     operator fun invoke(
         weekType: Int,

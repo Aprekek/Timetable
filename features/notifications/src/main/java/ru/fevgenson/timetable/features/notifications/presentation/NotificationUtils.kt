@@ -10,7 +10,7 @@ import ru.fevgenson.timetable.features.notifications.R
 import ru.fevgenson.timetable.features.notifications.domain.entities.NotificationLesson
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.ShowedTimeUtils
 
-object NotificationUtils {
+internal object NotificationUtils {
 
     fun buildInitNotification(
         context: Context,
