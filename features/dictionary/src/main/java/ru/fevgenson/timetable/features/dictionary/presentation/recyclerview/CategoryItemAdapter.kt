@@ -5,12 +5,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
 class CategoryItemAdapter : ListAdapter<String, CategoryItemViewHolder>(CategoryItemDiffUtils()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryItemViewHolder {
-        TODO("Not yet implemented")
-    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CategoryItemViewHolder = CategoryItemViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: CategoryItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(getItem(position))
     }
 
 }
