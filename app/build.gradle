@@ -80,4 +80,5 @@ dependencies {
     implementation project(Modules.CORE)
     implementation project(Modules.LESSON_CREATE)
     implementation project(Modules.DATABASE)
+    implementation project(Modules.NOTIFICATIONS)
 }

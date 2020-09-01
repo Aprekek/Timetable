@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="core_mask_before_start">До начала: %1s</string>
+    <string name="core_mask_before_end">До конца: %1s</string>
+</resources>

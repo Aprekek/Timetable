@@ -13,6 +13,7 @@ internal class SettingsRepositoryImpl(
         const val NAME = "SETTINGS"
 
         private const val THEME = "THEME"
+        private const val FOREGROUND_SERVICE = "FOREGROUND_SERVICE"
     }
 
     override fun getSavedTheme(): Int =
@@ -20,5 +21,12 @@ internal class SettingsRepositoryImpl(
 
     override fun saveTheme(theme: Int) {
         sharedPreferences.edit().putInt(THEME, theme).apply()
+    }
+
+    override fun getForegroundServiceEnabled(): Boolean =
+        sharedPreferences.getBoolean(FOREGROUND_SERVICE, false)
+
+    override fun saveForegroundServiceEnabled(enabled: Boolean) {
+        sharedPreferences.edit().putBoolean(FOREGROUND_SERVICE, enabled).apply()
     }
 }

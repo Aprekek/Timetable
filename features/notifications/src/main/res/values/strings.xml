@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="notification_init_title">PLEASE STAND BY</string>
+    <string name="notification_init_text">Мы уже почти запустились</string>
+
+    <string name="notification_empty_title">Свобода!</string>
+    <string name="notification_empty_text">На сегодня больше занятий нет</string>
+
+    <string name="notification_foreground_channel_id">Обновляемая пара</string>
+</resources>

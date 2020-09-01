@@ -6,8 +6,6 @@
 
     <string name="timetable_mask_with_brackets">%1s (%2s)</string>
     <string name="timetable_mask_with_comma">%1s, %2s</string>
-    <string name="timetable_mask_before_start">До начала: %1s</string>
-    <string name="timetable_mask_before_end">До конца: %1s</string>
     <string name="timetable_empty">Свободный день</string>
 
     <string-array name="timetable_day_tabs">
