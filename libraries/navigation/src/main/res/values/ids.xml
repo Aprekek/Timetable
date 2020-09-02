@@ -4,4 +4,5 @@
     <item name="global_host" type="id" />
 
     <item name="navigation_from_main_to_lesson_create" type="id" />
+    <item name="action_mainFragment_to_listOfLessonsByCategoryFragment" type="id" />
 </resources>

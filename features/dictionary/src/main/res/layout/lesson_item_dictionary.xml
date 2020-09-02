@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="lesson"
+            type="ru.fevgenson.timetable.libraries.database.domain.entities.Lesson" />
+
+        <variable
+            name="viewModel"
+            type="ru.fevgenson.timetable.features.dictionary.presentation.viewpager.ListOfLessonsByCategoryViewModel" />
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         style="@style/ApplicationTheme.CardViewBase"
         android:layout_width="match_parent"

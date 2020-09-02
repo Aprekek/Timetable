@@ -4,18 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentDictionaryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.CategoriesViewPagerAdapter
 
 class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
 
+    private val tabCategories = resources.getStringArray(R.array.dictionary_categories)
     private val dictionaryViewModel: DictionaryViewModel by viewModel()
     private lateinit var binding: FragmentDictionaryBinding
 
@@ -45,8 +47,6 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
     }
 
     private fun initTabLayoutMediator() {
-        val tabCategories = resources.getStringArray(R.array.dictionary_categories)
-
         TabLayoutMediator(
             binding.tabLayout,
             binding.viewPager
@@ -59,7 +59,16 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
         dictionaryViewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
     }
 
-    override fun goToListOfLessonsByCategoryFragment(categoryItem: String) {
-        Toast.makeText(context, categoryItem, Toast.LENGTH_SHORT).show()
+    override fun goToListOfLessonsByCategoryFragment(categoryType: Int, categoryItem: String) {
+//        Toast.makeText(context, categoryItem, Toast.LENGTH_SHORT).show()
+        val arguments = Bundle().apply {
+            with(NavigationConstants.ListLessonsByCategory)
+            {
+                putString(CATEGORY, tabCategories[categoryType])
+                putString(CATEGORY_ITEM, categoryItem)
+            }
+        }
+        Navigation.findNavController(requireActivity(), R.id.global_host)
+            .navigate(R.id.action_mainFragment_to_listOfLessonsByCategoryFragment, arguments)
     }
 }

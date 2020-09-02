@@ -11,7 +11,10 @@ class DictionaryViewModel : ViewModel() {
 
     interface EventListener {
 
-        fun goToListOfLessonsByCategoryFragment(categoryItem: String)
+        fun goToListOfLessonsByCategoryFragment(
+            categoryType: Int,
+            categoryItem: String
+        )
     }
 
     val eventsDispatcher = EventsDispatcher<EventListener>()
@@ -21,7 +24,12 @@ class DictionaryViewModel : ViewModel() {
         }
     }
 
-    fun onCategoryItemClick(categoryItem: String) {
-        eventsDispatcher.dispatchEvent { goToListOfLessonsByCategoryFragment(categoryItem) }
+    fun onCategoryItemClick(categoryType: Int, categoryItem: String) {
+        eventsDispatcher.dispatchEvent {
+            goToListOfLessonsByCategoryFragment(
+                categoryType,
+                categoryItem
+            )
+        }
     }
 }

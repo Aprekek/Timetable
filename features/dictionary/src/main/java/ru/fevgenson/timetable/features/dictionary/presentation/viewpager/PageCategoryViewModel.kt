@@ -7,7 +7,7 @@ import ru.fevgenson.timetable.features.dictionary.domain.Categories
 import ru.fevgenson.timetable.features.dictionary.presentation.DictionaryViewModel
 
 class PageCategoryViewModel(
-    private val categoryType: Int,
+    val categoryType: Int,
     private val parentViewModel: DictionaryViewModel
 ) : ViewModel() {
 
@@ -29,7 +29,7 @@ class PageCategoryViewModel(
         emit(listCategoryItems)
     }
 
-    fun onCategoryItemClick(categoryItem: String) {
-        parentViewModel.onCategoryItemClick(categoryItem)
+    fun onCategoryItemClick(categoryType: Int, categoryItem: String) {
+        parentViewModel.onCategoryItemClick(categoryType, categoryItem)
     }
 }

@@ -11,9 +11,16 @@
         <action
             android:id="@id/navigation_from_main_to_lesson_create"
             app:destination="@id/lessonCreateFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_listOfLessonsByCategoryFragment"
+            app:destination="@id/listOfLessonsByCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/lessonCreateFragment"
         android:name="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateFragment"
         android:label="LessonCreateFragment" />
+    <fragment
+        android:id="@+id/listOfLessonsByCategoryFragment"
+        android:name="ru.fevgenson.timetable.features.dictionary.presentation.ListOfLessonsByCategoryFragment"
+        android:label="ListOfLessonsByCategoryFragment" />
 </navigation>

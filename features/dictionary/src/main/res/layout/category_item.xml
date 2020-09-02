@@ -23,7 +23,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{()-> pageCategoryViewModel.onCategoryItemClick(text)}"
+        android:onClick="@{()-> pageCategoryViewModel.onCategoryItemClick(pageCategoryViewModel.categoryType,text)}"
         app:cardCornerRadius="@dimen/width_0">
 
         <TextView
