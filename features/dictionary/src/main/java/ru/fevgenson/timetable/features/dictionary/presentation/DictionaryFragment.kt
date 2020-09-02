@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
@@ -13,7 +14,7 @@ import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentDictionaryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.CategoriesViewPagerAdapter
 
-class DictionaryFragment : Fragment() {
+class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
 
     private val dictionaryViewModel: DictionaryViewModel by viewModel()
     private lateinit var binding: FragmentDictionaryBinding
@@ -26,6 +27,7 @@ class DictionaryFragment : Fragment() {
         initBinding(inflater, container)
         initViewPager2()
         initTabLayoutMediator()
+        initEventListener()
         return binding.root
     }
 
@@ -51,5 +53,13 @@ class DictionaryFragment : Fragment() {
         ) { tab: TabLayout.Tab, i: Int ->
             tab.text = tabCategories[i]
         }.attach()
+    }
+
+    private fun initEventListener() {
+        dictionaryViewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
+    }
+
+    override fun goToListOfLessonsByCategoryFragment(categoryItem: String) {
+        Toast.makeText(context, categoryItem, Toast.LENGTH_SHORT).show()
     }
 }

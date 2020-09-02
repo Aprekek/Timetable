@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.databinding.CategoryItemBinding
+import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.PageCategoryViewModel
 
 class CategoryItemViewHolder(
     private val binding: CategoryItemBinding
@@ -17,7 +18,8 @@ class CategoryItemViewHolder(
         }
     }
 
-    fun bind(categoryItemName: String) {
+    fun bind(categoryItemName: String, pageCategoryViewModel: PageCategoryViewModel) {
         binding.text = categoryItemName
+        binding.pageCategoryViewModel = pageCategoryViewModel
     }
 }

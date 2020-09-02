@@ -10,7 +10,12 @@ private val viewModelModule = module {
         DictionaryViewModel()
     }
 
-    factory { (categoryType: Int) -> PageCategoryViewModel(categoryType) }
+    factory { (categoryType: Int, parentViewModel: DictionaryViewModel) ->
+        PageCategoryViewModel(
+            categoryType,
+            parentViewModel
+        )
+    }
 }
 
 val dictionaryListModules = listOf(viewModelModule)

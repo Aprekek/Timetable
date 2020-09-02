@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import ru.fevgenson.timetable.features.dictionary.domain.Categories
+import ru.fevgenson.timetable.features.dictionary.presentation.DictionaryViewModel
 
 class PageCategoryViewModel(
-    private val categoryType: Int
+    private val categoryType: Int,
+    private val parentViewModel: DictionaryViewModel
 ) : ViewModel() {
 
     //TODO переписать с использованием useCase
@@ -25,5 +27,9 @@ class PageCategoryViewModel(
             )
         }
         emit(listCategoryItems)
+    }
+
+    fun onCategoryItemClick(categoryItem: String) {
+        parentViewModel.onCategoryItemClick(categoryItem)
     }
 }

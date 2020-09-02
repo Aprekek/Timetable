@@ -15,7 +15,8 @@ class PageCategoryViewHolder private constructor(
 
     private lateinit var pageCategoryViewModel: PageCategoryViewModel
     private lateinit var categoryItemAdapter: CategoryItemAdapter
-    private val observer = Observer<List<String>> {
+    private var isAdapterInit: Boolean = false
+    private val onListChangeObserver = Observer<List<String>> {
         categoryItemAdapter.submitList(it)
     }
 
@@ -34,5 +35,22 @@ class PageCategoryViewHolder private constructor(
 
     fun bind(pageCategoryViewModel: PageCategoryViewModel) {
         this.pageCategoryViewModel = pageCategoryViewModel
+
+        if (!isAdapterInit) {
+            initAdapter()
+            isAdapterInit = true
+        } else {
+            pageCategoryViewModel.listCategoryItemsLiveData.removeObserver(onListChangeObserver)
+            initAdapter()
+        }
+    }
+
+    private fun initAdapter() {
+        categoryItemAdapter = CategoryItemAdapter(pageCategoryViewModel)
+        binding.categoryItemsRecyclerView.swapAdapter(categoryItemAdapter, true)
+        pageCategoryViewModel.listCategoryItemsLiveData.observe(
+            lifecycleOwner,
+            onListChangeObserver
+        )
     }
 }
