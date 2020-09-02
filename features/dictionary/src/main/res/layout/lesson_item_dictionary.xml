@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="ru.fevgenson.timetable.features.dictionary.presentation.viewpager.ListOfLessonsByCategoryViewModel" />
+            type="ru.fevgenson.timetable.features.dictionary.presentation.ListOfLessonsByCategoryViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

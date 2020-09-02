@@ -4,7 +4,8 @@ object NavigationConstants {
 
     object ListLessonsByCategory {
         const val CATEGORY = "CATEGORY"
-        const val CATEGORY_ITEM = "CATEGORY_ITEM"
+        const val CATEGORY_NAME = "CATEGORY_NAME"
+        const val CATEGORY_ITEM_NAME = "CATEGORY_ITEM"
     }
 
     object LessonCreate {

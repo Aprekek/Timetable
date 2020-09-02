@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="ru.fevgenson.timetable.features.dictionary.presentation.viewpager.ListOfLessonsByCategoryViewModel" />
+            type="ru.fevgenson.timetable.features.dictionary.presentation.ListOfLessonsByCategoryViewModel" />
     </data>
 
     <LinearLayout
@@ -42,6 +42,7 @@
                     android:layout_width="@dimen/width_0"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="@dimen/margin_10"
+                    android:hint="@{viewModel.categoryName}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/toolbar_delete_category_button"
                     app:layout_constraintStart_toEndOf="@+id/toolbar_back_button"
@@ -54,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
                         android:inputType="textCapSentences"
+                        android:text="@={viewModel.realCategoryItem}"
                         tools:text="Программирование" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -11,7 +11,6 @@ import org.koin.core.parameter.parametersOf
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentListOfLessonsByCategoryBinding
-import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.ListOfLessonsByCategoryViewModel
 
 class ListOfLessonsByCategoryFragment : Fragment() {
 
@@ -19,7 +18,11 @@ class ListOfLessonsByCategoryFragment : Fragment() {
     private val viewModel: ListOfLessonsByCategoryViewModel by viewModel {
         with(requireArguments()) {
             with(NavigationConstants.ListLessonsByCategory) {
-                parametersOf(CATEGORY_ITEM, CATEGORY)
+                parametersOf(
+                    getString(CATEGORY_ITEM_NAME),
+                    getString(CATEGORY_NAME),
+                    getInt(CATEGORY)
+                )
             }
         }
     }
@@ -29,14 +32,14 @@ class ListOfLessonsByCategoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initBinding(inflater, container, savedInstanceState)
+        initBinding(inflater, container)
+
         return binding.root
     }
 
     private fun initBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        container: ViewGroup?
     ) {
         binding = DataBindingUtil.inflate(
             inflater,
@@ -45,5 +48,6 @@ class ListOfLessonsByCategoryFragment : Fragment() {
             false
         )
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
     }
 }

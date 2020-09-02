@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.dictionary.presentation.viewpager
+package ru.fevgenson.timetable.features.dictionary.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +9,7 @@ import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 class ListOfLessonsByCategoryViewModel(
     categoryItem: String,
+    val categoryName: String,
     private val categoryType: Int
 ) : ViewModel() {
 
