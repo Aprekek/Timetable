@@ -31,7 +31,6 @@ class PageCategoryViewModel(
         }
         emit(listCategoryItems)
     }
-
     val isNoItemsTextVisible = Transformations.map(listCategoryItemsLiveData) {
         it.isNullOrEmpty()
     }

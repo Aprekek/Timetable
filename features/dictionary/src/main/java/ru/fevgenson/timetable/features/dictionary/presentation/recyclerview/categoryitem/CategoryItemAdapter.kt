@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.dictionary.presentation.recyclerview
+package ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.categoryitem
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

@@ -71,12 +71,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/dictionary_list_of_lessons_recycler_view"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
-
         <!--TODO заглушка-->
         <FrameLayout
             android:layout_width="match_parent"
@@ -93,24 +87,11 @@
                 android:text="@string/dictionary_no_items"
                 app:visibleOrGone="@{viewModel.isNoItemsTextVisible}" />
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dictionary_list_of_lessons_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/padding_15"
-                android:paddingVertical="@dimen/padding_10">
-
-                <include
-                    layout="@layout/lesson_item_dictionary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <include
-                    layout="@layout/lesson_item_dictionary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10" />
-            </LinearLayout>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </FrameLayout>
     </LinearLayout>
 </layout>

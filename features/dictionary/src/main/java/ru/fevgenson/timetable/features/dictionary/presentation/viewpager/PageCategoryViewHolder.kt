@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.databinding.PageCategoryBinding
-import ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.CategoryItemAdapter
+import ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.categoryitem.CategoryItemAdapter
 
 class PageCategoryViewHolder private constructor(
     private val binding: PageCategoryBinding,

@@ -6,15 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentListOfLessonsByCategoryBinding
+import ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.listoflessons.DictionaryLessonListAdapter
 
 class ListOfLessonsByCategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentListOfLessonsByCategoryBinding
+    private lateinit var adapter: DictionaryLessonListAdapter
     private val viewModel: ListOfLessonsByCategoryViewModel by viewModel {
         with(requireArguments()) {
             with(NavigationConstants.ListLessonsByCategory) {
@@ -33,6 +36,8 @@ class ListOfLessonsByCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         initBinding(inflater, container)
+        initAdapter()
+        initObserver()
 
         return binding.root
     }
@@ -49,5 +54,16 @@ class ListOfLessonsByCategoryFragment : Fragment() {
         )
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+    }
+
+    private fun initAdapter() {
+        adapter = DictionaryLessonListAdapter(viewModel)
+        binding.dictionaryListOfLessonsRecyclerView.adapter = adapter
+    }
+
+    private fun initObserver() {
+        viewModel.lessons.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
     }
 }
