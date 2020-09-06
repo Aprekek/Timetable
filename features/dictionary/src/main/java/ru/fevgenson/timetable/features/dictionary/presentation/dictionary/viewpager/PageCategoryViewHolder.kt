@@ -40,9 +40,6 @@ class PageCategoryViewHolder private constructor(
         if (!isAdapterInit) {
             initAdapter()
             isAdapterInit = true
-        } else {
-            pageCategoryViewModel.listCategoryItemsLiveData.removeObserver(onListChangeObserver)
-            initAdapter()
         }
     }
 
