@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="ru.fevgenson.timetable.features.dictionary.presentation.ListOfLessonsByCategoryViewModel" />
+            type="ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.ListOfLessonsByCategoryViewModel" />
     </data>
 
     <!--    TODO нормально переписать с использованием variable и bindingAdapter'ов-->

@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.dictionary.presentation
+package ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import org.koin.core.parameter.parametersOf
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentListOfLessonsByCategoryBinding
-import ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.listoflessons.DictionaryLessonListAdapter
+import ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.recyclerview.DictionaryLessonListAdapter
 
 class ListOfLessonsByCategoryFragment : Fragment() {
 

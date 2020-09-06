@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.dictionary.presentation
+package ru.fevgenson.timetable.features.dictionary.presentation.dictionary
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentDictionaryBinding
-import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.CategoriesViewPagerAdapter
+import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.CategoriesViewPagerAdapter
 
 class DictionaryFragment : Fragment(),
     DictionaryViewModel.EventListener {

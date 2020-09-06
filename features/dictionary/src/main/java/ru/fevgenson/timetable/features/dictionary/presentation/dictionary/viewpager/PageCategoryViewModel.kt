@@ -1,11 +1,11 @@
-package ru.fevgenson.timetable.features.dictionary.presentation.viewpager
+package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager
 
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import ru.fevgenson.timetable.features.dictionary.domain.Categories
-import ru.fevgenson.timetable.features.dictionary.presentation.DictionaryViewModel
+import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.DictionaryViewModel
 
 class PageCategoryViewModel(
     val categoryType: Int,

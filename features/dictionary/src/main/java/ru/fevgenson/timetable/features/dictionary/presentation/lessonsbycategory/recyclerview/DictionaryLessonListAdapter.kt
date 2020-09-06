@@ -1,9 +1,9 @@
-package ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.listoflessons
+package ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.recyclerview
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import ru.fevgenson.timetable.features.dictionary.presentation.ListOfLessonsByCategoryViewModel
+import ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.ListOfLessonsByCategoryViewModel
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 class DictionaryLessonListAdapter(

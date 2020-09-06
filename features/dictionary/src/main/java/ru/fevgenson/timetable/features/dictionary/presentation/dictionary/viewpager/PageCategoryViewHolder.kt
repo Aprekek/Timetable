@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.dictionary.presentation.viewpager
+package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.databinding.PageCategoryBinding
-import ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.categoryitem.CategoryItemAdapter
+import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.recyclerview.CategoryItemAdapter
 
 class PageCategoryViewHolder private constructor(
     private val binding: PageCategoryBinding,

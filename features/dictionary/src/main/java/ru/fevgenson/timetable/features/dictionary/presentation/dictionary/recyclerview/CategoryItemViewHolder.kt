@@ -1,10 +1,10 @@
-package ru.fevgenson.timetable.features.dictionary.presentation.recyclerview.categoryitem
+package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.databinding.CategoryItemBinding
-import ru.fevgenson.timetable.features.dictionary.presentation.viewpager.PageCategoryViewModel
+import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryViewModel
 
 class CategoryItemViewHolder(
     private val binding: CategoryItemBinding

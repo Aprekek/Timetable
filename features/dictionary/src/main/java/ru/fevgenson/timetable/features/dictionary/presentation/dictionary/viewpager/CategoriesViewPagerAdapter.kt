@@ -1,10 +1,10 @@
-package ru.fevgenson.timetable.features.dictionary.presentation.viewpager
+package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager
 
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.domain.Categories
-import ru.fevgenson.timetable.features.dictionary.presentation.DictionaryViewModel
+import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.DictionaryViewModel
 
 class CategoriesViewPagerAdapter(
     private val parentViewModel: DictionaryViewModel,

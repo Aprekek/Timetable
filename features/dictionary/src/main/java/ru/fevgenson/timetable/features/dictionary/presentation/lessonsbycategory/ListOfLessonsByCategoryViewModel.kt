@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.dictionary.presentation
+package ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
