@@ -13,4 +13,5 @@
     <string name="dictionary_description_delete_category">Удалить категорию</string>
 
     <string name="dictionary_mask_with_colon">%1$s: %2$s</string>
+    <string name="dictionary_no_items">Нет элементов</string>
 </resources>

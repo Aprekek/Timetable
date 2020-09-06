@@ -78,24 +78,39 @@
         <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
 
         <!--TODO заглушка-->
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/padding_15"
-            android:paddingVertical="@dimen/padding_10">
+            android:orientation="vertical">
 
-            <include
-                layout="@layout/lesson_item_dictionary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/lesson_item_dictionary"
+            <TextView
+                style="@style/ApplicationTheme.Body1Black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10" />
-        </LinearLayout>
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/dictionary_no_items"
+                app:visibleOrGone="@{viewModel.isNoItemsTextVisible}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/padding_15"
+                android:paddingVertical="@dimen/padding_10">
+
+                <include
+                    layout="@layout/lesson_item_dictionary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <include
+                    layout="@layout/lesson_item_dictionary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10" />
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 </layout>

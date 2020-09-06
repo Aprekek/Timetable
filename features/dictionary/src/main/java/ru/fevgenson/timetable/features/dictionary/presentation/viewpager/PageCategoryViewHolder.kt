@@ -35,6 +35,7 @@ class PageCategoryViewHolder private constructor(
 
     fun bind(pageCategoryViewModel: PageCategoryViewModel) {
         this.pageCategoryViewModel = pageCategoryViewModel
+        binding.viewModel = pageCategoryViewModel
 
         if (!isAdapterInit) {
             initAdapter()
