@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_content_description_back_button">Назад</string>
+    <string name="settings_content_description_avatar">Картинка профиля</string>
+
+    <string name="settings_log_in">Войти</string>
+
+    <string name="settings_title_style">Оформление</string>
+    <string name="settings_title_night_theme">Темная тема</string>
+    <string name="settings_title_light_theme">Светлая тема</string>
+    <string name="settings_title_system_theme">По выбору системы</string>
+
+    <string name="settings_title_notifications">Уведомления</string>
+    <string name="settings_title_foreground_notification">Обновляемое уведомление</string>
+    <string name="settings_text_foreground_notification">Показывает время до начала/конца пары</string>
+</resources>

@@ -10,10 +10,12 @@ import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.ext.getOrCreateScope
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewPagerAdapter
+import ru.fevgenson.timetable.libraries.core.presentation.colors.ColorUtils
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
@@ -39,12 +41,20 @@ class TimetableFragment : Fragment(),
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_timetable, container, false)
+        binding.normalColor =
+            ColorUtils.getColorFromAttribute(R.attr.colorControlNormal, requireContext())
+        binding.selectedColor =
+            ColorUtils.getColorFromAttribute(R.attr.colorPrimary, requireContext())
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
     }
 
     private fun initViewPagerAdapter() {
-        val adapter = PageDayViewPagerAdapter(viewModel.dayViewModelsList, viewLifecycleOwner)
+        val adapter = PageDayViewPagerAdapter(
+            viewModel.dayViewModelsList,
+            viewLifecycleOwner,
+            getOrCreateScope().get()
+        )
         binding.dayViewPager.adapter = adapter
         viewModel.selectedDayLiveData.value?.let {
             binding.dayViewPager.setCurrentItem(it, false)
@@ -65,6 +75,7 @@ class TimetableFragment : Fragment(),
                     )
                 )
             }
+            getTabAt(viewModel.selectedWeekLiveData.value ?: currentWeek)?.select()
         }
     }
 

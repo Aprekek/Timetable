@@ -3,7 +3,7 @@ package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import ru.fevgenson.timetable.features.timetable.domain.entities.Lesson
+import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
@@ -24,7 +24,7 @@ class PageDayViewModel(
         day = currentDay
     )
 
-    val lessons = MediatorLiveData<List<Lesson>>().apply {
+    val lessons = MediatorLiveData<List<TimetableLesson>>().apply {
         addSource(firstWeekLessons) {
             if (parentViewModel.selectedWeekLiveData.value == DateUtils.FIRST_WEEK) {
                 value = it

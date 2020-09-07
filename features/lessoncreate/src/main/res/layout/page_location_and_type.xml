@@ -26,12 +26,15 @@
                 android:hint="@string/lesson_create_hint_housing"
                 android:padding="@dimen/padding_20">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/housing_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapSentences"
-                    android:text="@={lessonCreateViewModel.housing}" />
+                    android:padding="@dimen/padding_10"
+                    android:text="@={lessonCreateViewModel.housing}"
+                    app:autocompleteData="@{lessonCreateViewModel.housingAutoComplete}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -42,12 +45,15 @@
                 android:hint="@string/lesson_create_hint_classroom"
                 android:padding="@dimen/padding_20">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/classroom_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapSentences"
-                    android:text="@={lessonCreateViewModel.classroom}" />
+                    android:padding="@dimen/padding_10"
+                    android:text="@={lessonCreateViewModel.classroom}"
+                    app:autocompleteData="@{lessonCreateViewModel.classroomAutoComplete}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -58,12 +64,15 @@
                 android:hint="@string/lesson_create_hint_lesson_type"
                 android:padding="@dimen/padding_20">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/type_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:inputType="textCapSentences"
-                    android:text="@={lessonCreateViewModel.type}" />
+                    android:padding="@dimen/padding_10"
+                    android:text="@={lessonCreateViewModel.type}"
+                    app:autocompleteData="@{lessonCreateViewModel.typeAutocomplete}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout

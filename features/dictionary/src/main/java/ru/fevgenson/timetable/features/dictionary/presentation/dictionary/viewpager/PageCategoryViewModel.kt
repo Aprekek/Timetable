@@ -13,7 +13,7 @@ class PageCategoryViewModel(
 ) : ViewModel() {
 
     //TODO (заглушка) переписать с использованием useCase
-    val listCategoryItemsLiveData = liveData(Dispatchers.IO) {
+    val listCategoryItemsLiveData = liveData<List<String>>(Dispatchers.IO) {
         val listCategoryItems = when (categoryType) {
             Categories.SUBJECT_CATEGORY -> listOf(
                 "math",

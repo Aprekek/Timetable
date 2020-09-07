@@ -15,28 +15,28 @@ public class Dependencies {
     public static final String DATABINDING = "com.android.databinding:compiler:" + Versions.DATABINDING;
 
     public static class Versions {
-        public static final String KOTLIN = "1.3.72";
-        public static final String GRADLE = "4.0.0";
+        public static final String KOTLIN = "1.4.0";
+        public static final String GRADLE = "4.0.1";
         public static final String GOOGLE = "4.3.3";
         public static final String FIREBASE = "17.2.2";
         public static final String DECORO = "1.4.1";
 
         public static final String LIFECYCLE = "2.2.0";
-        public static final String MATERIAL = "1.2.0-beta01";
-        public static final String CONSTRAINT_LAYOUT = "1.1.3";
-        public static final String CORE = "1.3.0";
-        public static final String APP_COMPAT = "1.1.0";
+        public static final String MATERIAL = "1.2.0";
+        public static final String CONSTRAINT_LAYOUT = "2.0.1";
+        public static final String CORE = "1.3.1";
+        public static final String APP_COMPAT = "1.2.0";
         public static final String ACTIVITY = "1.1.0";
-        public static final String FRAGMENT = "1.2.4";
         public static final String RECYCLE_VIEW = "1.1.0";
         public static final String VIEW_PAGER_2 = "1.0.0";
-        public static final String SWIPE_REFRESH_LAYOUT = "1.0.0";
+        public static final String FRAGMENT = "1.2.5";
+        public static final String SWIPE_REFRESH_LAYOUT = "1.1.0";
         public static final String ROOM = "2.2.5";
-        public static final String COROUTINE = "1.3.7";
-        public static final String KOIN = "2.1.5";
+        public static final String COROUTINE = "1.3.9";
+        public static final String KOIN = "2.1.6";
         public static final String NAVIGATION = "2.3.0";
 
-        public static final String DATABINDING = "3.1.4";
+        public static final String DATABINDING = "4.0.1";
 
         public static final String JUNIT = "4.12";
         public static final String MOCKITO = "1.10.19";
@@ -55,6 +55,7 @@ public class Dependencies {
 
     public static class Kotlin {
         public static final String KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:" + Versions.KOTLIN;
+        public static final String KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:" + Versions.KOTLIN;
         public static final String KOTLIN_STANDARD_LIBRARY = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:" + Versions.KOTLIN;
     }
 

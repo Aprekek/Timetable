@@ -12,15 +12,17 @@ import ru.fevgenson.timetable.libraries.database.data.tables.*
         HousingEntity::class,
         ClassroomEntity::class,
         TypeEntity::class,
-        TeachersNameEntity::class,
-        EmailEntity::class,
-        PhoneEntity::class,
+        TeacherEntity::class,
         TimeEntity::class
     ],
     version = 1,
     exportSchema = false
 )
-abstract class LessonDatabase : RoomDatabase() {
+internal abstract class LessonDatabase : RoomDatabase() {
+
+    companion object {
+        const val DEVELOP_DB_NAME = "DEVELOP_DB_NAME"
+    }
 
     abstract fun lessonDao(): GeneralDao
 }

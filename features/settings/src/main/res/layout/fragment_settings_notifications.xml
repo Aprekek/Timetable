@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ru.fevgenson.timetable.features.settings.presentation.notifications.SettingsNotificationsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_create_lesson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/padding_20">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_content_description_back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonPressed()}"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    app:tint="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/ApplicationTheme.Title3DarkGrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_60"
+                    android:text="@string/settings_title_notifications" />
+            </FrameLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_20">
+
+            <TextView
+                android:id="@+id/foreground_notification_title"
+                style="@style/ApplicationTheme.Body1Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_title_foreground_notification"
+                app:layout_constraintEnd_toStartOf="@id/foreground_notification_checkbox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/foreground_notification_text"
+                style="@style/ApplicationTheme.Body2Grey"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:text="@string/settings_text_foreground_notification"
+                app:layout_constraintEnd_toStartOf="@id/foreground_notification_checkbox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/foreground_notification_title" />
+
+            <CheckBox
+                android:id="@+id/foreground_notification_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.foregroundServiceEnabled}"
+                app:layout_constraintBottom_toBottomOf="@id/foreground_notification_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/foreground_notification_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

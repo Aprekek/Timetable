@@ -29,13 +29,15 @@
                 android:padding="@dimen/padding_20"
                 app:errorMessage="@{lessonCreateViewModel.subjectError}">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/subject_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="textCapSentences"
-                    android:text="@={lessonCreateViewModel.subject}" />
+                    android:padding="@dimen/padding_10"
+                    android:text="@={lessonCreateViewModel.subject}"
+                    app:autocompleteData="@{lessonCreateViewModel.subjectAutoComplete}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout
@@ -92,14 +94,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_20"
                 android:layout_marginTop="@dimen/margin_20"
-                android:text="@string/lesson_create_button_choose_time" />
+                android:onClick="@{() -> lessonCreateViewModel.onAutocompleteTimeButtonClick()}"
+                android:text="@string/lesson_create_button_choose_time"
+                app:stateAutocompleteData="@{lessonCreateViewModel.timeAutoComplete}" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 style="@style/ApplicationTheme.CardViewBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_30">
+                android:layout_marginTop="@dimen/margin_30"
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,14 +127,15 @@
                         android:layout_marginTop="@dimen/margin_10"
                         app:checkedChips="@{lessonCreateViewModel.firstWeekChips}" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 style="@style/ApplicationTheme.CardViewBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15">
+                android:layout_marginTop="@dimen/margin_15"
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -152,7 +158,7 @@
                         android:layout_marginTop="@dimen/margin_10"
                         app:checkedChips="@{lessonCreateViewModel.secondWeekChips}" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <include
                 layout="@layout/include_lesson_create_buttons"

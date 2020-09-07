@@ -8,4 +8,5 @@
     <color name="dark_grey">#3e3e3e</color>
     <color name="light_grey">#e0e0e0</color>
     <color name="red">#D21919</color>
+    <color name="background_dark_theme_black">#1e2326</color>
 </resources>

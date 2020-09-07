@@ -9,7 +9,7 @@ data class TypeEntity(
 )
 
 @Dao
-interface TypeDao {
+internal interface TypeDao {
 
     @Query("SELECT * from type_table")
     suspend fun getTypes(): List<TypeEntity>

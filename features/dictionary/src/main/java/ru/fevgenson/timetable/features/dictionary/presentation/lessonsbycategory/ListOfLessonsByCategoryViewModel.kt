@@ -2,6 +2,7 @@ package ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategor
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 class ListOfLessonsByCategoryViewModel(
@@ -34,7 +35,7 @@ class ListOfLessonsByCategoryViewModel(
                         time = "15:15-16:45",
                         day = 1,
                         weekType = 2,
-                        teachersName = "Fulman V.O"
+                        teacher = TeacherEntity(name = "Fulman V.O", phone = null, email = null)
                     ),
                     Lesson(
                         subject = "Programming",
