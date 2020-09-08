@@ -6,6 +6,7 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import ru.fevgenson.timetable.features.dictionary.di.dictionaryListModules
 import ru.fevgenson.timetable.features.lessoncreate.di.lessonCreateListModules
 import ru.fevgenson.timetable.features.notifications.di.notificationsModule
 import ru.fevgenson.timetable.features.settings.di.settingsModule
@@ -24,6 +25,7 @@ class App : Application() {
 
             modules(lessonCreateListModules)
             modules(timetableListModules)
+            modules(dictionaryListModules)
             modules(databaseModule)
             modules(coreModule)
             modules(notificationsModule)

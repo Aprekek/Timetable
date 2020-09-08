@@ -12,6 +12,9 @@
             android:id="@id/navigation_from_main_to_lesson_create"
             app:destination="@id/lessonCreateFragment" />
         <action
+            android:id="@+id/navigation_from_main_to_list_of_lessons_by_category"
+            app:destination="@id/listOfLessonsByCategoryFragment" />
+        <action
             android:id="@id/navigation_from_main_to_settings_style"
             app:destination="@id/settingsStyleFragment" />
         <action
@@ -23,6 +26,11 @@
         android:id="@+id/lessonCreateFragment"
         android:name="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateFragment"
         android:label="LessonCreateFragment" />
+
+    <fragment
+        android:id="@+id/listOfLessonsByCategoryFragment"
+        android:name="ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.ListOfLessonsByCategoryFragment"
+        android:label="ListOfLessonsByCategoryFragment" />
 
     <fragment
         android:id="@+id/settingsStyleFragment"

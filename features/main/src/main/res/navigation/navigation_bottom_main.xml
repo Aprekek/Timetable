@@ -16,7 +16,7 @@
 
     <keep_state_fragment
         android:id="@+id/dictionary"
-        android:name="ru.fevgenson.timetable.features.dictionary.presentation.DictionaryFragment" />
+        android:name="ru.fevgenson.timetable.features.dictionary.presentation.dictionary.DictionaryFragment" />
 
     <keep_state_fragment
         android:id="@+id/settings"

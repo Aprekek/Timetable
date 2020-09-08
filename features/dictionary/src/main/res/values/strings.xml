@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="dictionary_categories">
+        <item>Предмет</item>
+        <item>Преподаватель</item>
+        <item>Аудитория</item>
+        <item>Корпус</item>
+        <item>Время</item>
+    </string-array>
+
+    <string name="dictionary_description_action_back">Назад</string>
+    <string name="dictionary_description_delete_category">Удалить категорию</string>
+
+    <string name="dictionary_mask_with_colon">%1$s: %2$s</string>
+    <string name="dictionary_no_items">Нет элементов</string>
+</resources>

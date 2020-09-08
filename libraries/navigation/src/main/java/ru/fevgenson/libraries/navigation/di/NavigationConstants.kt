@@ -2,6 +2,12 @@ package ru.fevgenson.libraries.navigation.di
 
 object NavigationConstants {
 
+    object ListLessonsByCategory {
+        const val CATEGORY = "CATEGORY"
+        const val CATEGORY_NAME = "CATEGORY_NAME"
+        const val CATEGORY_ITEM_NAME = "CATEGORY_ITEM"
+    }
+
     object LessonCreate {
 
         const val WEEK_TYPE = "WEEK_TYPE"
