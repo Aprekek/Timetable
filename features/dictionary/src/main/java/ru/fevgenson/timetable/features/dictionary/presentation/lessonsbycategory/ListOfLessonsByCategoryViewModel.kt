@@ -42,6 +42,39 @@ class ListOfLessonsByCategoryViewModel(
                         time = "12:15-13:45",
                         day = 2,
                         weekType = 1
+                    ),
+                    Lesson(
+                        subject = "Programming",
+                        time = "12:15-13:45",
+                        day = 2,
+                        weekType = 1
+                    ),
+                    Lesson(
+                        subject = "Programming",
+                        time = "12:15-13:45",
+                        day = 2,
+                        weekType = 1
+                    ),
+                    Lesson(
+                        subject = "Programming",
+                        time = "12:15-13:45",
+                        day = 2,
+                        weekType = 1,
+                        classroom = "A. 412",
+                        housing = "K. 5",
+                        type = "Practice"
+                    ),
+                    Lesson(
+                        subject = "Programming",
+                        time = "12:15-13:45",
+                        day = 2,
+                        weekType = 1
+                    ),
+                    Lesson(
+                        subject = "Programming",
+                        time = "12:15-13:45",
+                        day = 2,
+                        weekType = 1
                     )
                 )
             )

@@ -14,7 +14,7 @@
             type="String" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         style="@style/ApplicationTheme.CardViewBase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,16 +22,16 @@
         android:layout_marginTop="@dimen/margin_10"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()-> pageCategoryViewModel.onCategoryItemClick(pageCategoryViewModel.categoryType,text)}"
+        app:cardBackgroundColor="?attr/colorSurface"
         app:cardCornerRadius="@dimen/width_0">
 
         <TextView
-            style="@style/ApplicationTheme.Title3"
+            style="@style/ApplicationTheme.Title3Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_20"
             android:text="@{text}"
             tools:text="Математика" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

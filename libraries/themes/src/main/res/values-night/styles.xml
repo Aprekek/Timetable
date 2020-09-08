@@ -30,12 +30,25 @@
         <item name="android:textSize">@dimen/text_size_26</item>
     </style>
 
-    <style name="ApplicationTheme.Title3DarkGrey" parent="ApplicationTheme.BodyBase">
-
+    <style name="ApplicationTheme.Title3" parent="ApplicationTheme.BodyBase">
         <item name="android:textSize">@dimen/text_size_20</item>
+    </style>
+
+    <style name="ApplicationTheme.Title3DarkGrey" parent="ApplicationTheme.Title3">
+
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/light_grey</item>
+    </style>
+
+    <style name="ApplicationTheme.Title3Light" parent="ApplicationTheme.Title3">
+
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ApplicationTheme.Title3Dark" parent="ApplicationTheme.Title3">
+
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ApplicationTheme.Body1Black" parent="ApplicationTheme.BodyBase">
@@ -135,8 +148,12 @@
     <!-- Стиль для CardView -->
     <style name="ApplicationTheme.CardViewBase">
 
-        <item name="cardCornerRadius">@dimen/radius_10</item>
-        <item name="cardElevation">10dp</item>
+        <item name="cardCornerRadius">@dimen/radius_15</item>
+    </style>
+
+    <style name="ApplicationTheme.CardViewDictionary" parent="ApplicationTheme.CardViewBase">
+
+        <item name="cardBackgroundColor">@color/background_dark_theme_black</item>
     </style>
 
     <!-- Стиль для ChipView -->
@@ -147,5 +164,14 @@
         <item name="chipEndPadding">@dimen/padding_20</item>
         <item name="chipBackgroundColor">@color/color_state_chip_background</item>
         <item name="android:textColor">@color/color_state_chip_text</item>
+    </style>
+
+    <!-- Стиль для TabLayout -->
+    <style name="ApplicationTheme.ChipTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicator">@android:color/transparent</item>
+        <item name="tabBackground">@drawable/selector_tab_night</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabSelectedTextColor">@color/black</item>
     </style>
 </resources>

@@ -20,7 +20,10 @@
         style="@style/ApplicationTheme.CardViewBase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:strokeColor="@color/blue"
+        android:layout_margin="@dimen/margin_20"
+        app:cardBackgroundColor="?colorSurface"
+        app:cardCornerRadius="@dimen/radius_15"
+        app:strokeColor="?attr/colorPrimary"
         app:strokeWidth="@dimen/width_1">
 
         <LinearLayout
@@ -29,13 +32,13 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                style="@style/ApplicationTheme.CardViewDictionary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/blue"
                 app:cardCornerRadius="@dimen/radius_0">
 
                 <TextView
-                    style="@style/ApplicationTheme.Title3"
+                    style="@style/ApplicationTheme.Title3Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -56,8 +59,7 @@
                     style="@style/ApplicationTheme.Body1Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{lesson.teacher.name}"
-                    android:textColor="@color/black"
+                    android:text='@{"Практика: " + lesson.teacher.name}'
                     tools:text="Практика:  Перышкова Е.Н." />
 
                 <TextView
@@ -75,9 +77,9 @@
                 android:paddingBottom="@dimen/padding_5">
 
                 <androidx.cardview.widget.CardView
+                    style="@style/ApplicationTheme.CardViewDictionary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/blue"
                     app:cardCornerRadius="@dimen/radius_200"
                     app:contentPadding="@dimen/padding_10">
 
@@ -86,6 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{lesson.time}"
+                        android:textColor="@color/white"
                         tools:text="11:40-13:15" />
                 </androidx.cardview.widget.CardView>
 
@@ -94,7 +97,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|bottom"
-                    android:text='@{lesson.day + ":" + lesson.type}'
                     tools:text="Первая: Суббота" />
             </FrameLayout>
         </LinearLayout>

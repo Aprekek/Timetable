@@ -16,7 +16,7 @@
                 style="@style/ApplicationTheme.ChipTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="?colorSurface"
                 app:tabIndicatorHeight="0dp"
                 app:tabMarginDpHorizontal="@{@dimen/padding_5}"
                 app:tabMarginDpVertical="@{@dimen/padding_8}"
