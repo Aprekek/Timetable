@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
@@ -62,7 +61,7 @@ class ListOfLessonsByCategoryFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.lessons.observe(viewLifecycleOwner, Observer {
+        viewModel.lessons.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
     }

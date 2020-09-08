@@ -8,12 +8,10 @@ import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
 class DictionaryLessonListAdapter(
     private val viewModel: ListOfLessonsByCategoryViewModel
-) :
-    ListAdapter<Lesson, DictionaryLessonViewHolder>(LessonDiffUtils()) {
+) : ListAdapter<Lesson, DictionaryLessonViewHolder>(LessonDiffUtils()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DictionaryLessonViewHolder {
-        return DictionaryLessonViewHolder.from(parent)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DictionaryLessonViewHolder =
+        DictionaryLessonViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: DictionaryLessonViewHolder, position: Int) {
         holder.bind(getItem(position), viewModel)

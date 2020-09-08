@@ -17,7 +17,6 @@ class CategoryItemAdapter(
     override fun onBindViewHolder(holder: CategoryItemViewHolder, position: Int) {
         holder.bind(getItem(position), pageCategoryViewModel)
     }
-
 }
 
 private class CategoryItemDiffUtils : DiffUtil.ItemCallback<String>() {

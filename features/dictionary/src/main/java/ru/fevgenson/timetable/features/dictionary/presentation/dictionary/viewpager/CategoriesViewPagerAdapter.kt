@@ -11,9 +11,8 @@ class CategoriesViewPagerAdapter(
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<PageCategoryViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageCategoryViewHolder {
-        return PageCategoryViewHolder.from(parent, lifecycleOwner)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageCategoryViewHolder =
+        PageCategoryViewHolder.from(parent, lifecycleOwner)
 
     override fun onBindViewHolder(holder: PageCategoryViewHolder, position: Int) {
         holder.bind(parentViewModel.listOfPageCategoryViewModel[position])

@@ -15,8 +15,7 @@ import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentDictionaryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.CategoriesViewPagerAdapter
 
-class DictionaryFragment : Fragment(),
-    DictionaryViewModel.EventListener {
+class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
 
     private val dictionaryViewModel: DictionaryViewModel by viewModel()
     private lateinit var binding: FragmentDictionaryBinding
@@ -67,16 +66,14 @@ class DictionaryFragment : Fragment(),
     }
 
     override fun goToListOfLessonsByCategoryFragment(categoryType: Int, categoryItem: String) {
-//        Toast.makeText(context, categoryItem, Toast.LENGTH_SHORT).show()
         val arguments = Bundle().apply {
-            with(NavigationConstants.ListLessonsByCategory)
-            {
+            with(NavigationConstants.ListLessonsByCategory) {
                 putInt(CATEGORY, categoryType)
                 putString(CATEGORY_NAME, tabCategories[categoryType])
                 putString(CATEGORY_ITEM_NAME, categoryItem)
             }
         }
         Navigation.findNavController(requireActivity(), R.id.global_host)
-            .navigate(R.id.action_mainFragment_to_listOfLessonsByCategoryFragment, arguments)
+            .navigate(R.id.navigation_from_main_to_list_of_lessons_by_category, arguments)
     }
 }
