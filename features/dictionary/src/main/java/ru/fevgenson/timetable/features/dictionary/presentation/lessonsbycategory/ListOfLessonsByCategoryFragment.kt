@@ -61,8 +61,6 @@ class ListOfLessonsByCategoryFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.lessons.observe(viewLifecycleOwner, {
-            adapter.submitList(it)
-        })
+        viewModel.lessons.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 }
