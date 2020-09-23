@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.timetable.presentation.bindingadapters
+package ru.fevgenson.timetable.libraries.core.presentation.bindingadapters
 
 import android.view.Gravity
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import org.koin.java.KoinJavaComponent.get
-import ru.fevgenson.timetable.features.timetable.R
+import ru.fevgenson.timetable.libraries.core.R
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.MinutesBroadcastReceiver
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
@@ -20,7 +20,7 @@ fun TextView.setTypeAndTeacher(type: String?, teacher: String?) {
     when {
         type != null && teacher != null -> {
             text = context.getString(
-                R.string.timetable_mask_with_brackets,
+                R.string.core_mask_with_brackets,
                 type,
                 teacher
             )
@@ -45,7 +45,7 @@ fun TextView.setHousingAndClassroom(housing: String?, classroom: String?) {
     when {
         housing != null && classroom != null -> {
             text = context.getString(
-                R.string.timetable_mask_with_comma,
+                R.string.core_mask_with_comma,
                 housing,
                 classroom
             )

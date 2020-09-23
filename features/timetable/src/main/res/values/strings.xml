@@ -4,8 +4,6 @@
     <string name="timetable_content_description_now">Сейчас</string>
     <string name="timetable_content_description_home_work">Есть домашняя работа</string>
 
-    <string name="timetable_mask_with_brackets">%1$s (%2$s)</string>
-    <string name="timetable_mask_with_comma">%1$s, %2$s</string>
     <string name="timetable_empty">Свободный день</string>
 
     <string-array name="timetable_day_tabs">
@@ -22,10 +20,6 @@
         <item>Первая</item>
         <item>Вторая</item>
     </string-array>
-
-    <string name="timetable_menu_copy">Копировать</string>
-    <string name="timetable_menu_edit">Редактировать</string>
-    <string name="timetable_menu_delete">Удалить</string>
 
     <string name="timetable_dialog_title">Удалить?</string>
     <string name="timetable_dialog_description">Пара будет удалена навсегда</string>
