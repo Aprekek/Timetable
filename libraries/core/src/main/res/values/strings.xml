@@ -4,9 +4,9 @@
     <string name="core_mask_before_start">До начала: %1s</string>
     <string name="core_mask_before_end">До конца: %1s</string>
 
-    <string name="timetable_menu_copy">Копировать</string>
-    <string name="timetable_menu_edit">Редактировать</string>
-    <string name="timetable_menu_delete">Удалить</string>
+    <string name="core_menu_copy">Копировать</string>
+    <string name="core_menu_edit">Редактировать</string>
+    <string name="core_menu_delete">Удалить</string>
 
     <string name="core_mask_with_brackets">%1$s (%2$s)</string>
     <string name="core_mask_with_comma">%1$s, %2$s</string>

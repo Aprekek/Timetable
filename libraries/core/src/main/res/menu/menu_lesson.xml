@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/edit_lesson_item"
-        android:title="@string/timetable_menu_edit" />
+        android:title="@string/core_menu_edit" />
 
     <item
         android:id="@+id/copy_lesson_item"
-        android:title="@string/timetable_menu_copy" />
+        android:title="@string/core_menu_copy" />
 
     <item
         android:id="@+id/delete_lesson_item"
-        android:title="@string/timetable_menu_delete" />
+        android:title="@string/core_menu_delete" />
 </menu>
