@@ -1,8 +1,6 @@
 package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
@@ -17,12 +15,12 @@ class PageDayViewModel(
     private val firstWeekLessons = getLessonsUseCase(
         weekType = DateUtils.FIRST_WEEK,
         day = currentDay
-    )
+    ).asLiveData(viewModelScope.coroutineContext)
 
     private val secondWeekLessons = getLessonsUseCase(
         weekType = DateUtils.SECOND_WEEK,
         day = currentDay
-    )
+    ).asLiveData(viewModelScope.coroutineContext)
 
     val lessons = MediatorLiveData<List<TimetableLesson>>().apply {
         addSource(firstWeekLessons) {

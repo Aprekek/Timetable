@@ -2,7 +2,9 @@ package ru.fevgenson.timetable.libraries.database.data.generalDao
 
 import androidx.room.Dao
 import androidx.room.Transaction
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.fevgenson.timetable.libraries.database.data.tables.*
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
@@ -76,7 +78,6 @@ internal abstract class GeneralDao :
         )
     }
 
-    @Transaction
     open fun getLessonsForEdit(
         weekType: Int,
         day: Int
