@@ -51,6 +51,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> viewModel.onCreateBackupClick()}"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/padding_20"
             android:paddingVertical="@dimen/padding_10">
@@ -77,6 +78,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> viewModel.onRestoreBackupClick()}"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/padding_20"
             android:paddingVertical="@dimen/padding_10">

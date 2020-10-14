@@ -11,7 +11,12 @@ private val viewModelModule = module {
     viewModel { SettingsViewModel() }
     viewModel { SettingsStyleViewModel(get()) }
     viewModel { SettingsNotificationsViewModel(get()) }
-    viewModel { SettingsBackupViewModel() }
+    viewModel {
+        SettingsBackupViewModel(
+            createBackupUseCase = get(),
+            restoreBackupUseCase = get()
+        )
+    }
 }
 
 val settingsModule = listOf(
