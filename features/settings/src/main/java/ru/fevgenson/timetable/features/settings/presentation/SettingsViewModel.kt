@@ -19,4 +19,8 @@ class SettingsViewModel : ViewModel() {
     fun onNotificationsClick() {
         eventsDispatcher.dispatchEvent { navigate(R.id.navigation_from_main_to_settings_notifications) }
     }
+
+    fun onBackupClick() {
+        eventsDispatcher.dispatchEvent { navigate(R.id.navigation_from_main_to_settings_backup) }
+    }
 }

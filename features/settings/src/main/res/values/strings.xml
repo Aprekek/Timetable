@@ -14,4 +14,10 @@
     <string name="settings_title_notifications">Уведомления</string>
     <string name="settings_title_foreground_notification">Обновляемое уведомление</string>
     <string name="settings_text_foreground_notification">Показывает время до начала/конца пары</string>
+
+    <string name="settings_title_backup">Резервная копия</string>
+    <string name="settings_title_backup_create">Резервное копирование</string>
+    <string name="settings_text_backup_create">Создать резервную копию</string>
+    <string name="settings_title_backup_restore">Восстановление</string>
+    <string name="settings_text_backup_restore">Восстановить из резервной копии</string>
 </resources>
