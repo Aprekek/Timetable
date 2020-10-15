@@ -8,21 +8,25 @@ import android.view.ViewGroup
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.databinding.FragmentLessonCreateBinding
+import ru.fevgenson.timetable.features.lessoncreate.presentation.flowbindingadapters.initMenu
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.ListDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
+import ru.fevgenson.timetable.libraries.flowbinding.pageBind
+import ru.fevgenson.timetable.libraries.flowbinding.textResBind
 
 
+@ExperimentalCoroutinesApi
 class LessonCreateFragment :
     Fragment(),
     LessonCreateViewModel.EventListener,
@@ -57,10 +61,17 @@ class LessonCreateFragment :
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_lesson_create, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.lessonCreateViewModel = lessonCreateViewModel
+        binding = FragmentLessonCreateBinding.inflate(inflater, container, false)
+        with(binding) {
+            backButton.setOnClickListener {
+                lessonCreateViewModel.onBackButtonClick()
+            }
+            toolbarTitle.textResBind(lessonCreateViewModel.toolbarTitle, viewLifecycleOwner)
+            viewPagerCreateLesson.pageBind(lessonCreateViewModel.currentPage, viewLifecycleOwner)
+            menuImageView.initMenu(R.menu.lesson_create_menu) {
+                lessonCreateViewModel.onClearItemClick()
+            }
+        }
     }
 
     private fun initViewPager() {
@@ -81,7 +92,7 @@ class LessonCreateFragment :
     }
 
     override fun closeKeyboard() {
-        closeKeyboard(binding)
+        closeKeyboard(binding.root)
     }
 
     override fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders) {
@@ -113,7 +124,7 @@ class LessonCreateFragment :
         timeBorder: MyTimeUtils.TimeBorders
     ) {
         val listener = TimePickerDialog.OnTimeSetListener { _: TimePicker, ours: Int, min: Int ->
-            binding.lessonCreateViewModel?.onDoneTimePickerSetTime(ours, min, timeBorder)
+            lessonCreateViewModel.onDoneTimePickerSetTime(ours, min, timeBorder)
         }
 
         TimePickerDialog(requireContext(), listener, hoursOnStart, minOnStart, true).show()

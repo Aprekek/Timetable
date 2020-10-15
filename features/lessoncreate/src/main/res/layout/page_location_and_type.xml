@@ -1,91 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-        <variable
-            name="lessonCreateViewModel"
-            type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
-    </data>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ApplicationTheme.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:hint="@string/lesson_create_hint_housing"
+            android:padding="@dimen/padding_20">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ApplicationTheme.TextInputLayout"
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/housing_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/lesson_create_hint_housing"
-                android:padding="@dimen/padding_20">
+                android:imeOptions="actionNext"
+                android:inputType="textCapSentences"
+                android:padding="@dimen/padding_10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/housing_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapSentences"
-                    android:padding="@dimen/padding_10"
-                    android:text="@={lessonCreateViewModel.housing}"
-                    app:autocompleteData="@{lessonCreateViewModel.housingAutoComplete}" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ApplicationTheme.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:hint="@string/lesson_create_hint_classroom"
+            android:padding="@dimen/padding_20">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ApplicationTheme.TextInputLayout"
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/classroom_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                android:hint="@string/lesson_create_hint_classroom"
-                android:padding="@dimen/padding_20">
+                android:imeOptions="actionNext"
+                android:inputType="textCapSentences"
+                android:padding="@dimen/padding_10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/classroom_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapSentences"
-                    android:padding="@dimen/padding_10"
-                    android:text="@={lessonCreateViewModel.classroom}"
-                    app:autocompleteData="@{lessonCreateViewModel.classroomAutoComplete}" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ApplicationTheme.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:hint="@string/lesson_create_hint_lesson_type"
+            android:padding="@dimen/padding_20">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ApplicationTheme.TextInputLayout"
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/type_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                android:hint="@string/lesson_create_hint_lesson_type"
-                android:padding="@dimen/padding_20">
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"
+                android:padding="@dimen/padding_10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/type_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:inputType="textCapSentences"
-                    android:padding="@dimen/padding_10"
-                    android:text="@={lessonCreateViewModel.type}"
-                    app:autocompleteData="@{lessonCreateViewModel.typeAutocomplete}" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <FrameLayout
+            <include
+                android:id="@+id/include_lesson_create_buttons"
+                layout="@layout/include_lesson_create_buttons"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <include
-                    layout="@layout/include_lesson_create_buttons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    app:viewModel="@{lessonCreateViewModel}" />
-            </FrameLayout>
-        </LinearLayout>
-    </ScrollView>
-</layout>
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom" />
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

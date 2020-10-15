@@ -1,98 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-        <variable
-            name="lessonCreateViewModel"
-            type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
-    </data>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ApplicationTheme.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lesson_create_hint_full_name"
+            android:padding="@dimen/padding_20">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:padding="@dimen/padding_10" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ApplicationTheme.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:hint="@string/lesson_create_hint_email"
+            android:padding="@dimen/padding_20">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/padding_10" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ApplicationTheme.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:hint="@string/lesson_create_hint_phone"
+            android:padding="@dimen/padding_20">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/phone_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:padding="@dimen/padding_10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_20">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ApplicationTheme.TextInputLayout"
+            <Button
+                android:id="@+id/done_button"
+                style="@style/ApplicationTheme.PrimaryButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/lesson_create_hint_full_name"
-                android:padding="@dimen/padding_20">
+                android:text="@string/lesson_create_button_done" />
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/name_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:padding="@dimen/padding_10"
-                    android:text="@={lessonCreateViewModel.teachersName}"
-                    app:teacherAutocompleteData="@{lessonCreateViewModel.teacherAutocomplete}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ApplicationTheme.TextInputLayout"
+            <Button
+                android:id="@+id/cancel_button"
+                style="@style/ApplicationTheme.CancelButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                android:hint="@string/lesson_create_hint_email"
-                android:padding="@dimen/padding_20">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/email_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:padding="@dimen/padding_10"
-                    android:text="@={lessonCreateViewModel.email}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ApplicationTheme.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                android:hint="@string/lesson_create_hint_phone"
-                android:padding="@dimen/padding_20">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/phone_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:padding="@dimen/padding_10"
-                    android:text="@={lessonCreateViewModel.phone}"
-                    app:startingSlots="@{@string/lesson_create_value_starting_slots}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:gravity="bottom"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_20">
-
-                <Button
-                    style="@style/ApplicationTheme.PrimaryButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> lessonCreateViewModel.onDoneButtonClick()}"
-                    android:text="@string/lesson_create_button_done" />
-
-                <Button
-                    style="@style/ApplicationTheme.CancelButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->lessonCreateViewModel.onCancelButtonClick()}"
-                    android:text="@string/lesson_create_button_cancel" />
-            </LinearLayout>
+                android:text="@string/lesson_create_button_cancel" />
         </LinearLayout>
-    </ScrollView>
-</layout>
+    </LinearLayout>
+</ScrollView>

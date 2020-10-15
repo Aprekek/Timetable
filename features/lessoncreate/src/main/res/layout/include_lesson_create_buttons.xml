@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_20">
 
-        <variable
-            name="viewModel"
-            type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
-    </data>
-
-    <LinearLayout
+    <Button
+        android:id="@+id/next_button"
+        style="@style/ApplicationTheme.PrimaryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_20">
+        android:text="@string/lesson_create_button_next" />
 
-        <Button
-            style="@style/ApplicationTheme.PrimaryButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.onNextButtonClick()}"
-            android:text="@string/lesson_create_button_next" />
+    <Button
+        android:id="@+id/done_button"
+        style="@style/ApplicationTheme.SecondaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="@string/lesson_create_button_done" />
 
-        <Button
-            style="@style/ApplicationTheme.SecondaryButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:onClick="@{()->viewModel.onDoneButtonClick()}"
-            android:text="@string/lesson_create_button_done" />
-
-        <Button
-            style="@style/ApplicationTheme.CancelButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:onClick="@{()->viewModel.onCancelButtonClick()}"
-            android:text="@string/lesson_create_button_cancel" />
-    </LinearLayout>
-</layout>
+    <Button
+        android:id="@+id/cancel_button"
+        style="@style/ApplicationTheme.CancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="@string/lesson_create_button_cancel" />
+</LinearLayout>
