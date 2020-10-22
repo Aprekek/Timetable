@@ -7,4 +7,5 @@
     <item name="navigation_from_main_to_list_of_lessons_by_category" type="id" />
     <item name="navigation_from_main_to_settings_style" type="id" />
     <item name="navigation_from_main_to_settings_notifications" type="id" />
+    <item name="navigation_from_main_to_settings_backup" type="id" />
 </resources>

@@ -20,6 +20,9 @@
         <action
             android:id="@id/navigation_from_main_to_settings_notifications"
             app:destination="@id/settingsNotificationsFragment" />
+        <action
+            android:id="@id/navigation_from_main_to_settings_backup"
+            app:destination="@id/settingsBackupFragment" />
     </fragment>
 
     <fragment
@@ -39,4 +42,8 @@
     <fragment
         android:id="@+id/settingsNotificationsFragment"
         android:name="ru.fevgenson.timetable.features.settings.presentation.notifications.SettingsNotificationsFragment" />
+
+    <fragment
+        android:id="@+id/settingsBackupFragment"
+        android:name="ru.fevgenson.timetable.features.settings.presentation.backup.SettingsBackupFragment" />
 </navigation>
