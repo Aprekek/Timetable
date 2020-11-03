@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/listOfLessonsByCategoryFragment"
-        android:name="ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.ListOfLessonsByCategoryFragment"
+        android:name="ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.ListOfLessonsByCategoryFragmentListener"
         android:label="ListOfLessonsByCategoryFragment" />
 
     <fragment

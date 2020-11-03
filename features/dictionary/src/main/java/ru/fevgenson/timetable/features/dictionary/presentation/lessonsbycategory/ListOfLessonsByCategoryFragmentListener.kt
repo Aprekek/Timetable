@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
@@ -13,7 +14,8 @@ import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentListOfLessonsByCategoryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.recyclerview.DictionaryLessonListAdapter
 
-class ListOfLessonsByCategoryFragment : Fragment() {
+class ListOfLessonsByCategoryFragmentListener : Fragment(),
+    ListOfLessonsByCategoryViewModel.EventsListener {
 
     private lateinit var binding: FragmentListOfLessonsByCategoryBinding
     private lateinit var adapter: DictionaryLessonListAdapter
@@ -37,6 +39,7 @@ class ListOfLessonsByCategoryFragment : Fragment() {
         initBinding(inflater, container)
         initAdapter()
         initObserver()
+        initEventListener()
 
         return binding.root
     }
@@ -62,5 +65,13 @@ class ListOfLessonsByCategoryFragment : Fragment() {
 
     private fun initObserver() {
         viewModel.lessons.observe(viewLifecycleOwner) { adapter.submitList(it) }
+    }
+
+    private fun initEventListener() {
+        viewModel.eventDispatcher.observe(viewLifecycleOwner, this)
+    }
+
+    override fun navigateBack() {
+        findNavController().popBackStack()
     }
 }

@@ -21,7 +21,7 @@
             app:contentInsetEnd="0dp"
             app:contentInsetStart="0dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/padding_20">
@@ -31,44 +31,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/dictionary_description_action_back"
-                    android:src="@drawable/ic_baseline_arrow_back_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:onClick="@{()->viewModel.onBackButtonClick()}"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/category_layout"
-                    style="@style/ApplicationTheme.TextInputLayout"
-                    android:layout_width="@dimen/width_0"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/margin_10"
-                    android:hint="@{viewModel.categoryName}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/toolbar_delete_category_button"
-                    app:layout_constraintStart_toEndOf="@+id/toolbar_back_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:hint="Предмет">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/category_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionDone"
-                        android:inputType="textCapSentences"
-                        android:text="@={viewModel.realCategoryItem}"
-                        tools:text="Программирование" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/toolbar_delete_category_button"
+                <TextView
+                    style="@style/ApplicationTheme.Title3DarkGrey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/dictionary_description_delete_category"
-                    android:src="@drawable/ic_delete_forever_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginStart="@dimen/margin_60"
+                    android:text="@{viewModel.realCategoryItem}"
+                    tools:text="Программирование" />
+            </FrameLayout>
         </com.google.android.material.appbar.MaterialToolbar>
 
         <!--TODO заглушка-->

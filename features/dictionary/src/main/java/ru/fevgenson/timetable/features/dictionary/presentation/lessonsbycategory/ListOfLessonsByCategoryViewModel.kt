@@ -2,6 +2,7 @@ package ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategor
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 
@@ -10,6 +11,10 @@ class ListOfLessonsByCategoryViewModel(
     val categoryName: String,
     private val categoryType: Int
 ) : ViewModel() {
+
+    interface EventsListener {
+        fun navigateBack()
+    }
 
     private val oldCategoryItem = categoryItem
     val realCategoryItem = MutableLiveData<String>(categoryItem)
@@ -24,6 +29,8 @@ class ListOfLessonsByCategoryViewModel(
     val isNoItemsTextVisible = Transformations.map(lessons) {
         it.isNullOrEmpty()
     }
+
+    val eventDispatcher = EventsDispatcher<EventsListener>()
 
     //TODO переписать с базой данных
     private fun getLessonsFromDatabase(): LiveData<List<Lesson>> {
@@ -79,5 +86,9 @@ class ListOfLessonsByCategoryViewModel(
                 )
             )
         }
+    }
+
+    fun onBackButtonClick() {
+        eventDispatcher.dispatchEvent { navigateBack() }
     }
 }
