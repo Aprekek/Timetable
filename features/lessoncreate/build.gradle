@@ -67,4 +67,5 @@ dependencies {
     implementation project(Modules.THEMES)
     implementation project(Modules.CORE)
     implementation project(Modules.DATABASE)
+    implementation project(Modules.LESSON_DOMAIN)
 }

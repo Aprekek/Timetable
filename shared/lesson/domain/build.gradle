@@ -1,3 +1,6 @@
+import ru.fevgenson.timetable.Dependencies
+import ru.fevgenson.timetable.Modules
+
 plugins {
     id 'kotlin'
 }
@@ -8,5 +11,6 @@ java {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation Dependencies.KOTLIN_STDLIB
+    implementation Dependencies.Coroutine.COROUTINE_CORE
 }

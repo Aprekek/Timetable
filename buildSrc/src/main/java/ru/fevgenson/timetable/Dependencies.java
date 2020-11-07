@@ -12,6 +12,7 @@ public class Dependencies {
     public static final String VIEW_PAGER_2 = "androidx.viewpager2:viewpager2:" + Versions.VIEW_PAGER_2;
     public static final String SWIPE_REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:" + Versions.SWIPE_REFRESH_LAYOUT;
     public static final String DATABINDING = "com.android.databinding:compiler:" + Versions.DATABINDING;
+    public static final String KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:" + Versions.KOTLIN;
 
     public static class Versions {
         public static final String KOTLIN = "1.4.0";
