@@ -1,7 +1,7 @@
-package ru.fevgenson.timetable.features.lessoncreate.domain.usecase
+package ru.fevgenson.timetable.shared.lesson.domain.usecase
 
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
-import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
 class UpdateLessonUseCase(private val repository: LessonRepository) {
 

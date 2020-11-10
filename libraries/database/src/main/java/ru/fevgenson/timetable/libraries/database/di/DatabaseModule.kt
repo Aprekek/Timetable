@@ -14,11 +14,11 @@ import ru.fevgenson.timetable.libraries.database.data.repository.FieldsRepositor
 import ru.fevgenson.timetable.libraries.database.data.repository.LessonRepositoryImpl
 import ru.fevgenson.timetable.libraries.database.data.repository.SettingsRepositoryImpl
 import ru.fevgenson.timetable.libraries.database.domain.repository.BackupRepository
-import ru.fevgenson.timetable.libraries.database.domain.repository.FieldsRepository
-import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
 import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
 import ru.fevgenson.timetable.libraries.database.domain.usecase.CreateBackupUseCase
 import ru.fevgenson.timetable.libraries.database.domain.usecase.RestoreBackupUseCase
+import ru.fevgenson.timetable.shared.lesson.domain.repository.FieldsRepository
+import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
 private val daoModule = module {
     single {

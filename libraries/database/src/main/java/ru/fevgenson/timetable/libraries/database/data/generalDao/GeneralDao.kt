@@ -5,7 +5,7 @@ import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.fevgenson.timetable.libraries.database.data.tables.*
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 @Dao
 internal abstract class GeneralDao :

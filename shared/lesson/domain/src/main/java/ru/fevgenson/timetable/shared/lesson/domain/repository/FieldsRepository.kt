@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.libraries.database.domain.repository
+package ru.fevgenson.timetable.shared.lesson.domain.repository
 
 import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 

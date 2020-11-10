@@ -1,6 +1,6 @@
-package ru.fevgenson.timetable.features.lessoncreate.domain.usecase
+package ru.fevgenson.timetable.shared.lesson.domain.usecase
 
-import ru.fevgenson.timetable.libraries.database.domain.repository.FieldsRepository
+import ru.fevgenson.timetable.shared.lesson.domain.repository.FieldsRepository
 
 class GetClassroomsValuesUseCase(private val repository: FieldsRepository) {
 

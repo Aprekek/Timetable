@@ -2,7 +2,7 @@ package ru.fevgenson.timetable.features.notifications.domain.utils
 
 import ru.fevgenson.timetable.features.notifications.domain.entities.NotificationLesson
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 internal fun List<NotificationLesson>.getCurrentLesson(): NotificationLesson? = find {
     val currentTime = MyTimeUtils.getCurrentTime()
@@ -11,12 +11,13 @@ internal fun List<NotificationLesson>.getCurrentLesson(): NotificationLesson? = 
     currentTime < startTime || currentTime in startTime..endTime
 }
 
-internal fun Lesson.toNotificationLesson(): NotificationLesson = NotificationLesson(
-    id = id,
-    title = "$subject($time)",
-    text = createTextString(housing, classroom, type),
-    time = time
-)
+internal fun Lesson.toNotificationLesson(): NotificationLesson =
+    NotificationLesson(
+        id = id,
+        title = "$subject($time)",
+        text = createTextString(housing, classroom, type),
+        time = time
+    )
 
 private fun createTextString(
     housing: String?,

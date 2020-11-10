@@ -1,6 +1,4 @@
-package ru.fevgenson.timetable.features.timetable.domain.entities
-
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+package ru.fevgenson.timetable.shared.lesson.domain.entities
 
 data class TimetableLesson(
     val id: Long = 0,

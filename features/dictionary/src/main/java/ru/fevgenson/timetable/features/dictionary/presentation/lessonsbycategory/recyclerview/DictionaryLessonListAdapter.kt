@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.ListOfLessonsByCategoryViewModel
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 class DictionaryLessonListAdapter(
     private val viewModel: ListOfLessonsByCategoryViewModel

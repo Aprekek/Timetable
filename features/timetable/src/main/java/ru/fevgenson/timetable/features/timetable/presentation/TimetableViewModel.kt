@@ -8,10 +8,10 @@ import kotlinx.coroutines.launch
 import org.koin.core.parameter.parametersOf
 import org.koin.java.KoinJavaComponent.get
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
-import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.DeleteLessonUseCase
 
 class TimetableViewModel(
     private val deleteLessonUseCase: DeleteLessonUseCase

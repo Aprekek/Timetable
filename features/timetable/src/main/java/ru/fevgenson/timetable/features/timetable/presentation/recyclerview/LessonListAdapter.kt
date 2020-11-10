@@ -4,8 +4,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
+import ru.fevgenson.timetable.shared.lesson.domain.entities.TimetableLesson
 
 class LessonListAdapter(
     private val viewModel: PageDayViewModel,

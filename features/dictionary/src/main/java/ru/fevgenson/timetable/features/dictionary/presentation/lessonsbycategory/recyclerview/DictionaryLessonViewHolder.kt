@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.databinding.LessonItemDictionaryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.ListOfLessonsByCategoryViewModel
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 class DictionaryLessonViewHolder private constructor(
     private val binding: LessonItemDictionaryBinding

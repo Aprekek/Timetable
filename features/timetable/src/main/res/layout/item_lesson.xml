@@ -11,7 +11,7 @@
 
         <variable
             name="lesson"
-            type="ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson" />
+            type="ru.fevgenson.timetable.shared.lesson.domain.entities.TimetableLesson" />
 
         <variable
             name="lifecycle"

@@ -1,6 +1,6 @@
-package ru.fevgenson.timetable.features.timetable.domain.usecase
+package ru.fevgenson.timetable.shared.lesson.domain.usecase
 
-import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
+import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
 class DeleteLessonUseCase(private val repository: LessonRepository) {
 

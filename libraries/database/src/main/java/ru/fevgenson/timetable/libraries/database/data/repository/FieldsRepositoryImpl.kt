@@ -4,8 +4,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.fevgenson.timetable.libraries.database.data.datasource.FieldsDataSource
 import ru.fevgenson.timetable.libraries.database.data.tables.toDomainTeacherEntity
-import ru.fevgenson.timetable.libraries.database.domain.repository.FieldsRepository
 import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
+import ru.fevgenson.timetable.shared.lesson.domain.repository.FieldsRepository
 
 internal class FieldsRepositoryImpl(private val dataSource: FieldsDataSource) : FieldsRepository {
 

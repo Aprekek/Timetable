@@ -7,7 +7,7 @@
 
         <variable
             name="lesson"
-            type="ru.fevgenson.timetable.libraries.database.domain.entities.Lesson" />
+            type="ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson" />
 
         <variable
             name="viewModel"

@@ -1,7 +1,7 @@
-package ru.fevgenson.timetable.libraries.database.domain.repository
+package ru.fevgenson.timetable.shared.lesson.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 interface LessonRepository {
 

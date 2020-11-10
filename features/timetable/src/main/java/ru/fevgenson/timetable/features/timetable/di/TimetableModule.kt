@@ -2,12 +2,12 @@ package ru.fevgenson.timetable.features.timetable.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
-import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableFragment
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.DeleteLessonUseCase
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonsUseCase
 
 private val viewModelModule = module {
     viewModel {

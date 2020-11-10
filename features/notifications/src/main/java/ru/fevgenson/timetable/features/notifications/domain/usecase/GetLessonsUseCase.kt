@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.fevgenson.timetable.features.notifications.domain.entities.NotificationLesson
 import ru.fevgenson.timetable.features.notifications.domain.utils.toNotificationLesson
-import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
+import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
 internal class GetLessonsUseCase(private val repository: LessonRepository) {
 
@@ -19,9 +19,7 @@ internal class GetLessonsUseCase(private val repository: LessonRepository) {
         withContext(Dispatchers.IO) {
             repository.getLessons(weekType, day).map { lessons ->
                 lessons.map { lesson -> lesson.toNotificationLesson() }
-            }.collect {
-                emit(it)
-            }
+            }.collect { emit(it) }
         }
     }
 }

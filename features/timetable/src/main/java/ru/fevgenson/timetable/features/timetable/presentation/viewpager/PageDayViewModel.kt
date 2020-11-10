@@ -1,10 +1,10 @@
 package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 
 import androidx.lifecycle.*
-import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
-import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.shared.lesson.domain.entities.TimetableLesson
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonsUseCase
 
 class PageDayViewModel(
     private val parentViewModel: TimetableViewModel,

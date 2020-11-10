@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.PageDayBinding
-import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonListAdapter
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonRecyclerViewItemDecoration
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
+import ru.fevgenson.timetable.shared.lesson.domain.entities.TimetableLesson
 
 class PageDayViewHolder(
     private val binding: PageDayBinding,

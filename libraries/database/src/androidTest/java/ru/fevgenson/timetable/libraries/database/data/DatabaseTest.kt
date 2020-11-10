@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 import ru.fevgenson.timetable.libraries.database.data.database.LessonDatabase
 import ru.fevgenson.timetable.libraries.database.data.generalDao.GeneralDao
 import ru.fevgenson.timetable.libraries.database.data.tables.SubjectEntity
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class DatabaseTest {

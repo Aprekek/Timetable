@@ -4,12 +4,12 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.lessoncreate.R
-import ru.fevgenson.timetable.features.lessoncreate.domain.usecase.*
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.*
 
 class LessonCreateViewModel(
     weekType: Int,

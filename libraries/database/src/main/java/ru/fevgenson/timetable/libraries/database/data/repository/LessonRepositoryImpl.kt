@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import ru.fevgenson.timetable.libraries.database.data.datasource.LessonDataSource
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
-import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
 internal class LessonRepositoryImpl(private val dataSource: LessonDataSource) : LessonRepository {
 
