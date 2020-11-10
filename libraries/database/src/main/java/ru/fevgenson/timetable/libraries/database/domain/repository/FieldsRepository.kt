@@ -1,13 +1,13 @@
 package ru.fevgenson.timetable.libraries.database.domain.repository
 
-import ru.fevgenson.timetable.libraries.database.data.tables.*
+import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
 interface FieldsRepository {
 
-    suspend fun getAllSubjects(): List<SubjectEntity>
-    suspend fun getAllTimes(): List<TimeEntity>
-    suspend fun getAllHousings(): List<HousingEntity>
-    suspend fun getAllClassrooms(): List<ClassroomEntity>
-    suspend fun getAllTypes(): List<TypeEntity>
-    suspend fun getAllTeachers(): List<TeacherEntity>
+    suspend fun getAllSubjects(): List<String>
+    suspend fun getAllTimes(): List<String>
+    suspend fun getAllHousings(): List<String>
+    suspend fun getAllClassrooms(): List<String>
+    suspend fun getAllTypes(): List<String>
+    suspend fun getAllTeachers(): List<DomainTeacherEntity>
 }

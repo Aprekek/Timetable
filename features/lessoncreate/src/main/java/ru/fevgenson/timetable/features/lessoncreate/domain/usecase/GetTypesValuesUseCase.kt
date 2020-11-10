@@ -4,5 +4,5 @@ import ru.fevgenson.timetable.libraries.database.domain.repository.FieldsReposit
 
 class GetTypesValuesUseCase(private val repository: FieldsRepository) {
 
-    suspend operator fun invoke(): List<String> = repository.getAllTypes().map { it.type }
+    suspend operator fun invoke(): List<String> = repository.getAllTypes()
 }

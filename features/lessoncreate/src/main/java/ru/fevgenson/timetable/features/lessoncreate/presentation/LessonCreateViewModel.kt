@@ -10,6 +10,7 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
 class LessonCreateViewModel(
     weekType: Int,
@@ -67,7 +68,7 @@ class LessonCreateViewModel(
     val teacherAutocomplete = liveData { emit(getTeachersUseCase()) }
     val email: MutableLiveData<String> = MediatorLiveData<String>().apply {
         addSource(teachersName) { teachersName ->
-            var teacherEntity: TeacherEntity?
+            var teacherEntity: DomainTeacherEntity?
             if (
                 teacherAutocomplete.value
                     ?.find { it.name == teachersName }
@@ -80,7 +81,7 @@ class LessonCreateViewModel(
     }
     val phone: MutableLiveData<String> = MediatorLiveData<String>().apply {
         addSource(teachersName) { teachersName ->
-            var teacherEntity: TeacherEntity?
+            var teacherEntity: DomainTeacherEntity?
             if (
                 teacherAutocomplete.value
                     ?.find { it.name == teachersName }

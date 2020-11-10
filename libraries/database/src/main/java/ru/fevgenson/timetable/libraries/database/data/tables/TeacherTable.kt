@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.data.tables
 
 import androidx.room.*
+import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
 @Entity(
     tableName = "teacher_table",
@@ -12,6 +13,8 @@ data class TeacherEntity(
     val phone: String?,
     val email: String?
 )
+
+fun TeacherEntity.toDomainTeacherEntity() = DomainTeacherEntity(name, phone, email)
 
 @Dao
 internal interface TeachersNameDao {

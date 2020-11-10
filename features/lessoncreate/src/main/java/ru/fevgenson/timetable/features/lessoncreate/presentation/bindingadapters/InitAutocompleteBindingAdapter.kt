@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import androidx.databinding.BindingAdapter
-import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
+import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
 private const val MIN_THRESHOLD = 1
 
@@ -19,7 +19,7 @@ fun AutoCompleteTextView.setupData(data: List<String>?) {
 }
 
 @BindingAdapter("teacherAutocompleteData")
-fun AutoCompleteTextView.setupTeacherData(data: List<TeacherEntity>?) {
+fun AutoCompleteTextView.setupTeacherData(data: List<DomainTeacherEntity>?) {
     data?.let {
         val adapter = ArrayAdapter(
             context,
