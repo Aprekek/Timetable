@@ -3,8 +3,8 @@ package ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategor
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
-import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
 class ListOfLessonsByCategoryViewModel(
     categoryItem: String,
@@ -42,7 +42,11 @@ class ListOfLessonsByCategoryViewModel(
                         time = "15:15-16:45",
                         day = 1,
                         weekType = 2,
-                        teacher = TeacherEntity(name = "Fulman V.O", phone = null, email = null)
+                        teacher = DomainTeacherEntity(
+                            name = "Fulman V.O",
+                            phone = null,
+                            email = null
+                        )
                     ),
                     Lesson(
                         subject = "Programming",

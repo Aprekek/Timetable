@@ -8,7 +8,6 @@ import ru.fevgenson.timetable.features.lessoncreate.domain.usecase.*
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
-import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
 import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
@@ -224,7 +223,7 @@ class LessonCreateViewModel(
         classroom = classroom.value?.takeIf { it.isNotBlank() }?.trim(),
         type = type.value?.takeIf { it.isNotBlank() }?.trim(),
         teacher = teachersName.value?.let { teacherName ->
-            TeacherEntity(
+            DomainTeacherEntity(
                 name = teacherName,
                 phone = phone.value?.takeIf { it.isNotBlank() },
                 email = email.value?.takeIf { it.isNotBlank() }?.trim()

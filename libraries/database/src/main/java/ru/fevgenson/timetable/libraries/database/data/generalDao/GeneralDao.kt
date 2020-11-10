@@ -2,9 +2,7 @@ package ru.fevgenson.timetable.libraries.database.data.generalDao
 
 import androidx.room.Dao
 import androidx.room.Transaction
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.fevgenson.timetable.libraries.database.data.tables.*
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
@@ -74,7 +72,7 @@ internal abstract class GeneralDao :
             housing = lessonEntity.housing?.let { getHousing(it).housing },
             classroom = lessonEntity.classroom?.let { getClassroom(it).classroom },
             type = lessonEntity.type?.let { getType(it).type },
-            teacher = lessonEntity.teacher?.let { getTeacher(it) }
+            teacher = lessonEntity.teacher?.let { getTeacher(it).toDomainTeacherEntity() }
         )
     }
 
@@ -92,7 +90,7 @@ internal abstract class GeneralDao :
                 housing = lessonEntity.housing?.let { getHousing(it).housing },
                 classroom = lessonEntity.classroom?.let { getClassroom(it).classroom },
                 type = lessonEntity.type?.let { getType(it).type },
-                teacher = lessonEntity.teacher?.let { getTeacher(it) }
+                teacher = lessonEntity.teacher?.let { getTeacher(it).toDomainTeacherEntity() }
             )
         }.sortedBy { it.time }
     }
@@ -113,8 +111,10 @@ internal abstract class GeneralDao :
         },
         teacherId = lesson.teacher?.let { teacher ->
             getTeacher(teacher.name)?.id?.also {
-                updateTeacher(teacher.copy(id = it))
-            } ?: insertTeacher(teacher.copy(id = 0))
+                with(teacher) {
+                    updateTeacher(TeacherEntity(id = it, name, phone, email))
+                }
+            } ?: with(teacher) { insertTeacher(TeacherEntity(id = 0, name, phone, email)) }
         }
     )
 }

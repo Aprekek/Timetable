@@ -1,6 +1,6 @@
 package ru.fevgenson.timetable.libraries.database.domain.entities
 
-import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
+import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
 data class Lesson(
 
@@ -12,5 +12,5 @@ data class Lesson(
     var housing: String? = null,
     var classroom: String? = null,
     var type: String? = null,
-    var teacher: TeacherEntity? = null
+    var teacher: DomainTeacherEntity? = null
 )
