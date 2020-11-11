@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.data.tables
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "classroom_table", indices = [Index(value = ["classroom"], unique = true)])
 data class ClassroomEntity(
@@ -13,6 +14,9 @@ internal interface ClassroomDao {
 
     @Query("SELECT * from classroom_table")
     suspend fun getClassrooms(): List<ClassroomEntity>
+
+    @Query("SELECT * from classroom_table")
+    fun getClassroomsFlow(): Flow<List<ClassroomEntity>>
 
     @Query("SELECT * from classroom_table WHERE classroom = :classroom")
     suspend fun getClassroom(classroom: String): ClassroomEntity?

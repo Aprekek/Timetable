@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.data.tables
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import ru.fevgenson.timetable.shared.lesson.domain.entities.DomainTeacherEntity
 
 @Entity(
@@ -21,6 +22,9 @@ internal interface TeachersNameDao {
 
     @Query("SELECT * from teacher_table")
     suspend fun getTeachers(): List<TeacherEntity>
+
+    @Query("SELECT * from teacher_table")
+    fun getTeachersFlow(): Flow<List<TeacherEntity>>
 
     @Query("SELECT * from teacher_table WHERE name = :teachersName")
     suspend fun getTeacher(teachersName: String): TeacherEntity?

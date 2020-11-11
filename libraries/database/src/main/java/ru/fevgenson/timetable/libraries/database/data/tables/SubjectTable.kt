@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.data.tables
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "subject_table", indices = [Index(value = ["subject"], unique = true)])
 data class SubjectEntity(
@@ -13,6 +14,9 @@ internal interface SubjectDao {
 
     @Query("SELECT * from subject_table")
     suspend fun getSubjects(): List<SubjectEntity>
+
+    @Query("SELECT * from subject_table")
+    fun getSubjectsFlow(): Flow<List<SubjectEntity>>
 
     @Query("SELECT * from subject_table WHERE subject = :subject")
     suspend fun getSubject(subject: String): SubjectEntity?

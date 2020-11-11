@@ -5,19 +5,14 @@ import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.fevgenson.timetable.libraries.database.data.database.LessonDatabase
-import ru.fevgenson.timetable.libraries.database.data.datasource.FieldsDataSource
-import ru.fevgenson.timetable.libraries.database.data.datasource.FieldsDataSourceImpl
-import ru.fevgenson.timetable.libraries.database.data.datasource.LessonDataSource
-import ru.fevgenson.timetable.libraries.database.data.datasource.LessonDataSourceImpl
-import ru.fevgenson.timetable.libraries.database.data.repository.BackupRepositoryImpl
-import ru.fevgenson.timetable.libraries.database.data.repository.FieldsRepositoryImpl
-import ru.fevgenson.timetable.libraries.database.data.repository.LessonRepositoryImpl
-import ru.fevgenson.timetable.libraries.database.data.repository.SettingsRepositoryImpl
+import ru.fevgenson.timetable.libraries.database.data.datasource.*
+import ru.fevgenson.timetable.libraries.database.data.repository.*
 import ru.fevgenson.timetable.libraries.database.domain.repository.BackupRepository
 import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
 import ru.fevgenson.timetable.libraries.database.domain.usecase.CreateBackupUseCase
 import ru.fevgenson.timetable.libraries.database.domain.usecase.RestoreBackupUseCase
 import ru.fevgenson.timetable.shared.lesson.domain.repository.FieldsRepository
+import ru.fevgenson.timetable.shared.lesson.domain.repository.FieldsRepositoryFlow
 import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
 private val daoModule = module {
@@ -36,11 +31,13 @@ private val daoModule = module {
 private val dataSourceModule = module {
     single<LessonDataSource> { LessonDataSourceImpl(get()) }
     single<FieldsDataSource> { FieldsDataSourceImpl(get()) }
+    single<FieldsDataSourceFlow> { FieldsDataSourceFlowImpl(get()) }
 }
 
 private val repositoryModule = module {
     factory<LessonRepository> { LessonRepositoryImpl(get()) }
     factory<FieldsRepository> { FieldsRepositoryImpl(get()) }
+    factory<FieldsRepositoryFlow> { FieldsRepositoryFlowImpl(get()) }
     factory<SettingsRepository> {
         SettingsRepositoryImpl(
             sharedPreferences = androidContext().getSharedPreferences(

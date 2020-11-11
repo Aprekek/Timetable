@@ -15,7 +15,15 @@ private val viewModelModule = module {
     }
 
     factory { (categoryType: Int, parentViewModel: DictionaryViewModel) ->
-        PageCategoryViewModel(categoryType, parentViewModel)
+        PageCategoryViewModel(
+            categoryType = categoryType,
+            parentViewModel = parentViewModel,
+            getSubjectsValuesUseCaseFlow = get(),
+            getClassroomsValuesUseCaseFlow = get(),
+            getHousingsValuesUseCaseFlow = get(),
+            getTeachersUseCaseFlow = get(),
+            getTimesValuesUseCaseFlow = get()
+        )
     }
 }
 

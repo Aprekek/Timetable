@@ -1,6 +1,7 @@
 package ru.fevgenson.timetable.libraries.database.data.tables
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "type_table", indices = [Index(value = ["type"], unique = true)])
 data class TypeEntity(
@@ -13,6 +14,9 @@ internal interface TypeDao {
 
     @Query("SELECT * from type_table")
     suspend fun getTypes(): List<TypeEntity>
+
+    @Query("SELECT * from type_table")
+    fun getTypesFlow(): Flow<List<TypeEntity>>
 
     @Query("SELECT * from type_table WHERE type = :type")
     suspend fun getType(type: String): TypeEntity?

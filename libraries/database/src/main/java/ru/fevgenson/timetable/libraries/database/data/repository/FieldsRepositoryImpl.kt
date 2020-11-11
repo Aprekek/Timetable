@@ -29,7 +29,6 @@ internal class FieldsRepositoryImpl(private val dataSource: FieldsDataSource) : 
         dataSource.getAllTypes().map { it.type }
     }
 
-    //Entity?
     override suspend fun getAllTeachers(): List<DomainTeacherEntity> = withContext(Dispatchers.IO) {
         dataSource.getAllTeachers().map { it.toDomainTeacherEntity() }
     }
