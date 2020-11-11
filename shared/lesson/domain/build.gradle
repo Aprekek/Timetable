@@ -13,4 +13,8 @@ java {
 dependencies {
     implementation Dependencies.KOTLIN_STDLIB
     implementation Dependencies.Coroutine.COROUTINE_CORE
+
+    implementation Dependencies.Koin.KOIN_CORE
+    implementation Dependencies.Koin.KOIN_EXT
+    implementation Dependencies.Koin.KOIN_SCOPE
 }

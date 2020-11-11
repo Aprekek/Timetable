@@ -6,8 +6,6 @@ import ru.fevgenson.timetable.features.timetable.presentation.TimetableFragment
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
 import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
-import ru.fevgenson.timetable.shared.lesson.domain.usecase.DeleteLessonUseCase
-import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonsUseCase
 
 private val viewModelModule = module {
     viewModel {
@@ -22,11 +20,6 @@ private val viewModelModule = module {
     }
 }
 
-private val useCaseModule = module {
-    factory { GetLessonsUseCase(get()) }
-    factory { DeleteLessonUseCase(get()) }
-}
-
 private val viewHolderModule = module {
     scope<TimetableFragment> {
         scoped { LessonViewHolderPool() }
@@ -35,6 +28,5 @@ private val viewHolderModule = module {
 
 val timetableListModules = listOf(
     viewModelModule,
-    useCaseModule,
     viewHolderModule
 )
