@@ -14,7 +14,7 @@ import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentListOfLessonsByCategoryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory.recyclerview.DictionaryLessonListAdapter
 
-class ListOfLessonsByCategoryFragmentListener : Fragment(),
+class ListOfLessonsByCategoryFragment : Fragment(),
     ListOfLessonsByCategoryViewModel.EventsListener {
 
     private lateinit var binding: FragmentListOfLessonsByCategoryBinding

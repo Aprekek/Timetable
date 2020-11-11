@@ -1,8 +1,6 @@
 package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager
 
 import androidx.lifecycle.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.fevgenson.timetable.features.dictionary.domain.Categories
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.DictionaryViewModel
@@ -20,25 +18,21 @@ class PageCategoryViewModel(
 
     val listCategoryItemsLiveData: LiveData<List<String>> = when (categoryType) {
         Categories.SUBJECT_CATEGORY -> {
-            getSubjectsValuesUseCaseFlow()
-                .flowOn(Dispatchers.IO).asLiveData(viewModelScope.coroutineContext)
+            getSubjectsValuesUseCaseFlow().asLiveData(viewModelScope.coroutineContext)
         }
         Categories.CLASSROOM_CATEGORY -> {
-            getClassroomsValuesUseCaseFlow()
-                .flowOn(Dispatchers.IO).asLiveData(viewModelScope.coroutineContext)
+            getClassroomsValuesUseCaseFlow().asLiveData(viewModelScope.coroutineContext)
         }
         Categories.HOUSING_CATEGORY -> {
-            getHousingsValuesUseCaseFlow()
-                .flowOn(Dispatchers.IO).asLiveData(viewModelScope.coroutineContext)
+            getHousingsValuesUseCaseFlow().asLiveData(viewModelScope.coroutineContext)
         }
         Categories.TEACHER_CATEGORY -> {
             getTeachersUseCaseFlow().map { list ->
                 list.map { it.name }
-            }.flowOn(Dispatchers.IO).asLiveData(viewModelScope.coroutineContext)
+            }.asLiveData(viewModelScope.coroutineContext)
         }
         Categories.TIME_CATEGORY -> {
-            getTimesValuesUseCaseFlow()
-                .flowOn(Dispatchers.IO).asLiveData(viewModelScope.coroutineContext)
+            getTimesValuesUseCaseFlow().asLiveData(viewModelScope.coroutineContext)
         }
         else -> throw IllegalStateException("$categoryType is not defined")
     }
