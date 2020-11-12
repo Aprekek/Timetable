@@ -16,6 +16,11 @@ internal class LessonRepositoryImpl(private val dataSource: LessonDataSource) : 
     ): Flow<List<Lesson>> = dataSource.getLessonsByDay(weekType, day)
         .flowOn(Dispatchers.IO)
 
+    override fun getLessonsBySubcategory(
+        category: Int,
+        subcategoryName: String
+    ): Flow<List<Lesson>> = dataSource.getLessonsBySubcategory(category, subcategoryName)
+
     override suspend fun getLesson(id: Long): Lesson = withContext(Dispatchers.IO) {
         dataSource.getLesson(id)
     }

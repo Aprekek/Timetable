@@ -10,8 +10,13 @@ private val viewModelModule = module {
     viewModel {
         DictionaryViewModel()
     }
-    viewModel { (categoryItem: String, categoryName: String, categoryType: Int) ->
-        ListOfLessonsByCategoryViewModel(categoryItem, categoryName, categoryType)
+    viewModel { (subcategoryName: String, categoryName: String, categoryType: Int) ->
+        ListOfLessonsByCategoryViewModel(
+            subcategoryName = subcategoryName,
+            categoryName = categoryName,
+            categoryType = categoryType,
+            getLessonsBySubcategoryUseCase = get()
+        )
     }
 
     factory { (categoryType: Int, parentViewModel: DictionaryViewModel) ->

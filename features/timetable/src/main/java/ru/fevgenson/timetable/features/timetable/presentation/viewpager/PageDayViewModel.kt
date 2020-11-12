@@ -4,20 +4,20 @@ import androidx.lifecycle.*
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.shared.lesson.domain.entities.TimetableLesson
-import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonsUseCase
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonsByDayUseCase
 
 class PageDayViewModel(
     private val parentViewModel: TimetableViewModel,
     currentDay: Int,
-    getLessonsUseCase: GetLessonsUseCase
+    getLessonsByDayUseCase: GetLessonsByDayUseCase
 ) : ViewModel() {
 
-    private val firstWeekLessons = getLessonsUseCase(
+    private val firstWeekLessons = getLessonsByDayUseCase(
         weekType = DateUtils.FIRST_WEEK,
         day = currentDay
     ).asLiveData(viewModelScope.coroutineContext)
 
-    private val secondWeekLessons = getLessonsUseCase(
+    private val secondWeekLessons = getLessonsByDayUseCase(
         weekType = DateUtils.SECOND_WEEK,
         day = currentDay
     ).asLiveData(viewModelScope.coroutineContext)

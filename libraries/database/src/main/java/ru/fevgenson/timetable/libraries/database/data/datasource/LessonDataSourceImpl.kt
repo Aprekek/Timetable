@@ -11,6 +11,12 @@ internal class LessonDataSourceImpl(private val dao: GeneralDao) : LessonDataSou
         day: Int
     ): Flow<List<Lesson>> = dao.getLessonsForEdit(weekType, day)
 
+    override fun getLessonsBySubcategory(
+        category: Int,
+        subcategoryName: String
+    ): Flow<List<Lesson>> = dao.getLessonsBySubcategory(category, subcategoryName)
+
+
     override suspend fun getLesson(id: Long): Lesson = dao.getLessonForEdit(id)
 
     override suspend fun saveLesson(lesson: Lesson) {

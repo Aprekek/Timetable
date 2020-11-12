@@ -6,7 +6,7 @@ import ru.fevgenson.timetable.shared.lesson.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.shared.lesson.domain.entities.toTimetableLessons
 import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
-class GetLessonsUseCase(private val repository: LessonRepository) {
+class GetLessonsByDayUseCase(private val repository: LessonRepository) {
 
     operator fun invoke(
         weekType: Int,

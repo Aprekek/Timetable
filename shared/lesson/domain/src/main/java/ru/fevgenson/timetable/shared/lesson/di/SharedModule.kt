@@ -15,7 +15,8 @@ private val useCaseModule = module {
     factory { GetTimesValuesUseCase(get()) }
     factory { GetTimesValuesUseCaseFlow(get()) }
     factory { GetTypesValuesUseCase(get()) }
-    factory { GetLessonsUseCase(get()) }
+    factory { GetLessonsByDayUseCase(get()) }
+    factory { GetLessonsBySubcategoryUseCase(get()) }
     factory { SaveLessonsUseCase(get()) }
     factory { GetLessonUseCase(get()) }
     factory { UpdateLessonUseCase(get()) }

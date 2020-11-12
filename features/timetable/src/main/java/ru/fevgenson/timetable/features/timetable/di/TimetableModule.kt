@@ -15,7 +15,7 @@ private val viewModelModule = module {
         PageDayViewModel(
             currentDay = currentDay,
             parentViewModel = timetableViewModel,
-            getLessonsUseCase = get()
+            getLessonsByDayUseCase = get()
         )
     }
 }
