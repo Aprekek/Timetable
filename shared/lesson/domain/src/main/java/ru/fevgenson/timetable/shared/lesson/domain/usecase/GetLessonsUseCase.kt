@@ -12,7 +12,7 @@ class GetLessonsUseCase(private val repository: LessonRepository) {
         weekType: Int,
         day: Int
     ): Flow<List<TimetableLesson>> =
-        repository.getLessons(weekType, day).map { lessons ->
+        repository.getLessonsByDay(weekType, day).map { lessons ->
             lessons.toTimetableLessons()
         }
 }

@@ -17,7 +17,7 @@ internal class GetLessonsUseCase(private val repository: LessonRepository) {
         day: Int
     ): LiveData<List<NotificationLesson>> = liveData {
         withContext(Dispatchers.IO) {
-            repository.getLessons(weekType, day).map { lessons ->
+            repository.getLessonsByDay(weekType, day).map { lessons ->
                 lessons.map { lesson -> lesson.toNotificationLesson() }
             }.collect { emit(it) }
         }

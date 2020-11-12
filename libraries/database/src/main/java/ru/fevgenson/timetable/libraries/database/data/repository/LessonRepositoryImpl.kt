@@ -10,7 +10,7 @@ import ru.fevgenson.timetable.shared.lesson.domain.repository.LessonRepository
 
 internal class LessonRepositoryImpl(private val dataSource: LessonDataSource) : LessonRepository {
 
-    override fun getLessons(
+    override fun getLessonsByDay(
         weekType: Int,
         day: Int
     ): Flow<List<Lesson>> = dataSource.getLessonsByDay(weekType, day)
