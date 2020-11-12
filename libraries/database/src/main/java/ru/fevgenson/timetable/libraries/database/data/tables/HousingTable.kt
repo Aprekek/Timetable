@@ -9,8 +9,19 @@ data class HousingEntity(
     val housing: String
 )
 
+data class HousingLessonRelations(
+    var id: Long,
+
+    @Relation(parentColumn = "id", entityColumn = "subject")
+    var lessons: List<LessonEntity>
+)
+
 @Dao
 internal interface HousingDao {
+
+    @Transaction
+    @Query("SELECT id from housing_table WHERE housing =:housing")
+    fun getLessonsByHousing(housing: String): Flow<HousingLessonRelations>
 
     @Query("SELECT * from housing_table")
     suspend fun getHousings(): List<HousingEntity>

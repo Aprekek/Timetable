@@ -9,8 +9,19 @@ data class ClassroomEntity(
     val classroom: String
 )
 
+data class ClassroomLessonRelations(
+    var id: Long,
+
+    @Relation(parentColumn = "id", entityColumn = "subject")
+    var lessons: List<LessonEntity>
+)
+
 @Dao
 internal interface ClassroomDao {
+
+    @Transaction
+    @Query("SELECT id from classroom_table WHERE classroom =:classroom")
+    fun getLessonsByClassroom(classroom: String): Flow<ClassroomLessonRelations>
 
     @Query("SELECT * from classroom_table")
     suspend fun getClassrooms(): List<ClassroomEntity>

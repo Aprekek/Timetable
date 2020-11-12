@@ -9,8 +9,19 @@ data class TimeEntity(
     val time: String
 )
 
+data class TimeLessonRelations(
+    var id: Long,
+
+    @Relation(parentColumn = "id", entityColumn = "subject")
+    var lessons: List<LessonEntity>
+)
+
 @Dao
 internal interface TimeDao {
+
+    @Transaction
+    @Query("SELECT id from time_table WHERE time =:time")
+    fun getLessonsByTime(time: String): Flow<TimeLessonRelations>
 
     @Query("SELECT * from time_table")
     suspend fun getTimes(): List<TimeEntity>

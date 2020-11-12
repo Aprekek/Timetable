@@ -9,8 +9,19 @@ data class SubjectEntity(
     val subject: String
 )
 
+data class SubjectLessonRelations(
+    var id: Long,
+
+    @Relation(parentColumn = "id", entityColumn = "subject")
+    var lessons: List<LessonEntity>
+)
+
 @Dao
 internal interface SubjectDao {
+
+    @Transaction
+    @Query("SELECT id from subject_table WHERE subject =:subject")
+    fun getLessonsBySubject(subject: String): Flow<SubjectLessonRelations>
 
     @Query("SELECT * from subject_table")
     suspend fun getSubjects(): List<SubjectEntity>

@@ -15,10 +15,21 @@ data class TeacherEntity(
     val email: String?
 )
 
+data class TeacherLessonRelations(
+    var id: Long,
+
+    @Relation(parentColumn = "id", entityColumn = "subject")
+    var lessons: List<LessonEntity>
+)
+
 fun TeacherEntity.toDomainTeacherEntity() = DomainTeacherEntity(name, phone, email)
 
 @Dao
 internal interface TeachersNameDao {
+
+    @Transaction
+    @Query("SELECT id from teacher_table WHERE name =:name")
+    fun getLessonsByTeacher(name: String): Flow<TeacherLessonRelations>
 
     @Query("SELECT * from teacher_table")
     suspend fun getTeachers(): List<TeacherEntity>
