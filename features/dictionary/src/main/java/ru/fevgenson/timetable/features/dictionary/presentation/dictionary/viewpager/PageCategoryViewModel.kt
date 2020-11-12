@@ -2,8 +2,8 @@ package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewp
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.flow.map
-import ru.fevgenson.timetable.features.dictionary.domain.Categories
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.DictionaryViewModel
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Categories
 import ru.fevgenson.timetable.shared.lesson.domain.usecase.*
 
 class PageCategoryViewModel(

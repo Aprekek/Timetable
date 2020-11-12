@@ -3,8 +3,8 @@ package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewp
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import ru.fevgenson.timetable.features.dictionary.domain.Categories
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.DictionaryViewModel
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Categories
 
 class CategoriesViewPagerAdapter(
     private val parentViewModel: DictionaryViewModel,

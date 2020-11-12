@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.dictionary.domain
+package ru.fevgenson.timetable.shared.lesson.domain.entities
 
 object Categories {
 

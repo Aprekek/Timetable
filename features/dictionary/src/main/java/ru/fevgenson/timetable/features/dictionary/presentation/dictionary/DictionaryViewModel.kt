@@ -3,9 +3,9 @@ package ru.fevgenson.timetable.features.dictionary.presentation.dictionary
 import androidx.lifecycle.ViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.java.KoinJavaComponent.get
-import ru.fevgenson.timetable.features.dictionary.domain.Categories
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryViewModel
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Categories
 
 class DictionaryViewModel : ViewModel() {
 

@@ -5,6 +5,7 @@ import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.fevgenson.timetable.libraries.database.data.tables.*
+import ru.fevgenson.timetable.shared.lesson.domain.entities.Categories
 import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 @Dao
@@ -94,6 +95,52 @@ internal abstract class GeneralDao :
             )
         }.sortedBy { it.time }
     }
+
+    open fun getLessonsBySubcategory(
+        category: Int,
+        subcategoryName: String
+    ): Flow<List<Lesson>> {
+        return when (category) {
+            Categories.SUBJECT_CATEGORY -> getLessonsBySubject(subcategoryName).map { relation ->
+                relation.lessons.map { lessonEntity ->
+                    lessonEntity.toLesson()
+                }
+            }
+            Categories.CLASSROOM_CATEGORY -> getLessonsByClassroom(subcategoryName).map { relation ->
+                relation.lessons.map { lessonEntity ->
+                    lessonEntity.toLesson()
+                }
+            }
+            Categories.HOUSING_CATEGORY -> getLessonsByHousing(subcategoryName).map { relation ->
+                relation.lessons.map { lessonEntity ->
+                    lessonEntity.toLesson()
+                }
+            }
+            Categories.TEACHER_CATEGORY -> getLessonsByTeacher(subcategoryName).map { relation ->
+                relation.lessons.map { lessonEntity ->
+                    lessonEntity.toLesson()
+                }
+            }
+            Categories.TIME_CATEGORY -> getLessonsByTime(subcategoryName).map { relation ->
+                relation.lessons.map { lessonEntity ->
+                    lessonEntity.toLesson()
+                }
+            }
+            else -> throw IllegalStateException("$category does not defined")
+        }
+    }
+
+    private suspend fun LessonEntity.toLesson() = Lesson(
+        id = id,
+        subject = getSubject(subject).subject,
+        time = getTime(time).time,
+        day = day,
+        weekType = weekType,
+        housing = housing?.let { getHousing(it).housing },
+        classroom = classroom?.let { getClassroom(it).classroom },
+        type = type?.let { getType(it).type },
+        teacher = teacher?.let { getTeacher(it).toDomainTeacherEntity() }
+    )
 
     private suspend fun getIds(lesson: Lesson) = Ids(
         subjectId = getSubject(lesson.subject)?.id
