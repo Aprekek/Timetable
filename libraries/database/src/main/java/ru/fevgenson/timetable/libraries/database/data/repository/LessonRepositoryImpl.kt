@@ -13,7 +13,7 @@ internal class LessonRepositoryImpl(private val dataSource: LessonDataSource) : 
     override fun getLessons(
         weekType: Int,
         day: Int
-    ): Flow<List<Lesson>> = dataSource.getLessons(weekType, day)
+    ): Flow<List<Lesson>> = dataSource.getLessonsByDay(weekType, day)
         .flowOn(Dispatchers.IO)
 
     override suspend fun getLesson(id: Long): Lesson = withContext(Dispatchers.IO) {

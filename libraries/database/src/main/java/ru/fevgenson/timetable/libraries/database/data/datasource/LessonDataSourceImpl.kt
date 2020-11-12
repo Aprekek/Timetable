@@ -6,7 +6,7 @@ import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 internal class LessonDataSourceImpl(private val dao: GeneralDao) : LessonDataSource {
 
-    override fun getLessons(
+    override fun getLessonsByDay(
         weekType: Int,
         day: Int
     ): Flow<List<Lesson>> = dao.getLessonsForEdit(weekType, day)

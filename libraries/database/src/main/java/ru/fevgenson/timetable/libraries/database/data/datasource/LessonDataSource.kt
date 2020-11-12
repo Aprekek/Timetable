@@ -5,7 +5,7 @@ import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 
 internal interface LessonDataSource {
 
-    fun getLessons(weekType: Int, day: Int): Flow<List<Lesson>>
+    fun getLessonsByDay(weekType: Int, day: Int): Flow<List<Lesson>>
     suspend fun getLesson(id: Long): Lesson
     suspend fun saveLesson(lesson: Lesson)
     suspend fun updateLesson(lesson: Lesson)
