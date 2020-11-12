@@ -18,7 +18,7 @@ data class TeacherEntity(
 data class TeacherLessonRelations(
     var id: Long,
 
-    @Relation(parentColumn = "id", entityColumn = "subject")
+    @Relation(parentColumn = "id", entityColumn = "teacher")
     var lessons: List<LessonEntity>
 )
 

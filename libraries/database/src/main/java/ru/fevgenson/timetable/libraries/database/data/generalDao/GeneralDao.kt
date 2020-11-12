@@ -106,17 +106,17 @@ internal abstract class GeneralDao :
                     lessonEntity.toLesson()
                 }
             }
+            Categories.TEACHER_CATEGORY -> getLessonsByTeacher(subcategoryName).map { relation ->
+                relation.lessons.map { lessonEntity ->
+                    lessonEntity.toLesson()
+                }
+            }
             Categories.CLASSROOM_CATEGORY -> getLessonsByClassroom(subcategoryName).map { relation ->
                 relation.lessons.map { lessonEntity ->
                     lessonEntity.toLesson()
                 }
             }
             Categories.HOUSING_CATEGORY -> getLessonsByHousing(subcategoryName).map { relation ->
-                relation.lessons.map { lessonEntity ->
-                    lessonEntity.toLesson()
-                }
-            }
-            Categories.TEACHER_CATEGORY -> getLessonsByTeacher(subcategoryName).map { relation ->
                 relation.lessons.map { lessonEntity ->
                     lessonEntity.toLesson()
                 }

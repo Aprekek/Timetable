@@ -12,7 +12,7 @@ data class HousingEntity(
 data class HousingLessonRelations(
     var id: Long,
 
-    @Relation(parentColumn = "id", entityColumn = "subject")
+    @Relation(parentColumn = "id", entityColumn = "housing")
     var lessons: List<LessonEntity>
 )
 
