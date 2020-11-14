@@ -63,7 +63,7 @@ class TimetableFragment : Fragment(),
     }
 
     private fun initWeekTabs() {
-        val tabTitles = resources.getStringArray(R.array.timetable_week_tabs)
+        val tabTitles = resources.getStringArray(R.array.core_week_tabs)
         val currentWeek = DateUtils.getCurrentWeek()
         with(binding.weekTabLayout) {
             for (position in 0 until DateUtils.WEEK_TYPES) {
@@ -80,7 +80,7 @@ class TimetableFragment : Fragment(),
     }
 
     private fun initDayTab() {
-        val tabsTitles = resources.getStringArray(R.array.timetable_day_tabs)
+        val tabsTitles = resources.getStringArray(R.array.core_day_tabs)
         val tabsDates = DateUtils.getWeekDates(binding.weekTabLayout.selectedTabPosition)
         val currentDay = DateUtils.getCurrentDay()
         TabLayoutMediator(

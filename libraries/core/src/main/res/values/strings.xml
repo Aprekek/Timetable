@@ -10,4 +10,19 @@
 
     <string name="core_mask_with_brackets">%1$s (%2$s)</string>
     <string name="core_mask_with_comma">%1$s, %2$s</string>
+
+    <string-array name="core_day_tabs">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+        <item>Воскресенье</item>
+    </string-array>
+
+    <string-array name="core_week_tabs">
+        <item>Первая</item>
+        <item>Вторая</item>
+    </string-array>
 </resources>
