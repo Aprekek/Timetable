@@ -1,10 +1,8 @@
-package ru.fevgenson.timetable.features.lessoncreate.presentation.bindingadapters
+package ru.fevgenson.timetable.features.lessoncreate.presentation.flowbindingadapters
 
 import android.widget.ImageView
 import android.widget.PopupMenu
-import androidx.databinding.BindingAdapter
 
-@BindingAdapter("menuRes", "menuItemClickListener")
 fun ImageView.initMenu(menuRes: Int, listener: () -> Unit) {
     setOnClickListener {
         PopupMenu(context, this).apply {

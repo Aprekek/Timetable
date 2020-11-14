@@ -3,8 +3,10 @@ package ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel
 
+@ExperimentalCoroutinesApi
 class LessonCreateVPAdapter(
     private val viewModel: LessonCreateViewModel,
     private val lifecycleOwner: LifecycleOwner

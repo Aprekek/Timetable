@@ -7,7 +7,6 @@ apply plugin: Plugins.ANDROID_APPLICATION
 apply plugin: Plugins.KOTLIN_ANDROID
 apply plugin: Plugins.KOTLIN_EXTENSIONS
 apply plugin: Plugins.KOTLIN_KAPT
-apply plugin: Plugins.NAVIGATION_SAVE_ARGS_KOTLIN
 apply plugin: Plugins.GOOGLE_SERVICES
 
 android {
@@ -81,4 +80,5 @@ dependencies {
     implementation project(Modules.LESSON_CREATE)
     implementation project(Modules.DATABASE)
     implementation project(Modules.NOTIFICATIONS)
+    implementation project(Modules.FLOW_BINDING)
 }

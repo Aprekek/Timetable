@@ -1,171 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils" />
-
-        <variable
-            name="lessonCreateViewModel"
-            type="ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel" />
-    </data>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/subject_text_input_layout"
+            style="@style/ApplicationTheme.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:hint="@string/lesson_create_hint_subject"
+            android:padding="@dimen/padding_20">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ApplicationTheme.TextInputLayout"
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/subject_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/lesson_create_hint_subject"
-                android:padding="@dimen/padding_20"
-                app:errorMessage="@{lessonCreateViewModel.subjectError}">
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"
+                android:padding="@dimen/padding_10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/subject_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:inputType="textCapSentences"
-                    android:padding="@dimen/padding_10"
-                    android:text="@={lessonCreateViewModel.subject}"
-                    app:autocompleteData="@{lessonCreateViewModel.subjectAutoComplete}" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:paddingHorizontal="@dimen/padding_30">
 
-            <FrameLayout
-                android:layout_width="match_parent"
+            <TextView
+                style="@style/ApplicationTheme.Body1Black"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15"
-                android:paddingHorizontal="@dimen/padding_30">
-
-                <TextView
-                    style="@style/ApplicationTheme.Body1Black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/padding_20"
-                    android:text="@string/lesson_create_title_start_caps" />
-
-                <Button
-                    style="@style/ApplicationTheme.PrimaryButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.START)}"
-                    android:paddingHorizontal="@dimen/padding_55"
-                    android:text="@{lessonCreateViewModel.timeStartString}"
-                    tools:text="@string/lesson_create_button_choose_time" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15"
-                android:paddingHorizontal="@dimen/padding_30">
-
-                <TextView
-                    style="@style/ApplicationTheme.Body1Black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/padding_20"
-                    android:text="@string/lesson_create_title_end_caps" />
-
-                <Button
-                    style="@style/ApplicationTheme.PrimaryButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:onClick="@{()->lessonCreateViewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.END)}"
-                    android:paddingHorizontal="@dimen/padding_55"
-                    android:text="@{lessonCreateViewModel.timeEndString}"
-                    tools:text="@string/lesson_create_button_choose_time" />
-            </FrameLayout>
+                android:paddingVertical="@dimen/padding_20"
+                android:text="@string/lesson_create_title_start_caps" />
 
             <Button
+                android:id="@+id/button_time_start"
                 style="@style/ApplicationTheme.PrimaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:paddingHorizontal="@dimen/padding_55"
+                tools:text="@string/lesson_create_button_choose_time" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:paddingHorizontal="@dimen/padding_30">
+
+            <TextView
+                style="@style/ApplicationTheme.Body1Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/padding_20"
+                android:text="@string/lesson_create_title_end_caps" />
+
+            <Button
+                android:id="@+id/button_time_end"
+                style="@style/ApplicationTheme.PrimaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:paddingHorizontal="@dimen/padding_55"
+                tools:text="@string/lesson_create_button_choose_time" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/pick_time_button"
+            style="@style/ApplicationTheme.PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:text="@string/lesson_create_button_choose_time" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/ApplicationTheme.CardViewBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_30"
+            app:cardBackgroundColor="?attr/colorSurface">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_20"
-                android:onClick="@{() -> lessonCreateViewModel.onAutocompleteTimeButtonClick()}"
-                android:text="@string/lesson_create_button_choose_time"
-                app:stateAutocompleteData="@{lessonCreateViewModel.timeAutoComplete}" />
+                android:orientation="vertical"
+                android:padding="@dimen/padding_15">
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/ApplicationTheme.CardViewBase"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_30"
-                app:cardBackgroundColor="?attr/colorSurface">
+                <TextView
+                    style="@style/ApplicationTheme.Body1Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/lesson_create_title_first_week" />
 
-                <LinearLayout
+                <include
+                    android:id="@+id/first_week_chips"
+                    layout="@layout/include_lesson_days_buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_15">
+                    android:layout_marginTop="@dimen/margin_10" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                    <TextView
-                        style="@style/ApplicationTheme.Body1Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/lesson_create_title_first_week" />
+        <com.google.android.material.card.MaterialCardView
+            style="@style/ApplicationTheme.CardViewBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_15"
+            app:cardBackgroundColor="?attr/colorSurface">
 
-                    <include
-                        android:id="@+id/first_week_chips"
-                        layout="@layout/include_lesson_days_buttons"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10"
-                        app:checkedChips="@{lessonCreateViewModel.firstWeekChips}" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                style="@style/ApplicationTheme.CardViewBase"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15"
-                app:cardBackgroundColor="?attr/colorSurface">
+                android:orientation="vertical"
+                android:padding="@dimen/padding_15">
 
-                <LinearLayout
+                <TextView
+                    style="@style/ApplicationTheme.Body1Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/lesson_create_title_second_week" />
+
+                <include
+                    android:id="@+id/second_week_chips"
+                    layout="@layout/include_lesson_days_buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_15">
+                    android:layout_marginTop="@dimen/margin_10" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                    <TextView
-                        style="@style/ApplicationTheme.Body1Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/lesson_create_title_second_week" />
-
-                    <include
-                        android:id="@+id/second_week_chips"
-                        layout="@layout/include_lesson_days_buttons"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10"
-                        app:checkedChips="@{lessonCreateViewModel.secondWeekChips}" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <include
-                layout="@layout/include_lesson_create_buttons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15"
-                app:viewModel="@{lessonCreateViewModel}" />
-        </LinearLayout>
-    </ScrollView>
-</layout>
+        <include
+            android:id="@+id/include_lesson_create_buttons"
+            layout="@layout/include_lesson_create_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15" />
+    </LinearLayout>
+</ScrollView>

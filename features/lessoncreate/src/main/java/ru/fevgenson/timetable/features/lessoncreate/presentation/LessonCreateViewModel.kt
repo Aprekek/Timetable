@@ -1,6 +1,8 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.lessoncreate.R
@@ -10,6 +12,7 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+
 
 class LessonCreateViewModel(
     weekType: Int,
@@ -52,63 +55,65 @@ class LessonCreateViewModel(
         private const val TIME_NOT_SET_STRING = "-- : --"
     }
 
-    val subject = MutableLiveData<String>()
-    val subjectAutoComplete = liveData { emit(getSubjectsValuesUseCase()) }
-    val subjectError: LiveData<Int?> = Transformations.map(subject) {
-        if (it.isNullOrEmpty()) R.string.lesson_create_edit_text_error_message else null
-    }
-    val housing = MutableLiveData<String>()
-    val housingAutoComplete = liveData { emit(getHousingsValuesUseCase()) }
-    val classroom = MutableLiveData<String>()
-    val classroomAutoComplete = liveData { emit(getClassroomsValuesUseCase()) }
-    val type = MutableLiveData<String>()
-    val typeAutocomplete = liveData { emit(getTypesValuesUseCase()) }
-    val teachersName = MutableLiveData<String>()
-    val teacherAutocomplete = liveData { emit(getTeachersUseCase()) }
-    val email: MutableLiveData<String> = MediatorLiveData<String>().apply {
-        addSource(teachersName) { teachersName ->
-            var teacherEntity: TeacherEntity?
-            if (
-                teacherAutocomplete.value
-                    ?.find { it.name == teachersName }
-                    .also { teacherEntity = it } != null &&
-                value.isNullOrBlank()
-            ) {
-                value = teacherEntity?.email
+    val subject = MutableStateFlow<String?>(null)
+    val subjectAutoComplete = flow { emit(getSubjectsValuesUseCase()) }
+    val subjectError = subject.map {
+        if (it?.isBlank() == true) R.string.lesson_create_edit_text_error_message else null
+    }.stateIn(viewModelScope, SharingStarted.Lazily, null)
+
+    val housing = MutableStateFlow<String?>(null)
+    val housingAutoComplete = flow { emit(getHousingsValuesUseCase()) }
+
+    val classroom = MutableStateFlow<String?>(null)
+    val classroomAutoComplete = flow { emit(getClassroomsValuesUseCase()) }
+
+    val type = MutableStateFlow<String?>(null)
+    val typeAutocomplete = flow { emit(getTypesValuesUseCase()) }
+
+    val teachersName = MutableStateFlow<String?>(null)
+    val teacherAutocomplete = flow { emit(getTeachersUseCase()) }
+
+    val email = MutableStateFlow<String?>(null).also { emailFlow ->
+        teachersName.combine(teacherAutocomplete) { teachersName: String?, teacherAutocomplete: List<TeacherEntity> ->
+            if (emailFlow.value.isNullOrBlank()) {
+                teacherAutocomplete.find { it.name == teachersName }?.let {
+                    emailFlow.value = it.email
+                }
             }
-        }
-    }
-    val phone: MutableLiveData<String> = MediatorLiveData<String>().apply {
-        addSource(teachersName) { teachersName ->
-            var teacherEntity: TeacherEntity?
-            if (
-                teacherAutocomplete.value
-                    ?.find { it.name == teachersName }
-                    .also { teacherEntity = it } != null &&
-                value.isNullOrBlank()
-            ) {
-                value = teacherEntity?.phone
-            }
-        }
+        }.launchIn(viewModelScope)
     }
 
-    val timeStartMinutes = MutableLiveData<Int?>(null)
-    val timeEndMinutes = MutableLiveData<Int?>(null)
-    val timeStartString: LiveData<String> = Transformations.map(timeStartMinutes) {
-        convertTimeToString(it)
+    val phone = MutableStateFlow<String?>(null).also { phoneFlow ->
+        teachersName.combine(teacherAutocomplete) { teachersName: String?, teacherAutocomplete: List<TeacherEntity> ->
+            if (phoneFlow.value.isNullOrBlank()) {
+                teacherAutocomplete.find { it.name == teachersName }?.let {
+                    phoneFlow.value = it.phone
+                }
+            }
+        }.launchIn(viewModelScope)
     }
-    val timeEndString: LiveData<String> = Transformations.map(timeEndMinutes) {
+
+    val timeStartMinutes = MutableStateFlow<Int?>(null)
+    val timeEndMinutes = MutableStateFlow<Int?>(null)
+
+    val timeStartString = timeStartMinutes.map {
         convertTimeToString(it)
-    }
-    val timeAutoComplete = liveData { emit(getTimesValuesUseCase()) }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, TIME_NOT_SET_STRING)
+    val timeEndString = timeEndMinutes.map {
+        convertTimeToString(it)
+    }.stateIn(viewModelScope, SharingStarted.Lazily, TIME_NOT_SET_STRING)
+
+    val timeAutoComplete = flow {
+        emit(getTimesValuesUseCase())
+    }.stateIn(viewModelScope, SharingStarted.Lazily, listOf())
 
     val eventsDispatcher = EventsDispatcher<EventListener>()
 
-    private val _currentPage: MutableLiveData<Int> = MutableLiveData(0)
-    val currentPage: LiveData<Int>
+    private val _currentPage = MutableStateFlow(0)
+    val currentPage: StateFlow<Int>
         get() = _currentPage
 
-    val toolbarTitle: LiveData<Int> = Transformations.map(currentPage) { page ->
+    val toolbarTitle = currentPage.map { page ->
         when (page) {
             MAIN_PAGE -> R.string.lesson_create_title_main_info
             LOCATION_AND_TYPE_PAGE -> R.string.lesson_create_title_location_and_type
@@ -117,7 +122,7 @@ class LessonCreateViewModel(
         }
     }
 
-    val firstWeekChips = MutableLiveData<List<Boolean>>(
+    val firstWeekChips = MutableStateFlow<List<Boolean>>(
         MutableList(DateUtils.WEEK_DAYS) { false }.apply {
             if (weekType == DateUtils.FIRST_WEEK) {
                 set(day, true)
@@ -125,7 +130,7 @@ class LessonCreateViewModel(
         }
     )
 
-    val secondWeekChips = MutableLiveData<List<Boolean>>(
+    val secondWeekChips = MutableStateFlow<List<Boolean>>(
         MutableList(DateUtils.WEEK_DAYS) { false }.apply {
             if (weekType == DateUtils.SECOND_WEEK) {
                 set(day, true)
@@ -147,12 +152,12 @@ class LessonCreateViewModel(
     }
 
     private fun initTime() {
-        timeStartMinutes.observeForever { timeStartMinutes ->
+        timeStartMinutes.onEach { timeStartMinutes ->
             if (timeEndMinutes.value == null && timeStartMinutes != null) {
                 timeEndMinutes.value = (timeStartMinutes + LESSON_LENGTH_MIN).rem(MINUTES_IN_DAY)
             }
-        }
-        timeEndMinutes.observeForever { timeEndMinutes ->
+        }.launchIn(viewModelScope)
+        timeEndMinutes.onEach { timeEndMinutes ->
             if (timeStartMinutes.value == null && timeEndMinutes != null) {
                 timeStartMinutes.value = if (timeEndMinutes >= LESSON_LENGTH_MIN) {
                     timeEndMinutes - LESSON_LENGTH_MIN
@@ -160,7 +165,7 @@ class LessonCreateViewModel(
                     MINUTES_IN_DAY + timeEndMinutes - LESSON_LENGTH_MIN
                 }
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
     private fun loadLesson() {
@@ -179,9 +184,9 @@ class LessonCreateViewModel(
                     MyTimeUtils.convertDbTimeToMinutes(it.time, MyTimeUtils.TimeBorders.END)
                 when (it.weekType) {
                     DateUtils.FIRST_WEEK -> firstWeekChips.value =
-                        firstWeekChips.value?.toMutableList()?.apply { set(it.day, true) }
+                        firstWeekChips.value.toMutableList().apply { set(it.day, true) }
                     DateUtils.SECOND_WEEK -> secondWeekChips.value =
-                        secondWeekChips.value?.toMutableList()?.apply { set(it.day, true) }
+                        secondWeekChips.value.toMutableList().apply { set(it.day, true) }
                 }
             }
         }
@@ -190,12 +195,12 @@ class LessonCreateViewModel(
     private fun saveChanges() {
         viewModelScope.launch {
             val lessons = mutableListOf<Lesson>()
-            firstWeekChips.value?.forEachIndexed { day, checked ->
+            firstWeekChips.value.forEachIndexed { day, checked ->
                 if (checked) {
                     lessons.add(createLesson(day, DateUtils.FIRST_WEEK))
                 }
             }
-            secondWeekChips.value?.forEachIndexed { day, checked ->
+            secondWeekChips.value.forEachIndexed { day, checked ->
                 if (checked) {
                     lessons.add(createLesson(day, DateUtils.SECOND_WEEK))
                 }
@@ -213,10 +218,7 @@ class LessonCreateViewModel(
 
     private fun createLesson(day: Int, weekType: Int) = Lesson(
         subject = requireNotNull(subject.value) { "subject cant be null" },
-        time = MyTimeUtils.convertEditTimesToDbTimes(
-            requireNotNull(timeStartString.value) { "time cant be null" },
-            requireNotNull(timeEndString.value) { "time cant be null" }
-        ),
+        time = MyTimeUtils.convertEditTimesToDbTimes(timeStartString.value, timeEndString.value),
         day = day,
         weekType = weekType,
         housing = housing.value?.takeIf { it.isNotBlank() }?.trim(),
@@ -236,7 +238,7 @@ class LessonCreateViewModel(
         if (_currentPage.value == MAIN_PAGE) {
             onCancelButtonClick()
         } else {
-            _currentPage.value = currentPage.value?.minus(1)
+            _currentPage.value--
         }
     }
 
@@ -245,7 +247,7 @@ class LessonCreateViewModel(
         if (_currentPage.value == TEACHER_PAGE) {
             onDoneButtonClick()
         } else {
-            _currentPage.value = currentPage.value?.plus(1)
+            _currentPage.value++
         }
     }
 
@@ -265,9 +267,7 @@ class LessonCreateViewModel(
         eventsDispatcher.dispatchEvent {
             showDialog(
                 R.string.lesson_create_time_autocomplete_dialog_title,
-                requireNotNull(timeAutoComplete.value) {
-                    "time autocomplete cant be null"
-                }
+                timeAutoComplete.value
             )
         }
     }
@@ -275,7 +275,7 @@ class LessonCreateViewModel(
     fun onClearItemClick() {
         when (_currentPage.value) {
             MAIN_PAGE -> {
-                subject.value = null
+                subject.value = ""
                 timeStartMinutes.value = null
                 timeEndMinutes.value = null
                 firstWeekChips.value = List(DateUtils.WEEK_DAYS) { false }
@@ -337,10 +337,11 @@ class LessonCreateViewModel(
     }
 
     fun onDialogResult(action: Int) {
-        if (action == ACTION_DONE)
+        if (action == ACTION_DONE) {
             saveChanges()
-        else
+        } else {
             onCancel()
+        }
     }
 
     fun onDialogResult(time: String) {
@@ -352,10 +353,9 @@ class LessonCreateViewModel(
 
     private fun isDataValid() = subjectError.value == null &&
             timeStartMinutes.value != null &&
-            (firstWeekChips.value?.find { it } != null || secondWeekChips.value?.find { it } != null)
+            (firstWeekChips.value.find { it } != null || secondWeekChips.value.find { it } != null)
 
     private fun convertTimeToString(time: Int?): String = time?.let {
         MyTimeUtils.convertTimeInMinutesToString(it)
     } ?: TIME_NOT_SET_STRING
-
 }

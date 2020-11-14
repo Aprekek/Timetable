@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.scope.newScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.ext.getOrCreateScope
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
 import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
@@ -25,6 +25,8 @@ class TimetableFragment : Fragment(),
 
     private lateinit var binding: FragmentTimetableBinding
     private val viewModel: TimetableViewModel by viewModel()
+
+    private val scope = newScope(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,13 +55,13 @@ class TimetableFragment : Fragment(),
         val adapter = PageDayViewPagerAdapter(
             viewModel.dayViewModelsList,
             viewLifecycleOwner,
-            getOrCreateScope().get()
+            scope.get()
         )
         binding.dayViewPager.adapter = adapter
         viewModel.selectedDayLiveData.value?.let {
             binding.dayViewPager.setCurrentItem(it, false)
         }
-        binding.dayViewPager.offscreenPageLimit = 2
+        binding.dayViewPager.offscreenPageLimit = 7
     }
 
     private fun initWeekTabs() {

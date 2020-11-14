@@ -1,71 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
+<com.google.android.material.chip.ChipGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chip_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-        <import type="java.util.List" />
-
-        <import type="androidx.lifecycle.MutableLiveData" />
-
-        <variable
-            name="checkedChips"
-            type="MutableLiveData&lt;List&lt;Boolean&gt;&gt;" />
-    </data>
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
-        android:layout_width="match_parent"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_monday"
+        style="@style/ApplicationTheme.ChipView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:checkedChips="@={checkedChips}">
+        android:text="@string/lesson_create_chip_monday_short" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_monday"
-            style="@style/ApplicationTheme.ChipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_create_chip_monday_short" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_tuesday"
+        style="@style/ApplicationTheme.ChipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lesson_create_chip_tuesday_short" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_tuesday"
-            style="@style/ApplicationTheme.ChipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_create_chip_tuesday_short" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_wednesday"
+        style="@style/ApplicationTheme.ChipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lesson_create_chip_wednesday_short" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_wednesday"
-            style="@style/ApplicationTheme.ChipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_create_chip_wednesday_short" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_thursday"
+        style="@style/ApplicationTheme.ChipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lesson_create_chip_thursday_short" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_thursday"
-            style="@style/ApplicationTheme.ChipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_create_chip_thursday_short" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_friday"
+        style="@style/ApplicationTheme.ChipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lesson_create_chip_friday_short" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_friday"
-            style="@style/ApplicationTheme.ChipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_create_chip_friday_short" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_saturday"
+        style="@style/ApplicationTheme.ChipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lesson_create_chip_saturday_short" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_saturday"
-            style="@style/ApplicationTheme.ChipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_create_chip_saturday_short" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_sunday"
-            style="@style/ApplicationTheme.ChipView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lesson_create_chip_sunday_short" />
-    </com.google.android.material.chip.ChipGroup>
-</layout>
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_sunday"
+        style="@style/ApplicationTheme.ChipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lesson_create_chip_sunday_short" />
+</com.google.android.material.chip.ChipGroup>
