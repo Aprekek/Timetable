@@ -3,7 +3,6 @@ package ru.fevgenson.timetable.features.timetable.presentation.viewpager
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import org.koin.core.KoinComponent
 import ru.fevgenson.timetable.features.timetable.presentation.recyclerview.LessonViewHolderPool
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
@@ -11,7 +10,7 @@ class PageDayViewPagerAdapter(
     private val viewModels: List<PageDayViewModel>,
     private val lifecycleOwner: LifecycleOwner,
     private val lessonViewHolderPool: LessonViewHolderPool
-) : RecyclerView.Adapter<PageDayViewHolder>(), KoinComponent {
+) : RecyclerView.Adapter<PageDayViewHolder>() {
 
     init {
         setHasStableIds(true)
