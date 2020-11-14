@@ -1,8 +1,6 @@
 package ru.fevgenson.timetable.features.dictionary.presentation.lessonsbycategory
 
-import android.util.Log
 import androidx.lifecycle.*
-import kotlinx.coroutines.flow.map
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.shared.lesson.domain.entities.Lesson
 import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonsBySubcategoryUseCase
@@ -18,12 +16,6 @@ class ListOfLessonsByCategoryViewModel(
         fun navigateBack()
     }
 
-    init {
-        Log.d("viewModel", "subcategoryName $subcategoryName")
-        Log.d("viewModel", "categoryName $categoryName")
-        Log.d("viewModel", "categoryType $categoryType")
-    }
-
     private val oldCategoryItem = subcategoryName
     val realCategoryItem = MutableLiveData<String>(subcategoryName)
 
@@ -37,12 +29,7 @@ class ListOfLessonsByCategoryViewModel(
         getLessonsBySubcategoryUseCase(
             categoryType,
             subcategoryName
-        ).map { list ->
-            list.map {
-                Log.d("DBG $subcategoryName", " $it")
-                it
-            }
-        }.asLiveData(viewModelScope.coroutineContext)
+        ).asLiveData(viewModelScope.coroutineContext)
 
     val isNoItemsTextVisible = Transformations.map(lessons) {
         it.isNullOrEmpty()

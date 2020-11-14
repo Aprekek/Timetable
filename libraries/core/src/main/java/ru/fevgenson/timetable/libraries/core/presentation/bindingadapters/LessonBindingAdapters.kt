@@ -20,7 +20,7 @@ fun TextView.setTypeAndTeacher(type: String?, teacher: String?) {
     when {
         type != null && teacher != null -> {
             text = context.getString(
-                R.string.core_mask_with_brackets,
+                R.string.core_mask_with_colon,
                 type,
                 teacher
             )
@@ -63,6 +63,14 @@ fun TextView.setHousingAndClassroom(housing: String?, classroom: String?) {
             visibility = View.GONE
         }
     }
+}
+
+@BindingAdapter("week", "day")
+fun TextView.setWeekAndDay(week: Int, day: Int) {
+    val weekName = resources.getStringArray(R.array.core_week_tabs)[week]
+    val dayName = resources.getStringArray(R.array.core_day_tabs)[day]
+
+    text = resources.getString(R.string.core_mask_with_colon, weekName, dayName)
 }
 
 @BindingAdapter(

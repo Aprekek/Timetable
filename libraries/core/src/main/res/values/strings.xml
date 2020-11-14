@@ -9,6 +9,7 @@
     <string name="core_menu_delete">Удалить</string>
 
     <string name="core_mask_with_brackets">%1$s (%2$s)</string>
+    <string name="core_mask_with_colon">%1$s: %2$s</string>
     <string name="core_mask_with_comma">%1$s, %2$s</string>
 
     <string-array name="core_day_tabs">

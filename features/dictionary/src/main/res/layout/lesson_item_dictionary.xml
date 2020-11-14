@@ -60,7 +60,8 @@
                     style="@style/ApplicationTheme.Body1Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{"Практика: " + lesson.teacher.name}'
+                    app:teacher="@{lesson.teacher.name}"
+                    app:type="@{lesson.type}"
                     tools:text="Практика:  Перышкова Е.Н." />
 
                 <TextView
@@ -68,6 +69,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_5"
+                    app:classroom="@{lesson.classroom}"
+                    app:housing="@{lesson.housing}"
                     tools:text="Главный корпус, аудитория 22" />
             </LinearLayout>
 
@@ -99,6 +102,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|bottom"
+                    app:day="@{lesson.day}"
+                    app:week="@{lesson.weekType}"
                     tools:text="Первая: Суббота" />
             </FrameLayout>
         </LinearLayout>
