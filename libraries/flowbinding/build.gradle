@@ -1,0 +1,44 @@
+import ru.fevgenson.timetable.Dependencies
+import ru.fevgenson.timetable.Plugins
+
+apply plugin: Plugins.ANDROID_LIBRARY
+apply plugin: Plugins.KOTLIN_ANDROID
+
+android {
+    compileSdkVersion ru.fevgenson.timetable.Settings.COMPILE_SDK_VERSION
+    buildToolsVersion ru.fevgenson.timetable.Settings.BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion ru.fevgenson.timetable.Settings.MIN_SDK_VERSION
+        targetSdkVersion ru.fevgenson.timetable.Settings.TARGET_SDK_VERSION
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = ru.fevgenson.timetable.Settings.JVM_TARGET
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
+    implementation Dependencies.Coroutine.COROUTINE_CORE
+    implementation Dependencies.MATERIAL
+    implementation Dependencies.CORE
+    implementation Dependencies.Lifecycle.LIFECYCLE_RUNTIME
+}

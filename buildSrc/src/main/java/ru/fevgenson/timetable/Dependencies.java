@@ -14,8 +14,8 @@ public class Dependencies {
     public static final String DATABINDING = "com.android.databinding:compiler:" + Versions.DATABINDING;
 
     public static class Versions {
-        public static final String KOTLIN = "1.4.0";
-        public static final String GRADLE = "4.0.1";
+        public static final String KOTLIN = "1.4.10";
+        public static final String GRADLE = "4.1.1";
         public static final String GOOGLE = "4.3.3";
         public static final String FIREBASE = "17.2.2";
         public static final String DECORO = "1.4.1";
@@ -30,8 +30,8 @@ public class Dependencies {
         public static final String FRAGMENT = "1.2.5";
         public static final String SWIPE_REFRESH_LAYOUT = "1.1.0";
         public static final String ROOM = "2.2.5";
-        public static final String COROUTINE = "1.3.9";
-        public static final String KOIN = "2.1.6";
+        public static final String COROUTINE = "1.4.0";
+        public static final String KOIN = "2.2.0";
         public static final String NAVIGATION = "2.3.0";
 
         public static final String DATABINDING = "4.0.1";
@@ -59,7 +59,7 @@ public class Dependencies {
 
     public static class Lifecycle {
         public static final String LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:" + Versions.LIFECYCLE;
-        public static final String LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime:" + Versions.LIFECYCLE;
+        public static final String LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx::" + Versions.LIFECYCLE;
         public static final String LIFECYCLE_LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:" + Versions.LIFECYCLE;
         public static final String LIFECYCLE_COMMON_JAVA8 = "androidx.lifecycle:lifecycle-common-java8:" + Versions.LIFECYCLE;
         public static final String LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:" + Versions.LIFECYCLE;
