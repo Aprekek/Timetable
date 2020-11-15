@@ -1,10 +1,9 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation.flowbindingadapters
 
 import androidx.core.view.children
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.coroutineScope
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,14 +23,21 @@ private fun ChipGroup.checkedFlow() = callbackFlow {
         }
     }
 
-    awaitClose { }
+    awaitClose {
+        children.forEach { view ->
+            view.setOnClickListener(null)
+        }
+    }
 }
 
 @ExperimentalCoroutinesApi
-fun ChipGroup.bindChips(flow: MutableStateFlow<List<Boolean>>, lifecycleOwner: LifecycleOwner) {
+fun ChipGroup.bindChips(
+    flow: MutableStateFlow<List<Boolean>>,
+    coroutineScope: CoroutineScope
+) {
     checkedFlow().onEach {
         flow.value = it
-    }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }.launchIn(coroutineScope)
 
     flow.onEach {
         children.forEachIndexed { index, view ->
@@ -39,5 +45,5 @@ fun ChipGroup.bindChips(flow: MutableStateFlow<List<Boolean>>, lifecycleOwner: L
                 isChecked = it[index]
             }
         }
-    }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }.launchIn(coroutineScope)
 }

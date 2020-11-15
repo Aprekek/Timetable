@@ -2,8 +2,8 @@ package ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.fevgenson.timetable.features.lessoncreate.databinding.PageMainBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel
@@ -24,7 +24,7 @@ class VHMainPage private constructor(binding: PageMainBinding) :
         fun from(
             parent: ViewGroup,
             viewModel: LessonCreateViewModel,
-            lifecycleOwner: LifecycleOwner
+            coroutineScope: CoroutineScope
         ): VHMainPage {
             val inflater = LayoutInflater.from(parent.context)
             val binding = PageMainBinding.inflate(inflater, parent, false)
@@ -40,31 +40,31 @@ class VHMainPage private constructor(binding: PageMainBinding) :
                         viewModel.onCancelButtonClick()
                     }
                 }
-                binding.subjectTextInputLayout.showError(viewModel.subjectError, lifecycleOwner)
+                binding.subjectTextInputLayout.showError(viewModel.subjectError, coroutineScope)
                 with(subjectEditText) {
-                    nullableTextBind(viewModel.subject, lifecycleOwner)
-                    setupData(viewModel.subjectAutoComplete, lifecycleOwner)
+                    nullableTextBind(viewModel.subject, coroutineScope)
+                    setupData(viewModel.subjectAutoComplete, coroutineScope)
                 }
                 with(buttonTimeStart) {
                     setOnClickListener {
                         viewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.START)
                     }
-                    textBind(viewModel.timeStartString, lifecycleOwner)
+                    textBind(viewModel.timeStartString, coroutineScope)
                 }
                 with(buttonTimeEnd) {
                     setOnClickListener {
                         viewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.END)
                     }
-                    textBind(viewModel.timeEndString, lifecycleOwner)
+                    textBind(viewModel.timeEndString, coroutineScope)
                 }
                 with(pickTimeButton) {
                     setOnClickListener {
                         viewModel.onAutocompleteTimeButtonClick()
                     }
-                    setAutocompleteState(viewModel.timeAutoComplete, lifecycleOwner)
+                    setAutocompleteState(viewModel.timeAutoComplete, coroutineScope)
                 }
-                firstWeekChips.chipGroup.bindChips(viewModel.firstWeekChips, lifecycleOwner)
-                secondWeekChips.chipGroup.bindChips(viewModel.secondWeekChips, lifecycleOwner)
+                firstWeekChips.chipGroup.bindChips(viewModel.firstWeekChips, coroutineScope)
+                secondWeekChips.chipGroup.bindChips(viewModel.secondWeekChips, coroutineScope)
             }
             return VHMainPage(binding)
         }

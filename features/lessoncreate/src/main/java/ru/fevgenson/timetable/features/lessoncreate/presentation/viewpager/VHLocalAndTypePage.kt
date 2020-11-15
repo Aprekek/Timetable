@@ -2,8 +2,8 @@ package ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.fevgenson.timetable.features.lessoncreate.databinding.PageLocationAndTypeBinding
 import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel
@@ -19,7 +19,7 @@ class VHLocalAndTypePage private constructor(binding: PageLocationAndTypeBinding
         fun from(
             parent: ViewGroup,
             viewModel: LessonCreateViewModel,
-            lifecycleOwner: LifecycleOwner
+            coroutineScope: CoroutineScope
         ): VHLocalAndTypePage {
             val inflater = LayoutInflater.from(parent.context)
             val binding = PageLocationAndTypeBinding.inflate(inflater, parent, false)
@@ -36,16 +36,16 @@ class VHLocalAndTypePage private constructor(binding: PageLocationAndTypeBinding
                     }
                 }
                 with(housingEditText) {
-                    nullableTextBind(viewModel.housing, lifecycleOwner)
-                    setupData(viewModel.housingAutoComplete, lifecycleOwner)
+                    nullableTextBind(viewModel.housing, coroutineScope)
+                    setupData(viewModel.housingAutoComplete, coroutineScope)
                 }
                 with(classroomEditText) {
-                    nullableTextBind(viewModel.classroom, lifecycleOwner)
-                    setupData(viewModel.classroomAutoComplete, lifecycleOwner)
+                    nullableTextBind(viewModel.classroom, coroutineScope)
+                    setupData(viewModel.classroomAutoComplete, coroutineScope)
                 }
                 with(typeEditText) {
-                    nullableTextBind(viewModel.type, lifecycleOwner)
-                    setupData(viewModel.typeAutocomplete, lifecycleOwner)
+                    nullableTextBind(viewModel.type, coroutineScope)
+                    setupData(viewModel.typeAutocomplete, coroutineScope)
                 }
             }
             return VHLocalAndTypePage(binding)

@@ -1,15 +1,15 @@
 package ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager
 
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateViewModel
 
 @ExperimentalCoroutinesApi
 class LessonCreateVPAdapter(
     private val viewModel: LessonCreateViewModel,
-    private val lifecycleOwner: LifecycleOwner
+    private val coroutineScope: CoroutineScope
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -18,19 +18,19 @@ class LessonCreateVPAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             LessonCreateViewModel.MAIN_PAGE -> VHMainPage.from(
-                parent,
-                viewModel,
-                lifecycleOwner
+                parent = parent,
+                viewModel = viewModel,
+                coroutineScope = coroutineScope
             )
             LessonCreateViewModel.LOCATION_AND_TYPE_PAGE -> VHLocalAndTypePage.from(
-                parent,
-                viewModel,
-                lifecycleOwner
+                parent = parent,
+                viewModel = viewModel,
+                coroutineScope = coroutineScope
             )
             LessonCreateViewModel.TEACHER_PAGE -> VHTeacherPage.from(
-                parent,
-                viewModel,
-                lifecycleOwner
+                parent = parent,
+                viewModel = viewModel,
+                coroutineScope = coroutineScope
             )
             else -> throw ClassCastException("Unknown ViewHolder type $viewType")
         }
