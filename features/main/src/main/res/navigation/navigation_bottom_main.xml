@@ -8,7 +8,7 @@
 
     <keep_state_fragment
         android:id="@+id/timetable"
-        android:name="ru.fevgenson.timetable.features.timetable.presentation.TimetableFragment" />
+        android:name="ru.fevgenson.timetable.features.timetable.ui.TimetableFragment" />
 
     <keep_state_fragment
         android:id="@+id/homework"

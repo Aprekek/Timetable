@@ -1,48 +1,53 @@
-package ru.fevgenson.timetable.features.timetable.presentation.viewpager
+package ru.fevgenson.timetable.features.timetable.presentation
 
-import androidx.lifecycle.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
-import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
-class PageDayViewModel(
+@ExperimentalCoroutinesApi
+class PageDayViewModelDelegate(
     private val parentViewModel: TimetableViewModel,
+    private val coroutineScope: CoroutineScope,
     currentDay: Int,
     getLessonsUseCase: GetLessonsUseCase
-) : ViewModel() {
+) {
 
     private val firstWeekLessons = getLessonsUseCase(
         weekType = DateUtils.FIRST_WEEK,
         day = currentDay
-    ).asLiveData(viewModelScope.coroutineContext)
+    ).stateIn(coroutineScope, SharingStarted.Lazily, null)
 
     private val secondWeekLessons = getLessonsUseCase(
         weekType = DateUtils.SECOND_WEEK,
         day = currentDay
-    ).asLiveData(viewModelScope.coroutineContext)
+    ).stateIn(coroutineScope, SharingStarted.Lazily, null)
 
-    val lessons = MediatorLiveData<List<TimetableLesson>>().apply {
-        addSource(firstWeekLessons) {
-            if (parentViewModel.selectedWeekLiveData.value == DateUtils.FIRST_WEEK) {
-                value = it
-            }
-        }
-        addSource(secondWeekLessons) {
-            if (parentViewModel.selectedWeekLiveData.value == DateUtils.SECOND_WEEK) {
-                value = it
-            }
-        }
-        addSource(parentViewModel.selectedWeekLiveData) {
+    val lessons = MutableStateFlow<List<TimetableLesson>?>(null).apply {
+        firstWeekLessons
+            .filter { it != null }
+            .filter { parentViewModel.selectedWeek.value == DateUtils.FIRST_WEEK }
+            .onEach { value = it }
+            .launchIn(coroutineScope)
+
+        secondWeekLessons
+            .filter { it != null }
+            .filter { parentViewModel.selectedWeek.value == DateUtils.SECOND_WEEK }
+            .onEach { value = it }
+            .launchIn(coroutineScope)
+
+        parentViewModel.selectedWeek.onEach {
             value = when (it) {
                 DateUtils.FIRST_WEEK -> firstWeekLessons.value
                 DateUtils.SECOND_WEEK -> secondWeekLessons.value
                 else -> throw IllegalArgumentException()
             }
-        }
+        }.launchIn(coroutineScope)
     }
 
-    val uiState = Transformations.map(lessons) {
+    val uiState = lessons.map {
         when {
             it == null -> PageDayUIState.Loading
             it.isEmpty() -> PageDayUIState.Empty

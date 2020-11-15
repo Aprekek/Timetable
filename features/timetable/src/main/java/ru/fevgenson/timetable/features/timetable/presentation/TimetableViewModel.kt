@@ -1,86 +1,73 @@
 package ru.fevgenson.timetable.features.timetable.presentation
 
 import android.os.Bundle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import org.koin.core.parameter.parametersOf
-import org.koin.java.KoinJavaComponent.get
-import ru.fevgenson.libraries.navigation.di.NavigationConstants
+import ru.fevgenson.libraries.navigation.di.NavigationConstants.LessonCreate
 import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
-import ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel
-import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
+import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
+import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventLiveData
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
+@ExperimentalCoroutinesApi
 class TimetableViewModel(
-    private val deleteLessonUseCase: DeleteLessonUseCase
+    private val deleteLessonUseCase: DeleteLessonUseCase,
+    getLessonsUseCase: GetLessonsUseCase
 ) : ViewModel() {
 
-    interface EventListener {
-        fun navigateToCreate(bundle: Bundle)
-        fun showDeleteDialog(lessonId: Long)
-    }
+    val eventLiveData = EventLiveData<TimetableEvent>()
 
-    val selectedWeekLiveData = MutableLiveData(DateUtils.getCurrentWeek())
-    val selectedDayLiveData = MutableLiveData(DateUtils.getCurrentDay())
-
-    val eventsDispatcher = EventsDispatcher<EventListener>()
+    val selectedWeek = MutableStateFlow(DateUtils.getCurrentWeek())
+    val selectedDay = MutableStateFlow(DateUtils.getCurrentDay())
 
     val dayViewModelsList = List(DateUtils.WEEK_DAYS) {
-        get(PageDayViewModel::class.java) {
-            parametersOf(it, this)
-        }
+        PageDayViewModelDelegate(
+            parentViewModel = this,
+            coroutineScope = viewModelScope,
+            currentDay = it,
+            getLessonsUseCase = getLessonsUseCase
+        )
     }
 
     fun onCreateLessonButtonClick() {
-        eventsDispatcher.dispatchEvent {
-            with(NavigationConstants.LessonCreate) {
-                navigateToCreate(
-                    Bundle().apply {
-                        putInt(
-                            DAY,
-                            requireNotNull(selectedDayLiveData.value) { "day can't be null" }
-                        )
-                        putInt(
-                            WEEK_TYPE,
-                            requireNotNull(selectedWeekLiveData.value) { "week can't be null" }
-                        )
-                        putInt(OPEN_TYPE, CREATE)
-                    }
-                )
-            }
-        }
+        eventLiveData.dispatchEvent(
+            TimetableEvent.NavigateToCreateEvent(
+                Bundle().apply {
+                    putInt(LessonCreate.DAY, selectedDay.value)
+                    putInt(LessonCreate.WEEK_TYPE, selectedWeek.value)
+                    putInt(LessonCreate.OPEN_TYPE, LessonCreate.CREATE)
+                }
+            )
+        )
     }
 
     fun onEditLessonMenuClick(lessonId: Long) {
-        eventsDispatcher.dispatchEvent {
-            with(NavigationConstants.LessonCreate) {
-                navigateToCreate(
-                    Bundle().apply {
-                        putLong(LESSON_ID, lessonId)
-                        putInt(OPEN_TYPE, EDIT)
-                    }
-                )
-            }
-        }
+        eventLiveData.dispatchEvent(
+            TimetableEvent.NavigateToCreateEvent(
+                Bundle().apply {
+                    putLong(LessonCreate.LESSON_ID, lessonId)
+                    putInt(LessonCreate.OPEN_TYPE, LessonCreate.EDIT)
+                }
+            )
+        )
     }
 
     fun onCopyLessonMenuClick(lessonId: Long) {
-        eventsDispatcher.dispatchEvent {
-            with(NavigationConstants.LessonCreate) {
-                navigateToCreate(
-                    Bundle().apply {
-                        putLong(LESSON_ID, lessonId)
-                        putInt(OPEN_TYPE, COPY)
-                    }
-                )
-            }
-        }
+        eventLiveData.dispatchEvent(
+            TimetableEvent.NavigateToCreateEvent(
+                Bundle().apply {
+                    putLong(LessonCreate.LESSON_ID, lessonId)
+                    putInt(LessonCreate.OPEN_TYPE, LessonCreate.COPY)
+                }
+            )
+        )
     }
 
     fun onDeleteLessonMenuClick(lessonId: Long) {
-        eventsDispatcher.dispatchEvent { showDeleteDialog(lessonId) }
+        eventLiveData.dispatchEvent(TimetableEvent.ShowDeleteDialogEvent(lessonId))
     }
 
     fun onDeleteDialogOkButtonClick(lessonId: Long) {

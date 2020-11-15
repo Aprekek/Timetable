@@ -6,8 +6,9 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LifecycleOwner
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.koin.java.KoinJavaComponent.get
 import ru.fevgenson.timetable.libraries.core.R
 import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver
@@ -15,7 +16,7 @@ import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.MinutesBroa
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.ShowedTimeUtils
 
-@BindingAdapter("type", "teacher")
+//TODO: вынести это все в shared module
 fun TextView.setTypeAndTeacher(type: String?, teacher: String?) {
     when {
         type != null && teacher != null -> {
@@ -40,7 +41,6 @@ fun TextView.setTypeAndTeacher(type: String?, teacher: String?) {
     }
 }
 
-@BindingAdapter("housing", "classroom")
 fun TextView.setHousingAndClassroom(housing: String?, classroom: String?) {
     when {
         housing != null && classroom != null -> {
@@ -65,12 +65,6 @@ fun TextView.setHousingAndClassroom(housing: String?, classroom: String?) {
     }
 }
 
-@BindingAdapter(
-    "editMenuListener",
-    "copyMenuListener",
-    "deleteMenuListener",
-    requireAll = false
-)
 fun CardView.initPopUpMenu(
     editMenuListener: View.OnClickListener,
     copyMenuListener: View.OnClickListener,
@@ -92,47 +86,35 @@ fun CardView.initPopUpMenu(
     }
 }
 
-@BindingAdapter(
-    "currentWeek",
-    "currentDay",
-    "timeDiapason",
-    "lifecycleOwner"
-)
 fun ImageView.initCurrentLessonObserver(
-    currentWeek: Int,
-    currentDay: Int,
+    lessonWeek: Int,
+    lessonDay: Int,
     timeDiapason: String,
-    lifecycleOwner: LifecycleOwner
+    coroutineScope: CoroutineScope
 ) {
-    var itsToday = DateUtils.getCurrentDay() == currentDay &&
-            DateUtils.getCurrentWeek() == currentWeek
+    var itsToday = DateUtils.getCurrentDay() == lessonDay &&
+            DateUtils.getCurrentWeek() == lessonWeek
     setTimeState(itsToday, timeDiapason)
 
     val dateBroadcastReceiver = get(DateBroadcastReceiver::class.java)
-    dateBroadcastReceiver.callbacks.observe(lifecycleOwner) {
-        itsToday = it.day == currentDay && it.weekType == currentWeek
+    dateBroadcastReceiver.callbacksFlow.onEach {
+        itsToday = it.day == lessonDay && it.weekType == lessonWeek
         setTimeState(itsToday, timeDiapason)
-    }
+    }.launchIn(coroutineScope)
     val minutesBroadcastReceiver = get(MinutesBroadcastReceiver::class.java)
-    minutesBroadcastReceiver.callbacks.observe(lifecycleOwner) {
+    minutesBroadcastReceiver.callbacksFlow.onEach {
         setTimeState(itsToday, timeDiapason)
-    }
+    }.launchIn(coroutineScope)
 }
 
-@BindingAdapter(
-    "currentWeek",
-    "currentDay",
-    "timeDiapason",
-    "lifecycleOwner"
-)
 fun TextView.initTimeObserver(
-    currentWeek: Int,
-    currentDay: Int,
+    lessonWeek: Int,
+    lessonDay: Int,
     timeDiapason: String,
-    lifecycleOwner: LifecycleOwner
+    coroutineScope: CoroutineScope
 ) {
-    var itsToday = DateUtils.getCurrentDay() == currentDay &&
-            DateUtils.getCurrentWeek() == currentWeek
+    var itsToday = DateUtils.getCurrentDay() == lessonDay &&
+            DateUtils.getCurrentWeek() == lessonWeek
     var showedMinutesText = ShowedTimeUtils.getShowedMinutesText(
         lessonDiapason = timeDiapason,
         context = context
@@ -140,22 +122,22 @@ fun TextView.initTimeObserver(
     setTimeState(showedMinutesText, itsToday)
 
     val dateBroadcastReceiver = get(DateBroadcastReceiver::class.java)
-    dateBroadcastReceiver.callbacks.observe(lifecycleOwner) {
-        itsToday = it.day == currentDay && it.weekType == currentWeek
+    dateBroadcastReceiver.callbacksFlow.onEach {
+        itsToday = it.day == lessonDay && it.weekType == lessonWeek
         showedMinutesText = ShowedTimeUtils.getShowedMinutesText(
             lessonDiapason = timeDiapason,
             context = context
         )
         setTimeState(showedMinutesText, itsToday)
-    }
+    }.launchIn(coroutineScope)
     val minutesBroadcastReceiver = get(MinutesBroadcastReceiver::class.java)
-    minutesBroadcastReceiver.callbacks.observe(lifecycleOwner) {
+    minutesBroadcastReceiver.callbacksFlow.onEach {
         showedMinutesText = ShowedTimeUtils.getShowedMinutesText(
             lessonDiapason = timeDiapason,
             context = context
         )
         setTimeState(showedMinutesText, itsToday)
-    }
+    }.launchIn(coroutineScope)
 }
 
 private fun ImageView.setTimeState(
