@@ -5,14 +5,13 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
-@Deprecated("Используй event live data")
-class EventsDispatcher<T> : LifecycleObserver {
+class EventLiveData<T> : LifecycleObserver {
 
-    private var mainListener: T? = null
-    private var eventListener: T? = null
-    private val events = mutableListOf<T.() -> Unit>()
+    private var mainListener: ((T) -> Unit)? = null
+    private var eventListener: ((T) -> Unit)? = null
+    private val events = mutableListOf<T>()
 
-    fun observe(lifecycleOwner: LifecycleOwner, eventListener: T) {
+    fun observe(lifecycleOwner: LifecycleOwner, eventListener: (T) -> Unit) {
         mainListener = eventListener
         lifecycleOwner.lifecycle.addObserver(this)
     }
@@ -21,8 +20,8 @@ class EventsDispatcher<T> : LifecycleObserver {
     fun connectEventListener() {
         eventListener = mainListener
         eventListener?.let { listener ->
-            events.forEach {
-                it(listener)
+            events.forEach { event ->
+                listener(event)
             }
             events.clear()
         }
@@ -39,9 +38,7 @@ class EventsDispatcher<T> : LifecycleObserver {
         mainListener = null
     }
 
-    fun dispatchEvent(event: T.() -> Unit) {
-        eventListener?.let {
-            event(it)
-        } ?: events.add(event)
+    fun dispatchEvent(event: T) {
+        eventListener?.invoke(event) ?: events.add(event)
     }
 }
