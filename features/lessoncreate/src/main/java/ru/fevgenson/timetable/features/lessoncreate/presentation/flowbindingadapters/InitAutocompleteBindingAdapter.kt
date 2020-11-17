@@ -6,8 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import androidx.core.view.isVisible
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.coroutineScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -15,7 +14,10 @@ import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
 
 private const val MIN_THRESHOLD = 1
 
-fun AutoCompleteTextView.setupData(data: Flow<List<String>>, lifecycleOwner: LifecycleOwner) {
+fun AutoCompleteTextView.setupData(
+    data: Flow<List<String>>,
+    coroutineScope: CoroutineScope
+) {
     data.onEach { autocomplete ->
         val adapter = ArrayAdapter(
             context,
@@ -24,12 +26,12 @@ fun AutoCompleteTextView.setupData(data: Flow<List<String>>, lifecycleOwner: Lif
         )
         threshold = MIN_THRESHOLD
         setAdapter(adapter)
-    }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }.launchIn(coroutineScope)
 }
 
 fun AutoCompleteTextView.setupTeacherData(
     data: Flow<List<TeacherEntity>>,
-    lifecycleOwner: LifecycleOwner
+    coroutineScope: CoroutineScope
 ) {
     data.onEach { autocomplete ->
         val adapter = ArrayAdapter(
@@ -39,7 +41,7 @@ fun AutoCompleteTextView.setupTeacherData(
         )
         threshold = MIN_THRESHOLD
         setAdapter(adapter)
-    }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }.launchIn(coroutineScope)
 }
 
 fun AutoCompleteTextView.setupStartingSlots(slots: Int) {
@@ -54,8 +56,11 @@ fun AutoCompleteTextView.setupStartingSlots(slots: Int) {
     }
 }
 
-fun Button.setAutocompleteState(data: Flow<List<String>>, lifecycleOwner: LifecycleOwner) {
+fun Button.setAutocompleteState(
+    data: Flow<List<String>>,
+    coroutineScope: CoroutineScope
+) {
     data.onEach {
         isVisible = it.isNotEmpty()
-    }.launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }.launchIn(coroutineScope)
 }

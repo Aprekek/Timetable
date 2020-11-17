@@ -1,7 +1,9 @@
-package ru.fevgenson.timetable.features.timetable.presentation.recyclerview
+package ru.fevgenson.timetable.features.timetable.ui.recyclerview
 
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class LessonViewHolderPool : RecyclerView.RecycledViewPool() {
 
     init {

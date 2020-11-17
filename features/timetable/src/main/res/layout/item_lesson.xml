@@ -1,138 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="@dimen/radius_15"
+    app:contentPadding="@dimen/padding_15"
+    app:strokeColor="?attr/colorSecondary"
+    app:strokeWidth="1dp">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="ru.fevgenson.timetable.features.timetable.presentation.viewpager.PageDayViewModel" />
-
-        <variable
-            name="lesson"
-            type="ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson" />
-
-        <variable
-            name="lifecycle"
-            type="androidx.lifecycle.LifecycleOwner" />
-    </data>
-
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:cardCornerRadius="@dimen/radius_15"
-        app:contentPadding="@dimen/padding_15"
-        app:copyMenuListener="@{() -> viewModel.copyLesson(lesson.id)}"
-        app:deleteMenuListener="@{() -> viewModel.deleteLesson(lesson.id)}"
-        app:editMenuListener="@{() -> viewModel.editLesson(lesson.id)}"
-        app:strokeColor="?attr/colorSecondary"
-        app:strokeWidth="1dp">
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/subject"
+                style="@style/ApplicationTheme.Title1Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/icons_linear_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Математика" />
+
+            <LinearLayout
+                android:id="@+id/icons_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:contentDescription="@string/timetable_content_description_home_work"
+                    app:srcCompat="@drawable/ic_homework"
+                    app:tint="?attr/colorSecondary" />
+
+                <ImageView
+                    android:id="@+id/now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:contentDescription="@string/timetable_content_description_now"
+                    app:srcCompat="@drawable/ic_now_24" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/type_and_teacher"
+            style="@style/ApplicationTheme.Body1Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            tools:text="Лекция (Турцев)" />
+
+        <TextView
+            android:id="@+id/housing_and_classroom"
+            style="@style/ApplicationTheme.Body2Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            tools:text="Главный корпус, аудитория 22" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/colorSecondary"
+                app:cardCornerRadius="@dimen/radius_200"
+                app:contentPadding="@dimen/padding_10">
 
                 <TextView
-                    style="@style/ApplicationTheme.Title1Black"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{lesson.subject}"
-                    app:layout_constraintEnd_toStartOf="@id/icons_linear_layout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Математика" />
-
-                <LinearLayout
-                    android:id="@+id/icons_linear_layout"
+                    android:id="@+id/time"
+                    style="@style/ApplicationTheme.Body3White"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10"
-                        android:contentDescription="@string/timetable_content_description_home_work"
-                        app:srcCompat="@drawable/ic_homework"
-                        app:tint="?attr/colorSecondary" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10"
-                        android:contentDescription="@string/timetable_content_description_now"
-                        app:currentDay="@{lesson.day}"
-                        app:currentWeek="@{lesson.weekType}"
-                        app:lifecycleOwner="@{lifecycle}"
-                        app:srcCompat="@drawable/ic_now_24"
-                        app:timeDiapason="@{lesson.time}" />
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="wrap_content"
+                    tools:text="15:40-17:20" />
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
+                android:id="@+id/dynamic_time"
                 style="@style/ApplicationTheme.Body1Black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
-                app:teacher="@{lesson.teacher}"
-                app:type="@{lesson.type}"
-                tools:text="Лекция (Турцев)" />
-
-            <TextView
-                style="@style/ApplicationTheme.Body2Grey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
-                app:classroom="@{lesson.classroom}"
-                app:housing="@{lesson.housing}"
-                tools:text="Главный корпус, аудитория 22" />
-
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="?attr/colorSecondary"
-                    app:cardCornerRadius="@dimen/radius_200"
-                    app:contentPadding="@dimen/padding_10">
-
-                    <TextView
-                        style="@style/ApplicationTheme.Body3White"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{lesson.time}"
-                        tools:text="15:40-17:20" />
-                </com.google.android.material.card.MaterialCardView>
-
-                <TextView
-                    android:id="@+id/dynamic_time"
-                    style="@style/ApplicationTheme.Body1Black"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:gravity="end|bottom"
-                    app:currentDay="@{lesson.day}"
-                    app:currentWeek="@{lesson.weekType}"
-                    app:lifecycleOwner="@{lifecycle}"
-                    app:timeDiapason="@{lesson.time}"
-                    tools:text="До начала: 00:15" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_10"
+                android:gravity="end|bottom"
+                tools:text="До начала: 00:15" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-</layout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

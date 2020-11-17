@@ -37,7 +37,7 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -49,8 +49,6 @@ dependencies {
     implementation Dependencies.APP_COMPAT
     implementation Dependencies.SWIPE_REFRESH_LAYOUT
     implementation Dependencies.CONSTRAINT_LAYOUT
-
-    kapt Dependencies.DATABINDING
 
     implementation Dependencies.Koin.KOIN_CORE
     implementation Dependencies.Koin.KOIN_EXT
@@ -66,4 +64,5 @@ dependencies {
     implementation project(Modules.THEMES)
     implementation project(Modules.CORE)
     implementation project(Modules.DATABASE)
+    implementation project(Modules.FLOW_BINDING)
 }

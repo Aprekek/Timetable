@@ -5,6 +5,7 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.google.android.material.tabs.TabLayout
 
+@Deprecated("юзаяем flow")
 @BindingAdapter("selectedTab")
 fun TabLayout.setSelectedTab(selectedTab: Int) {
     getTabAt(selectedTab)?.let {
@@ -12,9 +13,11 @@ fun TabLayout.setSelectedTab(selectedTab: Int) {
     }
 }
 
+@Deprecated("юзаяем flow")
 @InverseBindingAdapter(attribute = "selectedTab", event = "selectedTabAttrChanged")
 fun TabLayout.getSelectedTab() = selectedTabPosition
 
+@Deprecated("юзаяем flow")
 @BindingAdapter("selectedTabAttrChanged", requireAll = false)
 fun TabLayout.listenSelectedTabChanging(inverseBindingListener: InverseBindingListener) {
     addOnTabSelectedListener(

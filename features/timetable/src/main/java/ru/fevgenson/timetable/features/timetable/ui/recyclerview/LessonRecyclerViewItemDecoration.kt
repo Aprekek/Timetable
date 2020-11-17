@@ -1,4 +1,4 @@
-package ru.fevgenson.timetable.features.timetable.presentation.recyclerview
+package ru.fevgenson.timetable.features.timetable.ui.recyclerview
 
 import android.graphics.Rect
 import android.view.View

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import androidx.databinding.BindingAdapter
 
+@Deprecated("юзаяем flow")
 @BindingAdapter("startingSlots")
 fun AutoCompleteTextView.setupStartingSlots(slots: String) {
     setOnTouchListener { view: View, motionEvent: MotionEvent ->

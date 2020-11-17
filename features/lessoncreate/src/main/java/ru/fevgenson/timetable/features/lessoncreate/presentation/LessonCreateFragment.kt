@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,6 +19,7 @@ import ru.fevgenson.timetable.features.lessoncreate.presentation.flowbindingadap
 import ru.fevgenson.timetable.features.lessoncreate.presentation.viewpager.LessonCreateVPAdapter
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.ListDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
+import ru.fevgenson.timetable.libraries.core.presentation.fragment.BaseFragment
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.flowbinding.pageBind
@@ -28,12 +28,11 @@ import ru.fevgenson.timetable.libraries.flowbinding.textResBind
 
 @ExperimentalCoroutinesApi
 class LessonCreateFragment :
-    Fragment(),
+    BaseFragment<FragmentLessonCreateBinding>(),
     LessonCreateViewModel.EventListener,
     NoticeDialogFragment.NoticeDialogListener<Int>,
     ListDialogFragment.ListDialogListener {
 
-    private lateinit var binding: FragmentLessonCreateBinding
     private val lessonCreateViewModel: LessonCreateViewModel by viewModel {
         with(requireArguments()) {
             with(NavigationConstants.LessonCreate) {
@@ -47,27 +46,29 @@ class LessonCreateFragment :
         }
     }
 
-    override fun onCreateView(
+    override fun getBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
+        container: ViewGroup?
+    ): FragmentLessonCreateBinding = FragmentLessonCreateBinding.inflate(inflater, container, false)
+
+    override fun onViewCreated(
+        view: View,
         savedInstanceState: Bundle?
-    ): View? {
-        initBinding(inflater, container)
+    ) {
+        super.onViewCreated(view, savedInstanceState)
+        initObservers()
         initViewPager()
         overrideSystemBackButton()
         initEventListener()
-
-        return binding.root
     }
 
-    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
-        binding = FragmentLessonCreateBinding.inflate(inflater, container, false)
+    private fun initObservers() {
         with(binding) {
             backButton.setOnClickListener {
                 lessonCreateViewModel.onBackButtonClick()
             }
-            toolbarTitle.textResBind(lessonCreateViewModel.toolbarTitle, viewLifecycleOwner)
-            viewPagerCreateLesson.pageBind(lessonCreateViewModel.currentPage, viewLifecycleOwner)
+            toolbarTitle.textResBind(lessonCreateViewModel.toolbarTitle, coroutineScope)
+            viewPagerCreateLesson.pageBind(lessonCreateViewModel.currentPage, coroutineScope)
             menuImageView.initMenu(R.menu.lesson_create_menu) {
                 lessonCreateViewModel.onClearItemClick()
             }
@@ -75,7 +76,7 @@ class LessonCreateFragment :
     }
 
     private fun initViewPager() {
-        val adapter = LessonCreateVPAdapter(lessonCreateViewModel, viewLifecycleOwner)
+        val adapter = LessonCreateVPAdapter(lessonCreateViewModel, coroutineScope)
         binding.viewPagerCreateLesson.offscreenPageLimit = adapter.itemCount
         binding.viewPagerCreateLesson.adapter = adapter
         binding.viewPagerCreateLesson.isUserInputEnabled = false

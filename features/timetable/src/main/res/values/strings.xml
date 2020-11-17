@@ -2,6 +2,7 @@
 <resources>
     <string name="timetable_content_description_today">Сегодня</string>
     <string name="timetable_content_description_now">Сейчас</string>
+    <string name="timetable_content_description_add">Добавить</string>
     <string name="timetable_content_description_home_work">Есть домашняя работа</string>
 
     <string name="timetable_empty">Свободный день</string>

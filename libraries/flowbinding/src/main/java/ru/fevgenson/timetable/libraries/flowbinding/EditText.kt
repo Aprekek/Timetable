@@ -2,8 +2,7 @@ package ru.fevgenson.timetable.libraries.flowbinding
 
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.coroutineScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
@@ -21,31 +20,31 @@ fun EditText.nullableTextToFlow(): Flow<String?> = callbackFlow {
     awaitClose { removeTextChangedListener(listener) }
 }
 
-fun EditText.textBind(flow: Flow<String>, lifecycleOwner: LifecycleOwner) {
+fun EditText.textBind(flow: Flow<String>, coroutineScope: CoroutineScope) {
     flow.filter { text?.toString() ?: "" != it }
         .onEach { setText(it) }
-        .launchIn(lifecycleOwner.lifecycle.coroutineScope)
+        .launchIn(coroutineScope)
 }
 
-fun EditText.nullableTextBind(flow: Flow<String?>, lifecycleOwner: LifecycleOwner) {
+fun EditText.nullableTextBind(flow: Flow<String?>, coroutineScope: CoroutineScope) {
     flow.filter { text?.toString() != it }
         .onEach { setText(it) }
-        .launchIn(lifecycleOwner.lifecycle.coroutineScope)
+        .launchIn(coroutineScope)
 }
 
 @ExperimentalCoroutinesApi
-fun EditText.textBind(flow: MutableStateFlow<String>, lifecycleOwner: LifecycleOwner) {
-    textBind(flow as Flow<String>, lifecycleOwner)
+fun EditText.textBind(flow: MutableStateFlow<String>, coroutineScope: CoroutineScope) {
+    textBind(flow as Flow<String>, coroutineScope)
     textToFlow().filter { it != flow.value }
         .onEach { flow.value = it }
-        .launchIn(lifecycleOwner.lifecycle.coroutineScope)
+        .launchIn(coroutineScope)
 }
 
 
 @ExperimentalCoroutinesApi
-fun EditText.nullableTextBind(flow: MutableStateFlow<String?>, lifecycleOwner: LifecycleOwner) {
-    nullableTextBind(flow as Flow<String?>, lifecycleOwner)
+fun EditText.nullableTextBind(flow: MutableStateFlow<String?>, coroutineScope: CoroutineScope) {
+    nullableTextBind(flow as Flow<String?>, coroutineScope)
     nullableTextToFlow().filter { it != flow.value }
         .onEach { flow.value = it }
-        .launchIn(lifecycleOwner.lifecycle.coroutineScope)
+        .launchIn(coroutineScope)
 }

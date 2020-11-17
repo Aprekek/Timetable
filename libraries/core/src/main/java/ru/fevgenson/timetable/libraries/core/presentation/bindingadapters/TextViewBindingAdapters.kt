@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
+@Deprecated("юзаяем flow")
 @BindingAdapter("textOrGone")
 fun TextView.setTextOrGone(text: String?) {
     this.text = text
