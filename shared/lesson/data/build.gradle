@@ -1,0 +1,67 @@
+import ru.fevgenson.timetable.Dependencies
+import ru.fevgenson.timetable.Modules
+import ru.fevgenson.timetable.Plugins
+
+apply plugin: Plugins.ANDROID_LIBRARY
+apply plugin: Plugins.KOTLIN_ANDROID
+apply plugin: Plugins.KOTLIN_KAPT
+
+android {
+    compileSdkVersion ru.fevgenson.timetable.Settings.COMPILE_SDK_VERSION
+    buildToolsVersion ru.fevgenson.timetable.Settings.BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion ru.fevgenson.timetable.Settings.MIN_SDK_VERSION
+        targetSdkVersion ru.fevgenson.timetable.Settings.TARGET_SDK_VERSION
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.incremental": "true"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = ru.fevgenson.timetable.Settings.JVM_TARGET
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
+
+    implementation Dependencies.Coroutine.COROUTINE_CORE
+
+    implementation Dependencies.Room.ROOM_RUNTIME
+    kapt Dependencies.Room.ROOM_COMPILER
+    implementation Dependencies.Room.ROOM_KTX
+
+    implementation Dependencies.Koin.KOIN_CORE
+    implementation Dependencies.Koin.KOIN_EXT
+
+    implementation project(Modules.SHARED_LESSON_DOMAIN)
+
+    testImplementation Dependencies.Test.JUNIT
+    androidTestImplementation Dependencies.Test.ANDROIDX_TEST_EXT
+    androidTestImplementation Dependencies.Test.ANDROIDX_CORE
+    androidTestImplementation Dependencies.Test.ANDROIDX_RUNNER
+    androidTestImplementation Dependencies.Test.ANDROIDX_RULES
+}
