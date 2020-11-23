@@ -14,4 +14,5 @@ public class Modules {
     public static final String CORE = ":libraries:core";
     public static final String DATABASE = ":libraries:database";
     public static final String FLOW_BINDING = ":libraries:flowbinding";
+    public static final String SHARED_LESSON_DOMAIN = ":shared:lesson:domain";
 }
