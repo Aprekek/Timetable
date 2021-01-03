@@ -16,4 +16,5 @@ public class Modules {
     public static final String FLOW_BINDING = ":libraries:flowbinding";
     public static final String SHARED_LESSON_DOMAIN = ":shared:lesson:domain";
     public static final String SHARED_LESSON_DATA = ":shared:lesson:data";
+    public static final String SHARED_TIME_UTILS_DOMAIN = ":shared:timeutils:domain";
 }
