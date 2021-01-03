@@ -1,6 +1,6 @@
 package ru.fevgenson.timetable.features.timetable.domain.entities
 
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entity.LessonEntity
 
 data class TimetableLesson(
     val id: Long = 0,
@@ -15,7 +15,7 @@ data class TimetableLesson(
     val position: Int
 )
 
-fun List<Lesson>.toTimetableLessons(): List<TimetableLesson> = mapIndexed { index, lesson ->
+fun List<LessonEntity>.toTimetableLessons(): List<TimetableLesson> = mapIndexed { index, lesson ->
     TimetableLesson(
         id = lesson.id,
         subject = lesson.subject,

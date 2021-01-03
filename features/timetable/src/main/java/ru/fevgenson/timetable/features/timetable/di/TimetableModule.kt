@@ -3,7 +3,6 @@ package ru.fevgenson.timetable.features.timetable.di
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.ui.TimetableFragment
@@ -14,14 +13,13 @@ private val viewModelModule = module {
     viewModel {
         TimetableViewModel(
             getLessonsUseCase = get(),
-            deleteLessonUseCase = get()
+            deleteLessonsUseCase = get()
         )
     }
 }
 
 private val useCaseModule = module {
     factory { GetLessonsUseCase(get()) }
-    factory { DeleteLessonUseCase(get()) }
 }
 
 @ExperimentalCoroutinesApi
