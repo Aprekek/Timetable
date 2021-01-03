@@ -17,10 +17,9 @@ private val viewModelModule = module {
             getSubjectsValuesUseCase = get(),
             getTimesValuesUseCase = get(),
             getTypesValuesUseCase = get(),
-            getTeachersUseCase = get(),
-            getLessonUseCase = get(),
-            saveLessonsUseCase = get(),
-            updateLessonUseCase = get()
+            getAllTeachersUseCase = get(),
+            getLessonByIdUseCase = get(),
+            saveLessonsUseCase = get()
         )
     }
 }
@@ -28,13 +27,9 @@ private val viewModelModule = module {
 private val useCaseModule = module {
     factory { GetClassroomsValuesUseCase(get()) }
     factory { GetHousingsValuesUseCase(get()) }
-    factory { GetLessonUseCase(get()) }
     factory { GetSubjectsValuesUseCase(get()) }
-    factory { GetTeachersUseCase(get()) }
     factory { GetTimesValuesUseCase(get()) }
     factory { GetTypesValuesUseCase(get()) }
-    factory { SaveLessonsUseCase(get()) }
-    factory { UpdateLessonUseCase(get()) }
 }
 
 val lessonCreateListModules = listOf(

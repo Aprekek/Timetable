@@ -10,8 +10,11 @@ import ru.fevgenson.timetable.features.lessoncreate.domain.usecase.*
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
-import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
-import ru.fevgenson.timetable.libraries.database.domain.entities.Lesson
+import ru.fevgenson.timetable.shared.lesson.domain.entity.LessonEntity
+import ru.fevgenson.timetable.shared.lesson.domain.entity.TeacherEntity
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetAllTeachersUseCase
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonByIdUseCase
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.SaveLessonsUseCase
 
 
 class LessonCreateViewModel(
@@ -24,10 +27,9 @@ class LessonCreateViewModel(
     private val getSubjectsValuesUseCase: GetSubjectsValuesUseCase,
     private val getTimesValuesUseCase: GetTimesValuesUseCase,
     private val getTypesValuesUseCase: GetTypesValuesUseCase,
-    private val getTeachersUseCase: GetTeachersUseCase,
-    private val getLessonUseCase: GetLessonUseCase,
-    private val saveLessonsUseCase: SaveLessonsUseCase,
-    private val updateLessonUseCase: UpdateLessonUseCase
+    private val getAllTeachersUseCase: GetAllTeachersUseCase,
+    private val getLessonByIdUseCase: GetLessonByIdUseCase,
+    private val saveLessonsUseCase: SaveLessonsUseCase
 ) : ViewModel() {
 
     interface EventListener {
@@ -71,7 +73,7 @@ class LessonCreateViewModel(
     val typeAutocomplete = flow { emit(getTypesValuesUseCase()) }
 
     val teachersName = MutableStateFlow<String?>(null)
-    val teacherAutocomplete = flow { emit(getTeachersUseCase()) }
+    val teacherAutocomplete = flow { emit(getAllTeachersUseCase()) }
 
     val email = MutableStateFlow<String?>(null).also { emailFlow ->
         teachersName.combine(teacherAutocomplete) { teachersName: String?, teacherAutocomplete: List<TeacherEntity> ->
@@ -170,7 +172,7 @@ class LessonCreateViewModel(
 
     private fun loadLesson() {
         viewModelScope.launch {
-            getLessonUseCase(id).let {
+            getLessonByIdUseCase(id).let {
                 subject.value = it.subject
                 housing.value = it.housing
                 classroom.value = it.classroom
@@ -194,7 +196,7 @@ class LessonCreateViewModel(
 
     private fun saveChanges() {
         viewModelScope.launch {
-            val lessons = mutableListOf<Lesson>()
+            val lessons = mutableListOf<LessonEntity>()
             firstWeekChips.value.forEachIndexed { day, checked ->
                 if (checked) {
                     lessons.add(createLesson(day, DateUtils.FIRST_WEEK))
@@ -205,18 +207,15 @@ class LessonCreateViewModel(
                     lessons.add(createLesson(day, DateUtils.SECOND_WEEK))
                 }
             }
-            when (openType) {
-                NavigationConstants.LessonCreate.EDIT -> updateLessonUseCase(
-                    lessons.map { it.apply { id = this@LessonCreateViewModel.id } }
-                )
-                NavigationConstants.LessonCreate.CREATE,
-                NavigationConstants.LessonCreate.COPY -> saveLessonsUseCase(lessons)
+            if (openType == NavigationConstants.LessonCreate.EDIT) {
+                lessons.first().id = id
             }
+            saveLessonsUseCase(*lessons.toTypedArray())
             close()
         }
     }
 
-    private fun createLesson(day: Int, weekType: Int) = Lesson(
+    private fun createLesson(day: Int, weekType: Int) = LessonEntity(
         subject = requireNotNull(subject.value) { "subject cant be null" },
         time = MyTimeUtils.convertEditTimesToDbTimes(timeStartString.value, timeEndString.value),
         day = day,
@@ -226,6 +225,7 @@ class LessonCreateViewModel(
         type = type.value?.takeIf { it.isNotBlank() }?.trim(),
         teacher = teachersName.value?.let { teacherName ->
             TeacherEntity(
+                id = id,
                 name = teacherName,
                 phone = phone.value?.takeIf { it.isNotBlank() },
                 email = email.value?.takeIf { it.isNotBlank() }?.trim()

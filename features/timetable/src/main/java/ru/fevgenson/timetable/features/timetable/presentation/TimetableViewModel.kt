@@ -7,14 +7,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ru.fevgenson.libraries.navigation.di.NavigationConstants.LessonCreate
-import ru.fevgenson.timetable.features.timetable.domain.usecase.DeleteLessonUseCase
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventLiveData
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.shared.lesson.domain.usecase.DeleteLessonsUseCase
 
 @ExperimentalCoroutinesApi
 class TimetableViewModel(
-    private val deleteLessonUseCase: DeleteLessonUseCase,
+    private val deleteLessonsUseCase: DeleteLessonsUseCase,
     getLessonsUseCase: GetLessonsUseCase
 ) : ViewModel() {
 
@@ -72,7 +72,7 @@ class TimetableViewModel(
 
     fun onDeleteDialogOkButtonClick(lessonId: Long) {
         viewModelScope.launch {
-            deleteLessonUseCase(lessonId)
+            deleteLessonsUseCase(lessonId)
         }
     }
 }
