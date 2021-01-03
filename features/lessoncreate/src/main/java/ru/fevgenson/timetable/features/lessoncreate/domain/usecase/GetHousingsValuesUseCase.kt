@@ -1,8 +1,8 @@
 package ru.fevgenson.timetable.features.lessoncreate.domain.usecase
 
-import ru.fevgenson.timetable.libraries.database.domain.repository.FieldsRepository
+import ru.fevgenson.timetable.shared.lesson.domain.repository.HousingRepository
 
-class GetHousingsValuesUseCase(private val repository: FieldsRepository) {
+class GetHousingsValuesUseCase(private val repository: HousingRepository) {
 
     suspend operator fun invoke(): List<String> = repository.getAllHousings().map { it.housing }
 }

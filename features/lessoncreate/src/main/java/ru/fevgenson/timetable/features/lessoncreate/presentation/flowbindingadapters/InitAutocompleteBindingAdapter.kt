@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import ru.fevgenson.timetable.libraries.database.data.tables.TeacherEntity
+import ru.fevgenson.timetable.shared.lesson.domain.entity.TeacherEntity
 
 private const val MIN_THRESHOLD = 1
 
