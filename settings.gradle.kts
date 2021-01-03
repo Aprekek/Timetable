@@ -31,3 +31,7 @@ include(
     ":shared:settings:domain",
     ":shared:settings:data"
 )
+
+include(
+    ":shared:notifications:domain"
+)

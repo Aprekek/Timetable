@@ -49,4 +49,6 @@ dependencies {
 
     implementation(project(Modules.Shared.Settings.DOMAIN))
     implementation(project(Modules.Shared.Settings.DATA))
+
+    implementation(project(Modules.Shared.Notifications.DOMAIN))
 }

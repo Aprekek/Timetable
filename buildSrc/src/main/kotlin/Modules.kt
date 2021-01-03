@@ -39,5 +39,10 @@ object Modules {
             const val DOMAIN = ":shared:settings:domain"
             const val DATA = ":shared:settings:data"
         }
+
+        object Notifications {
+
+            const val DOMAIN = ":shared:notifications:domain"
+        }
     }
 }
