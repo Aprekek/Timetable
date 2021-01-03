@@ -37,7 +37,7 @@ public class Dependencies {
         public static final String DATABINDING = "4.0.1";
 
         public static final String JUNIT = "4.12";
-        public static final String MOCKITO = "1.10.19";
+        public static final String MOCKK = "1.9.3";
         public static final String ANDROIDX_TEST_EXT = "1.1.1";
         public static final String ANDROIDX_TEST = "1.2.0";
     }
@@ -91,7 +91,7 @@ public class Dependencies {
 
     public static class Test {
         public static final String JUNIT = "junit:junit:" + Versions.JUNIT;
-        public static final String MOCKITO = "org.mockito:mockito-core:" + Versions.MOCKITO;
+        public static final String MOCKK = "io.mockk:mockk:" + Versions.MOCKK;
         public static final String ANDROIDX_TEST_EXT = "androidx.test.ext:junit:" + Versions.ANDROIDX_TEST_EXT;
         public static final String ANDROIDX_CORE = "androidx.test:core:" + Versions.ANDROIDX_TEST;
         public static final String ANDROIDX_RUNNER = "androidx.test:runner:" + Versions.ANDROIDX_TEST;
