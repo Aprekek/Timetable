@@ -1,4 +1,5 @@
 import ru.fevgenson.timetable.Dependencies
+import ru.fevgenson.timetable.Modules
 import ru.fevgenson.timetable.Plugins
 
 apply plugin: Plugins.ANDROID_LIBRARY
@@ -40,4 +41,10 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation Dependencies.Kotlin.KOTLIN_STANDARD_LIBRARY
+    implementation Dependencies.Coroutine.COROUTINE_CORE
+
+    implementation Dependencies.Koin.KOIN_CORE
+    implementation Dependencies.Koin.KOIN_EXT
+
+    implementation project(Modules.SHARED_TIME_UTILS_DOMAIN)
 }
