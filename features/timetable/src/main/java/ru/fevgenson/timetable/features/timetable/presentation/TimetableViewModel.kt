@@ -4,26 +4,54 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.fevgenson.libraries.navigation.di.NavigationConstants.LessonCreate
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventLiveData
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.shared.lesson.domain.usecase.DeleteLessonsUseCase
+import ru.fevgenson.timetable.shared.timeutils.domain.entity.WeekAndDayPair
+import ru.fevgenson.timetable.shared.timeutils.domain.scenario.GetWeekDatesScenario
+import ru.fevgenson.timetable.shared.timeutils.domain.usecase.GetCurrentDayUseCase
+import ru.fevgenson.timetable.shared.timeutils.domain.usecase.GetCurrentWeekTypeUseCase
 
 @ExperimentalCoroutinesApi
 class TimetableViewModel(
     private val deleteLessonsUseCase: DeleteLessonsUseCase,
-    getLessonsUseCase: GetLessonsUseCase
+    private val getWeekDatesScenario: GetWeekDatesScenario,
+    getCurrentWeekTypeUseCase: GetCurrentWeekTypeUseCase,
+    getCurrentDayUseCase: GetCurrentDayUseCase,
+    getLessonsUseCase: GetLessonsUseCase,
+    currentDayAndWeek: Flow<WeekAndDayPair>
 ) : ViewModel() {
+
+    companion object {
+
+        const val DAYS_IN_WEEK = 7
+    }
+
+    val currentDay = currentDayAndWeek.map { it.day }
+    val currentWeekType = currentDayAndWeek.map { it.weekType }
 
     val eventLiveData = EventLiveData<TimetableEvent>()
 
-    val selectedWeek = MutableStateFlow(DateUtils.getCurrentWeek())
-    val selectedDay = MutableStateFlow(DateUtils.getCurrentDay())
+    val selectedWeekType = MutableStateFlow(getCurrentWeekTypeUseCase())
+    val selectedDay = MutableStateFlow(getCurrentDayUseCase())
 
-    val dayViewModelsList = List(DateUtils.WEEK_DAYS) {
+    val selectedWeekTypeDates =
+        selectedWeekType.combine(currentWeekType) { selected: Int, _: Int ->
+            getWeekDatesScenario(selected)
+        }
+
+    val selectedWeekTypeIsCurrentWeekType =
+        selectedWeekType.combine(currentWeekType) { selected: Int, current: Int ->
+            selected == current
+        }
+
+    val dayViewModelsList = List(DAYS_IN_WEEK) {
         PageDayViewModelDelegate(
             parentViewModel = this,
             coroutineScope = viewModelScope,
@@ -37,7 +65,7 @@ class TimetableViewModel(
             TimetableEvent.NavigateToCreateEvent(
                 Bundle().apply {
                     putInt(LessonCreate.DAY, selectedDay.value)
-                    putInt(LessonCreate.WEEK_TYPE, selectedWeek.value)
+                    putInt(LessonCreate.WEEK_TYPE, selectedWeekType.value)
                     putInt(LessonCreate.OPEN_TYPE, LessonCreate.CREATE)
                 }
             )

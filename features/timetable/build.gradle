@@ -65,4 +65,6 @@ dependencies {
     implementation project(Modules.CORE)
     implementation project(Modules.FLOW_BINDING)
     implementation project(Modules.SHARED_LESSON_DOMAIN)
+    implementation project(Modules.SHARED_TIME_UTILS_DOMAIN)
+    implementation project(Modules.SHARED_TIME_UTILS_UI)
 }

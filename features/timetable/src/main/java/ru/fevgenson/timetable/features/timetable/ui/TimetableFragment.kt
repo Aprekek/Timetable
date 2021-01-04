@@ -13,17 +13,21 @@ import org.koin.androidx.scope.newScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.timetable.R
 import ru.fevgenson.timetable.features.timetable.databinding.FragmentTimetableBinding
-import ru.fevgenson.timetable.features.timetable.databinding.TabTimetableBinding
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableEvent
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
+import ru.fevgenson.timetable.features.timetable.ui.bindingadapters.setCurrentDayIcon
+import ru.fevgenson.timetable.features.timetable.ui.bindingadapters.setCurrentWeekIcon
+import ru.fevgenson.timetable.features.timetable.ui.bindingadapters.setDates
 import ru.fevgenson.timetable.features.timetable.ui.bindingadapters.setTabsColors
-import ru.fevgenson.timetable.features.timetable.ui.bindingadapters.updateDayTabs
+import ru.fevgenson.timetable.features.timetable.ui.tabs.binding
+import ru.fevgenson.timetable.features.timetable.ui.tabs.createTab
+import ru.fevgenson.timetable.features.timetable.ui.tabs.createTabFrom
 import ru.fevgenson.timetable.features.timetable.ui.viewpager.PageDayViewPagerAdapter
 import ru.fevgenson.timetable.libraries.core.presentation.colors.ColorUtils
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.fragment.BaseFragment
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.flowbinding.bind
+import ru.fevgenson.timetable.shared.timeutils.domain.constants.WeekTypes
 
 @ExperimentalCoroutinesApi
 class TimetableFragment : BaseFragment<FragmentTimetableBinding>(),
@@ -43,8 +47,7 @@ class TimetableFragment : BaseFragment<FragmentTimetableBinding>(),
     ) {
         super.onViewCreated(view, savedInstanceState)
         initViewPagerAdapter()
-        initWeekTabs()
-        initDayTab()
+        initTabs()
         initEventListener()
         observeViewModel()
     }
@@ -62,48 +65,36 @@ class TimetableFragment : BaseFragment<FragmentTimetableBinding>(),
         }
     }
 
-    private fun initWeekTabs() {
-        val tabTitles = resources.getStringArray(R.array.timetable_week_tabs)
-        val currentWeek = DateUtils.getCurrentWeek()
-        with(binding.weekTabLayout) {
-            setTabsColors(
-                selectedColor = ColorUtils.getColorFromAttribute(
-                    R.attr.colorPrimary,
-                    requireContext()
-                ),
-                normalColor = ColorUtils.getColorFromAttribute(
-                    R.attr.colorControlNormal,
-                    requireContext()
-                )
-            )
-            for (position in 0 until DateUtils.WEEK_TYPES) {
-                addTab(
-                    newTab().createTab(
-                        parent = this,
-                        text = tabTitles[position],
-                        showIcon = currentWeek == position
-                    )
-                )
-            }
+    private fun initTabs() {
+        addWeekTabs()
+        addDayTabs()
+        binding.weekTabLayout.initTabsColor()
+        binding.dayTabLayout.initTabsColor()
+    }
+
+    private fun addWeekTabs() {
+        val titles = resources.getStringArray(R.array.timetable_week_tabs)
+        for (position in 0 until WeekTypes.WEEK_TYPES_COUNT) {
+            val tab = binding.weekTabLayout.createTab()
+            tab.binding.nameTextView.text = titles[position]
+            tab.binding.dateTextView.isVisible = false
+            binding.weekTabLayout.addTab(tab)
         }
     }
 
-    private fun initDayTab() {
-        val tabsTitles = resources.getStringArray(R.array.timetable_day_tabs)
-        val tabsDates = DateUtils.getWeekDates(binding.weekTabLayout.selectedTabPosition)
-        val currentDay = DateUtils.getCurrentDay()
+    private fun addDayTabs() {
+        val titles = resources.getStringArray(R.array.timetable_day_tabs)
         TabLayoutMediator(
             binding.dayTabLayout,
             binding.dayViewPager
         ) { tab: TabLayout.Tab, position: Int ->
-            tab.createTab(
-                parent = binding.dayTabLayout,
-                text = tabsTitles[position],
-                date = tabsDates[position],
-                showIcon = position == currentDay
-            )
+            tab.createTabFrom(binding.dayTabLayout)
+            tab.binding.nameTextView.text = titles[position]
         }.attach()
-        binding.dayTabLayout.setTabsColors(
+    }
+
+    private fun TabLayout.initTabsColor() {
+        setTabsColors(
             selectedColor = ColorUtils.getColorFromAttribute(
                 R.attr.colorPrimary,
                 requireContext()
@@ -118,9 +109,17 @@ class TimetableFragment : BaseFragment<FragmentTimetableBinding>(),
     private fun observeViewModel() {
         with(binding) {
             addButton.setOnClickListener { viewModel.onCreateLessonButtonClick() }
-            weekTabLayout.bind(viewModel.selectedWeek, coroutineScope)
+            with(weekTabLayout) {
+                setCurrentWeekIcon(viewModel.currentWeekType, coroutineScope)
+                bind(viewModel.selectedWeekType, coroutineScope)
+            }
             with(dayTabLayout) {
-                updateDayTabs(viewModel.selectedWeek, coroutineScope)
+                setDates(viewModel.selectedWeekTypeDates, coroutineScope)
+                setCurrentDayIcon(
+                    isCurrentWeekFlow = viewModel.selectedWeekTypeIsCurrentWeekType,
+                    currentDayFlow = viewModel.currentDay,
+                    coroutineScope = coroutineScope
+                )
                 bind(viewModel.selectedDay, coroutineScope)
             }
         }
@@ -133,25 +132,6 @@ class TimetableFragment : BaseFragment<FragmentTimetableBinding>(),
                 is TimetableEvent.NavigateToCreateEvent -> navigateToCreate(event.bundle)
             }
         }
-    }
-
-    private fun TabLayout.Tab.createTab(
-        parent: ViewGroup,
-        text: String,
-        date: String? = null,
-        showIcon: Boolean
-    ): TabLayout.Tab = apply {
-        val tabBinding = TabTimetableBinding.inflate(
-            LayoutInflater.from(context),
-            parent,
-            false
-        )
-        with(tabBinding) {
-            nameTextView.text = text
-            dateTextView.text = date
-            icon.isVisible = showIcon
-        }
-        customView = tabBinding.root
     }
 
     private fun navigateToCreate(bundle: Bundle) {

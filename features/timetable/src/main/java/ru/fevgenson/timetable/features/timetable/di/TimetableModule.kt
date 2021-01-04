@@ -7,13 +7,18 @@ import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCas
 import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.ui.TimetableFragment
 import ru.fevgenson.timetable.features.timetable.ui.recyclerview.LessonViewHolderPool
+import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.DateBroadcastReceiver
 
 @ExperimentalCoroutinesApi
 private val viewModelModule = module {
     viewModel {
         TimetableViewModel(
             getLessonsUseCase = get(),
-            deleteLessonsUseCase = get()
+            deleteLessonsUseCase = get(),
+            getCurrentDayUseCase = get(),
+            getCurrentWeekTypeUseCase = get(),
+            getWeekDatesScenario = get(),
+            currentDayAndWeek = get<DateBroadcastReceiver>().callbacksFlow
         )
     }
 }

@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.fevgenson.timetable.features.timetable.presentation.PageDayViewModelDelegate
+import ru.fevgenson.timetable.features.timetable.presentation.TimetableViewModel
 import ru.fevgenson.timetable.features.timetable.ui.recyclerview.LessonViewHolderPool
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 @ExperimentalCoroutinesApi
 class PageDayViewPagerAdapter(
@@ -29,7 +29,7 @@ class PageDayViewPagerAdapter(
         viewModelDelegate = viewModelDelegates[viewType]
     )
 
-    override fun getItemCount(): Int = DateUtils.WEEK_DAYS
+    override fun getItemCount(): Int = TimetableViewModel.DAYS_IN_WEEK
 
     override fun getItemId(position: Int): Long = position.toLong()
 
