@@ -17,4 +17,5 @@ public class Modules {
     public static final String SHARED_LESSON_DOMAIN = ":shared:lesson:domain";
     public static final String SHARED_LESSON_DATA = ":shared:lesson:data";
     public static final String SHARED_TIME_UTILS_DOMAIN = ":shared:timeutils:domain";
+    public static final String SHARED_TIME_UTILS_UI = ":shared:timeutils:ui";
 }

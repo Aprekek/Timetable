@@ -84,4 +84,5 @@ dependencies {
     implementation project(Modules.SHARED_LESSON_DOMAIN)
     implementation project(Modules.SHARED_LESSON_DATA)
     implementation project(Modules.SHARED_TIME_UTILS_DOMAIN)
+    implementation project(Modules.SHARED_TIME_UTILS_UI)
 }
