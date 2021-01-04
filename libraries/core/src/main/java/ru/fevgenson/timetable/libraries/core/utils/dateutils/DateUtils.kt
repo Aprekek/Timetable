@@ -3,6 +3,7 @@ package ru.fevgenson.timetable.libraries.core.utils.dateutils
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Deprecated("Используйте утилиты из shared модуля")
 object DateUtils {
 
     const val FIRST_WEEK = 0

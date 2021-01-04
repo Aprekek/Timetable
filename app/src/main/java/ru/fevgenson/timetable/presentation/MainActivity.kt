@@ -4,13 +4,23 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import ru.fevgenson.timetable.R
 import ru.fevgenson.timetable.features.notifications.presentation.ForegroundNotificationService
-import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver
-import ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.MinutesBroadcastReceiver
 import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
+import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.DateBroadcastReceiver
+import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.MinutesBroadcastReceiver
 
+//TODO: переехать на новые утилиты для времени после выноса биндинг адаптеров в shared модули
 class MainActivity : AppCompatActivity() {
+
+    private val dateBroadcastReceiver: DateBroadcastReceiver by inject()
+    private val minutesBroadcastReceiver: MinutesBroadcastReceiver by inject()
+
+    private val oldDateBroadcastReceiver by
+    inject<ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver>()
+    private val oldMinutesBroadcastReceiver by
+    inject<ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.MinutesBroadcastReceiver>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         subscribeBroadcastReceivers()
@@ -37,8 +47,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribeBroadcastReceivers() {
-        val dateBroadcastReceiver: DateBroadcastReceiver = get()
-        val minutesBroadcastReceiver: MinutesBroadcastReceiver = get()
+        registerReceiver(
+            oldDateBroadcastReceiver,
+            DateBroadcastReceiver.dateBroadcastReceiverIntentFilter
+        )
+        registerReceiver(
+            oldMinutesBroadcastReceiver,
+            MinutesBroadcastReceiver.minutesBroadcastReceiverIntentFilter
+        )
         registerReceiver(
             dateBroadcastReceiver,
             DateBroadcastReceiver.dateBroadcastReceiverIntentFilter
@@ -50,8 +66,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun unsubscribeBroadcastReceivers() {
-        val dateBroadcastReceiver: DateBroadcastReceiver = get()
-        val minutesBroadcastReceiver: MinutesBroadcastReceiver = get()
+        unregisterReceiver(oldDateBroadcastReceiver)
+        unregisterReceiver(oldMinutesBroadcastReceiver)
         unregisterReceiver(dateBroadcastReceiver)
         unregisterReceiver(minutesBroadcastReceiver)
     }

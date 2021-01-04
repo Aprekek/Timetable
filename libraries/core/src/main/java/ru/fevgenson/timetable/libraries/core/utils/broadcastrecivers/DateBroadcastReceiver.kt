@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 
 //init в MainActivity
+@Deprecated("Используйте утилиты из shared модуля")
 class DateBroadcastReceiver : BroadcastReceiver() {
 
     companion object {

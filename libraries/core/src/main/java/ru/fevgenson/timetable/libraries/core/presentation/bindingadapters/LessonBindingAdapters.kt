@@ -17,6 +17,7 @@ import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
 import ru.fevgenson.timetable.libraries.core.utils.dateutils.ShowedTimeUtils
 
 //TODO: вынести это все в shared module
+//TODO: после выноса переехать на новые утилиты для времени
 fun TextView.setTypeAndTeacher(type: String?, teacher: String?) {
     when {
         type != null && teacher != null -> {
