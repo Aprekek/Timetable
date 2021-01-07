@@ -10,10 +10,10 @@ import ru.fevgenson.timetable.features.lessoncreate.presentation.LessonCreateVie
 import ru.fevgenson.timetable.features.lessoncreate.presentation.flowbindingadapters.bindChips
 import ru.fevgenson.timetable.features.lessoncreate.presentation.flowbindingadapters.setAutocompleteState
 import ru.fevgenson.timetable.features.lessoncreate.presentation.flowbindingadapters.setupData
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.flowbinding.nullableTextBind
 import ru.fevgenson.timetable.libraries.flowbinding.showError
 import ru.fevgenson.timetable.libraries.flowbinding.textBind
+import ru.fevgenson.timetable.shared.timeutils.domain.formatter.TimeFormatter
 
 class VHMainPage private constructor(binding: PageMainBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -47,13 +47,13 @@ class VHMainPage private constructor(binding: PageMainBinding) :
                 }
                 with(buttonTimeStart) {
                     setOnClickListener {
-                        viewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.START)
+                        viewModel.onTimeSetButtonClick(TimeFormatter.TimeBorders.START)
                     }
                     textBind(viewModel.timeStartString, coroutineScope)
                 }
                 with(buttonTimeEnd) {
                     setOnClickListener {
-                        viewModel.onTimeSetButtonClick(MyTimeUtils.TimeBorders.END)
+                        viewModel.onTimeSetButtonClick(TimeFormatter.TimeBorders.END)
                     }
                     textBind(viewModel.timeEndString, coroutineScope)
                 }

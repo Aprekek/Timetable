@@ -3,6 +3,7 @@ package ru.fevgenson.timetable.libraries.core.utils.dateutils
 import android.content.Context
 import ru.fevgenson.timetable.libraries.core.R
 
+@Deprecated("Используйте утилиты из shared модуля")
 object ShowedTimeUtils {
 
     fun getShowedMinutesText(

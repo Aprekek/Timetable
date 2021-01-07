@@ -8,13 +8,14 @@ import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.lessoncreate.R
 import ru.fevgenson.timetable.features.lessoncreate.domain.usecase.*
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 import ru.fevgenson.timetable.shared.lesson.domain.entity.LessonEntity
 import ru.fevgenson.timetable.shared.lesson.domain.entity.TeacherEntity
 import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetAllTeachersUseCase
 import ru.fevgenson.timetable.shared.lesson.domain.usecase.GetLessonByIdUseCase
 import ru.fevgenson.timetable.shared.lesson.domain.usecase.SaveLessonsUseCase
+import ru.fevgenson.timetable.shared.timeutils.domain.constants.WeekTypes
+import ru.fevgenson.timetable.shared.timeutils.domain.formatter.TimeFormatter
+import ru.fevgenson.timetable.shared.timeutils.domain.usecase.GetCurrentTimeUseCase
 
 
 class LessonCreateViewModel(
@@ -29,13 +30,20 @@ class LessonCreateViewModel(
     private val getTypesValuesUseCase: GetTypesValuesUseCase,
     private val getAllTeachersUseCase: GetAllTeachersUseCase,
     private val getLessonByIdUseCase: GetLessonByIdUseCase,
-    private val saveLessonsUseCase: SaveLessonsUseCase
+    private val saveLessonsUseCase: SaveLessonsUseCase,
+    private val getCurrentTimeUseCase: GetCurrentTimeUseCase,
+    private val timeFormatter: TimeFormatter
 ) : ViewModel() {
 
     interface EventListener {
         fun navigateToTimetable()
         fun closeKeyboard()
-        fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders)
+        fun requestTime(
+            timeBorder: TimeFormatter.TimeBorders,
+            hoursOnStart: Int,
+            minOnStart: Int
+        )
+
         fun showPopupMessage(message: Int)
         fun showDialog(title: Int, description: Int, action: Int)
         fun showDialog(title: Int, content: List<String>)
@@ -55,6 +63,8 @@ class LessonCreateViewModel(
         const val ACTION_CANCEL = 1
 
         private const val TIME_NOT_SET_STRING = "-- : --"
+
+        private const val DAYS_IN_WEEK = 7
     }
 
     val subject = MutableStateFlow<String?>(null)
@@ -95,8 +105,8 @@ class LessonCreateViewModel(
         }.launchIn(viewModelScope)
     }
 
-    val timeStartMinutes = MutableStateFlow<Int?>(null)
-    val timeEndMinutes = MutableStateFlow<Int?>(null)
+    private val timeStartMinutes = MutableStateFlow<Int?>(null)
+    private val timeEndMinutes = MutableStateFlow<Int?>(null)
 
     val timeStartString = timeStartMinutes.map {
         convertTimeToString(it)
@@ -125,16 +135,16 @@ class LessonCreateViewModel(
     }
 
     val firstWeekChips = MutableStateFlow<List<Boolean>>(
-        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
-            if (weekType == DateUtils.FIRST_WEEK) {
+        MutableList(DAYS_IN_WEEK) { false }.apply {
+            if (weekType == WeekTypes.FIRST_WEEK) {
                 set(day, true)
             }
         }
     )
 
     val secondWeekChips = MutableStateFlow<List<Boolean>>(
-        MutableList(DateUtils.WEEK_DAYS) { false }.apply {
-            if (weekType == DateUtils.SECOND_WEEK) {
+        MutableList(DAYS_IN_WEEK) { false }.apply {
+            if (weekType == WeekTypes.SECOND_WEEK) {
                 set(day, true)
             }
         }
@@ -181,13 +191,13 @@ class LessonCreateViewModel(
                 email.value = it.teacher?.email
                 phone.value = it.teacher?.phone
                 timeStartMinutes.value =
-                    MyTimeUtils.convertDbTimeToMinutes(it.time, MyTimeUtils.TimeBorders.START)
+                    timeFormatter.getMinutes(it.time, TimeFormatter.TimeBorders.START)
                 timeEndMinutes.value =
-                    MyTimeUtils.convertDbTimeToMinutes(it.time, MyTimeUtils.TimeBorders.END)
+                    timeFormatter.getMinutes(it.time, TimeFormatter.TimeBorders.END)
                 when (it.weekType) {
-                    DateUtils.FIRST_WEEK -> firstWeekChips.value =
+                    WeekTypes.FIRST_WEEK -> firstWeekChips.value =
                         firstWeekChips.value.toMutableList().apply { set(it.day, true) }
-                    DateUtils.SECOND_WEEK -> secondWeekChips.value =
+                    WeekTypes.SECOND_WEEK -> secondWeekChips.value =
                         secondWeekChips.value.toMutableList().apply { set(it.day, true) }
                 }
             }
@@ -199,12 +209,12 @@ class LessonCreateViewModel(
             val lessons = mutableListOf<LessonEntity>()
             firstWeekChips.value.forEachIndexed { day, checked ->
                 if (checked) {
-                    lessons.add(createLesson(day, DateUtils.FIRST_WEEK))
+                    lessons.add(createLesson(day, WeekTypes.FIRST_WEEK))
                 }
             }
             secondWeekChips.value.forEachIndexed { day, checked ->
                 if (checked) {
-                    lessons.add(createLesson(day, DateUtils.SECOND_WEEK))
+                    lessons.add(createLesson(day, WeekTypes.SECOND_WEEK))
                 }
             }
             if (openType == NavigationConstants.LessonCreate.EDIT) {
@@ -217,7 +227,7 @@ class LessonCreateViewModel(
 
     private fun createLesson(day: Int, weekType: Int) = LessonEntity(
         subject = requireNotNull(subject.value) { "subject cant be null" },
-        time = MyTimeUtils.convertEditTimesToDbTimes(timeStartString.value, timeEndString.value),
+        time = timeFormatter.format(timeStartString.value, timeEndString.value),
         day = day,
         weekType = weekType,
         housing = housing.value?.takeIf { it.isNotBlank() }?.trim(),
@@ -251,15 +261,26 @@ class LessonCreateViewModel(
         }
     }
 
-    fun onTimeSetButtonClick(timeBound: MyTimeUtils.TimeBorders) {
-        eventsDispatcher.dispatchEvent { setTimeAndInvokeTimePicker(timeBound) }
+    fun onTimeSetButtonClick(timeBound: TimeFormatter.TimeBorders) {
+        val minutes = if (timeBound == TimeFormatter.TimeBorders.START) {
+            timeStartMinutes.value
+        } else {
+            timeEndMinutes.value
+        } ?: getCurrentTimeUseCase()
+        eventsDispatcher.dispatchEvent {
+            requestTime(
+                timeBorder = timeBound,
+                hoursOnStart = timeFormatter.getHours(minutes),
+                minOnStart = timeFormatter.getMinutesWithoutHours(minutes)
+            )
+        }
     }
 
-    fun onDoneTimePickerSetTime(hours: Int, min: Int, timeBound: MyTimeUtils.TimeBorders) {
-        if (timeBound == MyTimeUtils.TimeBorders.START) {
-            timeStartMinutes.value = hours * MyTimeUtils.MINUTES_IN_HOUR + min
+    fun onDoneTimePickerSetTime(hours: Int, min: Int, timeBound: TimeFormatter.TimeBorders) {
+        if (timeBound == TimeFormatter.TimeBorders.START) {
+            timeStartMinutes.value = timeFormatter.getMinutes(hours, min)
         } else {
-            timeEndMinutes.value = hours * MyTimeUtils.MINUTES_IN_HOUR + min
+            timeEndMinutes.value = timeFormatter.getMinutes(hours, min)
         }
     }
 
@@ -278,8 +299,8 @@ class LessonCreateViewModel(
                 subject.value = ""
                 timeStartMinutes.value = null
                 timeEndMinutes.value = null
-                firstWeekChips.value = List(DateUtils.WEEK_DAYS) { false }
-                secondWeekChips.value = List(DateUtils.WEEK_DAYS) { false }
+                firstWeekChips.value = List(DAYS_IN_WEEK) { false }
+                secondWeekChips.value = List(DAYS_IN_WEEK) { false }
             }
             LOCATION_AND_TYPE_PAGE -> {
                 housing.value = null
@@ -345,17 +366,14 @@ class LessonCreateViewModel(
     }
 
     fun onDialogResult(time: String) {
-        timeStartMinutes.value =
-            MyTimeUtils.convertDbTimeToMinutes(time, MyTimeUtils.TimeBorders.START)
-        timeEndMinutes.value =
-            MyTimeUtils.convertDbTimeToMinutes(time, MyTimeUtils.TimeBorders.END)
+        timeStartMinutes.value = timeFormatter.getMinutes(time, TimeFormatter.TimeBorders.START)
+        timeEndMinutes.value = timeFormatter.getMinutes(time, TimeFormatter.TimeBorders.END)
     }
 
     private fun isDataValid() = subjectError.value == null &&
             timeStartMinutes.value != null &&
             (firstWeekChips.value.find { it } != null || secondWeekChips.value.find { it } != null)
 
-    private fun convertTimeToString(time: Int?): String = time?.let {
-        MyTimeUtils.convertTimeInMinutesToString(it)
-    } ?: TIME_NOT_SET_STRING
+    private fun convertTimeToString(time: Int?): String =
+        time?.let(timeFormatter::format) ?: TIME_NOT_SET_STRING
 }

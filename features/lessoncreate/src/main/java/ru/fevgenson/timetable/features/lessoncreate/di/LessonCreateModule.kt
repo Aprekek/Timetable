@@ -19,7 +19,9 @@ private val viewModelModule = module {
             getTypesValuesUseCase = get(),
             getAllTeachersUseCase = get(),
             getLessonByIdUseCase = get(),
-            saveLessonsUseCase = get()
+            saveLessonsUseCase = get(),
+            getCurrentTimeUseCase = get(),
+            timeFormatter = get()
         )
     }
 }

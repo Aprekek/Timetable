@@ -4,31 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import ru.fevgenson.libraries.navigation.di.KeepStateNavigator
 import ru.fevgenson.libraries.navigation.di.setupWithKeepStateNavController
 import ru.fevgenson.timetable.features.main.R
 import ru.fevgenson.timetable.features.main.databinding.FragmentMainBinding
+import ru.fevgenson.timetable.libraries.core.presentation.fragment.BaseFragment
 
-class MainFragment : Fragment() {
-
-    private lateinit var binding: FragmentMainBinding
+class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private var navigationInit = false
     private lateinit var navController: NavController
     private lateinit var navigator: KeepStateNavigator
 
-    override fun onCreateView(
+    override fun getBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ): FragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -21,9 +21,9 @@ import ru.fevgenson.timetable.libraries.core.presentation.dialogs.ListDialogFrag
 import ru.fevgenson.timetable.libraries.core.presentation.dialogs.NoticeDialogFragment
 import ru.fevgenson.timetable.libraries.core.presentation.fragment.BaseFragment
 import ru.fevgenson.timetable.libraries.core.presentation.utils.keyboardutils.closeKeyboard
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.MyTimeUtils
 import ru.fevgenson.timetable.libraries.flowbinding.pageBind
 import ru.fevgenson.timetable.libraries.flowbinding.textResBind
+import ru.fevgenson.timetable.shared.timeutils.domain.formatter.TimeFormatter
 
 
 @ExperimentalCoroutinesApi
@@ -96,36 +96,13 @@ class LessonCreateFragment :
         closeKeyboard(binding.root)
     }
 
-    override fun setTimeAndInvokeTimePicker(timeBorder: MyTimeUtils.TimeBorders) {
-        val minutesInHour = MyTimeUtils.MINUTES_IN_HOUR
-        val defaultTimeInMinutes = MyTimeUtils.DEFAULT_TIME
-
-        if (timeBorder == MyTimeUtils.TimeBorders.START) {
-            invokeTimePickerDialog(
-                lessonCreateViewModel.timeStartMinutes.value?.div(minutesInHour)
-                    ?: defaultTimeInMinutes,
-                lessonCreateViewModel.timeStartMinutes.value?.rem(minutesInHour)
-                    ?: defaultTimeInMinutes,
-                timeBorder
-            )
-        } else {
-            invokeTimePickerDialog(
-                lessonCreateViewModel.timeEndMinutes.value?.div(minutesInHour)
-                    ?: defaultTimeInMinutes,
-                lessonCreateViewModel.timeEndMinutes.value?.rem(minutesInHour)
-                    ?: defaultTimeInMinutes,
-                timeBorder
-            )
-        }
-    }
-
-    private fun invokeTimePickerDialog(
+    override fun requestTime(
+        timeBorder: TimeFormatter.TimeBorders,
         hoursOnStart: Int,
-        minOnStart: Int,
-        timeBorder: MyTimeUtils.TimeBorders
+        minOnStart: Int
     ) {
-        val listener = TimePickerDialog.OnTimeSetListener { _: TimePicker, ours: Int, min: Int ->
-            lessonCreateViewModel.onDoneTimePickerSetTime(ours, min, timeBorder)
+        val listener = TimePickerDialog.OnTimeSetListener { _: TimePicker, hours: Int, min: Int ->
+            lessonCreateViewModel.onDoneTimePickerSetTime(hours, min, timeBorder)
         }
 
         TimePickerDialog(requireContext(), listener, hoursOnStart, minOnStart, true).show()

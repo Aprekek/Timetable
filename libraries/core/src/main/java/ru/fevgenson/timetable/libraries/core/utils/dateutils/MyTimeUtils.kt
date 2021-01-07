@@ -2,6 +2,7 @@ package ru.fevgenson.timetable.libraries.core.utils.dateutils
 
 import java.util.*
 
+@Deprecated("Используйте утилиты из shared модуля")
 object MyTimeUtils {
     enum class TimeBorders {
         START, END

@@ -5,7 +5,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import ru.fevgenson.timetable.features.timetable.domain.entities.TimetableLesson
 import ru.fevgenson.timetable.features.timetable.domain.usecase.GetLessonsUseCase
-import ru.fevgenson.timetable.libraries.core.utils.dateutils.DateUtils
+import ru.fevgenson.timetable.shared.timeutils.domain.constants.WeekTypes
 
 @ExperimentalCoroutinesApi
 class PageDayViewModelDelegate(
@@ -16,32 +16,32 @@ class PageDayViewModelDelegate(
 ) {
 
     private val firstWeekLessons = getLessonsUseCase(
-        weekType = DateUtils.FIRST_WEEK,
+        weekType = WeekTypes.FIRST_WEEK,
         day = currentDay
     ).stateIn(coroutineScope, SharingStarted.Lazily, null)
 
     private val secondWeekLessons = getLessonsUseCase(
-        weekType = DateUtils.SECOND_WEEK,
+        weekType = WeekTypes.SECOND_WEEK,
         day = currentDay
     ).stateIn(coroutineScope, SharingStarted.Lazily, null)
 
     val lessons = MutableStateFlow<List<TimetableLesson>?>(null).apply {
         firstWeekLessons
             .filter { it != null }
-            .filter { parentViewModel.selectedWeek.value == DateUtils.FIRST_WEEK }
+            .filter { parentViewModel.selectedWeekType.value == WeekTypes.FIRST_WEEK }
             .onEach { value = it }
             .launchIn(coroutineScope)
 
         secondWeekLessons
             .filter { it != null }
-            .filter { parentViewModel.selectedWeek.value == DateUtils.SECOND_WEEK }
+            .filter { parentViewModel.selectedWeekType.value == WeekTypes.SECOND_WEEK }
             .onEach { value = it }
             .launchIn(coroutineScope)
 
-        parentViewModel.selectedWeek.onEach {
+        parentViewModel.selectedWeekType.onEach {
             value = when (it) {
-                DateUtils.FIRST_WEEK -> firstWeekLessons.value
-                DateUtils.SECOND_WEEK -> secondWeekLessons.value
+                WeekTypes.FIRST_WEEK -> firstWeekLessons.value
+                WeekTypes.SECOND_WEEK -> secondWeekLessons.value
                 else -> throw IllegalArgumentException()
             }
         }.launchIn(coroutineScope)
