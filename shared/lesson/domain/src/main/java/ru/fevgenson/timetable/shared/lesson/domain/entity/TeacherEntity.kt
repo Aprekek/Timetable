@@ -5,4 +5,7 @@ data class TeacherEntity(
     val name: String,
     val phone: String?,
     val email: String?
-)
+) : CategoryEntity {
+
+    override fun toSubcategoryEntity(): SubcategoryEntity = SubcategoryEntity(id, name)
+}
