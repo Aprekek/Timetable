@@ -13,6 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.libraries.navigation.di.NavigationConstants
 import ru.fevgenson.timetable.features.dictionary.R
 import ru.fevgenson.timetable.features.dictionary.databinding.FragmentDictionaryBinding
+import ru.fevgenson.timetable.features.dictionary.domain.Categories
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.CategoriesViewPagerAdapter
 
 class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
@@ -25,7 +26,7 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         initBinding(inflater, container)
         initResources()
         initViewPager2()
@@ -65,11 +66,14 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
         dictionaryViewModel.eventsDispatcher.observe(viewLifecycleOwner, this)
     }
 
-    override fun goToListOfLessonsByCategoryFragment(categoryType: Int, categoryItem: String) {
+    override fun goToListOfLessonsByCategoryFragment(
+        categoryType: Categories.CategoryTypes,
+        categoryItem: String
+    ) {
         val arguments = Bundle().apply {
             with(NavigationConstants.ListLessonsByCategory) {
-                putInt(CATEGORY, categoryType)
-                putString(CATEGORY_NAME, tabCategories[categoryType])
+                putInt(CATEGORY, categoryType.value)
+                putString(CATEGORY_NAME, tabCategories[categoryType.value])
                 putString(CATEGORY_ITEM_NAME, categoryItem)
             }
         }

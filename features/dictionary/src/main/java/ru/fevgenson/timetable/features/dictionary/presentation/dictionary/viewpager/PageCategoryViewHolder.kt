@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.databinding.PageCategoryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.recyclerview.CategoryItemAdapter
+import ru.fevgenson.timetable.shared.lesson.domain.entity.SubcategoryEntity
 
 class PageCategoryViewHolder private constructor(
     private val binding: PageCategoryBinding,
@@ -16,7 +17,7 @@ class PageCategoryViewHolder private constructor(
     private lateinit var pageCategoryViewModel: PageCategoryViewModel
     private lateinit var categoryItemAdapter: CategoryItemAdapter
     private var isAdapterInit: Boolean = false
-    private val onListChangeObserver = Observer<List<String>> {
+    private val onListChangeObserver = Observer<List<SubcategoryEntity>> {
         categoryItemAdapter.submitList(it)
     }
 

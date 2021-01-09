@@ -32,4 +32,5 @@ dependencies {
     implementation(project(Modules.Libraries.NAVIGATION))
     implementation(project(Modules.Libraries.THEMES))
     implementation(project(Modules.Libraries.CORE))
+    implementation(project(Modules.Shared.Lesson.DOMAIN))
 }
