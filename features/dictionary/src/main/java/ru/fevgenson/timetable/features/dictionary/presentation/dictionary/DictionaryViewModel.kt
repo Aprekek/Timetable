@@ -12,19 +12,20 @@ class DictionaryViewModel : ViewModel() {
     interface EventListener {
 
         fun goToListOfLessonsByCategoryFragment(
-            categoryType: Int,
+            categoryType: Categories.CategoryTypes,
             categoryItem: String
         )
     }
 
     val eventsDispatcher = EventsDispatcher<EventListener>()
+
     val listOfPageCategoryViewModel = List(Categories.TOTAL_CATEGORIES) { categoryType ->
         get(PageCategoryViewModel::class.java) {
-            parametersOf(categoryType, this)
+            parametersOf(Categories.CategoryTypes.values()[categoryType], this)
         }
     }
 
-    fun onCategoryItemClick(categoryType: Int, categoryItem: String) {
+    fun onCategoryItemClick(categoryType: Categories.CategoryTypes, categoryItem: String) {
         eventsDispatcher.dispatchEvent {
             goToListOfLessonsByCategoryFragment(
                 categoryType,
