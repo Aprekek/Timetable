@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryViewModel" />
+            type="ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryDelegate" />
     </data>
 
     <FrameLayout

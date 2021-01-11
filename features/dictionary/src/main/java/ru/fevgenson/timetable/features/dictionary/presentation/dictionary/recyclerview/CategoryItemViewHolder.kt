@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.fevgenson.timetable.features.dictionary.databinding.CategoryItemBinding
-import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryViewModel
+import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryDelegate
 import ru.fevgenson.timetable.shared.lesson.domain.entity.SubcategoryEntity
 
 class CategoryItemViewHolder(
@@ -19,8 +19,8 @@ class CategoryItemViewHolder(
         }
     }
 
-    fun bind(categoryItemName: SubcategoryEntity, pageCategoryViewModel: PageCategoryViewModel) {
+    fun bind(categoryItemName: SubcategoryEntity, pageCategoryDelegate: PageCategoryDelegate) {
         binding.text = categoryItemName.description
-        binding.pageCategoryViewModel = pageCategoryViewModel
+        binding.pageCategoryViewModel = pageCategoryDelegate
     }
 }

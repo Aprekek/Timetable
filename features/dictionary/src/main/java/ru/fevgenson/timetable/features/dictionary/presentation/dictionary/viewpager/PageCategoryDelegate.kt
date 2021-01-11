@@ -1,17 +1,16 @@
 package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager
 
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import ru.fevgenson.timetable.features.dictionary.domain.Categories
 import ru.fevgenson.timetable.features.dictionary.domain.scenario.GetListOfSubcategoriesScenario
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.DictionaryViewModel
 
-class PageCategoryViewModel(
+class PageCategoryDelegate(
     getListOfSubcategoriesScenario: GetListOfSubcategoriesScenario,
     val categoryType: Categories.CategoryTypes,
     private val parentViewModel: DictionaryViewModel
-) : ViewModel() {
+) {
 
     val listCategoryItemsLiveData =
         getListOfSubcategoriesScenario(categoryType).asLiveData()

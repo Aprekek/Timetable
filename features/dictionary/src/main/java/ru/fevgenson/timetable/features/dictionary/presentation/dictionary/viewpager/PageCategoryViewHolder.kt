@@ -14,7 +14,7 @@ class PageCategoryViewHolder private constructor(
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var pageCategoryViewModel: PageCategoryViewModel
+    private lateinit var pageCategoryDelegate: PageCategoryDelegate
     private lateinit var categoryItemAdapter: CategoryItemAdapter
     private var isAdapterInit: Boolean = false
     private val onListChangeObserver = Observer<List<SubcategoryEntity>> {
@@ -34,9 +34,9 @@ class PageCategoryViewHolder private constructor(
         }
     }
 
-    fun bind(pageCategoryViewModel: PageCategoryViewModel) {
-        this.pageCategoryViewModel = pageCategoryViewModel
-        binding.viewModel = pageCategoryViewModel
+    fun bind(pageCategoryDelegate: PageCategoryDelegate) {
+        this.pageCategoryDelegate = pageCategoryDelegate
+        binding.viewModel = pageCategoryDelegate
 
         if (!isAdapterInit) {
             initAdapter()
@@ -45,9 +45,9 @@ class PageCategoryViewHolder private constructor(
     }
 
     private fun initAdapter() {
-        categoryItemAdapter = CategoryItemAdapter(pageCategoryViewModel)
+        categoryItemAdapter = CategoryItemAdapter(pageCategoryDelegate)
         binding.categoryItemsRecyclerView.swapAdapter(categoryItemAdapter, true)
-        pageCategoryViewModel.listCategoryItemsLiveData.observe(
+        pageCategoryDelegate.listCategoryItemsLiveData.observe(
             lifecycleOwner,
             onListChangeObserver
         )

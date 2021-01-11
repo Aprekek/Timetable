@@ -47,7 +47,6 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
         tabCategories = resources.getStringArray(R.array.dictionary_categories)
     }
 
-
     private fun initViewPager2() {
         binding.viewPager.adapter =
             CategoriesViewPagerAdapter(dictionaryViewModel, viewLifecycleOwner)
