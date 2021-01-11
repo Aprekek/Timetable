@@ -19,8 +19,10 @@ class CategoryItemViewHolder(
         }
     }
 
-    fun bind(categoryItemName: SubcategoryEntity, pageCategoryDelegate: PageCategoryDelegate) {
-        binding.text = categoryItemName.description
-        binding.pageCategoryViewModel = pageCategoryDelegate
+    fun bind(subcategoryItem: SubcategoryEntity, pageCategoryDelegate: PageCategoryDelegate) {
+        binding.subcategoryName.text = subcategoryItem.description
+        binding.subcategoryCardView.setOnClickListener {
+            pageCategoryDelegate.onCategoryItemClick(subcategoryItem.description)
+        }
     }
 }

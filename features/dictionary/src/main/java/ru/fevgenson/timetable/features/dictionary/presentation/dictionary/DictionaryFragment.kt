@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -49,7 +50,7 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
 
     private fun initViewPager2() {
         binding.viewPager.adapter =
-            CategoriesViewPagerAdapter(dictionaryViewModel, viewLifecycleOwner)
+            CategoriesViewPagerAdapter(dictionaryViewModel, viewLifecycleOwner.lifecycleScope)
     }
 
     private fun initTabLayoutMediator() {
