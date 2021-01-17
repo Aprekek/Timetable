@@ -9,8 +9,18 @@ import ru.fevgenson.timetable.features.settings.presentation.style.SettingsStyle
 
 private val viewModelModule = module {
     viewModel { SettingsViewModel() }
-    viewModel { SettingsStyleViewModel(get()) }
-    viewModel { SettingsNotificationsViewModel(get()) }
+    viewModel {
+        SettingsStyleViewModel(
+            getSavedThemeUseCase = get(),
+            saveThemeUseCase = get()
+        )
+    }
+    viewModel {
+        SettingsNotificationsViewModel(
+            getForegroundServiceEnabledUseCase = get(),
+            saveForegroundServiceEnabledUseCase = get()
+        )
+    }
     viewModel {
         SettingsBackupViewModel(
             createBackupUseCase = get(),

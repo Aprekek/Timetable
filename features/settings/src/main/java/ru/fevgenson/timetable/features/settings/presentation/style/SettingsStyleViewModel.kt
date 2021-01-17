@@ -4,10 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
-import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
+import ru.fevgenson.timetable.shared.settings.domain.usecase.GetSavedThemeUseCase
+import ru.fevgenson.timetable.shared.settings.domain.usecase.SaveThemeUseCase
+
 
 class SettingsStyleViewModel(
-    private val settingsRepository: SettingsRepository
+    private val saveThemeUseCase: SaveThemeUseCase,
+    getSavedThemeUseCase: GetSavedThemeUseCase
 ) : ViewModel() {
 
     interface EventListener {
@@ -16,9 +19,9 @@ class SettingsStyleViewModel(
 
     val eventsDispatcher = EventsDispatcher<EventListener>()
 
-    val selectedTheme = MutableLiveData(settingsRepository.getSavedTheme())
+    val selectedTheme = MutableLiveData(getSavedThemeUseCase())
     private val saveThemeObserver = Observer<Int> {
-        settingsRepository.saveTheme(it)
+        saveThemeUseCase(it)
     }.also { selectedTheme.observeForever(it) }
 
     fun onBackButtonPressed() {

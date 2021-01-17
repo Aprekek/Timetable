@@ -17,4 +17,6 @@ dependencies {
 
     implementation(project(Modules.Libraries.CORE))
     implementation(project(Modules.Libraries.DATABASE))
+
+    implementation(project(Modules.Shared.Settings.DOMAIN))
 }
