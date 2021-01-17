@@ -33,5 +33,6 @@ include(
 )
 
 include(
-    ":shared:notifications:domain"
+    ":shared:notifications:domain",
+    ":shared:notifications:ui"
 )

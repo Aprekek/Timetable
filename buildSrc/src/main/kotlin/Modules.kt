@@ -43,6 +43,7 @@ object Modules {
         object Notifications {
 
             const val DOMAIN = ":shared:notifications:domain"
+            const val UI = ":shared:notifications:ui"
         }
     }
 }
