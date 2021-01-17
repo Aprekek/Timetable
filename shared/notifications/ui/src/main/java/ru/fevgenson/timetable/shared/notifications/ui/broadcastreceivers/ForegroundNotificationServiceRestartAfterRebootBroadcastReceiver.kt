@@ -1,10 +1,10 @@
-package ru.fevgenson.timetable.features.notifications.broadcastreceivers
+package ru.fevgenson.timetable.shared.notifications.ui.broadcastreceivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import org.koin.java.KoinJavaComponent.get
-import ru.fevgenson.timetable.features.notifications.presentation.ForegroundNotificationService
+import ru.fevgenson.timetable.shared.notifications.ui.service.ForegroundNotificationService
 import ru.fevgenson.timetable.shared.settings.domain.usecase.GetForegroundServiceEnabledUseCase
 
 class ForegroundNotificationServiceRestartAfterRebootBroadcastReceiver : BroadcastReceiver() {
