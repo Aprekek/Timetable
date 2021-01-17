@@ -26,3 +26,7 @@ include(
     ":shared:timeutils:domain",
     ":shared:timeutils:ui"
 )
+
+include(
+    ":shared:settings:domain"
+)
