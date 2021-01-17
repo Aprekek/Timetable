@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.fevgenson.timetable.features.notifications.presentation.ForegroundNotificationService
 import ru.fevgenson.timetable.features.settings.R
 import ru.fevgenson.timetable.features.settings.databinding.FragmentSettingsNotificationsBinding
+import ru.fevgenson.timetable.shared.notifications.ui.service.ForegroundNotificationService
 
 class SettingsNotificationsFragment : Fragment(), SettingsNotificationsViewModel.EventListener {
 
@@ -21,7 +21,7 @@ class SettingsNotificationsFragment : Fragment(), SettingsNotificationsViewModel
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         initBinding(inflater, container)
         initViewModel()
         return binding.root

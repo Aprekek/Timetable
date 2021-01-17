@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.R
-import ru.fevgenson.timetable.features.notifications.presentation.ForegroundNotificationService
+import ru.fevgenson.timetable.shared.notifications.ui.service.ForegroundNotificationService
 import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.DateBroadcastReceiver
 import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.MinutesBroadcastReceiver
 

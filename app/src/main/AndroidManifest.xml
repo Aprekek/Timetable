@@ -23,8 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".features.notifications.presentation.ForegroundNotificationService" />
-        <receiver android:name=".features.notifications.broadcastreceivers.ForegroundNotificationServiceRestartAfterRebootBroadcastReceiver">
+        <service android:name=".shared.notifications.ui.service.ForegroundNotificationService" />
+        <receiver android:name=".shared.notifications.ui.broadcastreceivers.ForegroundNotificationServiceRestartAfterRebootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />

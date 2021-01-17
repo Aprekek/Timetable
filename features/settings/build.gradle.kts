@@ -29,6 +29,6 @@ dependencies {
     implementation(project(Modules.Libraries.CORE))
     implementation(project(Modules.Libraries.DATABASE))
 
-    implementation(project(Modules.Features.NOTIFICATIONS))
+    implementation(project(Modules.Shared.Notifications.UI))
     implementation(project(Modules.Shared.Settings.DOMAIN))
 }
