@@ -1,6 +1,5 @@
 package ru.fevgenson.timetable.libraries.database.di
 
-import android.content.Context.MODE_PRIVATE
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -12,11 +11,9 @@ import ru.fevgenson.timetable.libraries.database.data.datasource.LessonDataSourc
 import ru.fevgenson.timetable.libraries.database.data.repository.BackupRepositoryImpl
 import ru.fevgenson.timetable.libraries.database.data.repository.FieldsRepositoryImpl
 import ru.fevgenson.timetable.libraries.database.data.repository.LessonRepositoryImpl
-import ru.fevgenson.timetable.libraries.database.data.repository.SettingsRepositoryImpl
 import ru.fevgenson.timetable.libraries.database.domain.repository.BackupRepository
 import ru.fevgenson.timetable.libraries.database.domain.repository.FieldsRepository
 import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
-import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
 import ru.fevgenson.timetable.libraries.database.domain.usecase.CreateBackupUseCase
 import ru.fevgenson.timetable.libraries.database.domain.usecase.RestoreBackupUseCase
 
@@ -41,14 +38,6 @@ private val dataSourceModule = module {
 private val repositoryModule = module {
     factory<LessonRepository> { LessonRepositoryImpl(get()) }
     factory<FieldsRepository> { FieldsRepositoryImpl(get()) }
-    factory<SettingsRepository> {
-        SettingsRepositoryImpl(
-            sharedPreferences = androidContext().getSharedPreferences(
-                SettingsRepositoryImpl.NAME,
-                MODE_PRIVATE
-            )
-        )
-    }
     factory<BackupRepository> {
         BackupRepositoryImpl(
             localDatabase = get<LessonDatabase>(),
