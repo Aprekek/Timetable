@@ -48,4 +48,5 @@ dependencies {
     implementation(project(Modules.Shared.TimeUtils.UI))
 
     implementation(project(Modules.Shared.Settings.DOMAIN))
+    implementation(project(Modules.Shared.Settings.DATA))
 }

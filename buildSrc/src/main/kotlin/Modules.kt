@@ -37,6 +37,7 @@ object Modules {
         object Settings {
 
             const val DOMAIN = ":shared:settings:domain"
+            const val DATA = ":shared:settings:data"
         }
     }
 }

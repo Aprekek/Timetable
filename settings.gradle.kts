@@ -28,5 +28,6 @@ include(
 )
 
 include(
-    ":shared:settings:domain"
+    ":shared:settings:domain",
+    ":shared:settings:data"
 )
