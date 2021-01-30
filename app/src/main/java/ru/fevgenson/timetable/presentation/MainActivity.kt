@@ -3,11 +3,10 @@ package ru.fevgenson.timetable.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.R
 import ru.fevgenson.timetable.features.notifications.presentation.ForegroundNotificationService
-import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
 import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.DateBroadcastReceiver
 import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.MinutesBroadcastReceiver
 
@@ -22,10 +21,12 @@ class MainActivity : AppCompatActivity() {
     private val oldMinutesBroadcastReceiver by
     inject<ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.MinutesBroadcastReceiver>()
 
+    private val viewModel: MainActivityViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         subscribeBroadcastReceivers()
         setupSettings()
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
@@ -35,11 +36,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSettings() {
-        val settingsRepository: SettingsRepository = get()
         //выбираем тему
-        AppCompatDelegate.setDefaultNightMode(settingsRepository.getSavedTheme())
+        AppCompatDelegate.setDefaultNightMode(viewModel.savedTheme)
         //запускаем обновляемое уведомление
-        if (settingsRepository.getForegroundServiceEnabled()) {
+        if (viewModel.foregroundServiceEnabled) {
             ForegroundNotificationService.startService(this)
         } else {
             ForegroundNotificationService.stopService(this)

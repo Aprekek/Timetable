@@ -30,4 +30,5 @@ dependencies {
     implementation(project(Modules.Libraries.DATABASE))
 
     implementation(project(Modules.Features.NOTIFICATIONS))
+    implementation(project(Modules.Shared.Settings.DOMAIN))
 }

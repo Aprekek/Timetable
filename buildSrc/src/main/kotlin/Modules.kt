@@ -33,5 +33,11 @@ object Modules {
             const val DOMAIN = ":shared:timeutils:domain"
             const val UI = ":shared:timeutils:ui"
         }
+
+        object Settings {
+
+            const val DOMAIN = ":shared:settings:domain"
+            const val DATA = ":shared:settings:data"
+        }
     }
 }

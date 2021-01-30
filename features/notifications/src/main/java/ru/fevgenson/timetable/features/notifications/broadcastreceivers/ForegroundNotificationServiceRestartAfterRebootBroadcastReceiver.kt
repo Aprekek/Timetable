@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Intent
 import org.koin.java.KoinJavaComponent.get
 import ru.fevgenson.timetable.features.notifications.presentation.ForegroundNotificationService
-import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
+import ru.fevgenson.timetable.shared.settings.domain.usecase.GetForegroundServiceEnabledUseCase
 
 class ForegroundNotificationServiceRestartAfterRebootBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, p1: Intent?) {
-        val settingsRepository = get(SettingsRepository::class.java)
-        if (settingsRepository.getForegroundServiceEnabled()) {
+        val getForegroundServiceEnabledUseCase = get(GetForegroundServiceEnabledUseCase::class.java)
+        if (getForegroundServiceEnabledUseCase()) {
             ForegroundNotificationService.startService(requireNotNull(context))
         } else {
             ForegroundNotificationService.stopService(requireNotNull(context))

@@ -1,8 +1,9 @@
-package ru.fevgenson.timetable.libraries.database.data.repository
+package ru.fevgenson.timetable.shared.settings.data.repository
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
-import ru.fevgenson.timetable.libraries.database.domain.repository.SettingsRepository
+import ru.fevgenson.timetable.shared.settings.domain.repository.SettingsRepository
 
 internal class SettingsRepositoryImpl(
     private val sharedPreferences: SharedPreferences
@@ -10,10 +11,13 @@ internal class SettingsRepositoryImpl(
 
     companion object {
 
-        const val NAME = "SETTINGS"
+        private const val NAME = "SETTINGS"
 
         private const val THEME = "THEME"
         private const val FOREGROUND_SERVICE = "FOREGROUND_SERVICE"
+
+        fun getSharedPreferences(context: Context) =
+            context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
     }
 
     override fun getSavedTheme(): Int =
