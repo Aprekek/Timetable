@@ -8,7 +8,6 @@ object Modules {
         const val HOMEWORK = ":features:homework"
         const val DICTIONARY = ":features:dictionary"
         const val SETTINGS = ":features:settings"
-        const val NOTIFICATIONS = ":features:notifications"
     }
 
     object Libraries {

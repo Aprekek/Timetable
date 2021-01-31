@@ -33,7 +33,6 @@ dependencies {
     implementation(project(Modules.Features.DICTIONARY))
     implementation(project(Modules.Features.SETTINGS))
     implementation(project(Modules.Features.LESSON_CREATE))
-    implementation(project(Modules.Features.NOTIFICATIONS))
 
     implementation(project(Modules.Libraries.NAVIGATION))
     implementation(project(Modules.Libraries.THEMES))
