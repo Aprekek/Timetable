@@ -7,6 +7,8 @@ import ru.fevgenson.timetable.shared.notifications.domain.usecase.GetNotificatio
 val notificationsDomainModule = module {
     factory {
         GetNotificationLessonsFlowUseCase(get())
+    }
+    factory {
         GetNotEndNotificationLessonsScenario(
             getCurrentTimeUseCase = get(),
             timeFormatter = get()

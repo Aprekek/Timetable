@@ -15,7 +15,7 @@ class GetNotEndNotificationLessonsScenario(
         val currentTime = getCurrentTimeUseCase()
         return lessons.filter {
             val endTime = timeFormatter.getMinutes(it.time, TimeFormatter.TimeBorders.END)
-            endTime <= currentTime
+            endTime >= currentTime
         }
     }
 }
