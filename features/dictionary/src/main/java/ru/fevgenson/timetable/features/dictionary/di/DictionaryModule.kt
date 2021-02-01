@@ -20,7 +20,8 @@ private val viewModelModule = module {
             getAllTeachersFlowUseCase = get(),
             getAllHousingsFlowUseCase = get(),
             getAllClassroomsFlowUseCase = get(),
-            getAllTimesFlowUseCase = get()
+            getAllTimesFlowUseCase = get(),
+            getAllTypesFlowUseCase = get()
         )
     }
 }

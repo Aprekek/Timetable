@@ -7,6 +7,7 @@
         <item>Аудитория</item>
         <item>Корпус</item>
         <item>Время</item>
+        <item>Тип</item>
     </string-array>
 
     <string name="dictionary_description_action_back">Назад</string>

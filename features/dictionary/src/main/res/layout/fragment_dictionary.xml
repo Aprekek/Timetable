@@ -16,8 +16,6 @@
             android:layout_height="wrap_content"
             android:background="?colorSurface"
             app:tabIndicatorHeight="0dp"
-            app:tabMarginDpHorizontal="@{@dimen/padding_5}"
-            app:tabMarginDpVertical="@{@dimen/padding_8}"
             app:tabMode="scrollable" />
     </com.google.android.material.appbar.AppBarLayout>
 
