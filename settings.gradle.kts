@@ -8,7 +8,6 @@ include(":features:timetable")
 include(":features:homework")
 include(":features:dictionary")
 include(":features:settings")
-include(":features:notifications")
 
 include(":libraries:navigation")
 include(":libraries:themes")
@@ -30,4 +29,9 @@ include(
 include(
     ":shared:settings:domain",
     ":shared:settings:data"
+)
+
+include(
+    ":shared:notifications:domain",
+    ":shared:notifications:ui"
 )

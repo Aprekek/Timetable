@@ -33,7 +33,6 @@ dependencies {
     implementation(project(Modules.Features.DICTIONARY))
     implementation(project(Modules.Features.SETTINGS))
     implementation(project(Modules.Features.LESSON_CREATE))
-    implementation(project(Modules.Features.NOTIFICATIONS))
 
     implementation(project(Modules.Libraries.NAVIGATION))
     implementation(project(Modules.Libraries.THEMES))
@@ -49,4 +48,7 @@ dependencies {
 
     implementation(project(Modules.Shared.Settings.DOMAIN))
     implementation(project(Modules.Shared.Settings.DATA))
+
+    implementation(project(Modules.Shared.Notifications.DOMAIN))
+    implementation(project(Modules.Shared.Notifications.UI))
 }

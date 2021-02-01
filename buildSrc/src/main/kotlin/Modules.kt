@@ -8,7 +8,6 @@ object Modules {
         const val HOMEWORK = ":features:homework"
         const val DICTIONARY = ":features:dictionary"
         const val SETTINGS = ":features:settings"
-        const val NOTIFICATIONS = ":features:notifications"
     }
 
     object Libraries {
@@ -38,6 +37,12 @@ object Modules {
 
             const val DOMAIN = ":shared:settings:domain"
             const val DATA = ":shared:settings:data"
+        }
+
+        object Notifications {
+
+            const val DOMAIN = ":shared:notifications:domain"
+            const val UI = ":shared:notifications:ui"
         }
     }
 }
