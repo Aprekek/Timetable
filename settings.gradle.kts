@@ -37,5 +37,6 @@ include(
 )
 
 include(
-    ":shared:backup:domain"
+    ":shared:backup:domain",
+    ":shared:backup:data"
 )

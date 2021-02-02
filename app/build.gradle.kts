@@ -53,4 +53,5 @@ dependencies {
     implementation(project(Modules.Shared.Notifications.UI))
 
     implementation(project(Modules.Shared.Backup.DOMAIN))
+    implementation(project(Modules.Shared.Backup.DATA))
 }

@@ -48,6 +48,7 @@ object Modules {
         object Backup {
 
             const val DOMAIN = ":shared:backup:domain"
+            const val DATA = ":shared:backup:data"
         }
     }
 }
