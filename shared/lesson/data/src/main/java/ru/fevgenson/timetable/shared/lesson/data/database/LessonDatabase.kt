@@ -18,7 +18,7 @@ import ru.fevgenson.timetable.shared.lesson.data.dto.*
     version = 1,
     exportSchema = false
 )
-internal abstract class LessonDatabase : RoomDatabase() {
+abstract class LessonDatabase : RoomDatabase() {
 
     companion object {
         const val DEVELOP_DB_NAME = "DEVELOP_DB_NAME_NEW"

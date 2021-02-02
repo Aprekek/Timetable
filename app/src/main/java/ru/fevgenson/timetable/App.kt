@@ -14,6 +14,7 @@ import ru.fevgenson.timetable.features.settings.di.settingsModule
 import ru.fevgenson.timetable.features.timetable.di.timetableListModules
 import ru.fevgenson.timetable.libraries.core.di.coreModule
 import ru.fevgenson.timetable.libraries.database.di.databaseModule
+import ru.fevgenson.timetable.shared.backup.data.di.backupDataModule
 import ru.fevgenson.timetable.shared.backup.domain.di.backupDomainModule
 import ru.fevgenson.timetable.shared.lesson.data.di.sharedLessonDataModule
 import ru.fevgenson.timetable.shared.lesson.domain.di.sharedLessonDomainModule
@@ -50,6 +51,7 @@ class App : Application() {
             modules(notificationsDomainModule)
             modules(notificationsUiModule)
             modules(backupDomainModule)
+            modules(backupDataModule)
         }
     }
 }
