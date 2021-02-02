@@ -35,3 +35,7 @@ include(
     ":shared:notifications:domain",
     ":shared:notifications:ui"
 )
+
+include(
+    ":shared:backup:domain"
+)
