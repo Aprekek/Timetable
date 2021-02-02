@@ -2,41 +2,41 @@ package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import ru.fevgenson.timetable.features.dictionary.databinding.PageCategoryBinding
 import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.recyclerview.CategoryItemAdapter
-import ru.fevgenson.timetable.shared.lesson.domain.entity.SubcategoryEntity
+import ru.fevgenson.timetable.libraries.flowbinding.bindTextResOrGone
 
 class PageCategoryViewHolder private constructor(
     private val binding: PageCategoryBinding,
-    private val lifecycleOwner: LifecycleOwner
+    private val scope: CoroutineScope
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var pageCategoryViewModel: PageCategoryViewModel
+    private lateinit var pageCategoryDelegate: PageCategoryDelegate
     private lateinit var categoryItemAdapter: CategoryItemAdapter
     private var isAdapterInit: Boolean = false
-    private val onListChangeObserver = Observer<List<SubcategoryEntity>> {
-        categoryItemAdapter.submitList(it)
-    }
 
     companion object {
 
         fun from(
             parent: ViewGroup,
-            lifecycleOwner: LifecycleOwner
+            scope: CoroutineScope
         ): PageCategoryViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = PageCategoryBinding.inflate(inflater, parent, false)
-            binding.lifecycleOwner = lifecycleOwner
-            return PageCategoryViewHolder(binding, lifecycleOwner)
+            return PageCategoryViewHolder(binding, scope)
         }
     }
 
-    fun bind(pageCategoryViewModel: PageCategoryViewModel) {
-        this.pageCategoryViewModel = pageCategoryViewModel
-        binding.viewModel = pageCategoryViewModel
+    fun bind(pageCategoryDelegate: PageCategoryDelegate) {
+        this.pageCategoryDelegate = pageCategoryDelegate
+        binding.isNoItemsTextView.bindTextResOrGone(
+            pageCategoryDelegate.isNoItemsTextVisible,
+            scope
+        )
 
         if (!isAdapterInit) {
             initAdapter()
@@ -45,11 +45,10 @@ class PageCategoryViewHolder private constructor(
     }
 
     private fun initAdapter() {
-        categoryItemAdapter = CategoryItemAdapter(pageCategoryViewModel)
+        categoryItemAdapter = CategoryItemAdapter(pageCategoryDelegate)
         binding.categoryItemsRecyclerView.swapAdapter(categoryItemAdapter, true)
-        pageCategoryViewModel.listCategoryItemsLiveData.observe(
-            lifecycleOwner,
-            onListChangeObserver
-        )
+        pageCategoryDelegate.categoryItemsList.onEach {
+            categoryItemAdapter.submitList(it)
+        }.launchIn(scope)
     }
 }

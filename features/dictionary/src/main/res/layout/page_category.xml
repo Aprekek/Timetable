@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <variable
-            name="viewModel"
-            type="ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryViewModel" />
-    </data>
+    <TextView
+        android:id="@+id/is_no_items_text_view"
+        style="@style/ApplicationTheme.Body1Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/dictionary_no_items" />
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/category_items_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/ApplicationTheme.Body1Black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/dictionary_no_items"
-            app:visibleOrGone="@{viewModel.isNoItemsTextVisible}" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/category_items_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </FrameLayout>
-</layout>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+</FrameLayout>

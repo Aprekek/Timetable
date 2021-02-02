@@ -7,8 +7,9 @@ object Categories {
         TEACHER_CATEGORY(1),
         CLASSROOM_CATEGORY(2),
         HOUSING_CATEGORY(3),
-        TIME_CATEGORY(4)
+        TIME_CATEGORY(4),
+        TYPE_CATEGORY(5)
     }
 
-    const val TOTAL_CATEGORIES = 5
+    const val TOTAL_CATEGORIES = 6
 }

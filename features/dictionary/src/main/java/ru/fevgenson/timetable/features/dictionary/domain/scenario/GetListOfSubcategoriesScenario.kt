@@ -11,7 +11,8 @@ class GetListOfSubcategoriesScenario(
     private val getAllTeachersFlowUseCase: GetAllTeachersFlowUseCase,
     private val getAllHousingsFlowUseCase: GetAllHousingsFlowUseCase,
     private val getAllClassroomsFlowUseCase: GetAllClassroomsFlowUseCase,
-    private val getAllTimesFlowUseCase: GetAllTimesFlowUseCase
+    private val getAllTimesFlowUseCase: GetAllTimesFlowUseCase,
+    private val getAllTypesFlowUseCase: GetAllTypesFlowUseCase
 ) {
 
     operator fun invoke(category: Categories.CategoryTypes): Flow<List<SubcategoryEntity>> =
@@ -21,5 +22,6 @@ class GetListOfSubcategoriesScenario(
             Categories.CategoryTypes.HOUSING_CATEGORY -> getAllHousingsFlowUseCase()
             Categories.CategoryTypes.CLASSROOM_CATEGORY -> getAllClassroomsFlowUseCase()
             Categories.CategoryTypes.TIME_CATEGORY -> getAllTimesFlowUseCase()
+            Categories.CategoryTypes.TYPE_CATEGORY -> getAllTypesFlowUseCase()
         }.map { list -> list.map { it.toSubcategoryEntity() } }
 }

@@ -1,37 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/subcategory_card_view"
+    style="@style/ApplicationTheme.CardViewBase"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_10"
+    android:layout_marginTop="@dimen/margin_10"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="@dimen/width_0">
 
-    <data>
-
-        <variable
-            name="pageCategoryViewModel"
-            type="ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryViewModel" />
-
-        <variable
-            name="text"
-            type="String" />
-    </data>
-
-    <com.google.android.material.card.MaterialCardView
-        style="@style/ApplicationTheme.CardViewBase"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/subcategory_name"
+        style="@style/ApplicationTheme.Title3Dark"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_10"
-        android:layout_marginTop="@dimen/margin_10"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="@{()-> pageCategoryViewModel.onCategoryItemClick(pageCategoryViewModel.categoryType,text)}"
-        app:cardBackgroundColor="?attr/colorSurface"
-        app:cardCornerRadius="@dimen/width_0">
-
-        <TextView
-            style="@style/ApplicationTheme.Title3Dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_20"
-            android:text="@{text}"
-            tools:text="Математика" />
-    </com.google.android.material.card.MaterialCardView>
-</layout>
+        android:padding="@dimen/padding_20"
+        android:text="@{text}"
+        tools:text="Математика" />
+</com.google.android.material.card.MaterialCardView>

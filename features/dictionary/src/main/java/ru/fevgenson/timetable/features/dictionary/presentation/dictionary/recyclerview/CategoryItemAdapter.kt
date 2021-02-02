@@ -3,11 +3,11 @@ package ru.fevgenson.timetable.features.dictionary.presentation.dictionary.recyc
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryViewModel
+import ru.fevgenson.timetable.features.dictionary.presentation.dictionary.viewpager.PageCategoryDelegate
 import ru.fevgenson.timetable.shared.lesson.domain.entity.SubcategoryEntity
 
 class CategoryItemAdapter(
-    private val pageCategoryViewModel: PageCategoryViewModel
+    private val pageCategoryDelegate: PageCategoryDelegate
 ) : ListAdapter<SubcategoryEntity, CategoryItemViewHolder>(CategoryItemDiffUtils()) {
 
     override fun onCreateViewHolder(
@@ -16,7 +16,7 @@ class CategoryItemAdapter(
     ): CategoryItemViewHolder = CategoryItemViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: CategoryItemViewHolder, position: Int) {
-        holder.bind(getItem(position), pageCategoryViewModel)
+        holder.bind(getItem(position), pageCategoryDelegate)
     }
 }
 

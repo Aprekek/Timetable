@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -39,18 +39,17 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dictionary, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding = FragmentDictionaryBinding.inflate(inflater, container, false)
     }
 
     private fun initResources() {
         tabCategories = resources.getStringArray(R.array.dictionary_categories)
     }
 
-
     private fun initViewPager2() {
-        binding.viewPager.adapter =
-            CategoriesViewPagerAdapter(dictionaryViewModel, viewLifecycleOwner)
+        val adapter = CategoriesViewPagerAdapter(dictionaryViewModel, viewLifecycleOwner.lifecycleScope)
+        binding.viewPager.adapter = adapter
+        binding.viewPager.offscreenPageLimit = adapter.itemCount
     }
 
     private fun initTabLayoutMediator() {
@@ -60,6 +59,11 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
         ) { tab: TabLayout.Tab, i: Int ->
             tab.text = tabCategories[i]
         }.attach()
+
+        binding.tabLayout.setTabMargins(
+            resources.getDimensionPixelSize(R.dimen.margin_padding_very_small),
+            resources.getDimensionPixelSize(R.dimen.padding_5)
+        )
     }
 
     private fun initEventListener() {
@@ -79,5 +83,23 @@ class DictionaryFragment : Fragment(), DictionaryViewModel.EventListener {
         }
         Navigation.findNavController(requireActivity(), R.id.global_host)
             .navigate(R.id.navigation_from_main_to_list_of_lessons_by_category, arguments)
+    }
+
+    private fun TabLayout.setTabMargins(
+        tabMarginDpHorizontal: Int,
+        tabMarginDpVertical: Int
+    ) {
+        val tabGroup = (getChildAt(0) as ViewGroup)
+        for (i in 0 until tabCount) {
+            val tab = tabGroup.getChildAt(i)
+            val tabParameters = tab.layoutParams as ViewGroup.MarginLayoutParams
+            tabParameters.setMargins(
+                tabMarginDpHorizontal,
+                tabMarginDpVertical,
+                tabMarginDpHorizontal,
+                tabMarginDpVertical
+            )
+        }
+        tabGroup.requestLayout()
     }
 }
