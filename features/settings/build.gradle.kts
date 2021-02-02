@@ -27,8 +27,8 @@ dependencies {
     implementation(project(Modules.Libraries.NAVIGATION))
     implementation(project(Modules.Libraries.THEMES))
     implementation(project(Modules.Libraries.CORE))
-    implementation(project(Modules.Libraries.DATABASE))
 
     implementation(project(Modules.Shared.Notifications.UI))
     implementation(project(Modules.Shared.Settings.DOMAIN))
+    implementation(project(Modules.Shared.Backup.DOMAIN))
 }

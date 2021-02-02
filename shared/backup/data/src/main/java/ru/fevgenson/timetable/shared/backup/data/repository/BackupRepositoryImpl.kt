@@ -1,28 +1,30 @@
-package ru.fevgenson.timetable.libraries.database.data.repository
+package ru.fevgenson.timetable.shared.backup.data.repository
 
-import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.fevgenson.timetable.libraries.database.domain.repository.BackupRepository
+import ru.fevgenson.timetable.shared.backup.domain.repository.BackupRepository
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
 @Suppress("BlockingMethodInNonBlockingContext")
-internal class BackupRepositoryImpl(
+class BackupRepositoryImpl(
     private val localDatabase: RoomDatabase,
-    private val localDatabasePath: String,
-    private val contentResolver: ContentResolver
+    private val databaseName: String,
+    private val context: Context
 ) : BackupRepository {
 
-    override suspend fun createBackup(uri: Uri) {
+    override suspend fun createBackup(uri: String) {
         withContext(Dispatchers.IO) {
             localDatabase.close()
-            val localDataBaseFile = File(localDatabasePath)
+            val databasePath = context.getDatabasePath(databaseName).absolutePath
+            val localDataBaseFile = File(databasePath)
             val localDatabaseFileInputStream = FileInputStream(localDataBaseFile)
-            val backupParcelFileDescriptor = contentResolver.openFileDescriptor(uri, "w")
+            val contentResolver = context.contentResolver
+            val backupParcelFileDescriptor = contentResolver.openFileDescriptor(Uri.parse(uri), "w")
             val backupFileOutputStream =
                 FileOutputStream(backupParcelFileDescriptor?.fileDescriptor)
             try {
@@ -36,12 +38,14 @@ internal class BackupRepositoryImpl(
         }
     }
 
-    override suspend fun restoreBackup(uri: Uri) {
+    override suspend fun restoreBackup(uri: String) {
         withContext(Dispatchers.IO) {
             localDatabase.close()
-            val localDataBaseFile = File(localDatabasePath)
+            val databasePath = context.getDatabasePath(databaseName).absolutePath
+            val localDataBaseFile = File(databasePath)
             val localDatabaseFileOutputStream = FileOutputStream(localDataBaseFile)
-            val backupParcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r")
+            val contentResolver = context.contentResolver
+            val backupParcelFileDescriptor = contentResolver.openFileDescriptor(Uri.parse(uri), "r")
             val backupFileInputStream = FileInputStream(backupParcelFileDescriptor?.fileDescriptor)
             try {
                 val buf = ByteArray(backupFileInputStream.available())

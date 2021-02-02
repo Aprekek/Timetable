@@ -44,5 +44,11 @@ object Modules {
             const val DOMAIN = ":shared:notifications:domain"
             const val UI = ":shared:notifications:ui"
         }
+
+        object Backup {
+
+            const val DOMAIN = ":shared:backup:domain"
+            const val DATA = ":shared:backup:data"
+        }
     }
 }

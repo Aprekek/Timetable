@@ -8,14 +8,10 @@ import ru.fevgenson.timetable.libraries.database.data.datasource.FieldsDataSourc
 import ru.fevgenson.timetable.libraries.database.data.datasource.FieldsDataSourceImpl
 import ru.fevgenson.timetable.libraries.database.data.datasource.LessonDataSource
 import ru.fevgenson.timetable.libraries.database.data.datasource.LessonDataSourceImpl
-import ru.fevgenson.timetable.libraries.database.data.repository.BackupRepositoryImpl
 import ru.fevgenson.timetable.libraries.database.data.repository.FieldsRepositoryImpl
 import ru.fevgenson.timetable.libraries.database.data.repository.LessonRepositoryImpl
-import ru.fevgenson.timetable.libraries.database.domain.repository.BackupRepository
 import ru.fevgenson.timetable.libraries.database.domain.repository.FieldsRepository
 import ru.fevgenson.timetable.libraries.database.domain.repository.LessonRepository
-import ru.fevgenson.timetable.libraries.database.domain.usecase.CreateBackupUseCase
-import ru.fevgenson.timetable.libraries.database.domain.usecase.RestoreBackupUseCase
 
 private val daoModule = module {
     single {
@@ -38,23 +34,10 @@ private val dataSourceModule = module {
 private val repositoryModule = module {
     factory<LessonRepository> { LessonRepositoryImpl(get()) }
     factory<FieldsRepository> { FieldsRepositoryImpl(get()) }
-    factory<BackupRepository> {
-        BackupRepositoryImpl(
-            localDatabase = get<LessonDatabase>(),
-            localDatabasePath = androidContext().getDatabasePath(LessonDatabase.DEVELOP_DB_NAME).absolutePath,
-            contentResolver = androidContext().contentResolver
-        )
-    }
-}
-
-private val useCaseModule = module {
-    factory { CreateBackupUseCase(get()) }
-    factory { RestoreBackupUseCase(get()) }
 }
 
 val databaseModule = listOf(
     daoModule,
     dataSourceModule,
-    repositoryModule,
-    useCaseModule
+    repositoryModule
 )

@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import ru.fevgenson.timetable.features.settings.R
 import ru.fevgenson.timetable.features.settings.presentation.backup.uistate.SettingsBackupUiState
 import ru.fevgenson.timetable.libraries.core.presentation.utils.eventutils.EventsDispatcher
-import ru.fevgenson.timetable.libraries.database.domain.usecase.CreateBackupUseCase
-import ru.fevgenson.timetable.libraries.database.domain.usecase.RestoreBackupUseCase
+import ru.fevgenson.timetable.shared.backup.domain.usecase.CreateBackupUseCase
+import ru.fevgenson.timetable.shared.backup.domain.usecase.RestoreBackupUseCase
 import java.io.IOException
 import java.util.*
 
@@ -58,7 +58,7 @@ class SettingsBackupViewModel(
         viewModelScope.launch {
             _uiStateLiveData.value = SettingsBackupUiState.Loading
             try {
-                createBackupUseCase(uri)
+                createBackupUseCase(uri.toString())
                 eventsDispatcher.dispatchEvent {
                     showToast(R.string.settings_toast_backup_create_success)
                 }
@@ -76,7 +76,7 @@ class SettingsBackupViewModel(
         viewModelScope.launch {
             _uiStateLiveData.value = SettingsBackupUiState.Loading
             try {
-                restoreBackupUseCase(uri)
+                restoreBackupUseCase(uri.toString())
                 eventsDispatcher.dispatchEvent {
                     showToast(R.string.settings_toast_backup_restore_success)
                 }
