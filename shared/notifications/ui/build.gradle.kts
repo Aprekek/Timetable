@@ -19,4 +19,5 @@ dependencies {
     implementation(project(Modules.Shared.TimeUtils.DOMAIN))
 
     implementation(project(Modules.Shared.Settings.DOMAIN))
+    implementation(project(Modules.Shared.Lesson.DOMAIN))
 }

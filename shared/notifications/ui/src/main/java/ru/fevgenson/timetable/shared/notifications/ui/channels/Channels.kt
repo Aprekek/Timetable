@@ -20,5 +20,15 @@ enum class Channels(
         } else {
             IMPORTANCE_UNSUPPORTED
         }
+    ),
+
+    TIME_BASE_CHANNEL(
+        idRes = R.string.notification_time_base_channel_id,
+        nameRes = R.string.notification_time_base_channel_id,
+        importance = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager.IMPORTANCE_DEFAULT
+        } else {
+            IMPORTANCE_UNSUPPORTED
+        }
     )
 }
