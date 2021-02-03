@@ -6,16 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.features.settings.R
 import ru.fevgenson.timetable.features.settings.databinding.FragmentSettingsNotificationsBinding
+import ru.fevgenson.timetable.shared.notifications.ui.schedulers.TimeBaseNotificationScheduler
 import ru.fevgenson.timetable.shared.notifications.ui.service.ForegroundNotificationService
 
 class SettingsNotificationsFragment : Fragment(), SettingsNotificationsViewModel.EventListener {
 
     private lateinit var binding: FragmentSettingsNotificationsBinding
     private val viewModel by viewModel<SettingsNotificationsViewModel>()
+
+    private val timeBaseNotificationScheduler: TimeBaseNotificationScheduler = get()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +39,13 @@ class SettingsNotificationsFragment : Fragment(), SettingsNotificationsViewModel
                 ForegroundNotificationService.startService(requireActivity())
             } else {
                 ForegroundNotificationService.stopService(requireActivity())
+            }
+        }
+        viewModel.timeBaseNotificationsEnabled.observe(viewLifecycleOwner) { startService ->
+            if (startService) {
+                timeBaseNotificationScheduler.createTasks(viewLifecycleOwner.lifecycle.coroutineScope)
+            } else {
+                timeBaseNotificationScheduler.stopTasks()
             }
         }
     }

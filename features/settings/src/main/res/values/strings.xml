@@ -14,6 +14,8 @@
     <string name="settings_title_notifications">Уведомления</string>
     <string name="settings_title_foreground_notification">Обновляемое уведомление</string>
     <string name="settings_text_foreground_notification">Показывает время до начала/конца пары</string>
+    <string name="settings_title_time_base_notification">Уведомление перед парой</string>
+    <string name="settings_text_time_base_notification">Уведомяет за 15 минут до начала пары</string>
 
     <string name="settings_title_backup">Резервная копия</string>
     <string name="settings_title_backup_create">Резервное копирование</string>

@@ -18,7 +18,9 @@ private val viewModelModule = module {
     viewModel {
         SettingsNotificationsViewModel(
             getForegroundServiceEnabledUseCase = get(),
-            saveForegroundServiceEnabledUseCase = get()
+            saveForegroundServiceEnabledUseCase = get(),
+            getTimeBaseNotificationsEnabledUseCase = get(),
+            saveTimeBaseNotificationsEnabledUseCase = get()
         )
     }
     viewModel {
