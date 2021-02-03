@@ -15,6 +15,7 @@ dependencies {
     implementation(Dependencies.CORE)
     implementation(Dependencies.APP_COMPAT)
     implementation(Dependencies.MATERIAL)
+    implementation(Dependencies.GUAVA)
 
     implementation(Dependencies.Google.FIREBASE_ANALYTICS)
 
