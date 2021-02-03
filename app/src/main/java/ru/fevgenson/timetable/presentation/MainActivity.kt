@@ -3,9 +3,13 @@ package ru.fevgenson.timetable.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.coroutineScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.fevgenson.timetable.R
+import ru.fevgenson.timetable.shared.notifications.ui.schedulers.TimeBaseNotificationScheduler
 import ru.fevgenson.timetable.shared.notifications.ui.service.ForegroundNotificationService
 import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.DateBroadcastReceiver
 import ru.fevgenson.timetable.shared.timeutils.ui.broadcastreceivers.MinutesBroadcastReceiver
@@ -15,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     private val dateBroadcastReceiver: DateBroadcastReceiver by inject()
     private val minutesBroadcastReceiver: MinutesBroadcastReceiver by inject()
+
+    private val timeBaseNotificationScheduler: TimeBaseNotificationScheduler by inject()
 
     private val oldDateBroadcastReceiver by
     inject<ru.fevgenson.timetable.libraries.core.utils.broadcastrecivers.DateBroadcastReceiver>()
@@ -44,6 +50,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             ForegroundNotificationService.stopService(this)
         }
+        //запускаем обычные уведомления
+        viewModel.lessons.onEach {
+            if (viewModel.timeBaseNotificationsEnabled) {
+                timeBaseNotificationScheduler.createTasks(lifecycle.coroutineScope)
+            } else {
+                timeBaseNotificationScheduler.stopTasks()
+            }
+        }.launchIn(lifecycle.coroutineScope)
     }
 
     private fun subscribeBroadcastReceivers() {
