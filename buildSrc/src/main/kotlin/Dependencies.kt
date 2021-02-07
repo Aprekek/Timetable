@@ -40,6 +40,10 @@ object Dependencies {
         const val ANDROIDX_TEST_EXT =
             "1.1.2"//https://mvnrepository.com/artifact/androidx.test.ext/junit
         const val ANDROIDX_TEST = "1.3.0"//https://mvnrepository.com/artifact/androidx.test/core
+        const val WORKER =
+            "2.5.0"//https://mvnrepository.com/artifact/androidx.work/work-runtime-ktx
+        const val GUAVA =
+            "30.1-jre"//https://mvnrepository.com/artifact/com.google.guava/guava
     }
 
     const val GRADLE = "com.android.tools.build:gradle:${Versions.GRADLE}"
@@ -54,6 +58,8 @@ object Dependencies {
     const val SWIPE_REFRESH_LAYOUT =
         "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SWIPE_REFRESH_LAYOUT}"
     const val DATABINDING = "com.android.databinding:compiler:${Versions.DATABINDING}"
+    const val WORKER = "androidx.work:work-runtime-ktx:${Versions.WORKER}"
+    const val GUAVA = "com.google.guava:guava:${Versions.GUAVA}"
 
     object Google {
 

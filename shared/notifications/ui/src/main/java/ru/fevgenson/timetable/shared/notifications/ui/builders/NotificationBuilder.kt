@@ -33,13 +33,18 @@ class NotificationBuilder(
             .build()
 
     fun buildLessonNotification(
-        notificationLessonEntity: NotificationLessonEntity
+        notificationLessonEntity: NotificationLessonEntity,
+        showTimePosition: Boolean = true
     ): Notification =
-        NotificationCompat.Builder(context, channelId)
-            .setContentTitle(notificationLessonEntity.title)
-            .setContentText(notificationLessonEntity.text)
-            .setSubText(timePositionFormatter.format(notificationLessonEntity.time))
-            .setShowWhen(false)
-            .setSmallIcon(R.drawable.ic_notification)
-            .build()
+        NotificationCompat.Builder(context, channelId).apply {
+            setContentTitle(notificationLessonEntity.title)
+            setContentText(notificationLessonEntity.text)
+            if (showTimePosition) {
+                setSubText(timePositionFormatter.format(notificationLessonEntity.time))
+                setShowWhen(false)
+            } else {
+                setShowWhen(true)
+            }
+            setSmallIcon(R.drawable.ic_notification)
+        }.build()
 }

@@ -15,8 +15,9 @@ internal class SettingsRepositoryImpl(
 
         private const val THEME = "THEME"
         private const val FOREGROUND_SERVICE = "FOREGROUND_SERVICE"
+        private const val TIME_BASE_NOTIFICATIONS = "TIME_BASE_NOTIFICATIONS"
 
-        fun getSharedPreferences(context: Context) =
+        fun getSharedPreferences(context: Context): SharedPreferences =
             context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
     }
 
@@ -32,5 +33,12 @@ internal class SettingsRepositoryImpl(
 
     override fun saveForegroundServiceEnabled(enabled: Boolean) {
         sharedPreferences.edit().putBoolean(FOREGROUND_SERVICE, enabled).apply()
+    }
+
+    override fun getTimeBaseNotificationsEnabled(): Boolean =
+        sharedPreferences.getBoolean(TIME_BASE_NOTIFICATIONS, false)
+
+    override fun saveTimeBaseNotificationsEnabled(enabled: Boolean) {
+        sharedPreferences.edit().putBoolean(TIME_BASE_NOTIFICATIONS, enabled).apply()
     }
 }

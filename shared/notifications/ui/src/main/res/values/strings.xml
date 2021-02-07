@@ -8,4 +8,5 @@
     <string name="notification_empty_text">На сегодня больше занятий нет</string>
 
     <string name="notification_foreground_channel_id">Обновляемая пара</string>
+    <string name="notification_time_base_channel_id">Уведомление перед парой</string>
 </resources>

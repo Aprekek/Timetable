@@ -8,6 +8,7 @@ dependencies {
     implementation(Dependencies.Coroutine.COROUTINE_CORE)
     implementation(Dependencies.CORE)
     implementation(Dependencies.Lifecycle.LIFECYCLE_EXTENSIONS)
+    implementation(Dependencies.WORKER)
 
     implementation(Dependencies.Koin.KOIN_CORE)
     implementation(Dependencies.Koin.KOIN_EXT)
@@ -18,4 +19,5 @@ dependencies {
     implementation(project(Modules.Shared.TimeUtils.DOMAIN))
 
     implementation(project(Modules.Shared.Settings.DOMAIN))
+    implementation(project(Modules.Shared.Lesson.DOMAIN))
 }
